@@ -940,25 +940,41 @@ mark {
 /* ペルスピカ: 余白の書き込みをすべて見せる */
 .reveal-notes .margin-note { opacity: 0.85 !important; }
 
-/* アエリア: カードが浮かぶ
-   (章を開いたときの「にじみ出る」演出より優先させるため :root.levitate .chapter から指定する) */
-:root.levitate .chapter .rule {
-    animation: levitate 2.6s ease-in-out infinite alternate;
-    animation-delay: calc(var(--i, 0) * -350ms);
-    box-shadow: 0 18px 30px -18px rgba(0, 0, 0, 0.35);
-    transition: box-shadow 1s ease;
+/* アエリア: カードが飛んでいって戻ってくる
+   飛ぶ方向 (--fx, --fy)・回転 (--fr)・順番 (--fd) はカードごとに app.js が入れる。
+   章を開いたときの「にじみ出る」演出より優先させるため :root .chapter から指定する */
+:root .chapter .rule.flying {
+    animation: fly 5.6s linear both;
+    animation-delay: var(--fd, 0ms);
+    z-index: 5;
 }
-@keyframes levitate {
-    from { transform: translateY(0) rotate(0); }
-    to { transform: translateY(-22px) rotate(var(--tilt, 0.8deg)); }
+@keyframes fly {
+    0% { transform: none; opacity: 1; }
+    12% { transform: translateY(-18px) rotate(var(--fr-lift)); opacity: 1; animation-timing-function: cubic-bezier(.5, 0, .9, .4); }
+    40% { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)) scale(0.7); opacity: 0; }
+    60% { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)) scale(0.7); opacity: 0; animation-timing-function: cubic-bezier(.15, .7, .35, 1); }
+    86% { transform: translateY(-26px) rotate(var(--fr-land)); opacity: 1; animation-timing-function: ease-in; }
+    94% { transform: translateY(5px); opacity: 1; animation-timing-function: ease-out; }
+    100% { transform: none; opacity: 1; }
 }
-/* 浮かんだカードの下に、うっすら光の粒が漂う */
-:root.levitate .chapter .rule::after {
-    border: 0;
-    width: 60%; height: 10px;
-    left: 20%; right: auto; bottom: -26px;
-    background: radial-gradient(ellipse at center, rgba(214, 178, 110, 0.35), transparent 70%);
-    filter: blur(2px);
+@media (prefers-reduced-motion: reduce) {
+    :root .chapter .rule.flying { animation: fly 5.6s linear both !important; animation-delay: var(--fd, 0ms) !important; }
+}
+
+/* 飛び立つときに散る金の粉 */
+.dust {
+    position: fixed;
+    z-index: 26;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #f3d9a0;
+    box-shadow: 0 0 6px 1px rgba(214, 178, 110, 0.8);
+    pointer-events: none;
+    animation: dust 1.4s ease-out forwards;
+}
+@keyframes dust {
+    from { opacity: 1; transform: translate(0, 0); }
+    to { opacity: 0; transform: translate(var(--dx, 0), 40px) scale(0.3); }
 }
 
 /* スキンティラ: 火の粉が舞い上がる */
@@ -1318,6 +1334,5 @@ mark {
 /* Windows の「アニメーション効果」がオフ (prefers-reduced-motion) でも、
    自分で唱えた呪文の効果は見せる (上の「章の演出を止める」指定より優先させる) */
 @media (prefers-reduced-motion: reduce) {
-    :root.levitate .chapter .rule { animation: levitate 2.6s ease-in-out infinite alternate !important; }
     .chapter .ink.revealed .c { animation: inkchar 0.9s ease both !important; animation-delay: calc(var(--c) * 55ms + 300ms) !important; }
 }

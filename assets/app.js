@@ -976,7 +976,23 @@ var ASK_URL = "";
         try { sessionStorage.removeItem("rules-ink"); } catch (e) {}
     }
 
-    var floatTimer, frostTimer;
+    var frostTimer;
+
+    document.addEventListener("animationend", function (e) {
+        if (e.animationName === "fly") e.target.classList.remove("flying");
+    });
+
+    // カードのまわりに金の粉を散らす
+    function dust(r) {
+        for (var k = 0; k < 10; k++) {
+            var d = el("span", "dust");
+            d.style.left = (r.left + Math.random() * r.width).toFixed(0) + "px";
+            d.style.top = (r.top + r.height * (0.5 + Math.random() * 0.5)).toFixed(0) + "px";
+            d.style.setProperty("--dx", (Math.random() * 60 - 30).toFixed(0) + "px");
+            document.body.appendChild(d);
+            d.addEventListener("animationend", function () { this.remove(); });
+        }
+    }
     var EFFECTS = {
         candela: function () { candle.classList.add("lit"); },
         solaris: function () {
@@ -1016,10 +1032,33 @@ var ASK_URL = "";
             frostTimer = setTimeout(function () { root.classList.remove("frozen"); }, 7000);
         },
         aeria: function () {
-            cards.forEach(function (c) { c.style.setProperty("--tilt", (Math.random() * 1.2 - 0.6).toFixed(2) + "deg"); });
-            root.classList.add("levitate");
-            clearTimeout(floatTimer);
-            floatTimer = setTimeout(function () { root.classList.remove("levitate"); }, 12000);
+            // 画面に見えているカードだけを、1 枚ずつ違う方向へ飛ばして、数秒後に元の場所へ戻す
+            // (飛ぶ方向・回転・順番はカードごとの CSS 変数で渡し、動きは style.css の .flying で付ける)
+            var vw = window.innerWidth, vh = window.innerHeight;
+            var visible = cards.filter(function (c) {
+                if (c.offsetParent === null) return false;
+                var r = c.getBoundingClientRect();
+                return r.bottom > 0 && r.top < vh;
+            });
+            visible.forEach(function (c, i) {
+                var r = c.getBoundingClientRect();
+                // 左・右・上のどこかへ、画面の外まで飛んでいく
+                var side = Math.random();
+                var tx = side < 0.33 ? -(r.right + 80) : side < 0.66 ? (vw - r.left + 80) : (Math.random() - 0.5) * vw * 0.6;
+                var ty = -(r.bottom + 60 + Math.random() * 120);
+                var rot = Math.random() * 70 - 35;
+                c.style.setProperty("--fx", tx.toFixed(0) + "px");
+                c.style.setProperty("--fy", ty.toFixed(0) + "px");
+                c.style.setProperty("--fr", rot.toFixed(1) + "deg");
+                c.style.setProperty("--fr-lift", (rot * 0.08).toFixed(1) + "deg");
+                c.style.setProperty("--fr-land", (-rot * 0.05).toFixed(1) + "deg");
+                c.style.setProperty("--fd", (i * 110) + "ms");
+                c.classList.remove("flying");
+                void c.offsetWidth; // もう一度唱えたときも最初から飛ぶように
+                c.classList.add("flying");
+                // 飛び立つときに金の粉を少し散らす
+                setTimeout(function () { dust(r); }, i * 110 + 500);
+            });
         },
         scintilla: function () {
             var glow = el("div", "ember-glow");
@@ -1043,7 +1082,8 @@ var ASK_URL = "";
         parva: function () { root.style.fontSize = ""; },
         solve: function () {
             candle.classList.remove("lit");
-            root.classList.remove("reveal-notes", "levitate", "frozen");
+            root.classList.remove("reveal-notes", "frozen");
+            cards.forEach(function (c) { c.classList.remove("flying"); });
             document.querySelectorAll(".mist").forEach(function (m) { m.remove(); });
             root.style.fontSize = "";
             hideInk();
