@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AETHER CITY RULES</title>
-<meta name="description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則と職業別規則です。参加前に必ずお読みください。">
+<meta name="description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・事例集・用語集・罰則です。参加前に必ずお読みください。">
 <meta property="og:title" content="AETHER CITY RULES">
-<meta property="og:description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則と職業別規則です。参加前に必ずお読みください。">
+<meta property="og:description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・事例集・用語集・罰則です。参加前に必ずお読みください。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z' fill='%23a8894f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,8 @@
     --gold-faint: rgba(168, 137, 79, 0.35);
     --mark: rgba(168, 137, 79, 0.28);
     --line: rgba(46, 38, 25, 0.14);
+    --ok: #5d7a52;          /* 事例集: 問題なし */
+    --ng: #9a4f42;          /* 事例集: 違反 */
 }
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -38,6 +40,8 @@
         --gold-faint: rgba(183, 154, 98, 0.28);
         --mark: rgba(183, 154, 98, 0.3);
         --line: rgba(230, 220, 200, 0.12);
+        --ok: #8fae83;
+        --ng: #c98a7d;
     }
 }
 :root[data-theme="dark"] {
@@ -51,6 +55,8 @@
     --gold-faint: rgba(183, 154, 98, 0.28);
     --mark: rgba(183, 154, 98, 0.3);
     --line: rgba(230, 220, 200, 0.12);
+    --ok: #8fae83;
+    --ng: #c98a7d;
 }
 
 * { box-sizing: border-box; }
@@ -65,6 +71,21 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 [hidden] { display: none !important; }
+a { color: var(--gold); }
+
+/* スクロールバー: 細い金の線 (ページ全体と左側で共通) */
+html, .side {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-faint) transparent;
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: var(--gold-faint);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+::-webkit-scrollbar-corner { background: transparent; }
 
 /* 背景にうっすら浮かぶ魔法陣 */
 .circle {
@@ -80,7 +101,6 @@ body {
     z-index: 0;
 }
 @keyframes turn { to { transform: translate(-50%, -50%) rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .circle { animation: none; } }
 
 /* ===== 全体の配置: 左 = 目次と検索 / 右 = 本文 ===== */
 .layout {
@@ -173,11 +193,11 @@ mark {
 }
 
 /* 章の切り替え */
-.chapters { margin-top: 18px; display: grid; gap: 4px; }
+.chapters { margin-top: 14px; display: grid; gap: 2px; }
 .chapter-link {
     display: block;
     position: relative;
-    padding: 12px 14px 12px 18px;
+    padding: 9px 14px 9px 18px;
     color: var(--ink);
     text-decoration: none;
     border: 1px solid transparent;
@@ -185,7 +205,7 @@ mark {
 }
 .chapter-link::before {
     content: "";
-    position: absolute; left: 0; top: 14px; bottom: 14px;
+    position: absolute; left: 0; top: 12px; bottom: 12px;
     width: 1px;
     background: transparent;
     transition: background-color 0.4s;
@@ -200,26 +220,27 @@ mark {
     display: block;
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 0.2em;
     color: var(--gold);
     line-height: 1.4;
 }
-.chapter-link .ja { display: flex; justify-content: space-between; align-items: baseline; font-size: 1.05rem; }
+.chapter-link .ja { display: flex; justify-content: space-between; align-items: baseline; font-size: 1rem; }
 .chapter-link .count { font-size: 0.75rem; color: var(--ink-soft); letter-spacing: 0.1em; }
 
-/* 選んでいる章の中の条 */
+/* 選んでいる章の中の項目 */
 .sub { list-style: none; margin: 4px 0 8px; padding: 0 0 0 18px; display: grid; }
 .sub a {
     display: flex; gap: 10px; align-items: baseline;
     color: var(--ink-soft);
     text-decoration: none;
-    font-size: 0.88rem;
-    padding: 3px 4px;
+    font-size: 0.86rem;
+    padding: 2px 4px;
     transition: color 0.4s;
 }
 .sub a:hover { color: var(--gold); }
 .sub .num { color: var(--gold); font-size: 0.75rem; min-width: 3.2em; flex: none; }
+.sub .num:empty { display: none; }
 
 .side-foot {
     margin-top: auto;
@@ -245,11 +266,13 @@ mark {
 /* ===== 右側 (本文) ===== */
 .main {
     padding: 72px 48px 96px;
-    max-width: 860px;
+    max-width: 900px;
     width: 100%;
+    margin: 0 auto; /* 右側の領域の中央に置く */
+    perspective: 1800px; /* ページをめくる動きの奥行き */
 }
 
-.chapter { margin-bottom: 64px; }
+.chapter { margin-bottom: 64px; transform-origin: left center; }
 .chapter-head { margin-bottom: 32px; }
 .chapter-head .eyebrow {
     font-family: "Cormorant Garamond", serif;
@@ -281,7 +304,7 @@ mark {
     letter-spacing: 0.15em;
 }
 
-/* ===== 各条 ===== */
+/* ===== 各条 (カード) ===== */
 .rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
 .rule {
     position: relative;
@@ -297,6 +320,7 @@ mark {
     width: 18px; height: 18px;
     border-color: var(--gold-faint);
     border-style: solid;
+    pointer-events: none;
 }
 .rule::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
 .rule::after { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
@@ -306,6 +330,7 @@ mark {
     color: var(--gold);
     letter-spacing: 0.25em;
     margin: 0 0 4px;
+    padding-right: 150px; /* 右上の道具と重ならないように */
 }
 .rule h3 {
     font-size: 1.2rem;
@@ -316,6 +341,47 @@ mark {
 }
 .rule p { margin: 0; }
 .rule p + p { margin-top: 0.6em; }
+
+/* カード右上の道具 (新/改の印・封印の格・リンクのコピー) */
+.card-tools {
+    position: absolute;
+    top: 22px; right: 22px;
+    display: flex; align-items: center; gap: 8px;
+}
+.stamp {
+    font-size: 0.72rem;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: grid; place-items: center;
+    letter-spacing: 0;
+    transform: rotate(-8deg);
+}
+.seal {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    padding: 0 8px;
+    line-height: 1.9;
+    letter-spacing: 0.12em;
+    transition: color 0.4s, border-color 0.4s;
+}
+.seal:hover { color: var(--gold); border-color: var(--gold-faint); }
+.seal i { font-style: normal; color: var(--gold); margin-right: 4px; }
+.copy-link {
+    width: 28px; height: 28px;
+    border: 1px solid transparent;
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    display: grid; place-items: center;
+    opacity: 0.6;
+    transition: opacity 0.4s, color 0.4s, border-color 0.4s;
+}
+.copy-link:hover, .copy-link:focus-visible { opacity: 1; color: var(--gold); border-color: var(--line); }
+.copy-link svg { width: 15px; height: 15px; }
 
 /* 対象の職業 */
 .jobs { display: flex; flex-wrap: wrap; gap: 6px; margin: -4px 0 16px; }
@@ -341,6 +407,155 @@ mark {
     font-size: 0.9rem;
 }
 
+/* ===== 事例集 ===== */
+.verdict {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.9rem;
+    margin: 0 0 10px;
+    letter-spacing: 0.1em;
+}
+.verdict b {
+    display: grid; place-items: center;
+    width: 26px; height: 26px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    font-weight: 400;
+}
+.verdict.ok { color: var(--ok); }
+.verdict.ng { color: var(--ng); }
+.related { margin-top: 14px !important; font-size: 0.85rem; color: var(--ink-soft); }
+.related a { text-decoration: none; border-bottom: 1px solid var(--gold-faint); margin-right: 10px; }
+
+/* ===== 用語集 ===== */
+.glossary { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.glossary .rule { padding: 22px 22px 18px; }
+.glossary .rule h3 { font-size: 1.1rem; margin-bottom: 10px; padding-bottom: 8px; }
+.glossary .rule .article { padding-right: 40px; }
+.glossary .card-tools { top: 16px; right: 16px; }
+.glossary .reading { font-size: 0.78rem; color: var(--ink-soft); margin-left: 8px; font-weight: 400; }
+
+/* 本文中の用語 (マウスを乗せると説明が出る) */
+.term {
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: help;
+}
+.term:focus-visible { outline: 1px solid var(--gold-faint); outline-offset: 2px; }
+.tip {
+    position: fixed;
+    z-index: 10;
+    max-width: 300px;
+    background: var(--paper);
+    border: 1px solid var(--gold-faint);
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+.tip.show { opacity: 1; }
+.tip strong { display: block; color: var(--gold); font-weight: 600; margin-bottom: 2px; }
+
+/* ===== 罰則の天秤 ===== */
+.stages {
+    list-style: none; margin: 0 0 40px; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative;
+}
+.stages::before {
+    content: "";
+    position: absolute; top: 21px; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-faint), var(--gold));
+}
+.stages li { text-align: center; position: relative; padding: 0 6px; }
+.stages .dot {
+    width: 42px; height: 42px;
+    margin: 0 auto 10px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: var(--paper);
+    display: grid; place-items: center;
+    color: var(--gold);
+    font-size: 0.9rem;
+    position: relative;
+}
+.stages .dot::after {
+    content: "";
+    position: absolute; inset: 4px;
+    border: 1px solid var(--gold-faint);
+    border-radius: 50%;
+}
+.stages h3 { font-size: 1rem; font-weight: 600; margin: 0 0 4px; }
+.stages p { margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.7; }
+
+.matrix {
+    display: grid;
+    grid-template-columns: 140px repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    margin-bottom: 20px;
+}
+.matrix > div { padding: 12px 8px; border-bottom: 1px solid var(--line); font-size: 0.88rem; }
+.matrix .head { color: var(--ink-soft); font-size: 0.78rem; text-align: center; letter-spacing: 0.15em; }
+.matrix .grade b { display: block; font-weight: 600; letter-spacing: 0.12em; }
+.matrix .grade span { font-size: 0.78rem; color: var(--ink-soft); }
+.matrix .bar { position: relative; grid-column-end: span 4; }
+.matrix .bar span {
+    position: absolute; top: 50%;
+    height: 1px;
+    background: var(--gold);
+}
+.matrix .bar span::before {
+    content: "";
+    position: absolute; left: -5px; top: -5px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+}
+.matrix .bar span::after {
+    content: "";
+    position: absolute; right: -4px; top: -4px;
+    width: 7px; height: 7px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: var(--paper);
+}
+.penalty-notes { margin: 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 0.9rem; }
+.penalty-notes li + li { margin-top: 4px; }
+.section-title {
+    font-size: 1.05rem; font-weight: 600; letter-spacing: 0.15em;
+    margin: 0 0 16px;
+}
+
+/* ===== 改訂履歴 (年代記) ===== */
+.chronicle { list-style: none; margin: 0; padding: 0 0 0 28px; position: relative; }
+.chronicle::before {
+    content: "";
+    position: absolute; left: 6px; top: 10px; bottom: 10px;
+    width: 1px;
+    background: linear-gradient(var(--gold), var(--gold-faint), transparent);
+}
+.chronicle > li { position: relative; padding-bottom: 32px; }
+.chronicle > li::before {
+    content: "";
+    position: absolute; left: -27px; top: 10px;
+    width: 11px; height: 11px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: var(--bg);
+}
+.chronicle time {
+    display: block;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+}
+.chronicle h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 6px; }
+.chronicle ul { margin: 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 0.92rem; }
+
 /* 検索で見つからなかったとき */
 .empty {
     text-align: center;
@@ -355,10 +570,52 @@ mark {
     font-size: 0.92rem;
 }
 
-/* 章を切り替えたときのふわっと出る動き */
-.fade { animation: fade 0.5s ease; }
-@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .fade { animation: none; } }
+/* コピーしたときのお知らせ */
+.toast {
+    position: fixed;
+    left: 50%; bottom: 28px;
+    transform: translate(-50%, 8px);
+    z-index: 20;
+    background: var(--paper);
+    border: 1px solid var(--gold-faint);
+    color: var(--ink);
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s, transform 0.35s;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ===== 魔導書の演出: ページをめくる + 文字が墨のようににじみ出る ===== */
+.chapter.turn { animation: page 0.7s cubic-bezier(.2, .7, .2, 1); }
+@keyframes page {
+    from { opacity: 0; transform: rotateY(9deg) translateX(10px); }
+    to { opacity: 1; transform: none; }
+}
+.chapter.turn .chapter-head,
+.chapter.turn .rule,
+.chapter.turn .chronicle > li,
+.chapter.turn .stages li {
+    animation: ink 1s ease both;
+    animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+@keyframes ink {
+    from { opacity: 0; filter: blur(4px); }
+    to { opacity: 1; filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .circle, .chapter.turn, .chapter.turn * { animation: none !important; }
+}
+
+/* ===== 印刷するとき ===== */
+@media print {
+    .side, .circle, .card-tools, .toast, .tip { display: none !important; }
+    .layout { display: block; }
+    .main { padding: 0; max-width: none; }
+    .chapter { display: block !important; }
+    .rule { break-inside: avoid; }
+}
 
 /* ===== スマホ・狭い画面: 左側を上に置く ===== */
 @media (max-width: 900px) {
@@ -374,20 +631,27 @@ mark {
     }
     .brand { margin-bottom: 20px; }
     .brand .theme-btn { position: absolute; top: -24px; right: 0; }
-    .chapters { grid-template-columns: 1fr 1fr; margin-top: 8px; }
-    .chapter-link { text-align: center; padding: 10px 8px; }
+    .chapters { grid-template-columns: repeat(3, 1fr); margin-top: 8px; gap: 4px; }
+    .chapter-link { text-align: center; padding: 8px 4px; }
+    .chapter-link .en { display: none; }
+    .chapter-link .ja { justify-content: center; gap: 6px; font-size: 0.9rem; flex-wrap: wrap; }
     .chapter-link::before { left: 20%; right: 20%; top: auto; bottom: 0; width: auto; height: 1px; }
-    .chapter-link .ja { justify-content: center; gap: 8px; }
-    .sub, .side-foot .updated { display: none; }
-    .side-foot { display: none; }
+    .sub, .side-foot { display: none; }
     .main { padding: 40px 16px 72px; }
+    .matrix { grid-template-columns: 96px repeat(4, 1fr); }
 }
 @media (min-width: 901px) {
     .brand .theme-btn { display: none; }
 }
 @media (max-width: 480px) {
     .rule { padding: 24px 18px 20px; }
+    .rule .article { padding-right: 120px; }
+    .card-tools { top: 16px; right: 14px; gap: 6px; }
     .chapter-head h2 { font-size: 1.5rem; }
+    .stages { grid-template-columns: 1fr 1fr; row-gap: 24px; }
+    .stages::before { display: none; }
+    .matrix > div { padding: 10px 4px; font-size: 0.8rem; }
+    .matrix .head { font-size: 0.68rem; letter-spacing: 0; }
 }
 </style>
 </head>
@@ -433,7 +697,11 @@ mark {
             <p class="search-status" id="q-status" aria-live="polite"></p>
         </div>
 
-        <!-- 章の切り替え (条の一覧は本文から自動で作られます) -->
+        <!--
+            章の切り替え
+            data-chapter は右側の <section class="chapter" id="…"> の id と同じにします。
+            <ol class="sub"> がある章は、本文のカードから一覧が自動で作られます。
+        -->
         <nav class="chapters" aria-label="章">
             <div>
                 <a class="chapter-link" href="#server" data-chapter="server">
@@ -449,11 +717,37 @@ mark {
                 </a>
                 <ol class="sub" data-sub="jobs"></ol>
             </div>
+            <div>
+                <a class="chapter-link" href="#cases" data-chapter="cases">
+                    <span class="en">Book of Precedents</span>
+                    <span class="ja">事例集<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="cases"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#glossary" data-chapter="glossary">
+                    <span class="en">Lexicon</span>
+                    <span class="ja">用語集<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="glossary"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#penalty" data-chapter="penalty">
+                    <span class="en">Scales of Judgment</span>
+                    <span class="ja">罰則<span class="count"></span></span>
+                </a>
+            </div>
+            <div>
+                <a class="chapter-link" href="#chronicle" data-chapter="chronicle">
+                    <span class="en">Chronicle</span>
+                    <span class="ja">改訂履歴<span class="count"></span></span>
+                </a>
+            </div>
         </nav>
 
         <div class="side-foot">
-            <!-- 規則を変えたら日付も更新してください -->
-            <span class="updated">最終改訂　2026年10月20日</span>
+            <!-- 改訂履歴のいちばん上の日付が自動で入ります -->
+            <span class="updated">最終改訂　<span id="updated"></span></span>
             <button class="theme-btn" type="button" data-theme-toggle aria-label="明るさを切り替える" title="明るさを切り替える">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
             </button>
@@ -464,11 +758,21 @@ mark {
     <main class="main" id="main">
 
         <!--
+            ===== カードの書き方 (全章共通) =====
+            <li class="rule" id="…" data-num="…" …> がひとつのカードです。
+              id            : URL の # になる名前 (半角英数とハイフン)
+              data-num      : 左の一覧に出す番号 (第一条 / 治安 など)
+              data-keywords : 本文に無いけれど検索で引っかけたい言葉 (空白区切り)
+              data-grade    : 封印の格。1 = 一級禁呪 / 2 = 二級禁呪 / 3 = 三級禁呪 (罰則の章と対応)
+              data-new      : 追加した日 (例 2026-11-01)。30日間「新」の印が付く
+              data-rev      : 書き換えた日 (例 2026-11-01)。30日間「改」の印が付く
+            右上のリンクのコピーボタン・封印の格・新/改の印は自動で付きます。
+            本文中の用語集の言葉には、自動で説明が付きます。
+        -->
+
+        <!--
             ===== サーバー規則 =====
-            条を追加するときは <li class="rule" id="rule-5" data-num="第五条"> … </li> をまるごとコピーして書き換えてください。
-            (左側の一覧は data-num と h3 から自動で作られます)
             ゲーム内の規則 (fivem-magic-pausemenu/shared/config.lua の Config.Rules) も同じ内容に直すのを忘れずに。
-            data-keywords には、本文に無いけれど検索で引っかけたい言葉を空白区切りで書けます。
         -->
         <section class="chapter" id="server">
             <div class="chapter-head">
@@ -482,27 +786,27 @@ mark {
             </div>
 
             <ol class="rules">
-                <li class="rule" id="rule-1" data-num="第一条" data-keywords="暴言 ハラスメント 迷惑行為 マナー">
+                <li class="rule" id="rule-1" data-num="第一条" data-grade="2" data-keywords="暴言 ハラスメント 迷惑行為 マナー">
                     <p class="article">第一条</p>
                     <h3>礼節を重んじること</h3>
                     <p>他の学徒・住人への暴言、差別的な発言、つきまといを禁ずる。</p>
                     <p>困ったときは、まず言葉で解決を試みること。</p>
                 </li>
 
-                <li class="rule" id="rule-2" data-num="第二条" data-keywords="RDM 攻撃 戦闘 呪文 スペル">
+                <li class="rule" id="rule-2" data-num="第二条" data-grade="2" data-keywords="RDM 攻撃 戦闘 呪文 スペル">
                     <p class="article">第二条</p>
                     <h3>魔法を乱用しないこと</h3>
                     <p>理由なき攻撃魔法の使用 (RDM)、ロールプレイを無視した魔法の連発を禁ずる。</p>
                     <p>魔法は物語を彩るために使うこと。</p>
                 </li>
 
-                <li class="rule" id="rule-3" data-num="第三条" data-keywords="メタ メタゲーム 配信 通話 ディスコード Discord">
+                <li class="rule" id="rule-3" data-num="第三条" data-grade="2" data-keywords="メタ メタゲーム 配信 通話 ディスコード Discord">
                     <p class="article">第三条</p>
                     <h3>世界の外の知識を持ち込まないこと</h3>
                     <p>配信・通話など、キャラクターが知り得ない情報を物語に持ち込むこと (メタゲーム) を禁ずる。</p>
                 </li>
 
-                <li class="rule" id="rule-4" data-num="第四条" data-keywords="バグ グリッチ チート 報告 管理者">
+                <li class="rule" id="rule-4" data-num="第四条" data-grade="1" data-keywords="バグ グリッチ チート 報告 管理者">
                     <p class="article">第四条</p>
                     <h3>不具合を悪用しないこと</h3>
                     <p>不具合を見つけたら悪用せず、速やかに管理者へ報告すること。</p>
@@ -515,13 +819,12 @@ mark {
             </p>
             <!--
                 Discord などの連絡先を載せる場合は、下のコメントを外して URL を書き換えてください。
-                <p class="closing"><a href="https://discord.gg/xxxxxx" style="color: var(--gold);">Discord で管理者に連絡する</a></p>
+                <p class="closing"><a href="https://discord.gg/xxxxxx">Discord で管理者に連絡する</a></p>
             -->
         </section>
 
         <!--
             ===== 職業別規則 (仮) =====
-            職業を追加するときは <li class="rule" id="job-xxx" data-num="区分名"> … </li> をまるごとコピーして書き換えてください。
             .jobs の中の <span> は対象の職業名です (検索でも引っかかります)。
             正式な内容が決まったら、下の「仮の内容です」の行を消してください。
         -->
@@ -547,7 +850,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-auror" data-num="治安" data-keywords="警察 逮捕 拘束 手錠 スタン 取り締まり 押収 治安">
+                <li class="rule" id="job-auror" data-num="治安" data-grade="2" data-keywords="警察 逮捕 拘束 手錠 スタン 取り締まり 押収 治安">
                     <p class="article">治安</p>
                     <h3>風紀委員・警察</h3>
                     <div class="jobs"><span>風紀委員</span><span>警察</span></div>
@@ -561,7 +864,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-medic" data-num="医療" data-keywords="救急 医者 医療 治療 蘇生 搬送 病院 ヒーラー">
+                <li class="rule" id="job-medic" data-num="医療" data-grade="2" data-keywords="救急 医者 医療 治療 蘇生 搬送 病院 ヒーラー">
                     <p class="article">医療</p>
                     <h3>魔法治療院・救急隊</h3>
                     <div class="jobs"><span>魔法治療院</span><span>救急隊</span></div>
@@ -573,7 +876,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-law" data-num="司法" data-keywords="裁判 裁判官 判決 弁護 法律 名誉職">
+                <li class="rule" id="job-law" data-num="司法" data-grade="3" data-keywords="裁判 裁判官 判決 弁護 法律 名誉職">
                     <p class="article">司法</p>
                     <h3>魔法裁判所・弁護士</h3>
                     <div class="jobs"><span>魔法裁判所</span><span>名誉職 (裁判官)</span><span>魔法弁護士事務所</span><span>法律事務所</span></div>
@@ -584,7 +887,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-press" data-num="報道" data-keywords="新聞 記事 ニュース 取材 報道 編集長">
+                <li class="rule" id="job-press" data-num="報道" data-grade="3" data-keywords="新聞 記事 ニュース 取材 報道 編集長">
                     <p class="article">報道</p>
                     <h3>魔法新聞社・記者</h3>
                     <div class="jobs"><span>魔法新聞社</span><span>記者</span></div>
@@ -595,7 +898,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-craft" data-num="工房" data-keywords="整備 修理 改造 メカニック 杖 カスタム ベニーズ ビーカーズ">
+                <li class="rule" id="job-craft" data-num="工房" data-grade="3" data-keywords="整備 修理 改造 メカニック 杖 カスタム ベニーズ ビーカーズ">
                     <p class="article">工房</p>
                     <h3>魔法工房・杖工房・整備</h3>
                     <div class="jobs"><span>魔法工房</span><span>杖工房</span><span>LSカスタム</span><span>ビーカーズガレージ</span><span>ベニーズ</span></div>
@@ -606,7 +909,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-transport" data-num="輸送" data-keywords="タクシー バス 配送 運転 レッカー トラック 箒 絨毯 結界 禁域">
+                <li class="rule" id="job-transport" data-num="輸送" data-grade="3" data-keywords="タクシー バス 配送 運転 レッカー トラック 箒 絨毯 結界 禁域">
                     <p class="article">輸送</p>
                     <h3>箒タクシー・配送・レッカー</h3>
                     <div class="jobs"><span>箒タクシー</span><span>箒バス</span><span>飛行絨毯配送</span><span>浮遊レッカー業者</span><span>タクシー</span><span>バス運転手</span><span>トラック運転手</span><span>レッカー業者</span></div>
@@ -617,7 +920,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-shop" data-num="商い" data-keywords="飲食 カフェ 料理 販売 屋台 店 価格 ワイナリー 箒専門店 車両販売">
+                <li class="rule" id="job-shop" data-num="商い" data-grade="3" data-keywords="飲食 カフェ 料理 販売 屋台 店 価格 ワイナリー 箒専門店 車両販売">
                     <p class="article">商い</p>
                     <h3>飲食店・販売店・薬草園</h3>
                     <div class="jobs"><span>カフェ</span><span>ハンバーガー店</span><span>魔法屋台</span><span>ホットドッグ販売</span><span>魔法薬草園</span><span>ワイナリー</span><span>箒専門店</span><span>車両販売店</span></div>
@@ -628,7 +931,7 @@ mark {
                     </ol>
                 </li>
 
-                <li class="rule" id="job-estate" data-num="不動産" data-keywords="家 住宅 物件 鍵 契約 ハウス">
+                <li class="rule" id="job-estate" data-num="不動産" data-grade="3" data-keywords="家 住宅 物件 鍵 契約 ハウス">
                     <p class="article">不動産</p>
                     <h3>魔法不動産・不動産</h3>
                     <div class="jobs"><span>魔法不動産</span><span>不動産</span></div>
@@ -641,12 +944,221 @@ mark {
             </ol>
         </section>
 
+        <!--
+            ===== 事例集 (仮) =====
+            判定は <p class="verdict ok"><b>○</b>問題なし</p> か <p class="verdict ng"><b>×</b>違反</p> のどちらかにします。
+            「関連する規則」には、規則のカードの id へのリンクを書きます。
+        -->
+        <section class="chapter" id="cases">
+            <div class="chapter-head">
+                <p class="eyebrow">Book of Precedents</p>
+                <h2>事例集</h2>
+                <p class="lead">こんなとき、どうなる？ 実際に起こりやすい場面と、その判断の例。</p>
+                <span class="draft">※ 現在は仮の内容です</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="case-1" data-num="事例一" data-keywords="ディスコード Discord 死亡 倒れた 場所">
+                    <p class="article">事例一</p>
+                    <h3>倒れた直後、通話で仲間に犯人の居場所を伝えた</h3>
+                    <p class="verdict ng"><b>×</b>違反</p>
+                    <p>倒れたキャラクターは、仲間に連絡する手段を持っていません。ゲームの外の通話で情報を伝えるのはメタゲームにあたります。</p>
+                    <p class="related">関連する規則：<a href="#rule-3">第三条</a></p>
+                </li>
+
+                <li class="rule" id="case-2" data-num="事例二" data-keywords="口論 喧嘩 攻撃">
+                    <p class="article">事例二</p>
+                    <h3>口論になった相手を、いきなり攻撃魔法で倒した</h3>
+                    <p class="verdict ng"><b>×</b>違反</p>
+                    <p>やり取りが言い合いだけで、攻撃に至る理由がロールプレイで示されていません。理由なき攻撃 (RDM) にあたります。</p>
+                    <p class="related">関連する規則：<a href="#rule-2">第二条</a></p>
+                </li>
+
+                <li class="rule" id="case-3" data-num="事例三" data-keywords="強盗 人質 脅し 威嚇 犯罪">
+                    <p class="article">事例三</p>
+                    <h3>強盗の最中、要求を伝えてから魔法で脅した</h3>
+                    <p class="verdict ok"><b>○</b>問題なし</p>
+                    <p>目的と要求を相手に伝え、ロールプレイの流れの中で魔法を使っています。物語を進めるための使い方として認められます。</p>
+                    <p class="related">関連する規則：<a href="#rule-2">第二条</a></p>
+                </li>
+
+                <li class="rule" id="case-4" data-num="事例四" data-keywords="バグ 壁抜け すり抜け 報告">
+                    <p class="article">事例四</p>
+                    <h3>壁をすり抜けられる不具合を見つけ、管理者に伝えた</h3>
+                    <p class="verdict ok"><b>○</b>問題なし</p>
+                    <p>悪用せずに報告するのが正しい対応です。再現の手順を添えてもらえると、運営の修正が早くなります。</p>
+                    <p class="related">関連する規則：<a href="#rule-4">第四条</a></p>
+                </li>
+
+                <li class="rule" id="case-5" data-num="事例五" data-keywords="勤務外 拘束 風紀委員 私用 職権">
+                    <p class="article">事例五</p>
+                    <h3>勤務外の風紀委員が、知人との揉めごとで拘束魔法を使った</h3>
+                    <p class="verdict ng"><b>×</b>違反</p>
+                    <p>拘束の魔法は勤務中だけ使えるものです。また、職権を個人的な揉めごとに使うことも禁じられています。</p>
+                    <p class="related">関連する規則：<a href="#job-auror">治安</a><a href="#job-common">共通</a></p>
+                </li>
+
+                <li class="rule" id="case-6" data-num="事例六" data-keywords="治療 拒否 敵対 ギャング 医療">
+                    <p class="article">事例六</p>
+                    <h3>治療院の職員が、敵対する組織の者の治療を断った</h3>
+                    <p class="verdict ng"><b>×</b>違反</p>
+                    <p>治療は相手の所属を問わず中立に行います。キャラクター同士の因縁があっても、勤務中は治療を優先してください。</p>
+                    <p class="related">関連する規則：<a href="#job-medic">医療</a></p>
+                </li>
+            </ol>
+        </section>
+
+        <!--
+            ===== 用語集 (仮) =====
+            data-term  : 見出しの言葉
+            data-match : 本文の中で説明を付ける言葉 (空白区切りで複数可。長いものから順に探します)
+            .def       : 説明文 (本文の言葉にマウスを乗せたときにも、この文が出ます)
+        -->
+        <section class="chapter" id="glossary">
+            <div class="chapter-head">
+                <p class="eyebrow">Lexicon</p>
+                <h2>用語集</h2>
+                <p class="lead">規則の中に出てくる言葉の意味。本文中の点線の言葉にマウスを乗せる (スマホでは押す) と、説明が出ます。</p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules glossary">
+                <li class="rule" id="term-rp" data-term="ロールプレイ" data-match="ロールプレイ RP" data-keywords="RP roleplay">
+                    <p class="article">RP</p>
+                    <h3>ロールプレイ</h3>
+                    <p class="def">自分のキャラクターになりきって、その人物として考え、話し、行動すること。このサーバーの遊びの中心です。</p>
+                </li>
+                <li class="rule" id="term-ic" data-term="IC / OOC" data-match="OOC" data-keywords="IC OOC キャラ 中の人 ゲーム外">
+                    <p class="article">IC / OOC</p>
+                    <h3>キャラクターとしての発言 / ゲームの外の発言</h3>
+                    <p class="def">IC はキャラクターとしての言動、OOC はプレイヤー本人としての言動。OOC の話をキャラクターの行動に持ち込んではいけません。</p>
+                </li>
+                <li class="rule" id="term-rdm" data-term="RDM" data-match="RDM" data-keywords="ランダムデスマッチ 理由なき攻撃">
+                    <p class="article">RDM</p>
+                    <h3>理由なき攻撃</h3>
+                    <p class="def">ロールプレイ上の理由なく、他のキャラクターを攻撃・殺害すること (Random Death Match)。</p>
+                </li>
+                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="轢く 乗り物 箒 車">
+                    <p class="article">VDM</p>
+                    <h3>乗り物での理由なき攻撃</h3>
+                    <p class="def">車・箒などの乗り物で、理由なく他のキャラクターを轢いたり体当たりしたりすること (Vehicle Death Match)。</p>
+                </li>
+                <li class="rule" id="term-meta" data-term="メタゲーム" data-match="メタゲーム メタ情報" data-keywords="メタ 配信 通話">
+                    <p class="article">メタ</p>
+                    <h3>メタゲーム</h3>
+                    <p class="def">配信・通話・SNS など、ゲームの外で知った情報を、キャラクターが知っているかのように使うこと。</p>
+                </li>
+                <li class="rule" id="term-pg" data-term="パワーゲーム" data-match="パワーゲーム" data-keywords="強制 確定 一方的">
+                    <p class="article">PG</p>
+                    <h3>パワーゲーム</h3>
+                    <p class="def">相手に反応の余地を与えず、自分に都合のよい結果を一方的に押しつけること。現実ではできない動きを悪用することも含みます。</p>
+                </li>
+                <li class="rule" id="term-nlr" data-term="NLR" data-match="NLR" data-keywords="記憶 死亡 復活 ニューライフ">
+                    <p class="article">NLR</p>
+                    <h3>倒れる前の記憶を持ち越さない</h3>
+                    <p class="def">倒れて治療を受けたキャラクターは、倒れる直前の出来事を覚えていないものとして振る舞うこと (New Life Rule)。</p>
+                </li>
+                <li class="rule" id="term-fail" data-term="フェイルRP" data-match="フェイルRP" data-keywords="失敗 非現実">
+                    <p class="article">FailRP</p>
+                    <h3>フェイルRP</h3>
+                    <p class="def">キャラクターとして不自然な行動をとること。たとえば、武器を向けられても全く怖がらない、など。</p>
+                </li>
+                <li class="rule" id="term-cl" data-term="コンバットログ" data-match="コンバットログ" data-keywords="切断 落ちる ログアウト 逃げる">
+                    <p class="article">CL</p>
+                    <h3>コンバットログ</h3>
+                    <p class="def">戦闘や拘束など、都合の悪い場面でゲームを抜けて逃れること。</p>
+                </li>
+                <li class="rule" id="term-duty" data-term="出勤状態" data-match="出勤状態 勤務中" data-keywords="オンデューティ 勤務 退勤">
+                    <p class="article">勤務</p>
+                    <h3>出勤状態</h3>
+                    <p class="def">職業の仕事をしている状態のこと。職場で出勤の手続きをすると切り替わり、職業の道具や権限が使えるようになります。</p>
+                </li>
+            </ol>
+        </section>
+
+        <!--
+            ===== 罰則 (仮) =====
+            段階表の棒は style="left: 開始位置; right: 終了位置" で決めます。
+            4つの段階がそれぞれ 25% の幅です (例: 警告から一時追放まで → left: 37.5%; right: 37.5%)。
+        -->
+        <section class="chapter" id="penalty">
+            <div class="chapter-head">
+                <p class="eyebrow">Scales of Judgment</p>
+                <h2>罰則</h2>
+                <p class="lead">規則を破った者に科される処分の段階。規則ごとに「封印の格」が定められ、格によって最初に科される処分が変わります。</p>
+                <span class="draft">※ 現在は仮の内容です</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <h3 class="section-title">処分の段階</h3>
+            <ol class="stages">
+                <li><div class="dot">壱</div><h3>注意</h3><p>口頭で注意し、記録に残す</p></li>
+                <li><div class="dot">弐</div><h3>警告</h3><p>正式な警告。重なると次の段階へ</p></li>
+                <li><div class="dot">参</div><h3>一時追放</h3><p>1日〜7日のあいだ接続を禁ずる</p></li>
+                <li><div class="dot">肆</div><h3>永久追放</h3><p>二度と街に入ることを許さない</p></li>
+            </ol>
+
+            <h3 class="section-title">封印の格と処分</h3>
+            <div class="matrix" role="table" aria-label="封印の格ごとの処分の範囲">
+                <div class="head" role="columnheader"></div>
+                <div class="head" role="columnheader">注意</div>
+                <div class="head" role="columnheader">警告</div>
+                <div class="head" role="columnheader">一時追放</div>
+                <div class="head" role="columnheader">永久追放</div>
+
+                <div class="grade" role="rowheader"><b>三級禁呪</b><span>軽い違反</span></div>
+                <div class="bar" role="cell" aria-label="注意から一時追放まで"><span style="left: 12.5%; right: 37.5%;"></span></div>
+
+                <div class="grade" role="rowheader"><b>二級禁呪</b><span>重い違反</span></div>
+                <div class="bar" role="cell" aria-label="警告から永久追放まで"><span style="left: 37.5%; right: 12.5%;"></span></div>
+
+                <div class="grade" role="rowheader"><b>一級禁呪</b><span>極めて重い違反</span></div>
+                <div class="bar" role="cell" aria-label="一時追放から永久追放まで"><span style="left: 62.5%; right: 12.5%;"></span></div>
+            </div>
+            <ul class="penalty-notes">
+                <li>● が最初に科される処分、○ が繰り返したときの最も重い処分です。</li>
+                <li>警告を3回受けると、一時追放となります。</li>
+                <li>悪質な場合や、運営が必要と判断した場合は、段階を飛ばして処分することがあります。</li>
+                <li>処分に納得できない場合は、Discord の問い合わせ窓口から異議を申し立てられます。</li>
+            </ul>
+        </section>
+
+        <!--
+            ===== 改訂履歴 =====
+            新しいものを「いちばん上」に追加してください (左下の「最終改訂」もこの日付になります)。
+            datetime="2026-11-01" の形で日付を書きます。
+        -->
+        <section class="chapter" id="chronicle">
+            <div class="chapter-head">
+                <p class="eyebrow">Chronicle</p>
+                <h2>改訂履歴</h2>
+                <p class="lead">規則がいつ、どう変わったかの記録。変わった規則には、30日間「新」「改」の印が付きます。</p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="chronicle">
+                <li>
+                    <time datetime="2026-10-20">2026.10.20</time>
+                    <h3>規則の書を公開</h3>
+                    <ul>
+                        <li><a href="#server">サーバー規則</a> 第一条〜第四条を制定</li>
+                        <li><a href="#jobs">職業別規則</a>・<a href="#cases">事例集</a>・<a href="#penalty">罰則</a> を仮の内容で公開</li>
+                        <li><a href="#glossary">用語集</a> を公開</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
         <p class="empty" id="empty" hidden>
             該当する規則は見つかりませんでした。<br>
             別の言葉で探してみてください。
         </p>
     </main>
 </div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 // 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
@@ -668,37 +1180,132 @@ mark {
     });
 })();
 
-// 章の切り替えと検索
-// ・左の「サーバー規則」「職業別規則」を選ぶと右側の本文が入れ替わる (URL は #server / #jobs)
-// ・#rule-2 のような URL で開くと、その条がある章を開いてそこまで移動する
-// ・検索中は両方の章から一致した条だけを出す
-//   空白で区切ると「すべてを含む」条だけ / ひらがな・カタカナ、全角・半角、大文字・小文字は区別しない
-// ・URL の ?q=拘束 で検索した状態のページを共有できる
 (function () {
+    var GRADES = { "1": "一級禁呪", "2": "二級禁呪", "3": "三級禁呪" };
+    var MARK_DAYS = 30; // 「新」「改」の印を付けておく日数
+
     var input = document.getElementById("q");
     var clearBtn = document.getElementById("q-clear");
     var status = document.getElementById("q-status");
     var empty = document.getElementById("empty");
+    var tip = document.getElementById("tip");
+    var toast = document.getElementById("toast");
     var chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter"));
     var links = Array.prototype.slice.call(document.querySelectorAll(".chapter-link"));
-    var current = "server";
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".rule"));
+    var current = null; // 最初の表示でもページをめくる動きを出すため null から始める
 
-    // 左側の条の一覧を本文から作る
+    function el(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+    }
+
+    // ---------- 最終改訂日 (改訂履歴のいちばん上) ----------
+    var latest = document.querySelector(".chronicle time");
+    if (latest) document.getElementById("updated").textContent = latest.textContent;
+
+    // ---------- 用語集の言葉を本文に結びつける ----------
+    var terms = [];
+    document.querySelectorAll("#glossary .rule").forEach(function (g) {
+        var def = g.querySelector(".def").textContent;
+        (g.getAttribute("data-match") || "").split(/\s+/).filter(Boolean).forEach(function (word) {
+            terms.push({ word: word, id: g.id, title: g.getAttribute("data-term"), def: def });
+        });
+    });
+    terms.sort(function (a, b) { return b.word.length - a.word.length; }); // 長い言葉から先に探す
+
+    function linkTerms(card) {
+        var used = {};
+        terms.forEach(function (t) {
+            if (used[t.id]) return; // 同じ用語はカードごとに最初の 1 回だけ
+            var walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, {
+                acceptNode: function (n) {
+                    return n.parentNode.closest(".term, .article, .jobs, .verdict, .related, .card-tools, h3")
+                        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+                }
+            });
+            var node;
+            while ((node = walker.nextNode())) {
+                var i = node.nodeValue.indexOf(t.word);
+                if (i === -1) continue;
+                var after = node.splitText(i);
+                after.splitText(t.word.length);
+                var a = el("a", "term", t.word);
+                a.href = "#" + t.id;
+                a.setAttribute("data-tip-title", t.title);
+                a.setAttribute("data-tip", t.def);
+                after.parentNode.replaceChild(a, after);
+                used[t.id] = true;
+                break;
+            }
+        });
+    }
+
+    // ---------- カードの準備 (印・封印の格・コピーボタン・用語) ----------
+    var now = Date.now();
+    function recent(attr) {
+        var t = Date.parse(attr || "");
+        return !isNaN(t) && now - t >= 0 && now - t < MARK_DAYS * 86400000;
+    }
+
+    cards.forEach(function (card) {
+        var tools = el("div", "card-tools");
+
+        if (recent(card.getAttribute("data-new"))) {
+            var s1 = el("span", "stamp", "新"); s1.title = "最近追加された規則"; tools.appendChild(s1);
+        } else if (recent(card.getAttribute("data-rev"))) {
+            var s2 = el("span", "stamp", "改"); s2.title = "最近書き換えられた規則"; tools.appendChild(s2);
+        }
+
+        var grade = GRADES[card.getAttribute("data-grade")];
+        if (grade) {
+            var seal = el("a", "seal");
+            seal.href = "#penalty";
+            seal.title = "封印の格 (罰則の重さ)";
+            seal.appendChild(el("i", null, "封"));
+            seal.appendChild(document.createTextNode(grade));
+            tools.appendChild(seal);
+        }
+
+        var btn = el("button", "copy-link");
+        btn.type = "button";
+        btn.title = "この項目へのリンクをコピー";
+        btn.setAttribute("aria-label", "この項目へのリンクをコピー");
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>';
+        tools.appendChild(btn);
+
+        card.insertBefore(tools, card.firstChild);
+        if (!card.closest("#glossary")) linkTerms(card);
+    });
+
+    // ---------- 左側の項目一覧を本文から作る ----------
     chapters.forEach(function (ch) {
         var sub = document.querySelector('[data-sub="' + ch.id + '"]');
+        if (!sub) return;
         ch.querySelectorAll(".rule").forEach(function (rule) {
-            var li = document.createElement("li");
-            var a = document.createElement("a");
+            var li = el("li");
+            var a = el("a");
             a.href = "#" + rule.id;
-            var num = document.createElement("span");
-            num.className = "num";
-            num.textContent = rule.getAttribute("data-num") || "";
-            a.appendChild(num);
-            a.appendChild(document.createTextNode(rule.querySelector("h3").textContent));
+            a.appendChild(el("span", "num", ch.id === "glossary" ? "" : (rule.getAttribute("data-num") || "")));
+            a.appendChild(document.createTextNode(ch.id === "glossary" ? rule.getAttribute("data-term") : rule.querySelector("h3").textContent));
             li.appendChild(a);
             sub.appendChild(li);
         });
     });
+
+    // にじみ出る順番
+    chapters.forEach(function (ch) {
+        ch.querySelectorAll(".chapter-head, .rule, .chronicle > li, .stages li").forEach(function (e, i) {
+            e.style.setProperty("--i", Math.min(i, 12));
+        });
+    });
+
+    // ---------- 検索 ----------
+    // ・空白で区切ると「すべてを含む」項目だけを出す
+    // ・ひらがな/カタカナ、全角/半角英数、大文字/小文字は区別しない
+    // ・URL の ?q=拘束 で検索した状態のページを共有できる
 
     // 文字数を変えずに表記ゆれをそろえる (ハイライト位置がずれないように 1 文字 → 1 文字だけ)
     function norm(s) {
@@ -708,30 +1315,32 @@ mark {
                 .toLowerCase();
     }
 
-    // 条ごとに元の HTML と検索用の文字列を覚えておく
-    var data = Array.prototype.slice.call(document.querySelectorAll(".rule")).map(function (el) {
+    var data = cards.map(function (card) {
         return {
-            el: el,
-            chapter: el.closest(".chapter").id,
-            html: el.innerHTML,
-            text: norm(el.textContent + " " + (el.getAttribute("data-keywords") || ""))
+            el: card,
+            chapter: card.closest(".chapter").id,
+            html: card.innerHTML,
+            text: norm(card.textContent + " " + (card.getAttribute("data-keywords") || ""))
         };
     });
 
-    // 本文中の一致した部分に <mark> を付ける
-    function highlight(el, terms) {
-        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    function highlight(root, words) {
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+            acceptNode: function (n) {
+                return n.parentNode.closest(".card-tools") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+            }
+        });
         var nodes = [];
         while (walker.nextNode()) nodes.push(walker.currentNode);
         nodes.forEach(function (node) {
             var raw = node.nodeValue;
             var low = norm(raw);
             var ranges = [];
-            terms.forEach(function (t) {
-                var i = low.indexOf(t);
+            words.forEach(function (w) {
+                var i = low.indexOf(w);
                 while (i !== -1) {
-                    ranges.push([i, i + t.length]);
-                    i = low.indexOf(t, i + t.length);
+                    ranges.push([i, i + w.length]);
+                    i = low.indexOf(w, i + w.length);
                 }
             });
             if (!ranges.length) return;
@@ -746,9 +1355,7 @@ mark {
             var pos = 0;
             merged.forEach(function (r) {
                 if (r[0] > pos) frag.appendChild(document.createTextNode(raw.slice(pos, r[0])));
-                var m = document.createElement("mark");
-                m.textContent = raw.slice(r[0], r[1]);
-                frag.appendChild(m);
+                frag.appendChild(el("mark", null, raw.slice(r[0], r[1])));
                 pos = r[1];
             });
             if (pos < raw.length) frag.appendChild(document.createTextNode(raw.slice(pos)));
@@ -756,48 +1363,50 @@ mark {
         });
     }
 
-    function fadeIn(el) {
-        el.classList.remove("fade");
-        void el.offsetWidth; // アニメーションをやり直すため
-        el.classList.add("fade");
+    function turnPage(ch) {
+        ch.classList.remove("turn");
+        void ch.offsetWidth; // アニメーションをやり直すため
+        ch.classList.add("turn");
     }
 
     function render() {
         var q = input.value;
-        var terms = norm(q).split(/\s+/).filter(Boolean);
-        var searching = terms.length > 0;
+        var words = norm(q).split(/\s+/).filter(Boolean);
+        var searching = words.length > 0;
         clearBtn.hidden = !q;
+        hideTip();
 
         var total = 0;
         var perChapter = {};
         data.forEach(function (d) {
             d.el.innerHTML = d.html;
-            var ok = !searching || terms.every(function (t) { return d.text.indexOf(t) !== -1; });
+            var ok = !searching || words.every(function (w) { return d.text.indexOf(w) !== -1; });
             d.el.hidden = !ok;
             if (ok && searching) {
                 total++;
                 perChapter[d.chapter] = (perChapter[d.chapter] || 0) + 1;
-                highlight(d.el, terms);
+                highlight(d.el, words);
             }
         });
 
         chapters.forEach(function (ch) {
-            // 検索中: 一致した条がある章をすべて出す / 通常: 選んでいる章だけ出す
+            // 検索中: 一致した項目がある章をすべて出す / 通常: 選んでいる章だけ出す
             ch.hidden = searching ? !perChapter[ch.id] : ch.id !== current;
             ch.querySelectorAll(".closing").forEach(function (c) { c.hidden = searching; });
+            if (searching) ch.classList.remove("turn");
         });
 
         links.forEach(function (a) {
             var id = a.getAttribute("data-chapter");
             a.classList.toggle("active", !searching && id === current);
-            a.querySelector(".count").textContent = searching ? (perChapter[id] || 0) + " 件" : "";
+            a.querySelector(".count").textContent = searching && perChapter[id] ? perChapter[id] + " 件" : "";
         });
         document.querySelectorAll(".sub").forEach(function (sub) {
             sub.hidden = searching || sub.getAttribute("data-sub") !== current;
         });
 
         empty.hidden = !searching || total > 0;
-        status.textContent = searching ? (total > 0 ? total + " 件の規則が見つかりました" : "見つかりませんでした") : "";
+        status.textContent = searching ? (total > 0 ? total + " 件見つかりました" : "見つかりませんでした") : "";
 
         // URL に検索語を残す (共有用)
         try {
@@ -807,18 +1416,19 @@ mark {
         } catch (e) {}
     }
 
-    // URL の # から開く章 (と移動先の条) を決める
+    // ---------- 章の切り替え (URL の # で決まる) ----------
+    // #server などの章名 → その章を開く / #rule-2 などの項目名 → その章を開いて項目まで移動する
     function route(scroll) {
         var id = decodeURIComponent(location.hash.slice(1));
         var target = id && document.getElementById(id);
         var chapter = target && (target.classList.contains("chapter") ? target : target.closest(".chapter"));
         if (!chapter) { target = null; chapter = document.getElementById("server"); }
 
-        var changed = chapter.id !== current;
+        var changed = chapter.id !== current || !!input.value;
         current = chapter.id;
-        if (input.value) input.value = ""; // 章や条を選んだら検索は解除する
+        if (input.value) input.value = ""; // 章や項目を選んだら検索は解除する
         render();
-        if (changed) fadeIn(chapter);
+        if (changed) turnPage(chapter);
 
         if (!scroll) return;
         if (target && target !== chapter) {
@@ -861,9 +1471,99 @@ mark {
         }
     });
 
-    // 最初の表示
-    route(!!location.hash);
+    // ---------- リンクのコピー ----------
+    var toastTimer;
+    function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+    }
+
+    function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+            var ta = el("textarea");
+            ta.value = text;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
+            document.body.removeChild(ta);
+        });
+    }
+
+    // ---------- 用語の説明 ----------
+    var tipFor = null;
+    function showTip(term) {
+        tipFor = term;
+        tip.innerHTML = "";
+        tip.appendChild(el("strong", null, term.getAttribute("data-tip-title")));
+        tip.appendChild(document.createTextNode(term.getAttribute("data-tip")));
+        var r = term.getBoundingClientRect();
+        tip.style.left = "0px";
+        tip.style.top = "0px";
+        tip.classList.add("show");
+        var w = tip.offsetWidth, h = tip.offsetHeight;
+        var left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8));
+        var top = r.bottom + 8;
+        if (top + h > window.innerHeight - 8) top = r.top - h - 8;
+        tip.style.left = left + "px";
+        tip.style.top = top + "px";
+    }
+    function hideTip() {
+        tipFor = null;
+        tip.classList.remove("show");
+    }
+
+    var hoverable = window.matchMedia("(hover: hover)").matches;
+    document.addEventListener("mouseover", function (e) {
+        if (!hoverable) return;
+        var t = e.target.closest(".term");
+        if (t) showTip(t); else if (tipFor) hideTip();
+    });
+    document.addEventListener("focusin", function (e) {
+        var t = e.target.closest(".term");
+        if (t) showTip(t);
+    });
+    document.addEventListener("focusout", function (e) {
+        if (e.target.closest(".term")) hideTip();
+    });
+    window.addEventListener("scroll", function () { if (tipFor) hideTip(); }, { passive: true });
+
+    document.addEventListener("click", function (e) {
+        // リンクのコピー
+        var btn = e.target.closest(".copy-link");
+        if (btn) {
+            var card = btn.closest(".rule");
+            var url = location.href.split("#")[0].split("?")[0] + "#" + card.id;
+            var num = card.getAttribute("data-num") || "";
+            var title = card.closest("#glossary") ? card.getAttribute("data-term") : card.querySelector("h3").textContent;
+            var text = "【" + (num ? num + " " : "") + title + "】 " + url;
+            copyText(text).then(
+                function () { showToast("リンクをコピーしました"); },
+                function () { showToast("コピーできませんでした"); }
+            );
+            return;
+        }
+
+        // スマホでは用語を押すと説明を出す (もう一度押すと用語集へ移動)
+        var term = e.target.closest(".term");
+        if (term && !hoverable && tipFor !== term) {
+            e.preventDefault();
+            showTip(term);
+            return;
+        }
+        if (!term && tipFor) hideTip();
+    });
+
+    // ---------- 最初の表示 ----------
+    // (route が URL の ?q= を消してしまうので、先に読んでおく)
     var initial = new URLSearchParams(location.search).get("q");
+    route(!!location.hash && !initial);
     if (initial) { input.value = initial; render(); }
 })();
 </script>
