@@ -1336,3 +1336,165 @@ mark {
 @media (prefers-reduced-motion: reduce) {
     .chapter .ink.revealed .c { animation: inkchar 0.9s ease both !important; animation-delay: calc(var(--c) * 55ms + 300ms) !important; }
 }
+
+/* =====================================================================
+   ギミック (第三弾): 魔力・ルーン・杖・鍵・暗号・季節・フクロウに尋ねる
+   ===================================================================== */
+
+/* ----- 魔力ゲージ (左側、読了の下) ----- */
+.mana { margin-top: 12px; }
+.mana-bar span {
+    background: linear-gradient(90deg, #6f8fc4, #a9c2ea) !important;
+    transition: width 0.4s ease !important;
+}
+.mana.empty .mana-bar span { background: var(--ng) !important; }
+.mana.shake { animation: shake 0.45s ease; }
+@keyframes shake {
+    0%, 100% { transform: none; }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+}
+
+/* ----- ルーンを描く線 ----- */
+.rune-canvas {
+    position: fixed; inset: 0;
+    z-index: 24;
+    pointer-events: none;
+}
+.drawing, .drawing * { user-select: none !important; cursor: crosshair !important; }
+
+/* ----- ヴィルガ: 杖先からこぼれる金の粉 ----- */
+.wand-dust {
+    position: fixed;
+    z-index: 27;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #f6e2b0;
+    box-shadow: 0 0 6px 1px rgba(214, 178, 110, 0.85);
+    pointer-events: none;
+    animation: wanddust 0.9s ease-out forwards;
+}
+@keyframes wanddust {
+    from { opacity: 1; transform: translate(0, 0) scale(1); }
+    to { opacity: 0; transform: translate(var(--dx, 0), 22px) scale(0.3); }
+}
+
+/* ----- 隠された鍵 ----- */
+.hidden-key {
+    display: inline-grid; place-items: center;
+    width: 22px; height: 22px;
+    margin: 0 4px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--gold);
+    opacity: 0.22;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: opacity 0.4s, transform 0.4s;
+}
+.hidden-key:hover, .hidden-key:focus-visible { opacity: 0.95; transform: rotate(-12deg) scale(1.15); }
+.hidden-key svg { width: 15px; height: 15px; }
+.hidden-key.glow { opacity: 0.85; animation: keyglow 2.2s ease-in-out infinite; }
+@keyframes keyglow {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(214, 178, 110, 0)); }
+    50% { filter: drop-shadow(0 0 6px rgba(214, 178, 110, 0.95)); }
+}
+.hidden-key.found { animation: keyfound 0.9s ease forwards; pointer-events: none; }
+@keyframes keyfound {
+    0% { opacity: 1; transform: scale(1); }
+    40% { opacity: 1; transform: scale(1.8) rotate(-20deg); }
+    100% { opacity: 0; transform: scale(0.4) translateY(-30px); }
+}
+.hidden-key.gone { display: none; }
+
+/* 第二の書架 (禁書庫の中、三つの鍵で開く) */
+.second-shelf { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+
+/* ----- インクの暗号: 印のついた文字 ----- */
+.ink.revealed .c.cipher {
+    color: #7fa6d8 !important;
+    text-shadow: 0 0 6px rgba(127, 166, 216, 0.6);
+    border-bottom: 1px dotted rgba(127, 166, 216, 0.7);
+}
+
+/* ----- 季節の舞い物 ----- */
+.season {
+    position: fixed;
+    top: -24px;
+    z-index: 13;
+    pointer-events: none;
+    animation: fall var(--d, 12s) linear forwards;
+}
+@keyframes fall {
+    0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+    8% { opacity: 1; }
+    25% { transform: translate(calc(var(--dx) * 0.4), 25vh) rotate(calc(var(--rot) * 0.3)); }
+    50% { transform: translate(calc(var(--dx) * -0.2), 52vh) rotate(calc(var(--rot) * 0.6)); }
+    75% { transform: translate(calc(var(--dx) * 0.7), 78vh) rotate(calc(var(--rot) * 0.85)); }
+    92% { opacity: 1; }
+    100% { transform: translate(var(--dx), 106vh) rotate(var(--rot)); opacity: 0; }
+}
+.season.petal { width: 11px; height: 8px; border-radius: 80% 0 80% 0; background: linear-gradient(135deg, #f6c6d2, #e9a3b6); opacity: 0.85; }
+.season.leaf { width: 13px; height: 9px; border-radius: 0 90% 0 90%; background: linear-gradient(135deg, #d9893f, #a5532a); }
+.season.snow { width: 6px; height: 6px; border-radius: 50%; background: #fff; box-shadow: 0 0 6px rgba(255, 255, 255, 0.9); }
+:root:not([data-theme="dark"]) .season.snow { background: #dfe8f3; box-shadow: 0 0 4px rgba(150, 170, 200, 0.8); }
+.season.firefly {
+    top: auto;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: #e6f59a;
+    box-shadow: 0 0 10px 3px rgba(214, 240, 120, 0.7);
+    animation: firefly var(--d, 9s) ease-in-out forwards;
+}
+@keyframes firefly {
+    0% { opacity: 0; transform: translate(0, 0); }
+    20% { opacity: 1; }
+    35% { opacity: 0.3; transform: translate(calc(var(--dx) * 0.4), -30px); }
+    50% { opacity: 1; }
+    70% { opacity: 0.4; transform: translate(calc(var(--dx) * -0.3), -70px); }
+    85% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), -110px); }
+}
+
+/* ----- フクロウに尋ねる ----- */
+.owl-ask {
+    pointer-events: auto;
+    width: min(320px, calc(100vw - 80px));
+    background: var(--paper);
+    border: 1px solid var(--gold-faint);
+    padding: 14px 14px 12px;
+    margin-bottom: 18px;
+    font-size: 0.85rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+.owl-ask form { display: flex; gap: 6px; }
+.owl-ask input {
+    flex: 1; min-width: 0;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 6px 8px;
+    outline: none;
+}
+.owl-ask input:focus { border-color: var(--gold-faint); }
+.owl-ask button {
+    font: inherit; font-size: 0.8rem;
+    border: 1px solid var(--gold-faint);
+    background: none;
+    color: var(--gold);
+    padding: 4px 10px;
+    cursor: pointer;
+}
+.owl-ask button:hover { border-color: var(--gold); }
+.owl-ask .answer-area { margin-top: 10px; line-height: 1.75; color: var(--ink-soft); }
+.owl-ask .answer-area:empty { display: none; }
+.owl-ask .answer-area ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 4px; }
+.owl-ask .answer-area a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--gold-faint); }
+.owl-ask .answer-area a:hover { color: var(--gold); }
+.owl-ask .answer-area .num { color: var(--gold); font-size: 0.75rem; margin-right: 6px; }
+.owl-ask .row-end { display: flex; justify-content: space-between; margin-top: 8px; }
+.owl-ask .row-end button { border-color: var(--line); color: var(--ink-soft); }

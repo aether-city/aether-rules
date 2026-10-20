@@ -70,7 +70,35 @@ var ASK_URL = "";
                 magna: { name: "マグナ", desc: "文字を大きくする", toast: "文字が大きくなった (パルヴァで戻る)", owl: "そんなに大きくしなくても読めている。" },
                 parva: { name: "パルヴァ", desc: "文字の大きさを元に戻す", toast: "文字の大きさが元に戻った", owl: "うむ、これくらいがちょうどいい。" },
                 solve: { name: "ソルヴェ", desc: "かけた魔法をすべてほどく", toast: "すべての魔法が解けた", owl: "散らかしたら片づける。よい心がけだ。" },
-                lethe: { name: "レーテ", desc: "読んだ記憶を忘却の川に流す", toast: "読んだ記憶が消え去った……", owl: "……はて、私は何をしていたのだったか。" }
+                lethe: { name: "レーテ", desc: "読んだ記憶を忘却の川に流す", toast: "読んだ記憶が消え去った……", owl: "……はて、私は何をしていたのだったか。" },
+                virga: { name: "ヴィルガ", desc: "指先を杖に変え、金の粉をこぼす (もう一度唱えると戻る)", toast: "指先が杖になった (もう一度唱えると戻る)", toastOff: "杖をしまった", owl: "ほう、なかなか様になっているぞ。" }
+            },
+            // ルーン: 本文の余白にマウスで描くと唱えられる呪文
+            runes: { candela: "円", scintilla: "三角", glacies: "ジグザグ", aeria: "下から上へまっすぐ" },
+            runeLabel: function (shape) { return "ルーン: " + shape; },
+            mana: { empty: "魔力が足りない。少し休もう", label: function (n, max) { return Math.floor(n) + " / " + max; } },
+            keys: {
+                eyebrow: "Hidden Key",
+                found: function (n, total) { return "隠された鍵 " + n + " / " + total; },
+                foundSub: "残りの鍵も、この書のどこかに眠っている。",
+                allTitle: "第二の書架が開いた",
+                allSub: "禁書庫のさらに奥に、もうひとつの書架が現れた。",
+                allSubSealed: "禁書庫の奥で、何かが開く音がした。……まずは禁書庫の封印を解こう。",
+                go: "第二の書架へ"
+            },
+            passcode: {
+                eyebrow: "Passphrase",
+                title: "合言葉が受け入れられた",
+                sub: "この書に隠された鍵が、かすかに光りはじめた。",
+                again: "その合言葉は、もう届いている。"
+            },
+            ask: {
+                placeholder: "フクロウに尋ねる (例: 配信していい？)",
+                send: "尋ねる",
+                tip: "ひとこと",
+                close: "閉じる",
+                intro: "それなら、ここを読むといい。",
+                none: "ふむ、その答えはこの書には記されていないようだ。カードの吹き出しから運営に聞いてみるといい。"
             },
             spellNew: function (n, total) { return "(新しい呪文を覚えた " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "見つけた呪文 " + n + " / " + total; },
@@ -99,6 +127,11 @@ var ASK_URL = "";
                 idle: "ゆっくり読むといい。急ぐ者ほど、規則を破る。",
                 archive: "見事だ。左の書架に、禁書庫の扉が現れたぞ。",
                 sealed: "その扉は、すべてを読み終えた者にしか開かない。",
+                manaEmpty: "魔力切れだ。少し休め。急ぐ魔法使いほど、杖を折る。",
+                rune: "見事なルーンだ。指先で描く魔法も、悪くないだろう？",
+                key: "鍵か……古い錠前の匂いがする。",
+                keysAll: "三つそろったか。……私の昔話を読まれるのは、少し照れるな。",
+                passcode: "その言葉を見つけたか。鍵たちが目を覚ましたぞ。",
                 tips: [
                     "迷ったら、事例集を開くとよい。",
                     "点線の言葉には、意味が隠されている。",
@@ -108,7 +141,11 @@ var ASK_URL = "";
                     "カードの右上の吹き出しを押せば、運営に質問できる。",
                     "余白の落書きは、この街の誰かが書いたものだ。",
                     "呪文はひとつではない。カンデラ、アエリア、ヴォカーレ……古い言葉を試してみるといい。",
-                    "禁書庫には、見つけた呪文を記す帳面がある。"
+                    "禁書庫には、見つけた呪文を記す帳面がある。",
+                    "本文の余白に、マウスで円を描いてみるといい。……何が起きるかは、お楽しみだ。",
+                    "インクの中に、色の違う文字が混じっている。",
+                    "この書のどこかに、小さな鍵が三つ隠れている。",
+                    "呪文を唱えすぎると、魔力が尽きる。左の青い線を見ておけ。"
                 ]
             }
         },
@@ -152,7 +189,34 @@ var ASK_URL = "";
                 magna: { name: "Magna", desc: "Makes the text larger", toast: "The text grows larger (cast Parva to undo)", owl: "No need to make it that big, I can read it." },
                 parva: { name: "Parva", desc: "Returns the text to normal size", toast: "The text returns to normal", owl: "Yes, that's just right." },
                 solve: { name: "Solve", desc: "Undoes every spell you have cast", toast: "Every spell has been undone", owl: "Clean up after yourself. Good habit." },
-                lethe: { name: "Lethe", desc: "Washes your reading memory into the river of oblivion", toast: "Your reading memory fades away…", owl: "…Hm? What was I doing again?" }
+                lethe: { name: "Lethe", desc: "Washes your reading memory into the river of oblivion", toast: "Your reading memory fades away…", owl: "…Hm? What was I doing again?" },
+                virga: { name: "Virga", desc: "Turns your fingertip into a wand that sheds golden dust (cast again to stop)", toast: "Your fingertip becomes a wand (cast again to stop)", toastOff: "You put the wand away", owl: "Oh, that suits you rather well." }
+            },
+            runes: { candela: "circle", scintilla: "triangle", glacies: "zigzag", aeria: "a straight line upward" },
+            runeLabel: function (shape) { return "Rune: " + shape; },
+            mana: { empty: "Not enough mana. Rest a while", label: function (n, max) { return Math.floor(n) + " / " + max; } },
+            keys: {
+                eyebrow: "Hidden Key",
+                found: function (n, total) { return "Hidden key " + n + " / " + total; },
+                foundSub: "The other keys still sleep somewhere in this book.",
+                allTitle: "The Second Shelf is open",
+                allSub: "Another shelf has appeared deeper within the Archive.",
+                allSubSealed: "Something unlocked deep within the Archive… First, break the Archive's seal.",
+                go: "Go to the Second Shelf"
+            },
+            passcode: {
+                eyebrow: "Passphrase",
+                title: "The passphrase is accepted",
+                sub: "The keys hidden in this book begin to glow faintly.",
+                again: "That passphrase has already been heard."
+            },
+            ask: {
+                placeholder: "Ask the owl (e.g. can I stream?)",
+                send: "Ask",
+                tip: "A word",
+                close: "Close",
+                intro: "Then read this.",
+                none: "Hm, the answer is not written in this book. Try asking the staff with the speech bubble on a card."
             },
             spellNew: function (n, total) { return "(New spell learned " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "Spells found " + n + " / " + total; },
@@ -180,6 +244,11 @@ var ASK_URL = "";
                 idle: "Take your time. Those who hurry are the ones who break the rules.",
                 archive: "Splendid. The door to the Archive has appeared on the shelf to the left.",
                 sealed: "That door opens only for those who have read everything.",
+                manaEmpty: "Out of mana. Rest. The hasty wizard is the one who breaks their wand.",
+                rune: "A fine rune. Magic drawn by hand isn't bad, is it?",
+                key: "A key… it smells of old locks.",
+                keysAll: "All three, then. …It's a little embarrassing to have my old story read.",
+                passcode: "So you found the words. The keys have awakened.",
                 tips: [
                     "When in doubt, open the Precedents.",
                     "Dotted words hide their meanings.",
@@ -189,7 +258,11 @@ var ASK_URL = "";
                     "The speech bubble on each card lets you ask the staff a question.",
                     "The scribbles in the margins were written by someone in this city.",
                     "There is more than one spell. Candela, Aeria, Vocare… try the old tongue.",
-                    "The Archive holds a book that records the spells you find."
+                    "The Archive holds a book that records the spells you find.",
+                    "Try drawing a circle with your mouse in the empty margins… you'll see.",
+                    "Some letters in the hidden ink are a different color.",
+                    "Three small keys are hidden somewhere in this book.",
+                    "Cast too much and your mana runs dry. Watch the blue line on the left."
                 ]
             }
         }
@@ -815,14 +888,15 @@ var ASK_URL = "";
         owlTimer = setTimeout(function () { owlBubble.classList.remove("show"); }, OWL_SHOW_MS);
     }
 
+    function owlTip() {
+        var tips = TEXT.owl.tips;
+        var i;
+        do { i = Math.floor(Math.random() * tips.length); } while (tips.length > 1 && i === lastTip);
+        lastTip = i;
+        owlSay(tips[i], true);
+    }
     if (owlBtn) {
-        owlBtn.addEventListener("click", function () {
-            var tips = TEXT.owl.tips;
-            var i;
-            do { i = Math.floor(Math.random() * tips.length); } while (tips.length > 1 && i === lastTip);
-            lastTip = i;
-            owlSay(tips[i], true);
-        });
+        owlBtn.addEventListener("click", function () { toggleAsk(); });
     }
 
     // 初めて来た人にあいさつ (このブラウザで 1 回だけ)
@@ -867,7 +941,8 @@ var ASK_URL = "";
         { id: "magna", words: ["まぐな", "magna"] },
         { id: "parva", words: ["ぱるゔぁ", "ぱるば", "parva"] },
         { id: "solve", words: ["そるゔぇ", "そるべ", "solve"] },
-        { id: "lethe", words: ["れーて", "lethe"] }
+        { id: "lethe", words: ["れーて", "lethe"] },
+        { id: "virga", words: ["ゔぃるが", "びるが", "virga"] }
     ];
 
     var root = document.documentElement;
@@ -902,22 +977,53 @@ var ASK_URL = "";
         return null;
     }
 
+    // 呪文ごとの魔力の消費 (書いていない呪文は 0)
+    var SPELL_COST = {
+        candela: 10, solaris: 25, atramento: 20, perspica: 15, vocare: 15,
+        aeria: 30, scintilla: 25, nebula: 25, glacies: 25, magna: 5, virga: 10
+    };
+    // インクの暗号を解いた合言葉 (日本語版: とびらをひらけ / 英語版: UNLOCK。どちらの版でも通じる)
+    var PASSCODES = ["とびらをひらけ", "unlock"];
+
+    // 検索欄に唱えた言葉を呪文として扱う (呪文でなければ false を返し、ふつうの検索になる)
     function castSpell() {
-        var found = findSpell(input.value);
+        var raw = input.value;
+        if (PASSCODES.indexOf(compact(raw)) !== -1) {
+            input.value = "";
+            render();
+            input.blur();
+            speakPasscode();
+            return true;
+        }
+        var found = findSpell(raw);
         if (!found) return false;
         input.value = "";
         render();
         input.blur();
+        performSpell(found.id, found.arg);
+        return true;
+    }
 
-        var info = TEXT.spells[found.id];
+    function performSpell(id, arg) {
+        var info = TEXT.spells[id];
+        var cost = SPELL_COST[id] || 0;
+        if (cost > mana) {
+            showToast(TEXT.mana.empty);
+            owlSay(TEXT.owl.manaEmpty, true);
+            manaBox.classList.remove("shake");
+            void manaBox.offsetWidth;
+            manaBox.classList.add("shake");
+            return false;
+        }
         var toastText = info.toast;
-        var ok = EFFECTS[found.id](found.arg);
-        if (ok === false) return true; // 効果が出なかった (召喚の空振り・忘却の確認)
+        var ok = EFFECTS[id](arg);
+        if (ok === false) return false; // 効果が出なかった (召喚の空振り・忘却の確認)
         if (typeof ok === "string") toastText = ok;
+        spendMana(cost);
 
         incant(info.name);
-        if (!known[found.id]) {
-            known[found.id] = true;
+        if (!known[id]) {
+            known[id] = true;
             save("rules-spells", JSON.stringify(Object.keys(known)));
             renderSpellbook();
             var learned = {
@@ -935,6 +1041,30 @@ var ASK_URL = "";
         owlSay(info.owl, true);
         return true;
     }
+
+    // ---------- 魔力 ----------
+    // 最大 100。呪文で減り、1 秒に MANA_REGEN ずつ戻る (このタブを開いている間だけ)
+    var MANA_MAX = 100;
+    var MANA_REGEN = 2;
+    var mana = MANA_MAX;
+    var manaBox = document.getElementById("mana");
+    var manaBar = document.getElementById("mana-bar");
+    var manaText = document.getElementById("mana-text");
+    function drawMana() {
+        manaBar.style.width = (mana / MANA_MAX * 100) + "%";
+        manaText.textContent = TEXT.mana.label(mana, MANA_MAX);
+        manaBox.classList.toggle("empty", mana < 10);
+    }
+    function spendMana(n) {
+        mana = Math.max(0, mana - n);
+        drawMana();
+    }
+    setInterval(function () {
+        if (mana >= MANA_MAX) return;
+        mana = Math.min(MANA_MAX, mana + MANA_REGEN / 2);
+        drawMana();
+    }, 500);
+    drawMana();
 
     // 透明インクを浮かび上がらせる (1 文字ずつにじみ出るように文字を分ける)
     function revealInk(scroll) {
@@ -957,6 +1087,12 @@ var ASK_URL = "";
                     n.appendChild(word);
                 });
                 n.setAttribute("data-split", "1");
+                // 暗号の印: data-cipher 番目の文字の色を変える
+                var ci = n.getAttribute("data-cipher");
+                if (ci !== null) {
+                    var mark = n.querySelectorAll(".c")[+ci];
+                    if (mark) mark.classList.add("cipher");
+                }
             }
             n.classList.add("revealed");
             n.removeAttribute("aria-hidden");
@@ -1088,6 +1224,10 @@ var ASK_URL = "";
             root.style.fontSize = "";
             hideInk();
         },
+        virga: function () {
+            wandOn = !wandOn;
+            if (!wandOn) return TEXT.spells.virga.toastOff;
+        },
         lethe: function () {
             // 忘却: 大事な記録を消すので、10 秒以内にもう一度唱えたときだけ実行する
             var t = Date.now();
@@ -1117,6 +1257,10 @@ var ASK_URL = "";
             var info = TEXT.spells[sp.id];
             li.appendChild(el("b", null, known[sp.id] ? info.name : "？？？"));
             li.appendChild(document.createTextNode(known[sp.id] ? info.desc : TEXT.spellUnknown));
+            if (known[sp.id] && TEXT.runes[sp.id]) {
+                li.appendChild(el("br"));
+                li.appendChild(el("small", null, TEXT.runeLabel(TEXT.runes[sp.id])));
+            }
             spellbookList.appendChild(li);
         });
         spellbookCount.textContent = TEXT.spellCount(knownCount(), SPELLS.length);
@@ -1140,6 +1284,339 @@ var ASK_URL = "";
     window.addEventListener("touchmove", function (e) {
         if (e.touches[0]) moveCandle(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
+
+    // ---------- ルーン (本文の余白にマウスで描いて唱える) ----------
+    // 何もない余白 (カードや文字の上ではない所) でマウスを押したまま描くと、形を見分けて呪文を唱える。
+    //   円 → カンデラ / 三角 → スキンティラ / ジグザグ → グラキエス / 下から上へまっすぐ → アエリア
+    // スマホの指はスクロールと区別できないので、マウスとペンだけ。
+    var RUNE_SPELL = { circle: "candela", triangle: "scintilla", zigzag: "glacies", up: "aeria" };
+    var runeCanvas = el("canvas", "rune-canvas");
+    runeCanvas.setAttribute("aria-hidden", "true");
+    document.body.appendChild(runeCanvas);
+    var rctx = runeCanvas.getContext ? runeCanvas.getContext("2d") : null;
+    var runePts = null, runeFade = 0;
+
+    function sizeRuneCanvas() {
+        var dpr = window.devicePixelRatio || 1;
+        runeCanvas.width = window.innerWidth * dpr;
+        runeCanvas.height = window.innerHeight * dpr;
+        if (rctx) rctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    sizeRuneCanvas();
+    window.addEventListener("resize", sizeRuneCanvas);
+
+    function drawRune(alpha) {
+        if (!rctx) return;
+        rctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        if (!runePts || runePts.length < 2) return;
+        rctx.lineCap = "round";
+        rctx.lineJoin = "round";
+        rctx.strokeStyle = "rgba(214, 178, 110, " + (0.9 * alpha) + ")";
+        rctx.shadowColor = "rgba(214, 178, 110, " + (0.8 * alpha) + ")";
+        rctx.shadowBlur = 12;
+        rctx.lineWidth = 2.2;
+        rctx.beginPath();
+        rctx.moveTo(runePts[0].x, runePts[0].y);
+        for (var i = 1; i < runePts.length; i++) rctx.lineTo(runePts[i].x, runePts[i].y);
+        rctx.stroke();
+    }
+
+    // 何もない余白で押したかどうか
+    function isBlank(target) {
+        if (!target || !target.closest) return false;
+        if (target.closest(".side, .owl, .announce-wrap, a, button, input, select, label, textarea")) return false;
+        return target === document.body || target === document.documentElement
+            || target.matches(".layout, .main, .chapter, .rules, .circle, .sky");
+    }
+
+    // 点の列を等間隔に並べ直す
+    function resample(pts, n) {
+        var len = 0, i;
+        for (i = 1; i < pts.length; i++) len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+        var step = len / (n - 1), out = [pts[0]], acc = 0, prev = pts[0];
+        for (i = 1; i < pts.length; i++) {
+            var cur = pts[i], d = Math.hypot(cur.x - prev.x, cur.y - prev.y);
+            while (acc + d >= step && out.length < n) {
+                var t = (step - acc) / d;
+                prev = { x: prev.x + (cur.x - prev.x) * t, y: prev.y + (cur.y - prev.y) * t };
+                out.push(prev);
+                d = Math.hypot(cur.x - prev.x, cur.y - prev.y);
+                acc = 0;
+            }
+            acc += d;
+            prev = cur;
+        }
+        while (out.length < n) out.push(pts[pts.length - 1]);
+        return { pts: out, len: len };
+    }
+
+    // 描いた形を見分ける (circle / triangle / zigzag / up / null)
+    function recognize(raw) {
+        if (raw.length < 6) return null;
+        var r = resample(raw, 40), pts = r.pts, len = r.len;
+        var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        pts.forEach(function (q) {
+            minX = Math.min(minX, q.x); maxX = Math.max(maxX, q.x);
+            minY = Math.min(minY, q.y); maxY = Math.max(maxY, q.y);
+        });
+        var w = maxX - minX, h = maxY - minY, diag = Math.hypot(w, h);
+        if (diag < 70) return null; // 小さすぎるのはただのクリック
+        var first = pts[0], last = pts[pts.length - 1];
+        var closed = Math.hypot(last.x - first.x, last.y - first.y) < diag * 0.3;
+
+        // 曲がり角の数 (向きが 55 度以上変わる所。続けて曲がる所は 1 つと数える)
+        var corners = 0, bending = false, totalTurn = 0;
+        for (var i = 2; i < pts.length; i++) {
+            var a1 = Math.atan2(pts[i - 1].y - pts[i - 2].y, pts[i - 1].x - pts[i - 2].x);
+            var a2 = Math.atan2(pts[i].y - pts[i - 1].y, pts[i].x - pts[i - 1].x);
+            var dA = Math.abs(a2 - a1);
+            if (dA > Math.PI) dA = 2 * Math.PI - dA;
+            totalTurn += dA;
+            if (dA > 0.96) { if (!bending) corners++; bending = true; } else bending = false;
+        }
+
+        if (!closed && corners === 0 && (first.y - last.y) > len * 0.8 && h > 90) return "up";
+        if (closed && corners >= 2 && corners <= 4) return "triangle";
+        if (closed && corners <= 1 && totalTurn > 4.5 && w > 0.4 * h && h > 0.4 * w) return "circle";
+        if (!closed && corners >= 3) return "zigzag";
+        return null;
+    }
+
+    document.addEventListener("pointerdown", function (e) {
+        if (e.button !== 0 || (e.pointerType !== "mouse" && e.pointerType !== "pen")) return;
+        if (!isBlank(e.target)) return;
+        e.preventDefault();
+        runePts = [{ x: e.clientX, y: e.clientY }];
+        clearTimeout(runeFade);
+        root.classList.add("drawing");
+    });
+    window.addEventListener("pointermove", function (e) {
+        if (!runePts) return;
+        runePts.push({ x: e.clientX, y: e.clientY });
+        drawRune(1);
+    });
+    window.addEventListener("pointerup", function () {
+        if (!runePts) return;
+        root.classList.remove("drawing");
+        var shape = recognize(runePts);
+        var pts = runePts;
+        // 描いた線をゆっくり消す
+        var t0 = Date.now();
+        (function fade() {
+            var k = 1 - (Date.now() - t0) / 900;
+            runePts = null;
+            if (k <= 0) { if (rctx) rctx.clearRect(0, 0, window.innerWidth, window.innerHeight); return; }
+            runePts = pts;
+            drawRune(k);
+            runePts = null;
+            runeFade = setTimeout(fade, 30);
+        })();
+        if (shape && performSpell(RUNE_SPELL[shape], "")) {
+            setTimeout(function () { owlSay(TEXT.owl.rune); }, 2600);
+        }
+    });
+
+    // ---------- ヴィルガ (指先が杖になり、金の粉がこぼれる) ----------
+    var wandOn = false, wandLast = 0;
+    window.addEventListener("mousemove", function (e) {
+        if (!wandOn) return;
+        var t = Date.now();
+        if (t - wandLast < 35) return;
+        wandLast = t;
+        var d = el("span", "wand-dust");
+        d.style.left = (e.clientX + Math.random() * 6 - 3).toFixed(0) + "px";
+        d.style.top = (e.clientY + Math.random() * 6 - 3).toFixed(0) + "px";
+        d.style.setProperty("--dx", (Math.random() * 16 - 8).toFixed(0) + "px");
+        document.body.appendChild(d);
+        d.addEventListener("animationend", function () { d.remove(); });
+    }, { passive: true });
+
+    // ---------- 隠された三つの鍵 ----------
+    // 見つけた鍵はこのブラウザに記録する。三つそろうと、禁書庫に「第二の書架」が開く。
+    var KEY_TOTAL = 3;
+    var keysFound = {};
+    try { (JSON.parse(load("rules-keys") || "[]") || []).forEach(function (k) { keysFound[k] = true; }); } catch (e) {}
+    var secondShelf = document.getElementById("second-shelf");
+    function keyCount() { return Object.keys(keysFound).length; }
+    function drawKeys() {
+        document.querySelectorAll(".hidden-key").forEach(function (k) {
+            k.classList.toggle("gone", !!keysFound[k.getAttribute("data-key")]);
+        });
+    }
+    document.addEventListener("click", function (e) {
+        var k = e.target.closest(".hidden-key");
+        if (!k) return;
+        e.preventDefault();
+        var id = k.getAttribute("data-key");
+        if (keysFound[id]) return;
+        keysFound[id] = true;
+        save("rules-keys", JSON.stringify(Object.keys(keysFound)));
+        k.classList.add("found");
+        setTimeout(function () { k.classList.add("gone"); }, 900);
+        var n = keyCount();
+        if (n < KEY_TOTAL) {
+            announce({ eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.found(n, KEY_TOTAL), sub: TEXT.keys.foundSub, light: true, ms: 4000 });
+            owlSay(TEXT.owl.key, true);
+        } else {
+            var shelf = { eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.allTitle, ms: 10000 };
+            if (archiveOpen) {
+                shelf.sub = TEXT.keys.allSub;
+                shelf.href = "#second-shelf";
+                shelf.go = TEXT.keys.go;
+            } else {
+                shelf.sub = TEXT.keys.allSubSealed;
+            }
+            announce(shelf);
+            owlSay(TEXT.owl.keysAll, true);
+            updateProgress();
+        }
+    });
+    drawKeys();
+
+    // ---------- 合言葉 (インクの暗号を解くと、鍵が光りはじめる) ----------
+    var passcodeHeard = false;
+    try { passcodeHeard = !!load("rules-passcode"); } catch (e) {}
+    function glowKeys() {
+        document.querySelectorAll(".hidden-key").forEach(function (k) { k.classList.add("glow"); });
+    }
+    function speakPasscode() {
+        incant(LANG === "en" ? "UNLOCK" : "とびらをひらけ");
+        if (passcodeHeard) { showToast(TEXT.passcode.again); glowKeys(); return; }
+        passcodeHeard = true;
+        save("rules-passcode", "1");
+        glowKeys();
+        setTimeout(function () {
+            announce({ eyebrow: TEXT.passcode.eyebrow, title: TEXT.passcode.title, sub: TEXT.passcode.sub, ms: 8000 });
+            owlSay(TEXT.owl.passcode, true);
+        }, 1200);
+    }
+    if (passcodeHeard) glowKeys();
+
+    // ---------- 季節の舞い物 ----------
+    // 月に合わせて、ときどきひとつずつ舞い落ちる (春: 花びら / 夏: 蛍 / 秋: 落ち葉 / 冬: 雪)
+    var SEASON_MAX = 6;
+    function seasonKind() {
+        var m = new Date().getMonth() + 1;
+        return m >= 3 && m <= 5 ? "petal" : m >= 6 && m <= 8 ? "firefly" : m >= 9 && m <= 11 ? "leaf" : "snow";
+    }
+    function spawnSeason() {
+        // (ゆっくり少しだけ舞うので、Windows の「アニメーション効果」がオフでも出す)
+        if (document.hidden || document.querySelectorAll(".season").length >= SEASON_MAX) return;
+        var kind = seasonKind();
+        var f = el("span", "season " + kind);
+        f.setAttribute("aria-hidden", "true");
+        f.style.left = (5 + Math.random() * 90).toFixed(1) + "vw";
+        f.style.setProperty("--dx", (Math.random() * 160 - 80).toFixed(0) + "px");
+        f.style.setProperty("--rot", (Math.random() * 720 - 360).toFixed(0) + "deg");
+        if (kind === "firefly") {
+            f.style.top = (35 + Math.random() * 55).toFixed(1) + "vh";
+            f.style.setProperty("--d", (7 + Math.random() * 4).toFixed(1) + "s");
+        } else {
+            f.style.setProperty("--d", (11 + Math.random() * 6).toFixed(1) + "s");
+        }
+        document.body.appendChild(f);
+        f.addEventListener("animationend", function () { f.remove(); });
+    }
+    (function seasonLoop() {
+        spawnSeason();
+        setTimeout(seasonLoop, 4000 + Math.random() * 5000);
+    })();
+
+    // ---------- フクロウに尋ねる ----------
+    // 尋ねた言葉に近い規則・質問を探して案内する (検索と違い、言い回しが違っても近いものを拾う)
+    var askBox = null, askAnswer = null;
+    function toggleAsk() {
+        if (askBox && !askBox.hidden) { askBox.hidden = true; return; }
+        if (!askBox) {
+            askBox = el("div", "owl-ask");
+            var form = el("form");
+            var q = el("input");
+            q.type = "text";
+            q.placeholder = TEXT.ask.placeholder;
+            q.setAttribute("aria-label", TEXT.ask.placeholder);
+            var send = el("button", null, TEXT.ask.send);
+            send.type = "submit";
+            form.appendChild(q);
+            form.appendChild(send);
+            askAnswer = el("div", "answer-area");
+            var row = el("div", "row-end");
+            var tipBtn = el("button", null, TEXT.ask.tip);
+            tipBtn.type = "button";
+            tipBtn.addEventListener("click", function () { owlTip(); });
+            var closeBtn = el("button", null, TEXT.ask.close);
+            closeBtn.type = "button";
+            closeBtn.addEventListener("click", function () { askBox.hidden = true; });
+            row.appendChild(tipBtn);
+            row.appendChild(closeBtn);
+            askBox.appendChild(form);
+            askBox.appendChild(askAnswer);
+            askBox.appendChild(row);
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                answer(q.value);
+            });
+            askAnswer.addEventListener("click", function (e) {
+                if (e.target.closest("a")) askBox.hidden = true;
+            });
+            var owlEl = document.getElementById("owl");
+            owlEl.insertBefore(askBox, owlBtn);
+        }
+        askBox.hidden = false;
+        owlBubble.classList.remove("show");
+        askBox.querySelector("input").focus();
+    }
+
+    // 文字の組 (2 文字ずつ) の重なりで近さを測る。ひらがなだけの組 (「して」「いい」など) は軽く数える
+    function grams(t) {
+        var s = norm(t).replace(/[\s、。・，．,.!?！？「」()（）]/g, "");
+        var out = {};
+        for (var i = 0; i < s.length - 1; i++) {
+            var g = s.substr(i, 2);
+            out[g] = /^[ぁ-ゟ]+$/.test(g) ? 0.15 : 1;
+        }
+        return out;
+    }
+    var STOP_EN = ["the", "a", "an", "is", "are", "can", "i", "do", "does", "to", "of", "in", "on", "it", "my", "what", "how", "if", "be", "and", "or", "for", "with", "me", "should"];
+    function score(query, d) {
+        if (LANG === "en") {
+            var words = norm(query).split(/[^a-z0-9]+/).filter(function (w) { return w.length > 1 && STOP_EN.indexOf(w) === -1; });
+            if (!words.length) return 0;
+            var hit = words.filter(function (w) { return d.text.indexOf(w.length > 4 ? w.slice(0, -1) : w) !== -1; }).length;
+            return hit / words.length;
+        }
+        var g = grams(query), total = 0, got = 0;
+        Object.keys(g).forEach(function (k) {
+            total += g[k];
+            if (d.text.indexOf(k) !== -1) got += g[k];
+        });
+        return total ? got / total : 0;
+    }
+    function answer(query) {
+        askAnswer.innerHTML = "";
+        if (!query.trim()) return;
+        var best = data
+            .map(function (d) { return { d: d, s: score(query, d) }; })
+            .filter(function (x) { return x.s >= 0.5; })
+            .sort(function (a, b) { return b.s - a.s; })
+            .slice(0, 3);
+        if (!best.length) {
+            askAnswer.appendChild(document.createTextNode(TEXT.ask.none));
+            return;
+        }
+        askAnswer.appendChild(document.createTextNode(TEXT.ask.intro));
+        var ul = el("ul");
+        best.forEach(function (x) {
+            var a = el("a");
+            a.href = "#" + x.d.el.id;
+            var num = x.d.el.getAttribute("data-num") || "";
+            if (num) a.appendChild(el("span", "num", num));
+            a.appendChild(document.createTextNode(x.d.chapter === "glossary" ? x.d.el.getAttribute("data-term") : x.d.el.querySelector("h3").textContent));
+            var li = el("li");
+            li.appendChild(a);
+            ul.appendChild(li);
+        });
+        askAnswer.appendChild(ul);
+    }
 
     // ---------- 時刻で変わる空 ----------
     // 5-7 時: 明け方 / 7-16 時: 昼 / 16-19 時: 夕方 / 19-5 時: 夜 (見ている人の時計で決まる)
@@ -1231,6 +1708,7 @@ var ASK_URL = "";
         archiveSealed.hidden = open;
         archiveContent.hidden = !open;
         if (spellbook) spellbook.hidden = !open;
+        if (secondShelf) secondShelf.hidden = !(open && keyCount() >= KEY_TOTAL);
         archiveProgress.textContent = TEXT.archiveProgress(done, readable.length);
         if (opening) {
             var link = archiveNav.querySelector(".chapter-link");

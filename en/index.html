@@ -139,6 +139,10 @@
                 <button type="button" id="progress-reset" title="Clear reading record">Reset</button>
             </div>
             <div class="progress-bar"><span id="progress-bar"></span></div>
+            <div class="mana" id="mana">
+                <div class="progress-row"><span>Mana</span><span id="mana-text"></span></div>
+                <div class="progress-bar mana-bar"><span id="mana-bar"></span></div>
+            </div>
         </div>
 
         <div class="side-foot">
@@ -203,7 +207,7 @@
                 <li><a href="#faq"><small>Need help?</small>FAQ<span>Streaming, reports, bugs and more</span></a></li>
                 <li><a href="#glossary"><small>Unknown words</small>Glossary<span>RDM, metagaming, NLR and more</span></a></li>
             </ul>
-            <p class="ink" aria-hidden="true">Blessings upon those who take the first step.</p>
+            <p class="ink" aria-hidden="true" data-cipher="9">Blessings upon those who take the first step.</p>
         </section>
 
         <!-- ===== Server Rules ===== -->
@@ -253,7 +257,7 @@
                 The rules exist to protect the story.<br>
                 Respect one another, and let us weave this world together.
             </p>
-            <p class="ink" aria-hidden="true">Only those who read this book to the end will find the archive's door open.</p>
+            <p class="ink" aria-hidden="true" data-cipher="1">Only those who read this book to the end will find the archive's door open.</p>
         </section>
 
         <!-- ===== Job Rules (draft) ===== -->
@@ -382,7 +386,7 @@
                 <h3 class="section-title">Precedents related to this job</h3>
                 <ul id="job-cases-list"></ul>
             </div>
-            <p class="ink" aria-hidden="true">A job shapes a person. But a person can also stain a job.</p>
+            <p class="ink" aria-hidden="true" data-cipher="32">A job shapes a person. But a person can also stain a job.</p>
         </section>
 
         <!-- ===== Character Guide (draft) ===== -->
@@ -454,7 +458,7 @@
                     </ol>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">A name is the first spell a person ever casts.</p>
+            <p class="ink" aria-hidden="true" data-cipher="25">A name is the first spell a person ever casts.</p>
         </section>
 
         <!-- ===== Precedents (draft) ===== -->
@@ -517,7 +521,7 @@
                     <p class="related">Related rules: <a href="#job-medic">Medical</a></p>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">Precedents are written to save someone yet to come.</p>
+            <p class="ink" aria-hidden="true" data-cipher="38">Precedents are written to save someone yet to come.</p>
         </section>
 
         <!-- ===== FAQ (draft) ===== -->
@@ -573,7 +577,7 @@
                     <p class="answer">Please consult the staff in the support channel. A remade character cannot carry over the previous character's items or relationships.</p>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">For questions without answers, ask the librarian in the corner.</p>
+            <p class="ink" aria-hidden="true" data-cipher="29">For questions without answers, ask the librarian in the corner.</p>
         </section>
 
         <!-- ===== Glossary ===== -->
@@ -581,7 +585,7 @@
             <div class="chapter-head">
                 <p class="eyebrow">Lexicon</p>
                 <h2>Glossary</h2>
-                <p class="lead">The meaning of words used in the rules. Hover over (or tap) a dotted word in the text to see its meaning.</p>
+                <p class="lead">The meaning of words used in the rules. Hover over (or tap) a dotted word in the text to see its meaning.<button class="hidden-key" type="button" data-key="1" aria-label="Key" title="Key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></p>
                 <div class="rule-line"></div>
             </div>
 
@@ -679,9 +683,9 @@
                 <li>● marks the first penalty given; ○ marks the heaviest penalty for repeated offenses.</li>
                 <li>Three warnings result in a temporary ban.</li>
                 <li>In malicious cases, or when the staff deem it necessary, stages may be skipped.</li>
-                <li>If you disagree with a penalty, you may appeal through the Discord support channel.</li>
+                <li>If you disagree with a penalty, you may appeal through the Discord support channel.<button class="hidden-key" type="button" data-key="2" aria-label="Key" title="Key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></li>
             </ul>
-            <p class="ink" aria-hidden="true">A seal is not made to be broken, but to show that someone stands guard.</p>
+            <p class="ink" aria-hidden="true">Read the marked letters in chapter order, and speak them aloud. A seal exists to show that someone stands guard.</p>
         </section>
 
         <!-- ===== Revisions ===== -->
@@ -696,7 +700,7 @@
             <ol class="chronicle">
                 <li>
                     <time datetime="2026-10-20">2026.10.20</time>
-                    <h3>The Book of Rules is published</h3>
+                    <h3>The Book of Rules is published<button class="hidden-key" type="button" data-key="3" aria-label="Key" title="Key"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></h3>
                     <ul>
                         <li><a href="#server">Server Rules</a> Articles I–IV established</li>
                         <li><a href="#jobs">Job Rules</a>, <a href="#cases">Precedents</a> and <a href="#penalty">Penalties</a> published as drafts</li>
@@ -746,6 +750,25 @@
                 <h3 class="section-title">Book of Spells</h3>
                 <p class="count-line" id="spellbook-count"></p>
                 <ol id="spellbook-list"></ol>
+            </div>
+
+            <div class="second-shelf" id="second-shelf" hidden>
+                <h3 class="section-title">The Second Shelf</h3>
+                <ol class="lore">
+                    <li>
+                        <h3>The Rumor of Seven Towers</h3>
+                        <p>It is said that somewhere in this city stand seven towers that appear on no map. Each rises where the currents of Aether swirl, and all who approach them lose their way.</p>
+                    </li>
+                    <li>
+                        <h3>The Backflow of Aether</h3>
+                        <p>Once a year there is a night when the Aether beneath the city flows backward. On that night alone, magic turns a little capricious. Lamps light themselves, and locks open on their own.</p>
+                    </li>
+                    <li>
+                        <h3>The Librarian's Secret</h3>
+                        <p>They say the owl in the corner of this book was once the Academy's first librarian. Whether it was transformed as punishment or chose this form itself, only the owl knows.</p>
+                        <p class="sign">— To the one who gathered three keys</p>
+                    </li>
+                </ol>
             </div>
         </section>
 

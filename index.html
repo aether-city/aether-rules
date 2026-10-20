@@ -141,6 +141,11 @@
                 <button type="button" id="progress-reset" title="読んだ記録を消す">記録を消す</button>
             </div>
             <div class="progress-bar"><span id="progress-bar"></span></div>
+            <!-- 魔力: 呪文を唱えると減り、時間がたつと戻る -->
+            <div class="mana" id="mana">
+                <div class="progress-row"><span>魔力</span><span id="mana-text"></span></div>
+                <div class="progress-bar mana-bar"><span id="mana-bar"></span></div>
+            </div>
         </div>
 
         <div class="side-foot">
@@ -230,7 +235,7 @@
                 <li><a href="#glossary"><small>わからない言葉は</small>用語集<span>RDM・メタ・NLR などの意味</span></a></li>
             </ul>
             <!-- 透明インク: 検索欄で「アトラメント」と唱えると浮かび上がる (各章に 1 つずつ) -->
-            <p class="ink" aria-hidden="true">はじめの一歩を踏み出した者に、祝福を。</p>
+            <p class="ink" aria-hidden="true" data-cipher="16">はじめの一歩を踏み出した者に、ひとしずくの祝福を。</p>
         </section>
 
         <!--
@@ -287,7 +292,7 @@
                 Discord などの連絡先を載せる場合は、下のコメントを外して URL を書き換えてください。
                 <p class="closing"><a href="https://discord.gg/xxxxxx">Discord で管理者に連絡する</a></p>
             -->
-            <p class="ink" aria-hidden="true">この書を最後まで読んだ者にだけ、禁書庫の扉は開かれる。</p>
+            <p class="ink" aria-hidden="true" data-cipher="28">この書を最後まで読みとおした者にだけ、禁書庫の扉はふたたび開かれる。</p>
         </section>
 
         <!--
@@ -422,7 +427,7 @@
                 <h3 class="section-title">この職業に関連する事例</h3>
                 <ul id="job-cases-list"></ul>
             </div>
-            <p class="ink" aria-hidden="true">職は人をつくる。だが、人が職を汚すこともある。</p>
+            <p class="ink" aria-hidden="true" data-cipher="22">職は人をつくる。だが、人が職を汚すこともあるらしい。</p>
         </section>
 
         <!--
@@ -497,7 +502,7 @@
                     </ol>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">名とは、人が最初にかける呪文である。</p>
+            <p class="ink" aria-hidden="true" data-cipher="25">名とは、人が最初にかける呪文。だからこそ、大切に名をつけよ。</p>
         </section>
 
         <!--
@@ -564,7 +569,7 @@
                     <p class="related">関連する規則：<a href="#job-medic">医療</a></p>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">前例は、まだ見ぬ誰かを救うために記される。</p>
+            <p class="ink" aria-hidden="true" data-cipher="11">前例は、まだ見ぬ誰かをひそかに救うために記される。</p>
         </section>
 
         <!--
@@ -623,7 +628,7 @@
                     <p class="answer">問い合わせ窓口で運営に相談してください。作り直す場合、前のキャラクターの持ち物や人間関係は引き継げません。</p>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">答えの無い問いは、右下の司書に聞いてごらん。</p>
+            <p class="ink" aria-hidden="true" data-cipher="19">答えの無い問いは、右下の司書に聞いてごらん。</p>
         </section>
 
         <!--
@@ -636,7 +641,7 @@
             <div class="chapter-head">
                 <p class="eyebrow">Lexicon</p>
                 <h2>用語集</h2>
-                <p class="lead">規則の中に出てくる言葉の意味。本文中の点線の言葉にマウスを乗せる (スマホでは押す) と、説明が出ます。</p>
+                <p class="lead">規則の中に出てくる言葉の意味。本文中の点線の言葉にマウスを乗せる (スマホでは押す) と、説明が出ます。<button class="hidden-key" type="button" data-key="1" aria-label="鍵" title="鍵"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></p>
                 <div class="rule-line"></div>
             </div>
 
@@ -692,7 +697,7 @@
                     <p class="def">職業の仕事をしている状態のこと。職場で出勤の手続きをすると切り替わり、職業の道具や権限が使えるようになります。</p>
                 </li>
             </ol>
-            <p class="ink" aria-hidden="true">言葉を知る者は、呪文を知る者でもある。……ためしに検索欄で「カンデラ」と唱えてごらん。</p>
+            <p class="ink" aria-hidden="true" data-cipher="40">言葉を知る者は、呪文を知る者でもある。ためしに検索欄で「カンデラ」と唱えてみよ。けっして難しくはない。</p>
         </section>
 
         <!--
@@ -738,9 +743,9 @@
                 <li>● が最初に科される処分、○ が繰り返したときの最も重い処分です。</li>
                 <li>警告を3回受けると、一時追放となります。</li>
                 <li>悪質な場合や、運営が必要と判断した場合は、段階を飛ばして処分することがあります。</li>
-                <li>処分に納得できない場合は、Discord の問い合わせ窓口から異議を申し立てられます。</li>
+                <li>処分に納得できない場合は、Discord の問い合わせ窓口から異議を申し立てられます。<button class="hidden-key" type="button" data-key="2" aria-label="鍵" title="鍵"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></li>
             </ul>
-            <p class="ink" aria-hidden="true">封印は、破られるためにあるのではない。守る者がいることを示すためにある。</p>
+            <p class="ink" aria-hidden="true">印のついた文字を、章の順に並べて唱えよ。封印は、守る者がいることを示すためにある。</p>
         </section>
 
         <!--
@@ -759,7 +764,7 @@
             <ol class="chronicle">
                 <li>
                     <time datetime="2026-10-20">2026.10.20</time>
-                    <h3>規則の書を公開</h3>
+                    <h3>規則の書を公開<button class="hidden-key" type="button" data-key="3" aria-label="鍵" title="鍵"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg></button></h3>
                     <ul>
                         <li><a href="#server">サーバー規則</a> 第一条〜第四条を制定</li>
                         <li><a href="#jobs">職業別規則</a>・<a href="#cases">事例集</a>・<a href="#penalty">罰則</a> を仮の内容で公開</li>
@@ -814,6 +819,26 @@
                 <h3 class="section-title">呪文帳</h3>
                 <p class="count-line" id="spellbook-count"></p>
                 <ol id="spellbook-list"></ol>
+            </div>
+
+            <!-- 第二の書架: 隠された三つの鍵をすべて見つけると開く (仮) -->
+            <div class="second-shelf" id="second-shelf" hidden>
+                <h3 class="section-title">第二の書架</h3>
+                <ol class="lore">
+                    <li>
+                        <h3>七つの塔の噂</h3>
+                        <p>この街のどこかに、地図に載らない塔が七つあるという。どの塔も、エーテルの流れが渦を巻く場所に建っていて、近づいた者は決まって道に迷うそうだ。</p>
+                    </li>
+                    <li>
+                        <h3>エーテルの逆流</h3>
+                        <p>年に一度、街の地下を流れるエーテルが逆さまに流れる夜がある。その夜だけは、魔法がほんの少し気まぐれになる。灯りが勝手にともり、鍵が勝手に開くこともあるという。</p>
+                    </li>
+                    <li>
+                        <h3>司書の正体</h3>
+                        <p>規則の書の隅にいるフクロウは、かつて学院の初代司書だったと言われている。罰として姿を変えられたのか、自ら望んでそうなったのかは、本人しか知らない。</p>
+                        <p class="sign">— 鍵を三つ集めた者へ</p>
+                    </li>
+                </ol>
             </div>
         </section>
 
