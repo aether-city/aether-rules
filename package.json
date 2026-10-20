@@ -1,0 +1,12 @@
+{
+  "name": "aether-rules",
+  "private": true,
+  "description": "AETHER CITY RULES (GitHub Pages)",
+  "scripts": {
+    "build": "node build.js",
+    "build:dev": "node build.js --dev"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "4.1.1"
+  }
+}
