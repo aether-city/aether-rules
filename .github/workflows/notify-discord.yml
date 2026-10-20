@@ -1,0 +1,43 @@
+# 規則が改訂されたら Discord に告知する
+#
+# index.html の「改訂履歴」のいちばん上の記録が変わったときだけ投稿します
+# (誤字の修正など、改訂履歴を書き足さないプッシュでは投稿しません)。
+#
+# 準備: リポジトリの Settings → Secrets and variables → Actions → New repository secret
+#       Name: DISCORD_WEBHOOK_URL / Secret: Discord のウェブフック URL
+#
+# 手動で試すとき: Actions タブ → 「規則の改訂を Discord に告知」→ Run workflow
+# (手動のときは、改訂履歴が変わっていなくても今のいちばん上の記録を投稿します)
+
+name: 規則の改訂を Discord に告知
+
+on:
+  push:
+    branches: [main]
+    paths: [index.html]
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 前回のプッシュの index.html と比べるため
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # GitHub Pages の公開が終わる前に告知が届かないよう、少し待つ
+      - name: 公開を待つ
+        if: github.event_name == 'push'
+        run: sleep 90
+
+      - name: 告知する
+        run: node .github/scripts/notify-discord.mjs
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          BEFORE_SHA: ${{ github.event.before }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' }}
+          PAGE_URL: https://aether-city.github.io/aether-rules/
