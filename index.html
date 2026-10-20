@@ -4,794 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AETHER CITY RULES</title>
-<meta name="description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・事例集・用語集・罰則です。参加前に必ずお読みください。">
+<meta name="description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・キャラクター作成の手引き・事例集・よくある質問です。参加前に必ずお読みください。">
 <meta property="og:title" content="AETHER CITY RULES">
-<meta property="og:description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・事例集・用語集・罰則です。参加前に必ずお読みください。">
+<meta property="og:description" content="AETHER CITY (FiveM ロールプレイサーバー) のサーバー規則・職業別規則・キャラクター作成の手引き・事例集・よくある質問です。参加前に必ずお読みください。">
+<link rel="alternate" hreflang="en" href="en/">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z' fill='%23a8894f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
-<style>
-/* ===== 色 (ここを変えると全体の色が変わります) ===== */
-:root {
-    --bg: #efe7d6;          /* 羊皮紙 */
-    --bg-deep: #e4d9c2;
-    --paper: #f6f0e3;
-    --side: rgba(246, 240, 227, 0.55);
-    --ink: #2e2619;         /* 本文の墨色 */
-    --ink-soft: #6a5c45;
-    --gold: #a8894f;        /* 控えめな金 */
-    --gold-faint: rgba(168, 137, 79, 0.35);
-    --mark: rgba(168, 137, 79, 0.28);
-    --line: rgba(46, 38, 25, 0.14);
-    --ok: #5d7a52;          /* 事例集: 問題なし */
-    --ng: #9a4f42;          /* 事例集: 違反 */
-}
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-        --bg: #14121a;
-        --bg-deep: #0e0d13;
-        --paper: #1b1922;
-        --side: rgba(27, 25, 34, 0.6);
-        --ink: #e6dcc8;
-        --ink-soft: #a89d88;
-        --gold: #b79a62;
-        --gold-faint: rgba(183, 154, 98, 0.28);
-        --mark: rgba(183, 154, 98, 0.3);
-        --line: rgba(230, 220, 200, 0.12);
-        --ok: #8fae83;
-        --ng: #c98a7d;
-    }
-}
-:root[data-theme="dark"] {
-    --bg: #14121a;
-    --bg-deep: #0e0d13;
-    --paper: #1b1922;
-    --side: rgba(27, 25, 34, 0.6);
-    --ink: #e6dcc8;
-    --ink-soft: #a89d88;
-    --gold: #b79a62;
-    --gold-faint: rgba(183, 154, 98, 0.28);
-    --mark: rgba(183, 154, 98, 0.3);
-    --line: rgba(230, 220, 200, 0.12);
-    --ok: #8fae83;
-    --ng: #c98a7d;
-}
-
-* { box-sizing: border-box; }
-body {
-    margin: 0;
-    background: radial-gradient(ellipse at 60% 0%, var(--bg) 0%, var(--bg-deep) 100%) fixed;
-    background-color: var(--bg);
-    color: var(--ink);
-    font-family: "Shippori Mincho", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-    line-height: 1.95;
-    letter-spacing: 0.04em;
-    -webkit-font-smoothing: antialiased;
-}
-[hidden] { display: none !important; }
-a { color: var(--gold); }
-
-/* スクロールバー: 細い金の線 (ページ全体と左側で共通) */
-html, .side {
-    scrollbar-width: thin;
-    scrollbar-color: var(--gold-faint) transparent;
-}
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-    background: var(--gold-faint);
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-::-webkit-scrollbar-corner { background: transparent; }
-
-/* 背景にうっすら浮かぶ魔法陣 */
-.circle {
-    position: fixed;
-    top: 50%; left: calc(50% + 150px);
-    width: min(120vw, 1100px);
-    aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    opacity: 0.06;
-    color: var(--gold);
-    animation: turn 240s linear infinite;
-    z-index: 0;
-}
-@keyframes turn { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-/* ===== 全体の配置: 左 = 目次と検索 / 右 = 本文 ===== */
-.layout {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 300px minmax(0, 1fr);
-    min-height: 100vh;
-}
-
-/* ===== 左側 ===== */
-.side {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    padding: 40px 24px 28px;
-    border-right: 1px solid var(--line);
-    background: var(--side);
-    display: flex;
-    flex-direction: column;
-}
-
-.brand { position: relative; text-align: center; margin-bottom: 28px; }
-.brand h1 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.9rem;
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: 0.18em;
-    padding-left: 0.18em; /* letter-spacing の分の中央寄せ補正 */
-    margin: 0;
-}
-.brand h1 span {
-    display: block;
-    margin-top: 4px;
-    font-size: 0.42em;
-    letter-spacing: 0.8em;
-    padding-left: 0.8em;
-    color: var(--gold);
-}
-.divider {
-    display: flex; align-items: center; gap: 12px;
-    color: var(--gold);
-    margin: 18px auto 0;
-    max-width: 200px;
-}
-.divider::before, .divider::after {
-    content: ""; flex: 1; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-faint), transparent);
-}
-.divider svg { width: 12px; height: 12px; flex: none; }
-
-/* 検索 */
-.search-box {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 0 12px;
-    transition: border-color 0.4s;
-}
-.search-box:focus-within { border-color: var(--gold-faint); }
-.search-box svg { width: 15px; height: 15px; color: var(--gold); flex: none; }
-.search-box input {
-    flex: 1; min-width: 0;
-    border: 0; outline: 0; background: transparent;
-    color: var(--ink);
-    font: inherit;
-    font-size: 0.95rem;
-    padding: 10px 0;
-}
-.search-box input::placeholder { color: var(--ink-soft); opacity: 0.7; }
-.search-box input::-webkit-search-cancel-button { display: none; }
-.search-clear {
-    border: 0; background: none; color: var(--ink-soft);
-    font: inherit; font-size: 0.8rem; cursor: pointer; padding: 2px;
-}
-.search-clear:hover { color: var(--gold); }
-.search-status {
-    margin: 6px 2px 0;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-    min-height: 1.4em;
-}
-mark {
-    background: var(--mark);
-    color: inherit;
-    padding: 0 1px;
-    border-radius: 1px;
-}
-
-/* 章の切り替え */
-.chapters { margin-top: 14px; display: grid; gap: 2px; }
-.chapter-link {
-    display: block;
-    position: relative;
-    padding: 9px 14px 9px 18px;
-    color: var(--ink);
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: color 0.4s, border-color 0.4s, background-color 0.4s;
-}
-.chapter-link::before {
-    content: "";
-    position: absolute; left: 0; top: 12px; bottom: 12px;
-    width: 1px;
-    background: transparent;
-    transition: background-color 0.4s;
-}
-.chapter-link:hover { color: var(--gold); }
-.chapter-link.active {
-    background: var(--paper);
-    border-color: var(--line);
-}
-.chapter-link.active::before { background: var(--gold); }
-.chapter-link .en {
-    display: block;
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    line-height: 1.4;
-}
-.chapter-link .ja { display: flex; justify-content: space-between; align-items: baseline; font-size: 1rem; }
-.chapter-link .count { font-size: 0.75rem; color: var(--ink-soft); letter-spacing: 0.1em; }
-
-/* 選んでいる章の中の項目 */
-.sub { list-style: none; margin: 4px 0 8px; padding: 0 0 0 18px; display: grid; }
-.sub a {
-    display: flex; gap: 10px; align-items: baseline;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-size: 0.86rem;
-    padding: 2px 4px;
-    transition: color 0.4s;
-}
-.sub a:hover { color: var(--gold); }
-.sub .num { color: var(--gold); font-size: 0.75rem; min-width: 3.2em; flex: none; }
-.sub .num:empty { display: none; }
-
-.side-foot {
-    margin-top: auto;
-    padding-top: 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    font-size: 0.75rem;
-    color: var(--ink-soft);
-}
-.theme-btn {
-    width: 32px; height: 32px;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    background: var(--paper);
-    color: var(--gold);
-    cursor: pointer;
-    display: grid; place-items: center;
-    flex: none;
-    transition: border-color 0.4s;
-}
-.theme-btn:hover { border-color: var(--gold-faint); }
-.theme-btn svg { width: 14px; height: 14px; }
-
-/* ===== 右側 (本文) ===== */
-.main {
-    padding: 72px 48px 96px;
-    max-width: 900px;
-    width: 100%;
-    margin: 0 auto; /* 右側の領域の中央に置く */
-    perspective: 1800px; /* ページをめくる動きの奥行き */
-}
-
-.chapter { margin-bottom: 64px; transform-origin: left center; }
-.chapter-head { margin-bottom: 32px; }
-.chapter-head .eyebrow {
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    font-size: 1rem;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    margin: 0 0 2px;
-}
-.chapter-head h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    margin: 0;
-}
-.chapter-head .lead { margin: 10px 0 0; color: var(--ink-soft); font-size: 0.95rem; }
-.chapter-head .rule-line {
-    height: 1px;
-    margin-top: 22px;
-    background: linear-gradient(90deg, var(--gold-faint), transparent);
-}
-.draft {
-    display: inline-block;
-    margin-top: 12px;
-    font-size: 0.8rem;
-    color: var(--gold);
-    border: 1px solid var(--gold-faint);
-    padding: 2px 12px;
-    letter-spacing: 0.15em;
-}
-
-/* ===== 各条 (カード) ===== */
-.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
-.rule {
-    position: relative;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 28px 28px 24px;
-    scroll-margin-top: 32px;
-}
-/* 四隅の細い飾り線 */
-.rule::before, .rule::after {
-    content: "";
-    position: absolute;
-    width: 18px; height: 18px;
-    border-color: var(--gold-faint);
-    border-style: solid;
-    pointer-events: none;
-}
-.rule::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
-.rule::after { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
-
-.rule .article {
-    font-size: 0.82rem;
-    color: var(--gold);
-    letter-spacing: 0.25em;
-    margin: 0 0 4px;
-    padding-right: 150px; /* 右上の道具と重ならないように */
-}
-.rule h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0 0 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-}
-.rule p { margin: 0; }
-.rule p + p { margin-top: 0.6em; }
-
-/* カード右上の道具 (新/改の印・封印の格・リンクのコピー) */
-.card-tools {
-    position: absolute;
-    top: 22px; right: 22px;
-    display: flex; align-items: center; gap: 8px;
-}
-.stamp {
-    font-size: 0.72rem;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    width: 24px; height: 24px;
-    display: grid; place-items: center;
-    letter-spacing: 0;
-    transform: rotate(-8deg);
-}
-.seal {
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    border: 1px solid var(--line);
-    padding: 0 8px;
-    line-height: 1.9;
-    letter-spacing: 0.12em;
-    transition: color 0.4s, border-color 0.4s;
-}
-.seal:hover { color: var(--gold); border-color: var(--gold-faint); }
-.seal i { font-style: normal; color: var(--gold); margin-right: 4px; }
-.copy-link {
-    width: 28px; height: 28px;
-    border: 1px solid transparent;
-    background: none;
-    color: var(--ink-soft);
-    cursor: pointer;
-    display: grid; place-items: center;
-    opacity: 0.6;
-    transition: opacity 0.4s, color 0.4s, border-color 0.4s;
-}
-.copy-link:hover, .copy-link:focus-visible { opacity: 1; color: var(--gold); border-color: var(--line); }
-.copy-link svg { width: 15px; height: 15px; }
-
-/* 対象の職業 */
-.jobs { display: flex; flex-wrap: wrap; gap: 6px; margin: -4px 0 16px; }
-.jobs span {
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    border: 1px solid var(--line);
-    padding: 0 10px;
-    line-height: 1.9;
-}
-
-/* 職業別の項目 */
-.items { margin: 0; padding: 0; list-style: none; counter-reset: item; display: grid; gap: 10px; }
-.items li {
-    counter-increment: item;
-    position: relative;
-    padding-left: 2.2em;
-}
-.items li::before {
-    content: counter(item, cjk-ideographic) ".";
-    position: absolute; left: 0; top: 0;
-    color: var(--gold);
-    font-size: 0.9rem;
-}
-
-/* ===== 事例集 ===== */
-.verdict {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.9rem;
-    margin: 0 0 10px;
-    letter-spacing: 0.1em;
-}
-.verdict b {
-    display: grid; place-items: center;
-    width: 26px; height: 26px;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    font-weight: 400;
-}
-.verdict.ok { color: var(--ok); }
-.verdict.ng { color: var(--ng); }
-.related { margin-top: 14px !important; font-size: 0.85rem; color: var(--ink-soft); }
-.related a { text-decoration: none; border-bottom: 1px solid var(--gold-faint); margin-right: 10px; }
-
-/* ===== 用語集 ===== */
-.glossary { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-.glossary .rule { padding: 22px 22px 18px; }
-.glossary .rule h3 { font-size: 1.1rem; margin-bottom: 10px; padding-bottom: 8px; }
-.glossary .rule .article { padding-right: 40px; }
-.glossary .card-tools { top: 16px; right: 16px; }
-.glossary .reading { font-size: 0.78rem; color: var(--ink-soft); margin-left: 8px; font-weight: 400; }
-
-/* 本文中の用語 (マウスを乗せると説明が出る) */
-.term {
-    text-decoration: none;
-    border-bottom: 1px dotted var(--gold);
-    cursor: help;
-}
-.term:focus-visible { outline: 1px solid var(--gold-faint); outline-offset: 2px; }
-.tip {
-    position: fixed;
-    z-index: 10;
-    max-width: 300px;
-    background: var(--paper);
-    border: 1px solid var(--gold-faint);
-    padding: 12px 14px;
-    font-size: 0.85rem;
-    line-height: 1.8;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.25s;
-}
-.tip.show { opacity: 1; }
-.tip strong { display: block; color: var(--gold); font-weight: 600; margin-bottom: 2px; }
-
-/* ===== 罰則の天秤 ===== */
-.stages {
-    list-style: none; margin: 0 0 40px; padding: 0;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    position: relative;
-}
-.stages::before {
-    content: "";
-    position: absolute; top: 21px; left: 12.5%; right: 12.5%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--gold-faint), var(--gold));
-}
-.stages li { text-align: center; position: relative; padding: 0 6px; }
-.stages .dot {
-    width: 42px; height: 42px;
-    margin: 0 auto 10px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    background: var(--paper);
-    display: grid; place-items: center;
-    color: var(--gold);
-    font-size: 0.9rem;
-    position: relative;
-}
-.stages .dot::after {
-    content: "";
-    position: absolute; inset: 4px;
-    border: 1px solid var(--gold-faint);
-    border-radius: 50%;
-}
-.stages h3 { font-size: 1rem; font-weight: 600; margin: 0 0 4px; }
-.stages p { margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.7; }
-
-.matrix {
-    display: grid;
-    grid-template-columns: 140px repeat(4, 1fr);
-    border-top: 1px solid var(--line);
-    margin-bottom: 20px;
-}
-.matrix > div { padding: 12px 8px; border-bottom: 1px solid var(--line); font-size: 0.88rem; }
-.matrix .head { color: var(--ink-soft); font-size: 0.78rem; text-align: center; letter-spacing: 0.15em; }
-.matrix .grade b { display: block; font-weight: 600; letter-spacing: 0.12em; }
-.matrix .grade span { font-size: 0.78rem; color: var(--ink-soft); }
-.matrix .bar { position: relative; grid-column-end: span 4; }
-.matrix .bar span {
-    position: absolute; top: 50%;
-    height: 1px;
-    background: var(--gold);
-}
-.matrix .bar span::before {
-    content: "";
-    position: absolute; left: -5px; top: -5px;
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: var(--gold);
-}
-.matrix .bar span::after {
-    content: "";
-    position: absolute; right: -4px; top: -4px;
-    width: 7px; height: 7px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    background: var(--paper);
-}
-.penalty-notes { margin: 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 0.9rem; }
-.penalty-notes li + li { margin-top: 4px; }
-.section-title {
-    font-size: 1.05rem; font-weight: 600; letter-spacing: 0.15em;
-    margin: 0 0 16px;
-}
-
-/* ===== 改訂履歴 (年代記) ===== */
-.chronicle { list-style: none; margin: 0; padding: 0 0 0 28px; position: relative; }
-.chronicle::before {
-    content: "";
-    position: absolute; left: 6px; top: 10px; bottom: 10px;
-    width: 1px;
-    background: linear-gradient(var(--gold), var(--gold-faint), transparent);
-}
-.chronicle > li { position: relative; padding-bottom: 32px; }
-.chronicle > li::before {
-    content: "";
-    position: absolute; left: -27px; top: 10px;
-    width: 11px; height: 11px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    background: var(--bg);
-}
-.chronicle time {
-    display: block;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.05rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-}
-.chronicle h3 { font-size: 1.1rem; font-weight: 600; margin: 0 0 6px; }
-.chronicle ul { margin: 0; padding-left: 1.2em; color: var(--ink-soft); font-size: 0.92rem; }
-
-/* ===== はじめての方へ ===== */
-.points { list-style: none; margin: 0 0 48px; padding: 0; display: grid; gap: 14px; counter-reset: pt; }
-.points li {
-    counter-increment: pt;
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 4px 16px;
-    align-items: start;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 18px 22px;
-}
-.points li::before {
-    content: counter(pt, cjk-ideographic);
-    grid-row: span 2;
-    width: 40px; height: 40px;
-    display: grid; place-items: center;
-    border: 1px solid var(--gold-faint);
-    border-radius: 50%;
-    color: var(--gold);
-    font-size: 1rem;
-}
-.points strong { font-size: 1.08rem; font-weight: 600; }
-.points p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
-.points p a { text-decoration: none; border-bottom: 1px solid var(--gold-faint); margin-left: 6px; }
-
-.next-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
-.next-steps a {
-    display: block;
-    height: 100%;
-    padding: 16px 18px;
-    border: 1px solid var(--line);
-    color: var(--ink);
-    text-decoration: none;
-    transition: border-color 0.4s, color 0.4s;
-}
-.next-steps a:hover { border-color: var(--gold-faint); color: var(--gold); }
-.next-steps small { display: block; color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; }
-.next-steps span { display: block; color: var(--ink-soft); font-size: 0.82rem; margin-top: 4px; }
-.resume {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    margin: 0 0 48px;
-    padding: 16px 20px;
-    border: 1px solid var(--gold-faint);
-    font-size: 0.92rem;
-}
-.resume a { text-decoration: none; border-bottom: 1px solid var(--gold-faint); }
-
-/* ===== 職業から探す ===== */
-.job-filter {
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    margin-top: 18px;
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-}
-.job-filter select {
-    font: inherit;
-    font-size: 0.92rem;
-    color: var(--ink);
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 6px 34px 6px 12px;
-    min-width: 220px;
-    max-width: 100%;
-    cursor: pointer;
-    appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%);
-    background-position: calc(100% - 17px) 55%, calc(100% - 12px) 55%;
-    background-size: 5px 5px;
-    background-repeat: no-repeat;
-}
-.job-filter select:focus { outline: none; border-color: var(--gold-faint); }
-.job-filter button {
-    border: 0; background: none; color: var(--ink-soft);
-    font: inherit; font-size: 0.82rem; cursor: pointer;
-}
-.job-filter button:hover { color: var(--gold); }
-.job-cases { margin-top: 32px; }
-.job-cases ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.job-cases a {
-    display: flex; gap: 12px; align-items: baseline;
-    text-decoration: none;
-    color: var(--ink);
-    padding: 8px 14px;
-    border: 1px solid var(--line);
-    background: var(--paper);
-    transition: border-color 0.4s;
-}
-.job-cases a:hover { border-color: var(--gold-faint); }
-.job-cases .v { flex: none; font-size: 0.85rem; }
-.job-cases .v.ok { color: var(--ok); }
-.job-cases .v.ng { color: var(--ng); }
-
-/* ===== 読了の印 ===== */
-.wax {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(168, 137, 79, 0.55), rgba(140, 74, 58, 0.55));
-    color: var(--paper);
-    font-size: 0.62rem;
-    display: grid; place-items: center;
-    letter-spacing: 0;
-    opacity: 0.85;
-}
-.rule:not(.read) .wax { display: none; }
-.rule.read .wax { animation: wax 0.6s ease; }
-@keyframes wax { from { transform: scale(1.4); opacity: 0; } to { transform: none; opacity: 0.85; } }
-
-.progress { margin-top: 18px; font-size: 0.78rem; color: var(--ink-soft); }
-.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.progress-bar { height: 1px; background: var(--line); margin-top: 6px; position: relative; }
-.progress-bar span {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    background: var(--gold);
-    transition: width 0.8s ease;
-}
-.progress button {
-    border: 0; background: none; padding: 0;
-    color: var(--ink-soft); opacity: 0.7;
-    font: inherit; font-size: 0.72rem; cursor: pointer;
-}
-.progress button:hover { color: var(--gold); opacity: 1; }
-.chapter-link.done .ja::after {
-    content: "済";
-    font-size: 0.65rem;
-    color: var(--gold);
-    border: 1px solid var(--gold-faint);
-    border-radius: 50%;
-    width: 18px; height: 18px;
-    display: inline-grid; place-items: center;
-    margin-left: auto;
-    letter-spacing: 0;
-}
-
-/* 検索で見つからなかったとき */
-.empty {
-    text-align: center;
-    color: var(--ink-soft);
-    padding: 64px 0;
-}
-
-.closing {
-    text-align: center;
-    margin: 56px 0 0;
-    color: var(--ink-soft);
-    font-size: 0.92rem;
-}
-
-/* コピーしたときのお知らせ */
-.toast {
-    position: fixed;
-    left: 50%; bottom: 28px;
-    transform: translate(-50%, 8px);
-    z-index: 20;
-    background: var(--paper);
-    border: 1px solid var(--gold-faint);
-    color: var(--ink);
-    padding: 8px 20px;
-    font-size: 0.85rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s, transform 0.35s;
-}
-.toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-/* ===== 魔導書の演出: ページをめくる + 文字が墨のようににじみ出る ===== */
-.chapter.turn { animation: page 0.7s cubic-bezier(.2, .7, .2, 1); }
-@keyframes page {
-    from { opacity: 0; transform: rotateY(9deg) translateX(10px); }
-    to { opacity: 1; transform: none; }
-}
-.chapter.turn .chapter-head,
-.chapter.turn .rule,
-.chapter.turn .chronicle > li,
-.chapter.turn .stages li {
-    animation: ink 1s ease both;
-    animation-delay: calc(var(--i, 0) * 70ms + 120ms);
-}
-@keyframes ink {
-    from { opacity: 0; filter: blur(4px); }
-    to { opacity: 1; filter: blur(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-    .circle, .chapter.turn, .chapter.turn * { animation: none !important; }
-}
-
-/* ===== 印刷するとき ===== */
-@media print {
-    .side, .circle, .card-tools, .toast, .tip { display: none !important; }
-    .layout { display: block; }
-    .main { padding: 0; max-width: none; }
-    .chapter { display: block !important; }
-    .rule { break-inside: avoid; }
-}
-
-/* ===== スマホ・狭い画面: 左側を上に置く ===== */
-@media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
-    .circle { left: 50%; }
-    .side {
-        position: static;
-        height: auto;
-        overflow: visible;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-        padding: 40px 16px 16px;
-    }
-    .brand { margin-bottom: 20px; }
-    .brand .theme-btn { position: absolute; top: -24px; right: 0; }
-    .chapters { grid-template-columns: repeat(3, 1fr); margin-top: 8px; gap: 4px; }
-    .chapters > div:first-child { grid-column: 1 / -1; } /* 「はじめての方へ」は 1 段まるごと */
-    .chapter-link.done .ja::after { margin-left: 0; }
-    .points li { grid-template-columns: 36px 1fr; padding: 16px; gap: 4px 12px; }
-    .points li::before { width: 34px; height: 34px; }
-    .chapter-link { text-align: center; padding: 8px 4px; }
-    .chapter-link .en { display: none; }
-    .chapter-link .ja { justify-content: center; gap: 6px; font-size: 0.9rem; flex-wrap: wrap; }
-    .chapter-link::before { left: 20%; right: 20%; top: auto; bottom: 0; width: auto; height: 1px; }
-    .sub, .side-foot { display: none; }
-    .main { padding: 40px 16px 72px; }
-    .matrix { grid-template-columns: 96px repeat(4, 1fr); }
-}
-@media (min-width: 901px) {
-    .brand .theme-btn { display: none; }
-}
-@media (max-width: 480px) {
-    .rule { padding: 24px 18px 20px; }
-    .rule .article { padding-right: 120px; }
-    .card-tools { top: 16px; right: 14px; gap: 6px; }
-    .chapter-head h2 { font-size: 1.5rem; }
-    .stages { grid-template-columns: 1fr 1fr; row-gap: 24px; }
-    .stages::before { display: none; }
-    .matrix > div { padding: 10px 4px; font-size: 0.8rem; }
-    .matrix .head { font-size: 0.68rem; letter-spacing: 0; }
-}
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -820,7 +42,8 @@ mark {
             <div class="divider" aria-hidden="true">
                 <svg viewBox="0 0 32 32"><path d="M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z" fill="currentColor"/></svg>
             </div>
-            <!-- スマホではここに明るさ切り替えボタンを出す -->
+            <!-- スマホではここに言語と明るさの切り替えを出す -->
+            <a class="lang-switch" href="en/" hreflang="en" lang="en">English</a>
             <button class="theme-btn" type="button" data-theme-toggle aria-label="明るさを切り替える" title="明るさを切り替える">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
             </button>
@@ -862,11 +85,25 @@ mark {
                 <ol class="sub" data-sub="jobs"></ol>
             </div>
             <div>
+                <a class="chapter-link" href="#character" data-chapter="character">
+                    <span class="en">Forging a Persona</span>
+                    <span class="ja">キャラクター作成<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="character"></ol>
+            </div>
+            <div>
                 <a class="chapter-link" href="#cases" data-chapter="cases">
                     <span class="en">Book of Precedents</span>
                     <span class="ja">事例集<span class="count"></span></span>
                 </a>
                 <ol class="sub" data-sub="cases"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#faq" data-chapter="faq">
+                    <span class="en">Questions &amp; Answers</span>
+                    <span class="ja">よくある質問<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="faq"></ol>
             </div>
             <div>
                 <a class="chapter-link" href="#glossary" data-chapter="glossary">
@@ -901,9 +138,12 @@ mark {
         <div class="side-foot">
             <!-- 改訂履歴のいちばん上の日付が自動で入ります -->
             <span class="updated">最終改訂　<span id="updated"></span></span>
-            <button class="theme-btn" type="button" data-theme-toggle aria-label="明るさを切り替える" title="明るさを切り替える">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
-            </button>
+            <div class="foot-tools">
+                <a class="lang-switch" href="en/" hreflang="en" lang="en">English</a>
+                <button class="theme-btn" type="button" data-theme-toggle aria-label="明るさを切り替える" title="明るさを切り替える">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                </button>
+            </div>
         </div>
     </aside>
 
@@ -919,9 +159,13 @@ mark {
               data-grade    : 封印の格。1 = 一級禁呪 / 2 = 二級禁呪 / 3 = 三級禁呪 (罰則の章と対応)
               data-new      : 追加した日 (例 2026-11-01)。30日間「新」の印が付く
               data-rev      : 書き換えた日 (例 2026-11-01)。30日間「改」の印が付く
-            右上のリンクのコピーボタン・封印の格・新/改の印・読了の印は自動で付きます。
+            右上の質問ボタン・リンクのコピーボタン・封印の格・新/改の印・読了の印は自動で付きます。
             本文中の用語集の言葉には、自動で説明が付きます。
-            読了の対象は「サーバー規則」「職業別規則」「事例集」のカードです (画面に 1.5 秒ほど映ると読んだことになります)。
+            読了の対象は「サーバー規則」「職業別規則」「キャラクター作成」「事例集」のカードです (画面に 1.5 秒ほど映ると読んだことになります)。
+            質問ボタンを押したときに開く Discord のチャンネルは assets/app.js のいちばん上の ASK_URL で決めます。
+
+            ※ 英語版 (en/index.html) もあります。文章を変えたら、英語版も同じように直してください。
+               カードの id は両方で同じにします (リンクや読了の記録を共通にするため)。
         -->
 
         <!--
@@ -972,7 +216,9 @@ mark {
             <ul class="next-steps">
                 <li><a href="#server"><small>必読</small>サーバー規則<span>すべての住人が守る規則の全文</span></a></li>
                 <li><a href="#jobs"><small>職に就くなら</small>職業別規則<span>自分の職業を選ぶと、関係する規則だけを出せます</span></a></li>
+                <li><a href="#character"><small>はじめる前に</small>キャラクター作成の手引き<span>名前・年齢・背景設定の決め方</span></a></li>
                 <li><a href="#cases"><small>迷ったら</small>事例集<span>よくある場面と、その判断の例</span></a></li>
+                <li><a href="#faq"><small>困ったら</small>よくある質問<span>配信・通報・不具合などの疑問</span></a></li>
                 <li><a href="#glossary"><small>わからない言葉は</small>用語集<span>RDM・メタ・NLR などの意味</span></a></li>
             </ul>
         </section>
@@ -1164,6 +410,79 @@ mark {
         </section>
 
         <!--
+            ===== キャラクター作成の手引き (仮) =====
+            良い例 / 避ける例は <div class="examples"> の中に書きます (無くても構いません)。
+        -->
+        <section class="chapter" id="character">
+            <div class="chapter-head">
+                <p class="eyebrow">Forging a Persona</p>
+                <h2>キャラクター作成の手引き</h2>
+                <p class="lead">この街で生きるもう一人のあなたを作るために。最初から完璧である必要はありません。物語の中で育てていきましょう。</p>
+                <span class="draft">※ 現在は仮の内容です</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="char-name" data-num="其の一" data-keywords="名前 氏名 姓 キャラ名 ネーム">
+                    <p class="article">其の一</p>
+                    <h3>名前</h3>
+                    <ol class="items">
+                        <li>名と姓のそろった、この世界で暮らす人物らしい名前にすること。</li>
+                        <li>実在の人物や、有名な作品の登場人物の名前は使わないこと。</li>
+                        <li>下品な言葉や、ふざけた名前は避けること。</li>
+                    </ol>
+                    <div class="examples">
+                        <div class="ex good"><b>○ 良い例</b><ul><li>アリシア・グレイ</li><li>カイル・ブラックウッド</li></ul></div>
+                        <div class="ex bad"><b>× 避ける例</b><ul><li>有名人や作品の登場人物と同じ名前</li><li>名前だけ・記号や数字だけの名前</li></ul></div>
+                    </div>
+                </li>
+
+                <li class="rule" id="char-age" data-num="其の二" data-keywords="年齢 見た目 外見 歳">
+                    <p class="article">其の二</p>
+                    <h3>年齢と見た目</h3>
+                    <ol class="items">
+                        <li>キャラクターは 18 歳以上の設定とすること。</li>
+                        <li>見た目と年齢の設定が、大きく食い違わないようにすること。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="char-story" data-num="其の三" data-keywords="背景 設定 経歴 生い立ち 性格 目標 ストーリー">
+                    <p class="article">其の三</p>
+                    <h3>背景設定</h3>
+                    <ol class="items">
+                        <li>出身、この街に来た理由、性格、目標の 4 つを、短くてよいので決めておくこと。</li>
+                        <li>「伝説の大魔導士」「決して死なない」のような強すぎる設定は避けること。パワーゲームにつながります。</li>
+                        <li>設定はロールプレイの中で少しずつ明かしていくもの。初対面の相手に一度に語る必要はありません。</li>
+                    </ol>
+                    <div class="examples">
+                        <div class="ex good"><b>○ 良い例</b><ul><li>港町の薬師の家に生まれ、失踪した姉を探して街に来た。人見知りだが、薬草の話になると止まらない。</li></ul></div>
+                        <div class="ex bad"><b>× 避ける例</b><ul><li>あらゆる魔法を極めた不死身の王族で、誰にも負けたことがない。</li></ul></div>
+                    </div>
+                </li>
+
+                <li class="rule" id="char-magic" data-num="其の四" data-keywords="魔法 覚醒 寮 組分け 属性 魔力">
+                    <p class="article">其の四</p>
+                    <h3>魔法との関わり</h3>
+                    <ol class="items">
+                        <li>キャラクターは、魔法に目覚める前の状態から物語を始めます。魔法は街での出来事を通じて手にしていくものです。</li>
+                        <li>所属する寮は、組分けの儀式で決まります。設定であらかじめ決めておく必要はありません。</li>
+                        <li>使える魔法は、ゲームの中で実際に習得したものだけとすること。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="char-multi" data-num="其の五" data-grade="2" data-keywords="複数 サブキャラ 別キャラ 受け渡し 共有">
+                    <p class="article">其の五</p>
+                    <h3>複数のキャラクター</h3>
+                    <ol class="items">
+                        <li>自分の別のキャラクターとのあいだで、お金・持ち物・情報を受け渡さないこと。</li>
+                        <li>別のキャラクターで知ったことを、今のキャラクターが知っているかのように使わないこと (メタゲーム)。</li>
+                        <li>別のキャラクター同士を、同じ組織や仲間として関わらせないこと。</li>
+                    </ol>
+                </li>
+            </ol>
+        </section>
+
+        <!--
             ===== 事例集 (仮) =====
             判定は <p class="verdict ok"><b>○</b>問題なし</p> か <p class="verdict ng"><b>×</b>違反</p> のどちらかにします。
             「関連する規則」には、規則のカードの id へのリンクを書きます。
@@ -1224,6 +543,64 @@ mark {
                     <p class="verdict ng"><b>×</b>違反</p>
                     <p>治療は相手の所属を問わず中立に行います。キャラクター同士の因縁があっても、勤務中は治療を優先してください。</p>
                     <p class="related">関連する規則：<a href="#job-medic">医療</a></p>
+                </li>
+            </ol>
+        </section>
+
+        <!--
+            ===== よくある質問 (仮) =====
+            質問は h3、答えは <p class="answer"> に書きます。
+        -->
+        <section class="chapter" id="faq">
+            <div class="chapter-head">
+                <p class="eyebrow">Questions &amp; Answers</p>
+                <h2>よくある質問</h2>
+                <p class="lead">運営によく寄せられる質問と、その答え。ここに無いことは、各カードの質問ボタンから気軽に聞いてください。</p>
+                <span class="draft">※ 現在は仮の内容です</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules faq">
+                <li class="rule" id="faq-join" data-num="問一" data-keywords="参加 申請 ホワイトリスト 入る 始め方">
+                    <p class="article">問一</p>
+                    <h3>参加するにはどうすればいいですか？</h3>
+                    <p class="answer">Discord に参加し、案内のチャンネルに書かれた手順に従って申請してください。申請の前に、この規則の書をひととおり読んでおいてください。</p>
+                </li>
+
+                <li class="rule" id="faq-chars" data-num="問二" data-keywords="キャラクター 何人 複数 サブキャラ">
+                    <p class="article">問二</p>
+                    <h3>キャラクターは何人まで作れますか？</h3>
+                    <p class="answer">キャラクター選択画面で作れる数まで作れます。複数のキャラクターを持つときは、<a href="#char-multi">キャラクター作成の手引き 其の五</a> を必ず守ってください。</p>
+                </li>
+
+                <li class="rule" id="faq-stream" data-num="問三" data-keywords="配信 録画 動画 YouTube Twitch 切り抜き">
+                    <p class="article">問三</p>
+                    <h3>配信や録画をしてもいいですか？</h3>
+                    <p class="answer">かまいません。ただし、配信のコメントや他の人の配信で知った情報をゲームに持ち込むことはできません (<a href="#rule-3">第三条</a>)。他の参加者が映ることにも配慮してください。</p>
+                </li>
+
+                <li class="rule" id="faq-report" data-num="問四" data-keywords="通報 違反 報告 証拠 録画 スクリーンショット">
+                    <p class="article">問四</p>
+                    <h3>規則違反を見かけたらどうすればいいですか？</h3>
+                    <p class="answer">その場で言い争わず、ロールプレイを続けてください。あとで、録画やスクリーンショットなどの証拠を添えて Discord の問い合わせ窓口に報告してください。</p>
+                </li>
+
+                <li class="rule" id="faq-bug" data-num="問五" data-keywords="バグ 不具合 消えた 補填 アイテム お金">
+                    <p class="article">問五</p>
+                    <h3>不具合で持ち物やお金を失いました。</h3>
+                    <p class="answer">起きた日時と状況を、できれば証拠と一緒に問い合わせ窓口へ報告してください。補填するかどうかは、運営が確認したうえで判断します。</p>
+                </li>
+
+                <li class="rule" id="faq-ooc" data-num="問六" data-keywords="ゲーム外 OOC 雑談 中の人 相談">
+                    <p class="article">問六</p>
+                    <h3>ゲームの外の話をしたいときは？</h3>
+                    <p class="answer">Discord などゲームの外で話してください。ゲームの中での OOC の会話は、どうしても必要なときだけ、短くしてください。</p>
+                </li>
+
+                <li class="rule" id="faq-remake" data-num="問七" data-keywords="作り直し 削除 キャラ変更 リセット 引退">
+                    <p class="article">問七</p>
+                    <h3>キャラクターを作り直したいです。</h3>
+                    <p class="answer">問い合わせ窓口で運営に相談してください。作り直す場合、前のキャラクターの持ち物や人間関係は引き継げません。</p>
                 </li>
             </ol>
         </section>
@@ -1379,571 +756,6 @@ mark {
 <div class="tip" id="tip" role="tooltip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script>
-// 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
-(function () {
-    var root = document.documentElement;
-    try {
-        var saved = localStorage.getItem("rules-theme");
-        if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
-    } catch (e) {}
-
-    document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            var current = root.getAttribute("data-theme")
-                || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-            var next = current === "dark" ? "light" : "dark";
-            root.setAttribute("data-theme", next);
-            try { localStorage.setItem("rules-theme", next); } catch (e) {}
-        });
-    });
-})();
-
-(function () {
-    var GRADES = { "1": "一級禁呪", "2": "二級禁呪", "3": "三級禁呪" };
-    var MARK_DAYS = 30; // 「新」「改」の印を付けておく日数
-    var READ_CHAPTERS = ["server", "jobs", "cases"]; // 読了を数える章
-    var READ_MS = 1500; // 画面に映ってから読んだことにするまでの時間 (ミリ秒)
-
-    // このブラウザだけに残す記録 (使えない環境では何もしない)
-    function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-    function save(key, value) {
-        try {
-            if (value == null) localStorage.removeItem(key); else localStorage.setItem(key, value);
-        } catch (e) {}
-    }
-
-    var input = document.getElementById("q");
-    var clearBtn = document.getElementById("q-clear");
-    var status = document.getElementById("q-status");
-    var empty = document.getElementById("empty");
-    var tip = document.getElementById("tip");
-    var toast = document.getElementById("toast");
-    var chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter"));
-    var links = Array.prototype.slice.call(document.querySelectorAll(".chapter-link"));
-    var cards = Array.prototype.slice.call(document.querySelectorAll(".rule"));
-    var current = null; // 最初の表示でもページをめくる動きを出すため null から始める
-
-    function el(tag, cls, text) {
-        var e = document.createElement(tag);
-        if (cls) e.className = cls;
-        if (text != null) e.textContent = text;
-        return e;
-    }
-
-    // ---------- 最終改訂日 (改訂履歴のいちばん上) ----------
-    var latest = document.querySelector(".chronicle time");
-    if (latest) document.getElementById("updated").textContent = latest.textContent;
-
-    // ---------- 用語集の言葉を本文に結びつける ----------
-    var terms = [];
-    document.querySelectorAll("#glossary .rule").forEach(function (g) {
-        var def = g.querySelector(".def").textContent;
-        (g.getAttribute("data-match") || "").split(/\s+/).filter(Boolean).forEach(function (word) {
-            terms.push({ word: word, id: g.id, title: g.getAttribute("data-term"), def: def });
-        });
-    });
-    terms.sort(function (a, b) { return b.word.length - a.word.length; }); // 長い言葉から先に探す
-
-    function linkTerms(card) {
-        var used = {};
-        terms.forEach(function (t) {
-            if (used[t.id]) return; // 同じ用語はカードごとに最初の 1 回だけ
-            var walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, {
-                acceptNode: function (n) {
-                    return n.parentNode.closest(".term, .article, .jobs, .verdict, .related, .card-tools, h3")
-                        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
-                }
-            });
-            var node;
-            while ((node = walker.nextNode())) {
-                var i = node.nodeValue.indexOf(t.word);
-                if (i === -1) continue;
-                var after = node.splitText(i);
-                after.splitText(t.word.length);
-                var a = el("a", "term", t.word);
-                a.href = "#" + t.id;
-                a.setAttribute("data-tip-title", t.title);
-                a.setAttribute("data-tip", t.def);
-                after.parentNode.replaceChild(a, after);
-                used[t.id] = true;
-                break;
-            }
-        });
-    }
-
-    // ---------- カードの準備 (印・封印の格・コピーボタン・用語) ----------
-    var now = Date.now();
-    function recent(attr) {
-        var t = Date.parse(attr || "");
-        return !isNaN(t) && now - t >= 0 && now - t < MARK_DAYS * 86400000;
-    }
-
-    cards.forEach(function (card) {
-        var tools = el("div", "card-tools");
-
-        if (READ_CHAPTERS.indexOf(card.closest(".chapter").id) !== -1) {
-            var wax = el("span", "wax", "読"); wax.title = "読了"; tools.appendChild(wax);
-        }
-
-        if (recent(card.getAttribute("data-new"))) {
-            var s1 = el("span", "stamp", "新"); s1.title = "最近追加された規則"; tools.appendChild(s1);
-        } else if (recent(card.getAttribute("data-rev"))) {
-            var s2 = el("span", "stamp", "改"); s2.title = "最近書き換えられた規則"; tools.appendChild(s2);
-        }
-
-        var grade = GRADES[card.getAttribute("data-grade")];
-        if (grade) {
-            var seal = el("a", "seal");
-            seal.href = "#penalty";
-            seal.title = "封印の格 (罰則の重さ)";
-            seal.appendChild(el("i", null, "封"));
-            seal.appendChild(document.createTextNode(grade));
-            tools.appendChild(seal);
-        }
-
-        var btn = el("button", "copy-link");
-        btn.type = "button";
-        btn.title = "この項目へのリンクをコピー";
-        btn.setAttribute("aria-label", "この項目へのリンクをコピー");
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>';
-        tools.appendChild(btn);
-
-        card.insertBefore(tools, card.firstChild);
-        if (!card.closest("#glossary")) linkTerms(card);
-    });
-
-    // ---------- 左側の項目一覧を本文から作る ----------
-    chapters.forEach(function (ch) {
-        var sub = document.querySelector('[data-sub="' + ch.id + '"]');
-        if (!sub) return;
-        ch.querySelectorAll(".rule").forEach(function (rule) {
-            var li = el("li");
-            var a = el("a");
-            a.href = "#" + rule.id;
-            a.appendChild(el("span", "num", ch.id === "glossary" ? "" : (rule.getAttribute("data-num") || "")));
-            a.appendChild(document.createTextNode(ch.id === "glossary" ? rule.getAttribute("data-term") : rule.querySelector("h3").textContent));
-            li.appendChild(a);
-            sub.appendChild(li);
-        });
-    });
-
-    // にじみ出る順番
-    chapters.forEach(function (ch) {
-        ch.querySelectorAll(".chapter-head, .rule, .chronicle > li, .stages li").forEach(function (e, i) {
-            e.style.setProperty("--i", Math.min(i, 12));
-        });
-    });
-
-    // ---------- 検索 ----------
-    // ・空白で区切ると「すべてを含む」項目だけを出す
-    // ・ひらがな/カタカナ、全角/半角英数、大文字/小文字は区別しない
-    // ・URL の ?q=拘束 で検索した状態のページを共有できる
-
-    // 文字数を変えずに表記ゆれをそろえる (ハイライト位置がずれないように 1 文字 → 1 文字だけ)
-    function norm(s) {
-        return s.replace(/[ァ-ヶ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); })
-                .replace(/[！-～]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); })
-                .replace(/　/g, " ")
-                .toLowerCase();
-    }
-
-    var data = cards.map(function (card) {
-        return {
-            el: card,
-            chapter: card.closest(".chapter").id,
-            html: card.innerHTML,
-            text: norm(card.textContent + " " + (card.getAttribute("data-keywords") || "")),
-            jobs: Array.prototype.map.call(card.querySelectorAll(".jobs span"), function (s) { return s.textContent; })
-        };
-    });
-
-    // ---------- 職業から探す ----------
-    var jobSelect = document.getElementById("job-select");
-    var jobClear = document.getElementById("job-clear");
-    var jobCases = document.getElementById("job-cases");
-    var jobCasesList = document.getElementById("job-cases-list");
-    var ALL_JOBS = "全職業";
-
-    data.forEach(function (d) {
-        if (d.chapter !== "jobs") return;
-        d.jobs.forEach(function (name) {
-            if (name === ALL_JOBS || jobSelect.querySelector('option[value="' + name + '"]')) return;
-            var o = el("option", null, name);
-            o.value = name;
-            jobSelect.appendChild(o);
-        });
-    });
-    var savedJob = load("rules-job");
-    if (savedJob && jobSelect.querySelector('option[value="' + savedJob + '"]')) jobSelect.value = savedJob;
-
-    // 選んだ職業に当てはまるか (「全職業」のカードはいつも当てはまる)
-    function jobMatch(d) {
-        var job = jobSelect.value;
-        return !job || d.jobs.indexOf(job) !== -1 || d.jobs.indexOf(ALL_JOBS) !== -1;
-    }
-
-    // 選んだ職業の規則にリンクしている事例を並べる
-    function renderJobCases() {
-        var job = jobSelect.value;
-        jobClear.hidden = !job;
-        jobCasesList.innerHTML = "";
-        if (!job) { jobCases.hidden = true; return; }
-        var ids = data.filter(function (d) {
-            return d.chapter === "jobs" && d.jobs.indexOf(job) !== -1;
-        }).map(function (d) { return "#" + d.el.id; });
-        data.forEach(function (d) {
-            if (d.chapter !== "cases") return;
-            var hit = Array.prototype.some.call(d.el.querySelectorAll(".related a"), function (a) {
-                return ids.indexOf(a.getAttribute("href")) !== -1;
-            });
-            if (!hit) return;
-            var ng = d.el.querySelector(".verdict.ng");
-            var a = el("a");
-            a.href = "#" + d.el.id;
-            a.appendChild(el("span", "v " + (ng ? "ng" : "ok"), ng ? "× 違反" : "○ 問題なし"));
-            a.appendChild(document.createTextNode(d.el.querySelector("h3").textContent));
-            var li = el("li");
-            li.appendChild(a);
-            jobCasesList.appendChild(li);
-        });
-        jobCases.hidden = !jobCasesList.children.length;
-    }
-
-    jobSelect.addEventListener("change", function () {
-        save("rules-job", jobSelect.value || null);
-        render();
-        turnPage(document.getElementById("jobs"));
-    });
-    jobClear.addEventListener("click", function () {
-        jobSelect.value = "";
-        save("rules-job", null);
-        render();
-    });
-
-    function highlight(root, words) {
-        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-            acceptNode: function (n) {
-                return n.parentNode.closest(".card-tools") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
-            }
-        });
-        var nodes = [];
-        while (walker.nextNode()) nodes.push(walker.currentNode);
-        nodes.forEach(function (node) {
-            var raw = node.nodeValue;
-            var low = norm(raw);
-            var ranges = [];
-            words.forEach(function (w) {
-                var i = low.indexOf(w);
-                while (i !== -1) {
-                    ranges.push([i, i + w.length]);
-                    i = low.indexOf(w, i + w.length);
-                }
-            });
-            if (!ranges.length) return;
-            ranges.sort(function (a, b) { return a[0] - b[0]; });
-            var merged = [ranges[0]];
-            for (var k = 1; k < ranges.length; k++) {
-                var last = merged[merged.length - 1];
-                if (ranges[k][0] <= last[1]) last[1] = Math.max(last[1], ranges[k][1]);
-                else merged.push(ranges[k]);
-            }
-            var frag = document.createDocumentFragment();
-            var pos = 0;
-            merged.forEach(function (r) {
-                if (r[0] > pos) frag.appendChild(document.createTextNode(raw.slice(pos, r[0])));
-                frag.appendChild(el("mark", null, raw.slice(r[0], r[1])));
-                pos = r[1];
-            });
-            if (pos < raw.length) frag.appendChild(document.createTextNode(raw.slice(pos)));
-            node.parentNode.replaceChild(frag, node);
-        });
-    }
-
-    function turnPage(ch) {
-        ch.classList.remove("turn");
-        void ch.offsetWidth; // アニメーションをやり直すため
-        ch.classList.add("turn");
-    }
-
-    function render() {
-        var q = input.value;
-        var words = norm(q).split(/\s+/).filter(Boolean);
-        var searching = words.length > 0;
-        clearBtn.hidden = !q;
-        hideTip();
-
-        var total = 0;
-        var perChapter = {};
-        data.forEach(function (d) {
-            d.el.innerHTML = d.html;
-            var ok = searching
-                ? words.every(function (w) { return d.text.indexOf(w) !== -1; })
-                : d.chapter !== "jobs" || jobMatch(d); // 検索していないときは職業の絞り込みを使う
-            d.el.hidden = !ok;
-            if (ok && searching) {
-                total++;
-                perChapter[d.chapter] = (perChapter[d.chapter] || 0) + 1;
-                highlight(d.el, words);
-            }
-        });
-
-        chapters.forEach(function (ch) {
-            // 検索中: 一致した項目がある章をすべて出す / 通常: 選んでいる章だけ出す
-            ch.hidden = searching ? !perChapter[ch.id] : ch.id !== current;
-            ch.querySelectorAll(".closing").forEach(function (c) { c.hidden = searching; });
-            if (searching) ch.classList.remove("turn");
-        });
-
-        links.forEach(function (a) {
-            var id = a.getAttribute("data-chapter");
-            a.classList.toggle("active", !searching && id === current);
-            a.querySelector(".count").textContent = searching && perChapter[id] ? perChapter[id] + " 件" : "";
-        });
-        document.querySelectorAll(".sub").forEach(function (sub) {
-            sub.hidden = searching || sub.getAttribute("data-sub") !== current;
-        });
-
-        renderJobCases();
-        if (searching) jobCases.hidden = true;
-
-        empty.hidden = !searching || total > 0;
-        status.textContent = searching ? (total > 0 ? total + " 件見つかりました" : "見つかりませんでした") : "";
-
-        // URL に検索語を残す (共有用)
-        try {
-            var url = new URL(location.href);
-            if (q) url.searchParams.set("q", q); else url.searchParams.delete("q");
-            history.replaceState(null, "", url);
-        } catch (e) {}
-    }
-
-    // ---------- 章の切り替え (URL の # で決まる) ----------
-    // #server などの章名 → その章を開く / #rule-2 などの項目名 → その章を開いて項目まで移動する
-    function route(scroll) {
-        var id = decodeURIComponent(location.hash.slice(1));
-        var target = id && document.getElementById(id);
-        var chapter = target && (target.classList.contains("chapter") ? target : target.closest(".chapter"));
-        if (!chapter) { target = null; chapter = document.getElementById("start"); }
-
-        // 職業の絞り込みで隠れている規則を開こうとしたときは、絞り込みを外す
-        if (target && target.closest("#jobs") && target.classList.contains("rule") && jobSelect.value) {
-            var d = data.filter(function (x) { return x.el === target; })[0];
-            if (d && !jobMatch(d)) { jobSelect.value = ""; save("rules-job", null); }
-        }
-
-        var changed = chapter.id !== current || !!input.value;
-        current = chapter.id;
-        if (input.value) input.value = ""; // 章や項目を選んだら検索は解除する
-        render();
-        if (changed) turnPage(chapter);
-
-        if (!scroll) return;
-        if (target && target !== chapter) {
-            target.scrollIntoView({ block: "start" });
-        } else if (window.matchMedia("(max-width: 900px)").matches) {
-            document.getElementById("main").scrollIntoView({ block: "start" });
-        } else {
-            window.scrollTo(0, 0);
-        }
-    }
-
-    window.addEventListener("hashchange", function () { route(true); });
-
-    // 同じ章をもう一度押したとき (hashchange が起きない) も先頭へ戻す
-    links.forEach(function (a) {
-        a.addEventListener("click", function () {
-            if (location.hash === a.getAttribute("href")) route(true);
-        });
-    });
-
-    var timer;
-    input.addEventListener("input", function () {
-        clearTimeout(timer);
-        timer = setTimeout(render, 120);
-    });
-    input.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") { input.value = ""; render(); }
-    });
-    clearBtn.addEventListener("click", function () {
-        input.value = "";
-        render();
-        input.focus();
-    });
-
-    // 「/」キーで検索欄へ
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "/" && document.activeElement !== input) {
-            e.preventDefault();
-            input.focus();
-        }
-    });
-
-    // ---------- リンクのコピー ----------
-    var toastTimer;
-    function showToast(text) {
-        toast.textContent = text;
-        toast.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
-    }
-
-    function copyText(text) {
-        if (navigator.clipboard && window.isSecureContext) {
-            return navigator.clipboard.writeText(text);
-        }
-        return new Promise(function (resolve, reject) {
-            var ta = el("textarea");
-            ta.value = text;
-            ta.style.position = "fixed";
-            ta.style.opacity = "0";
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand("copy") ? resolve() : reject(); } catch (e) { reject(e); }
-            document.body.removeChild(ta);
-        });
-    }
-
-    // ---------- 用語の説明 ----------
-    var tipFor = null;
-    function showTip(term) {
-        tipFor = term;
-        tip.innerHTML = "";
-        tip.appendChild(el("strong", null, term.getAttribute("data-tip-title")));
-        tip.appendChild(document.createTextNode(term.getAttribute("data-tip")));
-        var r = term.getBoundingClientRect();
-        tip.style.left = "0px";
-        tip.style.top = "0px";
-        tip.classList.add("show");
-        var w = tip.offsetWidth, h = tip.offsetHeight;
-        var left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8));
-        var top = r.bottom + 8;
-        if (top + h > window.innerHeight - 8) top = r.top - h - 8;
-        tip.style.left = left + "px";
-        tip.style.top = top + "px";
-    }
-    function hideTip() {
-        tipFor = null;
-        tip.classList.remove("show");
-    }
-
-    var hoverable = window.matchMedia("(hover: hover)").matches;
-    document.addEventListener("mouseover", function (e) {
-        if (!hoverable) return;
-        var t = e.target.closest(".term");
-        if (t) showTip(t); else if (tipFor) hideTip();
-    });
-    document.addEventListener("focusin", function (e) {
-        var t = e.target.closest(".term");
-        if (t) showTip(t);
-    });
-    document.addEventListener("focusout", function (e) {
-        if (e.target.closest(".term")) hideTip();
-    });
-    window.addEventListener("scroll", function () { if (tipFor) hideTip(); }, { passive: true });
-
-    document.addEventListener("click", function (e) {
-        // リンクのコピー
-        var btn = e.target.closest(".copy-link");
-        if (btn) {
-            var card = btn.closest(".rule");
-            var url = location.href.split("#")[0].split("?")[0] + "#" + card.id;
-            var num = card.getAttribute("data-num") || "";
-            var title = card.closest("#glossary") ? card.getAttribute("data-term") : card.querySelector("h3").textContent;
-            var text = "【" + (num ? num + " " : "") + title + "】 " + url;
-            copyText(text).then(
-                function () { showToast("リンクをコピーしました"); },
-                function () { showToast("コピーできませんでした"); }
-            );
-            return;
-        }
-
-        // スマホでは用語を押すと説明を出す (もう一度押すと用語集へ移動)
-        var term = e.target.closest(".term");
-        if (term && !hoverable && tipFor !== term) {
-            e.preventDefault();
-            showTip(term);
-            return;
-        }
-        if (!term && tipFor) hideTip();
-    });
-
-    // ---------- 読了の印 ----------
-    // 画面に半分以上映った状態が READ_MS 続いたカードを「読んだ」ことにして、このブラウザに記録する
-    var readable = data.filter(function (d) { return READ_CHAPTERS.indexOf(d.chapter) !== -1; });
-    var readSet = {};
-    try { (JSON.parse(load("rules-read") || "[]") || []).forEach(function (id) { readSet[id] = true; }); } catch (e) {}
-
-    var progressText = document.getElementById("progress-text");
-    var progressBar = document.getElementById("progress-bar");
-    var resume = document.getElementById("resume");
-    var resumeText = document.getElementById("resume-text");
-    var resumeLink = document.getElementById("resume-link");
-
-    function updateProgress() {
-        var done = 0;
-        readable.forEach(function (d) {
-            var r = !!readSet[d.el.id];
-            d.el.classList.toggle("read", r);
-            if (r) done++;
-        });
-        progressText.textContent = done + " / " + readable.length;
-        progressBar.style.width = (readable.length ? done / readable.length * 100 : 0) + "%";
-
-        // 章ごとに全部読んだら「済」
-        links.forEach(function (a) {
-            var id = a.getAttribute("data-chapter");
-            if (READ_CHAPTERS.indexOf(id) === -1) return;
-            var list = readable.filter(function (d) { return d.chapter === id; });
-            a.classList.toggle("done", list.length > 0 && list.every(function (d) { return readSet[d.el.id]; }));
-        });
-
-        // 「はじめての方へ」の続きから読む (読み始めていて、まだ残りがあるときだけ)
-        var next = readable.filter(function (d) { return !readSet[d.el.id]; })[0];
-        resume.hidden = !(done > 0 && next);
-        if (next) {
-            resumeText.textContent = "まだ読んでいない項目が " + (readable.length - done) + " 件あります。";
-            resumeLink.href = "#" + next.el.id;
-        }
-    }
-
-    function markRead(card) {
-        if (readSet[card.id]) return;
-        readSet[card.id] = true;
-        save("rules-read", JSON.stringify(Object.keys(readSet)));
-        updateProgress();
-    }
-
-    document.getElementById("progress-reset").addEventListener("click", function () {
-        readSet = {};
-        save("rules-read", null);
-        updateProgress();
-        showToast("読んだ記録を消しました");
-    });
-
-    if ("IntersectionObserver" in window) {
-        var timers = {};
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (en) {
-                var id = en.target.id;
-                if (en.isIntersecting && !readSet[id]) {
-                    if (!timers[id]) timers[id] = setTimeout(function () { delete timers[id]; markRead(en.target); }, READ_MS);
-                } else if (timers[id]) {
-                    clearTimeout(timers[id]);
-                    delete timers[id];
-                }
-            });
-        }, { threshold: 0.5 });
-        readable.forEach(function (d) { io.observe(d.el); });
-    }
-    updateProgress();
-
-    // ---------- 最初の表示 ----------
-    // (route が URL の ?q= を消してしまうので、先に読んでおく)
-    var initial = new URLSearchParams(location.search).get("q");
-    route(!!location.hash && !initial);
-    if (initial) { input.value = initial; render(); }
-})();
-</script>
+<script src="assets/app.js"></script>
 </body>
 </html>

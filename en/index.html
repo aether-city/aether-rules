@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AETHER CITY RULES</title>
+<meta name="description" content="Server rules, job rules, character guide, precedents and FAQ for AETHER CITY, a FiveM roleplay server. Please read before joining.">
+<meta property="og:title" content="AETHER CITY RULES">
+<meta property="og:description" content="Server rules, job rules, character guide, precedents and FAQ for AETHER CITY, a FiveM roleplay server. Please read before joining.">
+<meta property="og:type" content="website">
+<link rel="alternate" hreflang="ja" href="../">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z' fill='%23a8894f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<!--
+    English version of the rules.
+    Keep the card ids the same as the Japanese page (index.html one level up),
+    so that links and reading progress are shared between both languages.
+    Japanese is the authoritative version; this page is a translation.
+-->
+
+<!-- Decorative magic circle -->
+<svg class="circle" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="0.4">
+    <circle cx="100" cy="100" r="96"/>
+    <circle cx="100" cy="100" r="90"/>
+    <circle cx="100" cy="100" r="62"/>
+    <polygon points="100,10 178,145 22,145"/>
+    <polygon points="100,190 22,55 178,55"/>
+    <circle cx="100" cy="100" r="30"/>
+    <g stroke-width="0.3">
+        <line x1="100" y1="4" x2="100" y2="196"/>
+        <line x1="4" y1="100" x2="196" y2="100"/>
+        <line x1="32" y1="32" x2="168" y2="168"/>
+        <line x1="168" y1="32" x2="32" y2="168"/>
+    </g>
+</svg>
+
+<div class="layout">
+
+    <aside class="side">
+        <div class="brand">
+            <h1>AETHER CITY<span>RULES</span></h1>
+            <div class="divider" aria-hidden="true">
+                <svg viewBox="0 0 32 32"><path d="M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z" fill="currentColor"/></svg>
+            </div>
+            <a class="lang-switch" href="../" hreflang="ja" lang="ja">日本語</a>
+            <button class="theme-btn" type="button" data-theme-toggle aria-label="Toggle light / dark" title="Toggle light / dark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+            </button>
+        </div>
+
+        <div role="search">
+            <label class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+                <input type="search" id="q" placeholder="Search the rules" autocomplete="off" aria-label="Search the rules">
+                <button type="button" class="search-clear" id="q-clear" hidden>Clear</button>
+            </label>
+            <p class="search-status" id="q-status" aria-live="polite"></p>
+        </div>
+
+        <nav class="chapters" aria-label="Chapters">
+            <div>
+                <a class="chapter-link" href="#start" data-chapter="start">
+                    <span class="en">First Steps</span>
+                    <span class="ja">Getting Started<span class="count"></span></span>
+                </a>
+            </div>
+            <div>
+                <a class="chapter-link" href="#server" data-chapter="server">
+                    <span class="en">Laws of the City</span>
+                    <span class="ja">Server Rules<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="server"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#jobs" data-chapter="jobs">
+                    <span class="en">Charters of the Guilds</span>
+                    <span class="ja">Job Rules<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="jobs"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#character" data-chapter="character">
+                    <span class="en">Forging a Persona</span>
+                    <span class="ja">Characters<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="character"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#cases" data-chapter="cases">
+                    <span class="en">Book of Precedents</span>
+                    <span class="ja">Precedents<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="cases"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#faq" data-chapter="faq">
+                    <span class="en">Questions &amp; Answers</span>
+                    <span class="ja">FAQ<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="faq"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#glossary" data-chapter="glossary">
+                    <span class="en">Lexicon</span>
+                    <span class="ja">Glossary<span class="count"></span></span>
+                </a>
+                <ol class="sub" data-sub="glossary"></ol>
+            </div>
+            <div>
+                <a class="chapter-link" href="#penalty" data-chapter="penalty">
+                    <span class="en">Scales of Judgment</span>
+                    <span class="ja">Penalties<span class="count"></span></span>
+                </a>
+            </div>
+            <div>
+                <a class="chapter-link" href="#chronicle" data-chapter="chronicle">
+                    <span class="en">Chronicle</span>
+                    <span class="ja">Revisions<span class="count"></span></span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="progress" id="progress">
+            <div class="progress-row">
+                <span>Read <span id="progress-text"></span></span>
+                <button type="button" id="progress-reset" title="Clear reading record">Reset</button>
+            </div>
+            <div class="progress-bar"><span id="progress-bar"></span></div>
+        </div>
+
+        <div class="side-foot">
+            <span class="updated">Last revised&nbsp; <span id="updated"></span></span>
+            <div class="foot-tools">
+                <a class="lang-switch" href="../" hreflang="ja" lang="ja">日本語</a>
+                <button class="theme-btn" type="button" data-theme-toggle aria-label="Toggle light / dark" title="Toggle light / dark">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main" id="main">
+
+        <!-- ===== Getting Started ===== -->
+        <section class="chapter" id="start">
+            <div class="chapter-head">
+                <p class="eyebrow">First Steps</p>
+                <h2>Getting Started</h2>
+                <p class="lead">
+                    Welcome to AETHER CITY.<br>
+                    Remember these five things first. It takes three minutes.
+                </p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="points">
+                <li>
+                    <strong>Live as your character</strong>
+                    <p>You are not a "player" here, but a resident of this city. Think, speak and act as that person.<a href="#term-rp">What is roleplay?</a></p>
+                </li>
+                <li>
+                    <strong>Never attack without a reason</strong>
+                    <p>Magic and vehicles are only used when the story calls for it.<a href="#rule-2">Article II</a></p>
+                </li>
+                <li>
+                    <strong>Keep outside knowledge out of the game</strong>
+                    <p>Your character does not know what you learned from streams or voice chat.<a href="#rule-3">Article III</a></p>
+                </li>
+                <li>
+                    <strong>Respect others, and talk things out first</strong>
+                    <p>There is a real person behind every screen. Abuse and stalking are punished severely.<a href="#rule-1">Article I</a></p>
+                </li>
+                <li>
+                    <strong>Report bugs instead of using them</strong>
+                    <p>Exploiting bugs is one of the most serious offenses.<a href="#rule-4">Article IV</a></p>
+                </li>
+            </ol>
+
+            <div class="resume" id="resume" hidden>
+                <span id="resume-text"></span>
+                <a href="#server" id="resume-link">Continue reading</a>
+            </div>
+
+            <h3 class="section-title">Read next</h3>
+            <ul class="next-steps">
+                <li><a href="#server"><small>Required</small>Server Rules<span>The rules every resident follows</span></a></li>
+                <li><a href="#jobs"><small>If you take a job</small>Job Rules<span>Pick your job to see only the rules that apply</span></a></li>
+                <li><a href="#character"><small>Before you start</small>Character Guide<span>Names, age and backstory</span></a></li>
+                <li><a href="#cases"><small>When in doubt</small>Precedents<span>Common situations and how they are judged</span></a></li>
+                <li><a href="#faq"><small>Need help?</small>FAQ<span>Streaming, reports, bugs and more</span></a></li>
+                <li><a href="#glossary"><small>Unknown words</small>Glossary<span>RDM, metagaming, NLR and more</span></a></li>
+            </ul>
+        </section>
+
+        <!-- ===== Server Rules ===== -->
+        <section class="chapter" id="server">
+            <div class="chapter-head">
+                <p class="eyebrow">Laws of the City</p>
+                <h2>Server Rules</h2>
+                <p class="lead">
+                    Every resident of AETHER CITY must follow these rules.<br>
+                    Those who hold a job must also follow the Job Rules.
+                </p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="rule-1" data-num="Article I" data-grade="2" data-keywords="harassment abuse insult toxic manners">
+                    <p class="article">Article I</p>
+                    <h3>Be courteous</h3>
+                    <p>Abusive language, discriminatory remarks and stalking toward other students or residents are forbidden.</p>
+                    <p>When trouble arises, first try to resolve it with words.</p>
+                </li>
+
+                <li class="rule" id="rule-2" data-num="Article II" data-grade="2" data-keywords="RDM attack combat spell kill">
+                    <p class="article">Article II</p>
+                    <h3>Do not abuse magic</h3>
+                    <p>Using attack magic without a reason (RDM) and spamming spells while ignoring roleplay are forbidden.</p>
+                    <p>Use magic to enrich the story.</p>
+                </li>
+
+                <li class="rule" id="rule-3" data-num="Article III" data-grade="2" data-keywords="meta metagame stream voice Discord">
+                    <p class="article">Article III</p>
+                    <h3>Do not bring in knowledge from outside the world</h3>
+                    <p>Bringing information your character could not know, such as things learned from streams or voice chat, into the story (metagaming) is forbidden.</p>
+                </li>
+
+                <li class="rule" id="rule-4" data-num="Article IV" data-grade="1" data-keywords="bug glitch exploit cheat report admin">
+                    <p class="article">Article IV</p>
+                    <h3>Do not exploit bugs</h3>
+                    <p>If you find a bug, do not exploit it. Report it to the staff promptly.</p>
+                </li>
+            </ol>
+
+            <p class="closing">
+                The rules exist to protect the story.<br>
+                Respect one another, and let us weave this world together.
+            </p>
+        </section>
+
+        <!-- ===== Job Rules (draft) ===== -->
+        <section class="chapter" id="jobs">
+            <div class="chapter-head">
+                <p class="eyebrow">Charters of the Guilds</p>
+                <h2>Job Rules</h2>
+                <p class="lead">Rules that those who hold a job follow while on duty.</p>
+                <span class="draft">* Draft — subject to change</span>
+                <div class="job-filter">
+                    <label for="job-select">What is your job?</label>
+                    <select id="job-select"><option value="">Show all jobs</option></select>
+                    <button type="button" id="job-clear" hidden>Clear</button>
+                </div>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="job-common" data-num="Common" data-keywords="duty clock in clock out salary">
+                    <p class="article">Common</p>
+                    <h3>All jobs</h3>
+                    <div class="jobs"><span>All jobs</span></div>
+                    <ol class="items">
+                        <li>Always go on duty when working, and go off duty when you leave.</li>
+                        <li>Do not use the authority, tools or funds of your job for personal purposes.</li>
+                        <li>Follow your coworkers and superiors, and any workplace rules.</li>
+                        <li>Even if you hold several jobs, you may only be on duty for one at a time.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-auror" data-num="Order" data-grade="2" data-keywords="police arrest restrain cuffs stun enforce seize">
+                    <p class="article">Order</p>
+                    <h3>Prefects &amp; Police</h3>
+                    <div class="jobs"><span>Prefects</span><span>Police</span></div>
+                    <ol class="items">
+                        <li>Restraint and stun spells may only be used by Prefects while on duty. Never use them off duty.</li>
+                        <li>Before restraining or arresting someone, tell them the reason through roleplay.</li>
+                        <li>Do not leave a restrained person waiting; process them promptly (about 30 minutes at most).</li>
+                        <li>Respond with a number of people suited to the incident. Do not show up in excessive numbers.</li>
+                        <li>Do not keep seized items or money for yourself.</li>
+                        <li>Do not use your authority to settle personal disputes.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-medic" data-num="Medical" data-grade="2" data-keywords="EMS doctor medic heal revive hospital healer">
+                    <p class="article">Medical</p>
+                    <h3>Magic Infirmary &amp; EMS</h3>
+                    <div class="jobs"><span>Magic Infirmary</span><span>EMS</span></div>
+                    <ol class="items">
+                        <li>Treat patients neutrally. Never refuse treatment because of someone's affiliation or crimes.</li>
+                        <li>Do not enter an ongoing fight. Wait until the area is confirmed safe.</li>
+                        <li>Do not take part in crimes, or pass on information learned while treating or transporting patients.</li>
+                        <li>Do not sell or hand out medical tools or medicine while off duty.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-law" data-num="Justice" data-grade="3" data-keywords="court judge verdict lawyer law">
+                    <p class="article">Justice</p>
+                    <h3>Magic Court &amp; Lawyers</h3>
+                    <div class="jobs"><span>Magic Court</span><span>Honorary Office (Judge)</span><span>Magic Law Office</span><span>Law Office</span></div>
+                    <ol class="items">
+                        <li>Deliver verdicts fairly, and show the parties the grounds for them.</li>
+                        <li>Lawyers must not reveal what clients told them without permission.</li>
+                        <li>Trials must not go against the Server Rules.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-press" data-num="Press" data-grade="3" data-keywords="newspaper article news report editor">
+                    <p class="article">Press</p>
+                    <h3>Magic Newspaper &amp; Reporters</h3>
+                    <div class="jobs"><span>Magic Newspaper</span><span>Reporter</span></div>
+                    <ol class="items">
+                        <li>Write only about events within the story. Never attack the players themselves.</li>
+                        <li>Do not publish information learned from streams or voice chat (meta information).</li>
+                        <li>Articles are published only after the editor-in-chief has reviewed them.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-craft" data-num="Workshop" data-grade="3" data-keywords="mechanic repair tune wand custom">
+                    <p class="article">Workshop</p>
+                    <h3>Magic Workshop, Wand Workshop &amp; Mechanics</h3>
+                    <div class="jobs"><span>Magic Workshop</span><span>Wand Workshop</span><span>LS Customs</span><span>Beeker's Garage</span><span>Benny's</span></div>
+                    <ol class="items">
+                        <li>Charge the prices set by the shop. Do not demand unfair fees.</li>
+                        <li>Repairs and modifications are done inside the workshop. Go out only when requested.</li>
+                        <li>Do not use vehicles or items left with you without the owner's permission.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-transport" data-num="Transport" data-grade="3" data-keywords="taxi bus delivery driver tow truck broom carpet barrier curfew">
+                    <p class="article">Transport</p>
+                    <h3>Broom Taxi, Delivery &amp; Towing</h3>
+                    <div class="jobs"><span>Broom Taxi</span><span>Broom Bus</span><span>Flying Carpet Delivery</span><span>Levitation Towing</span><span>Taxi</span><span>Bus Driver</span><span>Truck Driver</span><span>Tow Truck</span></div>
+                    <ol class="items">
+                        <li>Do not take passengers anywhere other than the destination they asked for.</li>
+                        <li>Only tow abandoned vehicles. Never tow a vehicle that is in use.</li>
+                        <li>Do not carry passengers into restricted areas such as barriers or the night curfew zone.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-shop" data-num="Trade" data-grade="3" data-keywords="restaurant cafe food shop stall price winery dealer">
+                    <p class="article">Trade</p>
+                    <h3>Restaurants, Shops &amp; Herb Garden</h3>
+                    <div class="jobs"><span>Café</span><span>Burger Shop</span><span>Magic Food Stall</span><span>Hot Dog Stand</span><span>Magic Herb Garden</span><span>Winery</span><span>Broom Shop</span><span>Car Dealership</span></div>
+                    <ol class="items">
+                        <li>Sell goods at the prices set by the shop.</li>
+                        <li>Do not use the shop's stock or ingredients as your own while off duty.</li>
+                        <li>Advertise and call out to customers without disturbing others.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-estate" data-num="Estate" data-grade="3" data-keywords="house home property key contract">
+                    <p class="article">Estate</p>
+                    <h3>Magic Real Estate &amp; Real Estate</h3>
+                    <div class="jobs"><span>Magic Real Estate</span><span>Real Estate</span></div>
+                    <ol class="items">
+                        <li>Never sell the same property to more than one person.</li>
+                        <li>Clearly explain the terms of a contract (price, period, etc.) beforehand.</li>
+                        <li>Do not make or hand out keys to someone's home without the owner's permission.</li>
+                    </ol>
+                </li>
+            </ol>
+
+            <div class="job-cases" id="job-cases" hidden>
+                <h3 class="section-title">Precedents related to this job</h3>
+                <ul id="job-cases-list"></ul>
+            </div>
+        </section>
+
+        <!-- ===== Character Guide (draft) ===== -->
+        <section class="chapter" id="character">
+            <div class="chapter-head">
+                <p class="eyebrow">Forging a Persona</p>
+                <h2>Character Guide</h2>
+                <p class="lead">Creating the other you who lives in this city. It does not need to be perfect from the start — let it grow through the story.</p>
+                <span class="draft">* Draft — subject to change</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="char-name" data-num="Part I" data-keywords="name first name last name surname">
+                    <p class="article">Part I</p>
+                    <h3>Name</h3>
+                    <ol class="items">
+                        <li>Use a first and last name that fits a person living in this world.</li>
+                        <li>Do not use the names of real people or famous fictional characters.</li>
+                        <li>Avoid vulgar or joke names.</li>
+                    </ol>
+                    <div class="examples">
+                        <div class="ex good"><b>○ Good</b><ul><li>Alicia Grey</li><li>Kyle Blackwood</li></ul></div>
+                        <div class="ex bad"><b>× Avoid</b><ul><li>The same name as a celebrity or fictional character</li><li>A first name only, or only symbols and numbers</li></ul></div>
+                    </div>
+                </li>
+
+                <li class="rule" id="char-age" data-num="Part II" data-keywords="age appearance looks">
+                    <p class="article">Part II</p>
+                    <h3>Age and appearance</h3>
+                    <ol class="items">
+                        <li>Characters must be 18 years or older.</li>
+                        <li>Keep the character's appearance consistent with their age.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="char-story" data-num="Part III" data-keywords="backstory background history personality goal story">
+                    <p class="article">Part III</p>
+                    <h3>Backstory</h3>
+                    <ol class="items">
+                        <li>Decide, even briefly, four things: where they come from, why they came to the city, their personality and their goal.</li>
+                        <li>Avoid overpowered settings such as "a legendary archmage" or "cannot die". They lead to power gaming.</li>
+                        <li>Reveal your backstory gradually through roleplay. There is no need to tell a stranger everything at once.</li>
+                    </ol>
+                    <div class="examples">
+                        <div class="ex good"><b>○ Good</b><ul><li>Born into a family of apothecaries in a harbor town, came to the city looking for a missing sister. Shy, but can't stop talking about herbs.</li></ul></div>
+                        <div class="ex bad"><b>× Avoid</b><ul><li>An immortal royal who has mastered every kind of magic and has never lost to anyone.</li></ul></div>
+                    </div>
+                </li>
+
+                <li class="rule" id="char-magic" data-num="Part IV" data-keywords="magic awakening house sorting element mana">
+                    <p class="article">Part IV</p>
+                    <h3>Your relationship with magic</h3>
+                    <ol class="items">
+                        <li>Characters begin their story before awakening to magic. Magic is something gained through events in the city.</li>
+                        <li>Your house is decided by the Sorting ceremony. You do not need to choose it in your backstory.</li>
+                        <li>Only use magic your character has actually learned in the game.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="char-multi" data-num="Part V" data-grade="2" data-keywords="multiple alt character transfer share">
+                    <p class="article">Part V</p>
+                    <h3>Multiple characters</h3>
+                    <ol class="items">
+                        <li>Do not transfer money, items or information between your own characters.</li>
+                        <li>Do not use what one character learned as if another character knew it (metagaming).</li>
+                        <li>Do not have your characters belong to the same group or work together.</li>
+                    </ol>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== Precedents (draft) ===== -->
+        <section class="chapter" id="cases">
+            <div class="chapter-head">
+                <p class="eyebrow">Book of Precedents</p>
+                <h2>Precedents</h2>
+                <p class="lead">What happens if…? Common situations and examples of how they are judged.</p>
+                <span class="draft">* Draft — subject to change</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules">
+                <li class="rule" id="case-1" data-num="Case 1" data-keywords="Discord voice downed location">
+                    <p class="article">Case 1</p>
+                    <h3>Right after going down, told friends the attacker's location over voice chat</h3>
+                    <p class="verdict ng"><b>×</b>Violation</p>
+                    <p>A downed character has no way to contact friends. Passing information through voice chat outside the game is metagaming.</p>
+                    <p class="related">Related rules: <a href="#rule-3">Article III</a></p>
+                </li>
+
+                <li class="rule" id="case-2" data-num="Case 2" data-keywords="argument fight attack">
+                    <p class="article">Case 2</p>
+                    <h3>Suddenly took down someone with attack magic during an argument</h3>
+                    <p class="verdict ng"><b>×</b>Violation</p>
+                    <p>It was only an exchange of words, and no reason for an attack was shown through roleplay. This is RDM.</p>
+                    <p class="related">Related rules: <a href="#rule-2">Article II</a></p>
+                </li>
+
+                <li class="rule" id="case-3" data-num="Case 3" data-keywords="robbery hostage threat crime">
+                    <p class="article">Case 3</p>
+                    <h3>During a robbery, stated demands and then threatened with magic</h3>
+                    <p class="verdict ok"><b>○</b>Allowed</p>
+                    <p>The goal and demands were communicated, and magic was used within the flow of roleplay. This is an acceptable use that moves the story forward.</p>
+                    <p class="related">Related rules: <a href="#rule-2">Article II</a></p>
+                </li>
+
+                <li class="rule" id="case-4" data-num="Case 4" data-keywords="bug wall clip report">
+                    <p class="article">Case 4</p>
+                    <h3>Found a bug that lets you pass through walls and told the staff</h3>
+                    <p class="verdict ok"><b>○</b>Allowed</p>
+                    <p>Reporting without exploiting is the right response. Including steps to reproduce helps the staff fix it faster.</p>
+                    <p class="related">Related rules: <a href="#rule-4">Article IV</a></p>
+                </li>
+
+                <li class="rule" id="case-5" data-num="Case 5" data-keywords="off duty restrain prefect personal authority">
+                    <p class="article">Case 5</p>
+                    <h3>An off-duty Prefect used restraint magic in a personal dispute</h3>
+                    <p class="verdict ng"><b>×</b>Violation</p>
+                    <p>Restraint magic may only be used on duty. Using authority to settle personal disputes is also forbidden.</p>
+                    <p class="related">Related rules: <a href="#job-auror">Order</a><a href="#job-common">Common</a></p>
+                </li>
+
+                <li class="rule" id="case-6" data-num="Case 6" data-keywords="treatment refuse rival gang medical">
+                    <p class="article">Case 6</p>
+                    <h3>An infirmary worker refused to treat a member of a rival group</h3>
+                    <p class="verdict ng"><b>×</b>Violation</p>
+                    <p>Treatment is given neutrally, regardless of affiliation. Even if the characters have history, treatment comes first while on duty.</p>
+                    <p class="related">Related rules: <a href="#job-medic">Medical</a></p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== FAQ (draft) ===== -->
+        <section class="chapter" id="faq">
+            <div class="chapter-head">
+                <p class="eyebrow">Questions &amp; Answers</p>
+                <h2>FAQ</h2>
+                <p class="lead">Questions the staff are often asked. For anything not covered here, use the question button on any card.</p>
+                <span class="draft">* Draft — subject to change</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules faq">
+                <li class="rule" id="faq-join" data-num="Q1" data-keywords="join apply whitelist start">
+                    <p class="article">Q1</p>
+                    <h3>How do I join?</h3>
+                    <p class="answer">Join our Discord and apply by following the steps in the guide channel. Please read through these rules before applying.</p>
+                </li>
+
+                <li class="rule" id="faq-chars" data-num="Q2" data-keywords="characters how many multiple alt">
+                    <p class="article">Q2</p>
+                    <h3>How many characters can I make?</h3>
+                    <p class="answer">As many as the character selection screen allows. If you have more than one, be sure to follow <a href="#char-multi">Character Guide, Part V</a>.</p>
+                </li>
+
+                <li class="rule" id="faq-stream" data-num="Q3" data-keywords="stream record video YouTube Twitch clip">
+                    <p class="article">Q3</p>
+                    <h3>Can I stream or record?</h3>
+                    <p class="answer">Yes. However, you may not bring information from your stream chat or other people's streams into the game (<a href="#rule-3">Article III</a>). Please be considerate of other players who appear on screen.</p>
+                </li>
+
+                <li class="rule" id="faq-report" data-num="Q4" data-keywords="report violation evidence clip screenshot">
+                    <p class="article">Q4</p>
+                    <h3>What should I do if I see a rule violation?</h3>
+                    <p class="answer">Do not argue on the spot — keep roleplaying. Afterwards, report it to the Discord support channel with evidence such as a clip or screenshot.</p>
+                </li>
+
+                <li class="rule" id="faq-bug" data-num="Q5" data-keywords="bug lost items money refund compensation">
+                    <p class="article">Q5</p>
+                    <h3>I lost items or money because of a bug.</h3>
+                    <p class="answer">Report the date, time and situation to the support channel, with evidence if possible. The staff will decide on compensation after checking.</p>
+                </li>
+
+                <li class="rule" id="faq-ooc" data-num="Q6" data-keywords="OOC out of character chat talk">
+                    <p class="article">Q6</p>
+                    <h3>What if I want to talk about things outside the game?</h3>
+                    <p class="answer">Talk outside the game, such as on Discord. Keep OOC conversation in the game short, and only when truly necessary.</p>
+                </li>
+
+                <li class="rule" id="faq-remake" data-num="Q7" data-keywords="remake delete reset retire character change">
+                    <p class="article">Q7</p>
+                    <h3>I want to remake my character.</h3>
+                    <p class="answer">Please consult the staff in the support channel. A remade character cannot carry over the previous character's items or relationships.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== Glossary ===== -->
+        <section class="chapter" id="glossary">
+            <div class="chapter-head">
+                <p class="eyebrow">Lexicon</p>
+                <h2>Glossary</h2>
+                <p class="lead">The meaning of words used in the rules. Hover over (or tap) a dotted word in the text to see its meaning.</p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="rules glossary">
+                <li class="rule" id="term-rp" data-term="Roleplay" data-match="roleplay" data-keywords="RP roleplay">
+                    <p class="article">RP</p>
+                    <h3>Roleplay</h3>
+                    <p class="def">Becoming your character, and thinking, speaking and acting as that person. It is the heart of this server.</p>
+                </li>
+                <li class="rule" id="term-ic" data-term="IC / OOC" data-match="OOC" data-keywords="IC OOC in character out of character">
+                    <p class="article">IC / OOC</p>
+                    <h3>In character / Out of character</h3>
+                    <p class="def">IC is what your character says and does; OOC is what you, the player, say and do. Do not bring OOC matters into your character's actions.</p>
+                </li>
+                <li class="rule" id="term-rdm" data-term="RDM" data-match="RDM" data-keywords="random death match attack">
+                    <p class="article">RDM</p>
+                    <h3>Random Death Match</h3>
+                    <p class="def">Attacking or killing another character without a roleplay reason.</p>
+                </li>
+                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="vehicle death match run over broom car">
+                    <p class="article">VDM</p>
+                    <h3>Vehicle Death Match</h3>
+                    <p class="def">Running over or ramming other characters with a car, broom or other vehicle without a reason.</p>
+                </li>
+                <li class="rule" id="term-meta" data-term="Metagaming" data-match="metagaming meta information" data-keywords="meta stream voice">
+                    <p class="article">Meta</p>
+                    <h3>Metagaming</h3>
+                    <p class="def">Using information learned outside the game — from streams, voice chat or social media — as if your character knew it.</p>
+                </li>
+                <li class="rule" id="term-pg" data-term="Power gaming" data-match="power gaming" data-keywords="force one-sided">
+                    <p class="article">PG</p>
+                    <h3>Power gaming</h3>
+                    <p class="def">Forcing an outcome that suits you without giving others a chance to react. This includes abusing actions that would be impossible in reality.</p>
+                </li>
+                <li class="rule" id="term-nlr" data-term="NLR" data-match="NLR" data-keywords="new life rule memory death revive">
+                    <p class="article">NLR</p>
+                    <h3>New Life Rule</h3>
+                    <p class="def">A character who went down and was treated acts as if they do not remember the events just before going down.</p>
+                </li>
+                <li class="rule" id="term-fail" data-term="Fail RP" data-match="fail RP" data-keywords="failrp unrealistic">
+                    <p class="article">FailRP</p>
+                    <h3>Fail RP</h3>
+                    <p class="def">Acting in a way that is unnatural for your character — for example, showing no fear at all when a weapon is pointed at you.</p>
+                </li>
+                <li class="rule" id="term-cl" data-term="Combat logging" data-match="combat logging" data-keywords="disconnect quit logout escape">
+                    <p class="article">CL</p>
+                    <h3>Combat logging</h3>
+                    <p class="def">Leaving the game to escape an inconvenient situation such as a fight or being restrained.</p>
+                </li>
+                <li class="rule" id="term-duty" data-term="On duty" data-match="on duty" data-keywords="duty clock in off duty">
+                    <p class="article">Duty</p>
+                    <h3>On duty</h3>
+                    <p class="def">The state of working at your job. Clocking in at your workplace switches it on and lets you use your job's tools and authority.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ===== Penalties (draft) ===== -->
+        <section class="chapter" id="penalty">
+            <div class="chapter-head">
+                <p class="eyebrow">Scales of Judgment</p>
+                <h2>Penalties</h2>
+                <p class="lead">The stages of punishment for those who break the rules. Each rule has a seal class, which decides the first penalty given.</p>
+                <span class="draft">* Draft — subject to change</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <h3 class="section-title">Stages of punishment</h3>
+            <ol class="stages">
+                <li><div class="dot">I</div><h3>Notice</h3><p>A verbal notice, kept on record</p></li>
+                <li><div class="dot">II</div><h3>Warning</h3><p>A formal warning; repeated warnings lead to the next stage</p></li>
+                <li><div class="dot">III</div><h3>Temporary ban</h3><p>Banned from connecting for 1 to 7 days</p></li>
+                <li><div class="dot">IV</div><h3>Permanent ban</h3><p>Never allowed into the city again</p></li>
+            </ol>
+
+            <h3 class="section-title">Seal classes and penalties</h3>
+            <div class="matrix" role="table" aria-label="Range of penalties for each seal class">
+                <div class="head" role="columnheader"></div>
+                <div class="head" role="columnheader">Notice</div>
+                <div class="head" role="columnheader">Warning</div>
+                <div class="head" role="columnheader">Temp ban</div>
+                <div class="head" role="columnheader">Perm ban</div>
+
+                <div class="grade" role="rowheader"><b>Class III</b><span>Minor</span></div>
+                <div class="bar" role="cell" aria-label="From notice to temporary ban"><span style="left: 12.5%; right: 37.5%;"></span></div>
+
+                <div class="grade" role="rowheader"><b>Class II</b><span>Serious</span></div>
+                <div class="bar" role="cell" aria-label="From warning to permanent ban"><span style="left: 37.5%; right: 12.5%;"></span></div>
+
+                <div class="grade" role="rowheader"><b>Class I</b><span>Grave</span></div>
+                <div class="bar" role="cell" aria-label="From temporary ban to permanent ban"><span style="left: 62.5%; right: 12.5%;"></span></div>
+            </div>
+            <ul class="penalty-notes">
+                <li>● marks the first penalty given; ○ marks the heaviest penalty for repeated offenses.</li>
+                <li>Three warnings result in a temporary ban.</li>
+                <li>In malicious cases, or when the staff deem it necessary, stages may be skipped.</li>
+                <li>If you disagree with a penalty, you may appeal through the Discord support channel.</li>
+            </ul>
+        </section>
+
+        <!-- ===== Revisions ===== -->
+        <section class="chapter" id="chronicle">
+            <div class="chapter-head">
+                <p class="eyebrow">Chronicle</p>
+                <h2>Revisions</h2>
+                <p class="lead">A record of when and how the rules changed. Changed rules are marked "N" (new) or "R" (revised) for 30 days.</p>
+                <div class="rule-line"></div>
+            </div>
+
+            <ol class="chronicle">
+                <li>
+                    <time datetime="2026-10-20">2026.10.20</time>
+                    <h3>The Book of Rules is published</h3>
+                    <ul>
+                        <li><a href="#server">Server Rules</a> Articles I–IV established</li>
+                        <li><a href="#jobs">Job Rules</a>, <a href="#cases">Precedents</a> and <a href="#penalty">Penalties</a> published as drafts</li>
+                        <li><a href="#glossary">Glossary</a> published</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <p class="empty" id="empty" hidden>
+            No matching rules were found.<br>
+            Try different words.
+        </p>
+    </main>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../assets/app.js"></script>
+</body>
+</html>
