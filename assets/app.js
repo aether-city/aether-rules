@@ -55,28 +55,30 @@ var ASK_URL = "";
             },
             archiveProgress: function (done, total) { return "読了 " + done + " / " + total; },
             archiveOpened: "禁書庫の封印が解けた",
-            // 呪文: name = 呪文帳に載る名前 / desc = 呪文帳の説明 / toast = 唱えたときの表示 / owl = フクロウのひとこと
+            // 呪文: name = 呪文の名前 (唱える言葉) / desc = 呪文帳の説明 / toast = 唱えたときの表示 / owl = フクロウのひとこと
             spells: {
-                lumos: { name: "ルーモス", desc: "杖先に灯りをともす", toast: "灯りがともった (ノックスで消える)", owl: "おお、まぶしい。" },
-                lumosMaxima: { name: "ルーモス・マキシマ", desc: "まばゆい光を放つ", toast: "まばゆい光があふれた", owl: "目が、目がぁ……。" },
-                nox: { name: "ノックス", desc: "灯りを消す", toast: "灯りが消えた", owl: "やっと目が休まる。" },
-                aparecium: { name: "アパレシウム", desc: "隠されたインクを浮かび上がらせる", toast: "隠されたインクが浮かび上がる……", owl: "隠されたインクに気づいたか。どの章にもひとつずつあるぞ。" },
-                revelio: { name: "レベリオ", desc: "余白の書き込みをすべて暴く", toast: "余白の書き込みがあらわになった", owl: "人の落書きを覗くとは、趣味が悪いな。" },
-                accio: { name: "アクシオ", desc: "唱えたあとに続けた言葉の規則を呼び寄せる (例: アクシオ 拘束)", toast: "規則を呼び寄せた", owl: "呼べば来る。書物とは素直なものだ。" },
-                leviosa: { name: "ウィンガーディアム・レヴィオーサ", desc: "規則のカードを宙に浮かべる", toast: "カードがふわりと浮かび上がった", owl: "レヴィオーサ、だ。レヴィオサーではない。" },
-                incendio: { name: "インセンディオ", desc: "火の粉を舞い上げる", toast: "火の粉が舞い上がった", owl: "おい、ここは書庫だぞ！" },
-                patronum: { name: "エクスペクト・パトローナム", desc: "守護霊を呼び出す", toast: "銀色の守護霊が駆け抜けていった", owl: "見事な守護霊だ。心に光がある証拠だな。" },
-                sonorus: { name: "ソノーラス", desc: "文字を大きくする", toast: "文字が大きくなった (クワイエタスで戻る)", owl: "そんなに大きくしなくても聞こえている。" },
-                quietus: { name: "クワイエタス", desc: "文字の大きさを元に戻す", toast: "文字の大きさが元に戻った", owl: "うむ、これくらいがちょうどいい。" },
-                reparo: { name: "レパロ", desc: "かけた魔法をすべて元に戻す", toast: "すべての魔法が解けた", owl: "散らかしたら片づける。よい心がけだ。" },
-                obliviate: { name: "オブリビエイト", desc: "読んだ記憶を消し去る", toast: "読んだ記憶が消え去った……", owl: "……はて、私は何をしていたのだったか。" }
+                candela: { name: "カンデラ", desc: "手もとに小さな灯りをともす", toast: "灯りがともった (ソムナで消える)", owl: "ほう、夜の書庫にはちょうどいい。" },
+                somna: { name: "ソムナ", desc: "灯りを眠らせる", toast: "灯りが消えた", owl: "やっと目が休まる。" },
+                solaris: { name: "ソラリス", desc: "まばゆい光を放つ", toast: "まばゆい光があふれた", owl: "目が、目がぁ……。" },
+                atramento: { name: "アトラメント", desc: "隠されたインクを浮かび上がらせる", toast: "隠されたインクが浮かび上がる……", owl: "隠されたインクに気づいたか。どの章にもひとつずつあるぞ。" },
+                perspica: { name: "ペルスピカ", desc: "余白の書き込みをすべて見通す", toast: "余白の書き込みがあらわになった", owl: "人の落書きを覗くとは、趣味が悪いな。" },
+                vocare: { name: "ヴォカーレ", desc: "唱えたあとに続けた言葉の規則を呼び寄せる (例: ヴォカーレ 拘束)", toast: "規則を呼び寄せた", owl: "呼べば来る。書物とは素直なものだ。" },
+                aeria: { name: "アエリア", desc: "規則のカードを宙に浮かべる", toast: "カードがふわりと浮かび上がった", owl: "おい、書物を浮かべて遊ぶな。……少しだけなら許す。" },
+                scintilla: { name: "スキンティラ", desc: "火の粉を舞い上げる", toast: "火の粉が舞い上がった", owl: "おい、ここは書庫だぞ！" },
+                bestia: { name: "ベスティア", desc: "光の獣を呼び出す", toast: "光の牡鹿が駆け抜けていった", owl: "見事な獣だ。呼び手の心が澄んでいる証拠だな。" },
+                nebula: { name: "ネブラ", desc: "書庫を霧で包む", toast: "あたりが霧に包まれた", owl: "……どこへ行った？ 前が見えんぞ。" },
+                glacies: { name: "グラキエス", desc: "画面の縁を凍りつかせる", toast: "冷気が書庫を包んだ", owl: "さ、寒い……羽が凍る。" },
+                magna: { name: "マグナ", desc: "文字を大きくする", toast: "文字が大きくなった (パルヴァで戻る)", owl: "そんなに大きくしなくても読めている。" },
+                parva: { name: "パルヴァ", desc: "文字の大きさを元に戻す", toast: "文字の大きさが元に戻った", owl: "うむ、これくらいがちょうどいい。" },
+                solve: { name: "ソルヴェ", desc: "かけた魔法をすべてほどく", toast: "すべての魔法が解けた", owl: "散らかしたら片づける。よい心がけだ。" },
+                lethe: { name: "レーテ", desc: "読んだ記憶を忘却の川に流す", toast: "読んだ記憶が消え去った……", owl: "……はて、私は何をしていたのだったか。" }
             },
             spellNew: function (n, total) { return "(新しい呪文を覚えた " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "見つけた呪文 " + n + " / " + total; },
             spellUnknown: "まだ知らない呪文",
             inkFound: function (n) { return "隠されたインクが浮かび上がる……(" + n + " か所)"; },
-            accioNone: "呼び寄せる規則が見つからなかった",
-            obliviateWarn: "読んだ記憶をすべて消すつもりか？ 本当なら、もう一度唱えよ",
+            summonNone: "呼び寄せる規則が見つからなかった",
+            letheWarn: "読んだ記憶をすべて消すつもりか？ 本当なら、もう一度唱えよ",
             owl: {
                 greet: "ようこそ、旅の人。分からないことがあれば、私を押してごらん。",
                 greetNight: "こんな夜更けに規則の書とは、感心な学徒だ。",
@@ -89,10 +91,10 @@ var ASK_URL = "";
                     "点線の言葉には、意味が隠されている。",
                     "職業を選べば、読むべき規則だけが残る。",
                     "すべて読み終えた者には、ちょっとした褒美がある。",
-                    "呪文を知っているなら、検索欄で唱えてみるといい。……おっと、口がすべった。",
+                    "この街の魔法を知っているなら、検索欄で唱えてみるといい。……おっと、口がすべった。",
                     "カードの右上の吹き出しを押せば、運営に質問できる。",
                     "余白の落書きは、この街の誰かが書いたものだ。",
-                    "呪文はひとつではない。灯り、浮遊、呼び寄せ……試してみるといい。",
+                    "呪文はひとつではない。カンデラ、アエリア、ヴォカーレ……古い言葉を試してみるといい。",
                     "禁書庫には、見つけた呪文を記す帳面がある。"
                 ]
             }
@@ -124,26 +126,28 @@ var ASK_URL = "";
             archiveProgress: function (done, total) { return "Read " + done + " / " + total; },
             archiveOpened: "The seal on the Archive has been broken",
             spells: {
-                lumos: { name: "Lumos", desc: "Lights the tip of your wand", toast: "A light flickers on (say Nox to put it out)", owl: "Oh, how bright." },
-                lumosMaxima: { name: "Lumos Maxima", desc: "Releases a blinding light", toast: "A blinding light fills the room", owl: "My eyes, my eyes…" },
-                nox: { name: "Nox", desc: "Puts out the light", toast: "The light goes out", owl: "Ah, my eyes can rest at last." },
-                aparecium: { name: "Aparecium", desc: "Reveals hidden ink", toast: "Hidden ink begins to appear…", owl: "So you noticed the hidden ink. There is one in every chapter." },
-                revelio: { name: "Revelio", desc: "Reveals every note in the margins", toast: "The margin notes are revealed", owl: "Peeking at other people's scribbles? Questionable taste." },
-                accio: { name: "Accio", desc: "Summons the rule named after the spell (e.g. Accio restrain)", toast: "A rule has been summoned", owl: "Call, and it comes. Books are honest things." },
-                leviosa: { name: "Wingardium Leviosa", desc: "Makes the rule cards float", toast: "The cards float gently into the air", owl: "It's Levi-O-sa, not Levio-SA." },
-                incendio: { name: "Incendio", desc: "Sends sparks flying", toast: "Sparks rise into the air", owl: "Hey! This is a library!" },
-                patronum: { name: "Expecto Patronum", desc: "Summons a guardian spirit", toast: "A silver Patronus gallops past", owl: "A fine Patronus. Proof of light in your heart." },
-                sonorus: { name: "Sonorus", desc: "Enlarges the text", toast: "The text grows larger (Quietus to undo)", owl: "No need to shout, I can hear you." },
-                quietus: { name: "Quietus", desc: "Returns the text to normal size", toast: "The text returns to normal", owl: "Yes, that's just right." },
-                reparo: { name: "Reparo", desc: "Undoes every spell you have cast", toast: "Every spell has been undone", owl: "Clean up after yourself. Good habit." },
-                obliviate: { name: "Obliviate", desc: "Erases the memory of what you have read", toast: "Your reading memory fades away…", owl: "…Hm? What was I doing again?" }
+                candela: { name: "Candela", desc: "Lights a small flame in your hand", toast: "A light flickers on (cast Somna to put it out)", owl: "Ah, just right for a library at night." },
+                somna: { name: "Somna", desc: "Puts the light to sleep", toast: "The light goes out", owl: "Ah, my eyes can rest at last." },
+                solaris: { name: "Solaris", desc: "Releases a blinding light", toast: "A blinding light fills the room", owl: "My eyes, my eyes…" },
+                atramento: { name: "Atramento", desc: "Reveals hidden ink", toast: "Hidden ink begins to appear…", owl: "So you noticed the hidden ink. There is one in every chapter." },
+                perspica: { name: "Perspica", desc: "Sees through to every note in the margins", toast: "The margin notes are revealed", owl: "Peeking at other people's scribbles? Questionable taste." },
+                vocare: { name: "Vocare", desc: "Summons the rule named after the spell (e.g. Vocare restrain)", toast: "A rule has been summoned", owl: "Call, and it comes. Books are honest things." },
+                aeria: { name: "Aeria", desc: "Makes the rule cards float", toast: "The cards float gently into the air", owl: "Don't play with floating books. …Well, just a little." },
+                scintilla: { name: "Scintilla", desc: "Sends sparks flying", toast: "Sparks rise into the air", owl: "Hey! This is a library!" },
+                bestia: { name: "Bestia", desc: "Calls a beast of light", toast: "A stag of light gallops past", owl: "A fine beast. Proof of a clear heart." },
+                nebula: { name: "Nebula", desc: "Wraps the library in mist", toast: "Mist rolls in", owl: "…Where did you go? I can't see a thing." },
+                glacies: { name: "Glacies", desc: "Frosts the edges of the page", toast: "A chill fills the library", owl: "C-cold… my feathers are freezing." },
+                magna: { name: "Magna", desc: "Makes the text larger", toast: "The text grows larger (cast Parva to undo)", owl: "No need to make it that big, I can read it." },
+                parva: { name: "Parva", desc: "Returns the text to normal size", toast: "The text returns to normal", owl: "Yes, that's just right." },
+                solve: { name: "Solve", desc: "Undoes every spell you have cast", toast: "Every spell has been undone", owl: "Clean up after yourself. Good habit." },
+                lethe: { name: "Lethe", desc: "Washes your reading memory into the river of oblivion", toast: "Your reading memory fades away…", owl: "…Hm? What was I doing again?" }
             },
             spellNew: function (n, total) { return "(New spell learned " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "Spells found " + n + " / " + total; },
             spellUnknown: "A spell not yet known",
             inkFound: function (n) { return "Hidden ink begins to appear… (" + n + " places)"; },
-            accioNone: "No rule answered the summons",
-            obliviateWarn: "Erase everything you have read? If you mean it, cast it again",
+            summonNone: "No rule answered the summons",
+            letheWarn: "Erase everything you have read? If you mean it, cast it again",
             owl: {
                 greet: "Welcome, traveler. If anything puzzles you, give me a tap.",
                 greetNight: "Reading the rules at this hour? A diligent student indeed.",
@@ -156,10 +160,10 @@ var ASK_URL = "";
                     "Dotted words hide their meanings.",
                     "Choose your job, and only the rules you need will remain.",
                     "Those who read everything receive a small reward.",
-                    "If you know a spell, try casting it in the search box… oops, I said too much.",
+                    "If you know the magic of this city, try casting it in the search box… oops, I said too much.",
                     "The speech bubble on each card lets you ask the staff a question.",
                     "The scribbles in the margins were written by someone in this city.",
-                    "There is more than one spell. Light, levitation, summoning… try them.",
+                    "There is more than one spell. Candela, Aeria, Vocare… try the old tongue.",
                     "The Archive holds a book that records the spells you find."
                 ]
             }
@@ -743,33 +747,38 @@ var ASK_URL = "";
     resetIdle();
 
     // ---------- 呪文 (検索欄で唱える隠しコマンド) ----------
-    // ひらがな/カタカナ・大文字/小文字・空白や「・」の有無はどれでも反応する。
+    // カタカナ (ひらがなでも可) か英字で唱える。大文字/小文字・空白や「・」の有無はどれでも反応する。
     // 呪文を増やすときは、ここに 1 行足し、TEXT の spells に名前と文を足す。
     var SPELLS = [
-        { id: "lumos", words: ["るーもす", "lumos"] },
-        { id: "lumosMaxima", words: ["るーもすまきしま", "lumosmaxima"] },
-        { id: "nox", words: ["のっくす", "nox"] },
-        { id: "aparecium", words: ["あぱれしうむ", "aparecium"] },
-        { id: "revelio", words: ["れべりお", "れゔぇりお", "revelio"] },
-        { id: "accio", prefix: ["あくしお", "accio"] },
-        { id: "leviosa", words: ["うぃんがーでぃあむれびおーさ", "うぃんがーでぃあむれゔぃおーさ", "れびおーさ", "れゔぃおーさ", "wingardiumleviosa", "leviosa"] },
-        { id: "incendio", words: ["いんせんでぃお", "incendio"] },
-        { id: "patronum", words: ["えくすぺくとぱとろーなむ", "expectopatronum"] },
-        { id: "sonorus", words: ["そのーらす", "sonorus"] },
-        { id: "quietus", words: ["くわいえたす", "quietus"] },
-        { id: "reparo", words: ["れぱろ", "reparo"] },
-        { id: "obliviate", words: ["おぶりびえいと", "おぶりゔぃえいと", "obliviate"] }
+        { id: "candela", words: ["かんでら", "candela"] },
+        { id: "somna", words: ["そむな", "somna"] },
+        { id: "solaris", words: ["そらりす", "solaris"] },
+        { id: "atramento", words: ["あとらめんと", "atramento"] },
+        { id: "perspica", words: ["ぺるすぴか", "perspica"] },
+        { id: "vocare", prefix: ["ゔぉかーれ", "ぼかーれ", "vocare"] },
+        { id: "aeria", words: ["あえりあ", "aeria"] },
+        { id: "scintilla", words: ["すきんてぃら", "scintilla"] },
+        { id: "bestia", words: ["べすてぃあ", "bestia"] },
+        { id: "nebula", words: ["ねぶら", "nebula"] },
+        { id: "glacies", words: ["ぐらきえす", "glacies"] },
+        { id: "magna", words: ["まぐな", "magna"] },
+        { id: "parva", words: ["ぱるゔぁ", "ぱるば", "parva"] },
+        { id: "solve", words: ["そるゔぇ", "そるべ", "solve"] },
+        { id: "lethe", words: ["れーて", "lethe"] }
     ];
 
     var root = document.documentElement;
     var candle = document.getElementById("candle");
     var known = {};
     try { (JSON.parse(load("rules-spells") || "[]") || []).forEach(function (id) { known[id] = true; }); } catch (e) {}
-    var obliviateAt = 0;
+    var letheAt = 0;
+
+    // 今ある呪文のうち、見つけた数 (昔の呪文の記録は数えない)
+    function knownCount() { return SPELLS.filter(function (sp) { return known[sp.id]; }).length; }
 
     function compact(s) { return norm(s).replace(/[\s・･\-_.,、。!！]/g, ""); }
 
-    // 唱えた言葉から呪文を探す (アクシオは後ろに続く言葉も返す)
+    // 唱えた言葉から呪文を探す (召喚は後ろに続く言葉も返す)
     function findSpell(raw) {
         var v = compact(raw);
         if (!v) return null;
@@ -800,14 +809,14 @@ var ASK_URL = "";
         var info = TEXT.spells[found.id];
         var toastText = info.toast;
         var ok = EFFECTS[found.id](found.arg);
-        if (ok === false) return true; // 効果が出なかった (アクシオの空振り・オブリビエイトの確認)
+        if (ok === false) return true; // 効果が出なかった (召喚の空振り・忘却の確認)
         if (typeof ok === "string") toastText = ok;
 
         var line = info.owl;
         if (!known[found.id]) {
             known[found.id] = true;
             save("rules-spells", JSON.stringify(Object.keys(known)));
-            line += " " + TEXT.spellNew(Object.keys(known).length, SPELLS.length);
+            line += " " + TEXT.spellNew(knownCount(), SPELLS.length);
             renderSpellbook();
         }
         showToast(toastText);
@@ -855,7 +864,7 @@ var ASK_URL = "";
         try { sessionStorage.removeItem("rules-ink"); } catch (e) {}
     }
 
-    var leviosaTimer;
+    var floatTimer, frostTimer;
     var STAG = '<svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
         + '<path d="M30 50 C40 42 70 42 82 48 C86 50 88 54 86 58 C80 62 45 62 34 58 C28 56 27 52 30 50 Z"/>'
         + '<path d="M82 48 L92 30 L100 28 L104 32 L96 36 L88 50"/>'
@@ -865,17 +874,17 @@ var ASK_URL = "";
         + '</svg>';
 
     var EFFECTS = {
-        lumos: function () { candle.classList.add("lit"); },
-        lumosMaxima: function () {
+        candela: function () { candle.classList.add("lit"); },
+        solaris: function () {
             candle.classList.remove("lit");
             var f = el("div", "flash");
             document.body.appendChild(f);
             setTimeout(function () { f.remove(); }, 1900);
         },
-        nox: function () { candle.classList.remove("lit"); },
-        aparecium: function () { return TEXT.inkFound(revealInk(true)); },
-        revelio: function () { root.classList.add("reveal-notes"); },
-        accio: function (arg) {
+        somna: function () { candle.classList.remove("lit"); },
+        atramento: function () { return TEXT.inkFound(revealInk(true)); },
+        perspica: function () { root.classList.add("reveal-notes"); },
+        vocare: function (arg) {
             var pool = data.filter(function (d) { return d.chapter !== "glossary" || arg; });
             var target;
             if (arg) {
@@ -884,7 +893,7 @@ var ASK_URL = "";
             } else {
                 target = pool[Math.floor(Math.random() * pool.length)];
             }
-            if (!target) { showToast(TEXT.accioNone); return false; }
+            if (!target) { showToast(TEXT.summonNone); return false; }
             if (location.hash === "#" + target.el.id) route(true); else location.hash = "#" + target.el.id;
             setTimeout(function () {
                 target.el.classList.remove("summoned");
@@ -892,13 +901,23 @@ var ASK_URL = "";
                 target.el.classList.add("summoned");
             }, 30);
         },
-        leviosa: function () {
+        nebula: function () {
+            var m = el("div", "mist");
+            document.body.appendChild(m);
+            m.addEventListener("animationend", function () { m.remove(); });
+        },
+        glacies: function () {
+            root.classList.add("frozen");
+            clearTimeout(frostTimer);
+            frostTimer = setTimeout(function () { root.classList.remove("frozen"); }, 7000);
+        },
+        aeria: function () {
             cards.forEach(function (c) { c.style.setProperty("--tilt", (Math.random() * 1.2 - 0.6).toFixed(2) + "deg"); });
             root.classList.add("levitate");
-            clearTimeout(leviosaTimer);
-            leviosaTimer = setTimeout(function () { root.classList.remove("levitate"); }, 12000);
+            clearTimeout(floatTimer);
+            floatTimer = setTimeout(function () { root.classList.remove("levitate"); }, 12000);
         },
-        incendio: function () {
+        scintilla: function () {
             for (var i = 0; i < 30; i++) {
                 (function (delay) {
                     setTimeout(function () {
@@ -912,32 +931,33 @@ var ASK_URL = "";
                 })(i * 90);
             }
         },
-        patronum: function () {
-            var p = el("div", "patronus");
+        bestia: function () {
+            var p = el("div", "beast");
             p.innerHTML = STAG;
             document.body.appendChild(p);
             p.addEventListener("animationend", function (ev) { if (ev.target === p) p.remove(); });
         },
-        sonorus: function () { root.style.fontSize = "112.5%"; },
-        quietus: function () { root.style.fontSize = ""; },
-        reparo: function () {
+        magna: function () { root.style.fontSize = "112.5%"; },
+        parva: function () { root.style.fontSize = ""; },
+        solve: function () {
             candle.classList.remove("lit");
-            root.classList.remove("reveal-notes", "levitate");
+            root.classList.remove("reveal-notes", "levitate", "frozen");
+            document.querySelectorAll(".mist").forEach(function (m) { m.remove(); });
             root.style.fontSize = "";
             hideInk();
         },
-        obliviate: function () {
-            // 大事な記録を消すので、10 秒以内にもう一度唱えたときだけ実行する
+        lethe: function () {
+            // 忘却: 大事な記録を消すので、10 秒以内にもう一度唱えたときだけ実行する
             var t = Date.now();
-            if (t - obliviateAt > 10000) {
-                obliviateAt = t;
-                showToast(TEXT.obliviateWarn);
-                owlSay(TEXT.obliviateWarn, true);
+            if (t - letheAt > 10000) {
+                letheAt = t;
+                showToast(TEXT.letheWarn);
+                owlSay(TEXT.letheWarn, true);
                 return false;
             }
-            obliviateAt = 0;
-            root.classList.add("obliviate");
-            setTimeout(function () { root.classList.remove("obliviate"); }, 1700);
+            letheAt = 0;
+            root.classList.add("forgetting");
+            setTimeout(function () { root.classList.remove("forgetting"); }, 1700);
             readSet = {};
             save("rules-read", null);
             updateProgress();
@@ -957,11 +977,11 @@ var ASK_URL = "";
             li.appendChild(document.createTextNode(known[sp.id] ? info.desc : TEXT.spellUnknown));
             spellbookList.appendChild(li);
         });
-        spellbookCount.textContent = TEXT.spellCount(Object.keys(known).length, SPELLS.length);
+        spellbookCount.textContent = TEXT.spellCount(knownCount(), SPELLS.length);
     }
     renderSpellbook();
 
-    // このタブで一度アパレシウムを唱えていたら、インクは出したままにする
+    // このタブで一度「アトラメント」を唱えていたら、インクは出したままにする
     try { if (sessionStorage.getItem("rules-ink")) revealInk(false); } catch (e) {}
 
     // ロウソクの灯りはマウス (スマホでは指) の位置についてくる

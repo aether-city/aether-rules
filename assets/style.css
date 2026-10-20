@@ -868,7 +868,7 @@ mark {
     50% { opacity: var(--o, 0.45); }
 }
 
-/* ----- ルーモス: ロウソクの灯り ----- */
+/* ----- カンデラ: ロウソクの灯り ----- */
 .candle {
     position: fixed; inset: 0;
     z-index: 15;
@@ -883,7 +883,7 @@ mark {
 }
 .candle.lit { opacity: 1; }
 
-/* ----- アパレシウム: 透明インクの文字 -----
+/* ----- アトラメント: 透明インクの文字 -----
    唱える前は何も見えない (場所だけ空いている)。
    唱えると、細い線の枠の中に手書きの文字が 1 文字ずつにじみ出る。 */
 .ink {
@@ -927,7 +927,7 @@ mark {
 }
 
 /* ----- そのほかの呪文 ----- */
-/* ルーモス・マキシマ: 一瞬の閃光 */
+/* ソラリス: 一瞬の閃光 */
 .flash {
     position: fixed; inset: 0;
     z-index: 16;
@@ -937,10 +937,10 @@ mark {
 }
 @keyframes flash { 0% { opacity: 0; } 12% { opacity: 1; } 100% { opacity: 0; } }
 
-/* レベリオ: 余白の書き込みをすべて見せる */
+/* ペルスピカ: 余白の書き込みをすべて見せる */
 .reveal-notes .margin-note { opacity: 0.85 !important; }
 
-/* ウィンガーディアム・レヴィオーサ: カードが浮かぶ */
+/* アエリア: カードが浮かぶ */
 .levitate .rule {
     animation: levitate 3.2s ease-in-out infinite alternate;
     animation-delay: calc(var(--i, 0) * -400ms);
@@ -950,7 +950,7 @@ mark {
     to { transform: translateY(-10px) rotate(var(--tilt, 0.4deg)); }
 }
 
-/* インセンディオ: 火の粉が舞い上がる */
+/* スキンティラ: 火の粉が舞い上がる */
 .ember {
     position: fixed;
     bottom: -10px;
@@ -968,8 +968,8 @@ mark {
     100% { opacity: 0; transform: translate(var(--dx, 20px), -85vh); }
 }
 
-/* エクスペクト・パトローナム: 銀の牡鹿が駆け抜ける */
-.patronus {
+/* ベスティア: 光の牡鹿が駆け抜ける */
+.beast {
     position: fixed;
     left: 0; top: 38%;
     z-index: 14;
@@ -977,14 +977,14 @@ mark {
     pointer-events: none;
     color: rgba(120, 150, 190, 0.9);
     filter: drop-shadow(0 0 6px rgba(190, 215, 245, 0.7));
-    animation: patronus 7s cubic-bezier(.4, .1, .5, 1) forwards;
+    animation: beast 7s cubic-bezier(.4, .1, .5, 1) forwards;
 }
-:root[data-theme="dark"] .patronus { color: rgba(206, 222, 240, 0.95); }
+:root[data-theme="dark"] .beast { color: rgba(206, 222, 240, 0.95); }
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .patronus { color: rgba(206, 222, 240, 0.95); }
+    :root:not([data-theme="light"]) .beast { color: rgba(206, 222, 240, 0.95); }
 }
-.patronus svg { width: 100%; height: auto; animation: gallop 0.45s ease-in-out infinite alternate; }
-@keyframes patronus {
+.beast svg { width: 100%; height: auto; animation: gallop 0.45s ease-in-out infinite alternate; }
+@keyframes beast {
     0% { transform: translateX(-180px); opacity: 0; }
     10% { opacity: 1; }
     85% { opacity: 1; }
@@ -992,16 +992,53 @@ mark {
 }
 @keyframes gallop { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-8px) rotate(2deg); } }
 
-/* アクシオ: 呼び寄せたカード */
+/* ヴォカーレ: 呼び寄せたカード */
 .summoned { animation: summoned 1.1s cubic-bezier(.2, .8, .2, 1.1); }
 @keyframes summoned {
     0% { transform: scale(0.85) translateY(40px); opacity: 0; filter: blur(3px); }
     100% { transform: none; opacity: 1; filter: none; }
 }
 
-/* オブリビエイト: 記憶が消えるときのもや */
-.obliviate .main { animation: forget 1.6s ease; }
+/* レーテ: 記憶が消えるときのもや */
+.forgetting .main { animation: forget 1.6s ease; }
 @keyframes forget { 0% { filter: none; } 40% { filter: blur(3px) grayscale(1); opacity: 0.4; } 100% { filter: none; opacity: 1; } }
+
+/* ネブラ: 画面が霧に包まれて晴れていく */
+.mist {
+    position: fixed; inset: -10%;
+    z-index: 14;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 60% 40% at 30% 40%, rgba(225, 228, 232, 0.9), transparent 70%),
+        radial-gradient(ellipse 50% 45% at 70% 60%, rgba(215, 220, 226, 0.85), transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(235, 236, 238, 0.7), transparent 80%);
+    filter: blur(12px);
+    animation: mist 8s ease-in-out forwards;
+}
+:root[data-theme="dark"] .mist { opacity: 0.6; }
+@keyframes mist {
+    0% { opacity: 0; transform: translateX(-6%); }
+    25% { opacity: 1; }
+    70% { opacity: 0.9; }
+    100% { opacity: 0; transform: translateX(6%); }
+}
+
+/* グラキエス: 画面の縁が凍りつく */
+:root::after {
+    content: "";
+    position: fixed; inset: 0;
+    z-index: 14;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+    box-shadow: inset 0 0 90px 18px rgba(200, 225, 250, 0.75), inset 0 0 6px 2px rgba(255, 255, 255, 0.8);
+    background:
+        repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 22px),
+        repeating-linear-gradient(-60deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 22px);
+    -webkit-mask: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+    mask: radial-gradient(ellipse at center, transparent 55%, #000 100%);
+}
+:root.frozen::after { opacity: 1; transition-duration: 1s; }
 
 /* ----- 呪文帳 (禁書庫の中) ----- */
 .spellbook { margin-top: 48px; }
@@ -1019,7 +1056,7 @@ mark {
 .spellbook .count-line { color: var(--ink-soft); font-size: 0.85rem; margin: -8px 0 16px; }
 
 @media (prefers-reduced-motion: reduce) {
-    .levitate .rule, .patronus, .patronus svg, .ember, .flash, .ink.revealed .c { animation-duration: 0.01s !important; }
+    .levitate .rule, .beast, .beast svg, .ember, .flash, .mist, .ink.revealed .c { animation-duration: 0.01s !important; }
 }
 
 /* ----- 余白の書き込み ----- */
