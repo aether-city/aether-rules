@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>魔法学院 規則</title>
+<meta name="description" content="魔法学院 (FiveM ロールプレイサーバー) の規則です。参加前に必ずお読みください。">
+<meta property="og:title" content="魔法学院 規則">
+<meta property="og:description" content="魔法学院 (FiveM ロールプレイサーバー) の規則です。参加前に必ずお読みください。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z' fill='%23a8894f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===== 色 (ここを変えると全体の色が変わります) ===== */
+:root {
+    --bg: #efe7d6;          /* 羊皮紙 */
+    --bg-deep: #e4d9c2;
+    --paper: #f6f0e3;
+    --ink: #2e2619;         /* 本文の墨色 */
+    --ink-soft: #6a5c45;
+    --gold: #a8894f;        /* 控えめな金 */
+    --gold-faint: rgba(168, 137, 79, 0.35);
+    --line: rgba(46, 38, 25, 0.14);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #14121a;
+        --bg-deep: #0e0d13;
+        --paper: #1b1922;
+        --ink: #e6dcc8;
+        --ink-soft: #a89d88;
+        --gold: #b79a62;
+        --gold-faint: rgba(183, 154, 98, 0.28);
+        --line: rgba(230, 220, 200, 0.12);
+    }
+}
+:root[data-theme="dark"] {
+    --bg: #14121a;
+    --bg-deep: #0e0d13;
+    --paper: #1b1922;
+    --ink: #e6dcc8;
+    --ink-soft: #a89d88;
+    --gold: #b79a62;
+    --gold-faint: rgba(183, 154, 98, 0.28);
+    --line: rgba(230, 220, 200, 0.12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 50% 0%, var(--bg) 0%, var(--bg-deep) 100%) fixed;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Shippori Mincho", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    line-height: 1.95;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 背景にうっすら浮かぶ魔法陣 */
+.circle {
+    position: fixed;
+    top: 50%; left: 50%;
+    width: min(120vw, 1100px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.07;
+    color: var(--gold);
+    animation: turn 240s linear infinite;
+    z-index: 0;
+}
+@keyframes turn { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .circle { animation: none; } }
+
+.wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 16px 96px;
+}
+
+/* ===== 見出し ===== */
+header { text-align: center; margin-bottom: 56px; }
+.eyebrow {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin: 0 0 8px;
+}
+h1 {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    margin: 0;
+    padding-left: 0.35em; /* letter-spacing の分の中央寄せ補正 */
+}
+.subtitle { color: var(--ink-soft); margin: 10px 0 0; font-size: 0.95rem; }
+
+.divider {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--gold);
+    margin: 28px auto 0;
+    max-width: 320px;
+}
+.divider::before, .divider::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-faint), transparent);
+}
+.divider svg { width: 14px; height: 14px; flex: none; }
+
+/* ===== 前文 ===== */
+.preface {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin: 0 0 48px;
+}
+
+/* ===== 目次 ===== */
+nav.toc {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 4px;
+    margin-bottom: 56px;
+}
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    display: flex; gap: 12px; align-items: baseline;
+    padding: 4px 6px;
+    border-radius: 2px;
+    transition: color 0.4s;
+}
+nav.toc a:hover { color: var(--gold); }
+nav.toc .num { color: var(--gold); font-size: 0.85rem; min-width: 3.5em; }
+
+/* ===== 各条 ===== */
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; }
+.rule {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 30px 28px 26px;
+    scroll-margin-top: 24px;
+}
+/* 四隅の細い飾り線 */
+.rule::before, .rule::after {
+    content: "";
+    position: absolute;
+    width: 18px; height: 18px;
+    border-color: var(--gold-faint);
+    border-style: solid;
+}
+.rule::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+.rule::after { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+
+.rule .article {
+    font-size: 0.82rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    margin: 0 0 4px;
+}
+.rule h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+.rule p { margin: 0; }
+.rule p + p { margin-top: 0.6em; }
+.rule .note {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    padding-left: 12px;
+    border-left: 1px solid var(--gold-faint);
+}
+
+/* ===== 結び・フッター ===== */
+.closing {
+    text-align: center;
+    margin: 64px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+footer {
+    text-align: center;
+    margin-top: 72px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
+footer .updated { letter-spacing: 0.15em; }
+
+/* テーマ切り替えボタン */
+.theme-btn {
+    position: fixed; top: 14px; right: 14px; z-index: 2;
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--gold);
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: border-color 0.4s;
+}
+.theme-btn:hover { border-color: var(--gold-faint); }
+.theme-btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 480px) {
+    .wrap { padding-top: 64px; }
+    .rule { padding: 24px 18px 20px; }
+    h1 { letter-spacing: 0.2em; padding-left: 0.2em; }
+}
+</style>
+</head>
+<body>
+
+<!-- 背景の魔法陣 (装飾) -->
+<svg class="circle" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="0.4">
+    <circle cx="100" cy="100" r="96"/>
+    <circle cx="100" cy="100" r="90"/>
+    <circle cx="100" cy="100" r="62"/>
+    <polygon points="100,10 178,145 22,145"/>
+    <polygon points="100,190 22,55 178,55"/>
+    <circle cx="100" cy="100" r="30"/>
+    <g stroke-width="0.3">
+        <line x1="100" y1="4" x2="100" y2="196"/>
+        <line x1="4" y1="100" x2="196" y2="100"/>
+        <line x1="32" y1="32" x2="168" y2="168"/>
+        <line x1="168" y1="32" x2="32" y2="168"/>
+    </g>
+</svg>
+
+<button class="theme-btn" id="theme-btn" type="button" aria-label="明るさを切り替える" title="明るさを切り替える">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+</button>
+
+<div class="wrap">
+
+    <header>
+        <p class="eyebrow">Codex of the Academy</p>
+        <h1>魔法学院 規則</h1>
+        <p class="subtitle">― 学徒の手帳より ―</p>
+        <div class="divider" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z" fill="currentColor"/></svg>
+        </div>
+    </header>
+
+    <p class="preface">
+        この学院で過ごすすべての学徒・住人は、以下の規則を守ること。<br>
+        参加する前に、必ず最後まで目を通してください。
+    </p>
+
+    <!-- 目次 (条を増やしたらここにも追加してください) -->
+    <nav class="toc" aria-label="目次">
+        <ol>
+            <li><a href="#rule-1"><span class="num">第一条</span>礼節を重んじること</a></li>
+            <li><a href="#rule-2"><span class="num">第二条</span>魔法を乱用しないこと</a></li>
+            <li><a href="#rule-3"><span class="num">第三条</span>世界の外の知識を持ち込まないこと</a></li>
+            <li><a href="#rule-4"><span class="num">第四条</span>不具合を悪用しないこと</a></li>
+        </ol>
+    </nav>
+
+    <!--
+        ===== 規則の本文 =====
+        条を追加するときは <li class="rule" id="rule-5"> … </li> をまるごとコピーして書き換えてください。
+        ゲーム内の規則 (fivem-magic-pausemenu/shared/config.lua の Config.Rules) も同じ内容に直すのを忘れずに。
+    -->
+    <ol class="rules">
+        <li class="rule" id="rule-1">
+            <p class="article">第一条</p>
+            <h2>礼節を重んじること</h2>
+            <p>他の学徒・住人への暴言、差別的な発言、つきまといを禁ずる。</p>
+            <p>困ったときは、まず言葉で解決を試みること。</p>
+        </li>
+
+        <li class="rule" id="rule-2">
+            <p class="article">第二条</p>
+            <h2>魔法を乱用しないこと</h2>
+            <p>理由なき攻撃魔法の使用 (RDM)、ロールプレイを無視した魔法の連発を禁ずる。</p>
+            <p>魔法は物語を彩るために使うこと。</p>
+        </li>
+
+        <li class="rule" id="rule-3">
+            <p class="article">第三条</p>
+            <h2>世界の外の知識を持ち込まないこと</h2>
+            <p>配信・通話など、キャラクターが知り得ない情報を物語に持ち込むこと (メタゲーム) を禁ずる。</p>
+        </li>
+
+        <li class="rule" id="rule-4">
+            <p class="article">第四条</p>
+            <h2>不具合を悪用しないこと</h2>
+            <p>不具合を見つけたら悪用せず、速やかに管理者へ報告すること。</p>
+        </li>
+    </ol>
+
+    <p class="closing">
+        規則は物語を守るためのもの。<br>
+        互いを尊重し、この世界を共に紡いでいきましょう。
+    </p>
+
+    <!--
+        Discord などの連絡先を載せる場合は、下のコメントを外して URL を書き換えてください。
+        <p class="closing"><a href="https://discord.gg/xxxxxx" style="color: var(--gold);">Discord で管理者に連絡する</a></p>
+    -->
+
+    <footer>
+        <div class="divider" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z" fill="currentColor"/></svg>
+        </div>
+        <!-- 規則を変えたら日付も更新してください -->
+        <p class="updated">最終改訂　2026年10月20日</p>
+        <p>魔法学院 運営</p>
+    </footer>
+
+</div>
+
+<script>
+// 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
+(function () {
+    var root = document.documentElement;
+    try {
+        var saved = localStorage.getItem("rules-theme");
+        if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
+    } catch (e) {}
+
+    document.getElementById("theme-btn").addEventListener("click", function () {
+        var current = root.getAttribute("data-theme")
+            || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        var next = current === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("rules-theme", next); } catch (e) {}
+    });
+})();
+</script>
+</body>
+</html>
