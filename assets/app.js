@@ -65,7 +65,6 @@ var ASK_URL = "";
                 vocare: { name: "ヴォカーレ", desc: "唱えたあとに続けた言葉の規則を呼び寄せる (例: ヴォカーレ 拘束)", toast: "規則を呼び寄せた", owl: "呼べば来る。書物とは素直なものだ。" },
                 aeria: { name: "アエリア", desc: "規則のカードを宙に浮かべる", toast: "カードがふわりと浮かび上がった", owl: "おい、書物を浮かべて遊ぶな。……少しだけなら許す。" },
                 scintilla: { name: "スキンティラ", desc: "火の粉を舞い上げる", toast: "火の粉が舞い上がった", owl: "おい、ここは書庫だぞ！" },
-                bestia: { name: "ベスティア", desc: "光の獣を呼び出す", toast: "光の牡鹿が駆け抜けていった", owl: "見事な獣だ。呼び手の心が澄んでいる証拠だな。" },
                 nebula: { name: "ネブラ", desc: "書庫を霧で包む", toast: "あたりが霧に包まれた", owl: "……どこへ行った？ 前が見えんぞ。" },
                 glacies: { name: "グラキエス", desc: "画面の縁を凍りつかせる", toast: "冷気が書庫を包んだ", owl: "さ、寒い……羽が凍る。" },
                 magna: { name: "マグナ", desc: "文字を大きくする", toast: "文字が大きくなった (パルヴァで戻る)", owl: "そんなに大きくしなくても読めている。" },
@@ -79,6 +78,20 @@ var ASK_URL = "";
             inkFound: function (n) { return "隠されたインクが浮かび上がる……(" + n + " か所)"; },
             summonNone: "呼び寄せる規則が見つからなかった",
             letheWarn: "読んだ記憶をすべて消すつもりか？ 本当なら、もう一度唱えよ",
+            // 画面中央の告知
+            announce: {
+                close: "閉じる",
+                archiveEyebrow: "Seal Broken",
+                archiveTitle: "禁書庫の封印が解けた",
+                archiveSub: "規則の書をすべて読み終えた者だけが入れる書庫が、左の書架に現れた。",
+                archiveGo: "禁書庫へ入る",
+                spellEyebrow: "New Spell",
+                spellSub: function (desc, n, total) { return desc + "\n見つけた呪文 " + n + " / " + total; },
+                spellGo: "呪文帳を見る",
+                chapterEyebrow: "Chapter Complete",
+                chapterTitle: function (name) { return "「" + name + "」を読み終えた"; },
+                chapterSub: function (left) { return left > 0 ? "残り " + left + " 項目。禁書庫の封印が解けるまで、あと少し。" : ""; }
+            },
             owl: {
                 greet: "ようこそ、旅の人。分からないことがあれば、私を押してごらん。",
                 greetNight: "こんな夜更けに規則の書とは、感心な学徒だ。",
@@ -134,7 +147,6 @@ var ASK_URL = "";
                 vocare: { name: "Vocare", desc: "Summons the rule named after the spell (e.g. Vocare restrain)", toast: "A rule has been summoned", owl: "Call, and it comes. Books are honest things." },
                 aeria: { name: "Aeria", desc: "Makes the rule cards float", toast: "The cards float gently into the air", owl: "Don't play with floating books. …Well, just a little." },
                 scintilla: { name: "Scintilla", desc: "Sends sparks flying", toast: "Sparks rise into the air", owl: "Hey! This is a library!" },
-                bestia: { name: "Bestia", desc: "Calls a beast of light", toast: "A stag of light gallops past", owl: "A fine beast. Proof of a clear heart." },
                 nebula: { name: "Nebula", desc: "Wraps the library in mist", toast: "Mist rolls in", owl: "…Where did you go? I can't see a thing." },
                 glacies: { name: "Glacies", desc: "Frosts the edges of the page", toast: "A chill fills the library", owl: "C-cold… my feathers are freezing." },
                 magna: { name: "Magna", desc: "Makes the text larger", toast: "The text grows larger (cast Parva to undo)", owl: "No need to make it that big, I can read it." },
@@ -148,6 +160,19 @@ var ASK_URL = "";
             inkFound: function (n) { return "Hidden ink begins to appear… (" + n + " places)"; },
             summonNone: "No rule answered the summons",
             letheWarn: "Erase everything you have read? If you mean it, cast it again",
+            announce: {
+                close: "Close",
+                archiveEyebrow: "Seal Broken",
+                archiveTitle: "The Archive is unsealed",
+                archiveSub: "A library open only to those who have read the whole Book of Rules has appeared on the shelf to the left.",
+                archiveGo: "Enter the Archive",
+                spellEyebrow: "New Spell",
+                spellSub: function (desc, n, total) { return desc + "\nSpells found " + n + " / " + total; },
+                spellGo: "Open the Book of Spells",
+                chapterEyebrow: "Chapter Complete",
+                chapterTitle: function (name) { return "You finished “" + name + "”"; },
+                chapterSub: function (left) { return left > 0 ? left + (left === 1 ? " item" : " items") + " left until the Archive's seal breaks." : ""; }
+            },
             owl: {
                 greet: "Welcome, traveler. If anything puzzles you, give me a tap.",
                 greetNight: "Reading the rules at this hour? A diligent student indeed.",
@@ -588,6 +613,85 @@ var ASK_URL = "";
 
     // ---------- リンクのコピー・質問 ----------
     var toastTimer;
+    // ---------- 画面中央の告知 ----------
+    // 大事な出来事 (禁書庫の解放・新しい呪文・章の読了) を中央に出す。重なったときは順番に出す。
+    var ANNOUNCE_MS = 6500;
+    var announceQueue = [];
+    var announcing = false;
+    var SIGIL = '<svg class="sigil" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">'
+        + '<circle class="s1" cx="40" cy="40" r="37"/>'
+        + '<circle class="s2" cx="40" cy="40" r="31" stroke-dasharray="2 3"/>'
+        + '<polygon class="s3" points="40,9 67,55 13,55"/>'
+        + '<polygon class="s3" points="40,71 13,25 67,25"/>'
+        + '<path class="s4" d="M40 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>'
+        + '</svg>';
+
+    function announce(o) {
+        announceQueue.push(o);
+        if (!announcing) nextAnnounce();
+    }
+    function nextAnnounce() {
+        var o = announceQueue.shift();
+        if (!o) { announcing = false; return; }
+        announcing = true;
+        hideTip();
+
+        var wrap = el("div", "announce-wrap" + (o.light ? " light" : ""));
+        wrap.setAttribute("role", "dialog");
+        wrap.setAttribute("aria-live", "assertive");
+        var box = el("div", "announce");
+        box.innerHTML = SIGIL;
+        if (o.eyebrow) box.appendChild(el("p", "eyebrow-a", o.eyebrow));
+        box.appendChild(el("h2", null, o.title));
+        if (o.sub) {
+            var sub = el("p", "sub");
+            o.sub.split("\n").forEach(function (line, i) {
+                if (i) sub.appendChild(el("br"));
+                sub.appendChild(document.createTextNode(line));
+            });
+            box.appendChild(sub);
+        }
+        var actions = el("div", "actions");
+        if (o.href) {
+            var go = el("a", null, o.go);
+            go.href = o.href;
+            go.addEventListener("click", function () { close(); });
+            actions.appendChild(go);
+        }
+        var closeBtn = el("button", "quiet", TEXT.announce.close);
+        closeBtn.type = "button";
+        closeBtn.addEventListener("click", function () { close(); });
+        actions.appendChild(closeBtn);
+        box.appendChild(actions);
+        wrap.appendChild(box);
+        document.body.appendChild(wrap);
+
+        var closed = false;
+        function close() {
+            if (closed) return;
+            closed = true;
+            clearTimeout(timer);
+            document.removeEventListener("keydown", onKey);
+            wrap.classList.remove("show");
+            setTimeout(function () { wrap.remove(); nextAnnounce(); }, 600);
+        }
+        function onKey(e) { if (e.key === "Escape") close(); }
+        // 外側を押しても閉じる
+        wrap.addEventListener("click", function (e) { if (e.target === wrap) close(); });
+        document.addEventListener("keydown", onKey);
+        var timer = setTimeout(close, o.ms || ANNOUNCE_MS);
+        requestAnimationFrame(function () { wrap.classList.add("show"); });
+    }
+
+    // 唱えた呪文の名前を画面中央に浮かべる
+    function incant(name) {
+        document.querySelectorAll(".incant").forEach(function (n) { n.remove(); });
+        var n = el("div", "incant", name);
+        n.setAttribute("aria-hidden", "true");
+        document.body.appendChild(n);
+        n.addEventListener("animationend", function () { n.remove(); });
+    }
+
     function showToast(text) {
         toast.textContent = text;
         toast.classList.add("show");
@@ -758,7 +862,6 @@ var ASK_URL = "";
         { id: "vocare", prefix: ["ゔぉかーれ", "ぼかーれ", "vocare"] },
         { id: "aeria", words: ["あえりあ", "aeria"] },
         { id: "scintilla", words: ["すきんてぃら", "scintilla"] },
-        { id: "bestia", words: ["べすてぃあ", "bestia"] },
         { id: "nebula", words: ["ねぶら", "nebula"] },
         { id: "glacies", words: ["ぐらきえす", "glacies"] },
         { id: "magna", words: ["まぐな", "magna"] },
@@ -812,15 +915,24 @@ var ASK_URL = "";
         if (ok === false) return true; // 効果が出なかった (召喚の空振り・忘却の確認)
         if (typeof ok === "string") toastText = ok;
 
-        var line = info.owl;
+        incant(info.name);
         if (!known[found.id]) {
             known[found.id] = true;
             save("rules-spells", JSON.stringify(Object.keys(known)));
-            line += " " + TEXT.spellNew(knownCount(), SPELLS.length);
             renderSpellbook();
+            var learned = {
+                eyebrow: TEXT.announce.spellEyebrow,
+                title: info.name,
+                sub: TEXT.announce.spellSub(info.desc, knownCount(), SPELLS.length),
+                light: true
+            };
+            // 呪文帳は禁書庫の中にあるので、開いている人にだけ案内する
+            if (archiveOpen) { learned.href = "#spellbook"; learned.go = TEXT.announce.spellGo; }
+            // 呪文の効果を先に見せてから告知する
+            setTimeout(function () { announce(learned); }, 2200);
         }
         showToast(toastText);
-        owlSay(line, true);
+        owlSay(info.owl, true);
         return true;
     }
 
@@ -865,14 +977,6 @@ var ASK_URL = "";
     }
 
     var floatTimer, frostTimer;
-    var STAG = '<svg viewBox="0 0 120 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-        + '<path d="M30 50 C40 42 70 42 82 48 C86 50 88 54 86 58 C80 62 45 62 34 58 C28 56 27 52 30 50 Z"/>'
-        + '<path d="M82 48 L92 30 L100 28 L104 32 L96 36 L88 50"/>'
-        + '<path d="M95 28 L92 16 L88 10 M92 16 L97 9 M92 21 L86 19 M99 27 L104 15 L102 7 M104 15 L110 10 M103 19 L109 20"/>'
-        + '<path d="M78 58 L84 72 L88 84 M72 59 L70 74 L74 84 M40 58 L32 71 L30 84 M46 59 L48 73 L44 84"/>'
-        + '<path d="M30 50 L23 45"/><circle cx="98.5" cy="31" r="0.9" fill="currentColor" stroke="none"/>'
-        + '</svg>';
-
     var EFFECTS = {
         candela: function () { candle.classList.add("lit"); },
         solaris: function () {
@@ -918,24 +1022,22 @@ var ASK_URL = "";
             floatTimer = setTimeout(function () { root.classList.remove("levitate"); }, 12000);
         },
         scintilla: function () {
-            for (var i = 0; i < 30; i++) {
+            var glow = el("div", "ember-glow");
+            document.body.appendChild(glow);
+            glow.addEventListener("animationend", function () { glow.remove(); });
+            for (var i = 0; i < 70; i++) {
                 (function (delay) {
                     setTimeout(function () {
                         var e = el("span", "ember");
                         e.style.left = (Math.random() * 100).toFixed(1) + "vw";
                         e.style.setProperty("--d", (3.5 + Math.random() * 3).toFixed(1) + "s");
-                        e.style.setProperty("--dx", (Math.random() * 120 - 60).toFixed(0) + "px");
+                        e.style.setProperty("--s", (3 + Math.random() * 5).toFixed(1) + "px");
+                        e.style.setProperty("--dx", (Math.random() * 200 - 100).toFixed(0) + "px");
                         document.body.appendChild(e);
                         e.addEventListener("animationend", function () { e.remove(); });
                     }, delay);
-                })(i * 90);
+                })(i * 55);
             }
-        },
-        bestia: function () {
-            var p = el("div", "beast");
-            p.innerHTML = STAG;
-            document.body.appendChild(p);
-            p.addEventListener("animationend", function (ev) { if (ev.target === p) p.remove(); });
         },
         magna: function () { root.style.fontSize = "112.5%"; },
         parva: function () { root.style.fontSize = ""; },
@@ -1040,7 +1142,8 @@ var ASK_URL = "";
     var spellbook = document.getElementById("spellbook");
     var archiveProgress = document.getElementById("archive-progress");
     var archiveOpen = false;
-    var progressReady = false; // 最初の表示では「開いた瞬間」の演出をしない
+    var progressReady = false;
+    var chapterDone = {}; // 章ごとの「読み終えた」状態 (読み終えた瞬間を見分けるため) // 最初の表示では「開いた瞬間」の演出をしない
 
     function updateProgress() {
         var done = 0;
@@ -1052,12 +1155,24 @@ var ASK_URL = "";
         progressText.textContent = done + " / " + readable.length;
         progressBar.style.width = (readable.length ? done / readable.length * 100 : 0) + "%";
 
-        // 章ごとに全部読んだら「済」
+        // 章ごとに全部読んだら「済」。読んでいる最中に読み終えたら中央に告知する
         links.forEach(function (a) {
             var id = a.getAttribute("data-chapter");
             if (READ_CHAPTERS.indexOf(id) === -1) return;
             var list = readable.filter(function (d) { return d.chapter === id; });
-            a.classList.toggle("done", list.length > 0 && list.every(function (d) { return readSet[d.el.id]; }));
+            var all = list.length > 0 && list.every(function (d) { return readSet[d.el.id]; });
+            a.classList.toggle("done", all);
+            // (最後の章を読み終えたときは、すぐ後に禁書庫の告知が出るので章の告知は省く)
+            if (all && !chapterDone[id] && progressReady && done < readable.length) {
+                var name = a.querySelector(".ja").firstChild.textContent.trim();
+                announce({
+                    eyebrow: TEXT.announce.chapterEyebrow,
+                    title: TEXT.announce.chapterTitle(name),
+                    sub: TEXT.announce.chapterSub(readable.length - done),
+                    ms: 4500
+                });
+            }
+            chapterDone[id] = all;
         });
 
         // 「はじめての方へ」の続きから読む (読み始めていて、まだ残りがあるときだけ)
@@ -1082,7 +1197,14 @@ var ASK_URL = "";
             link.classList.remove("appear");
             void link.offsetWidth;
             link.classList.add("appear");
-            showToast(TEXT.archiveOpened);
+            announce({
+                eyebrow: TEXT.announce.archiveEyebrow,
+                title: TEXT.announce.archiveTitle,
+                sub: TEXT.announce.archiveSub,
+                href: "#archive",
+                go: TEXT.announce.archiveGo,
+                ms: 12000
+            });
             owlSay(TEXT.owl.archive, true);
         }
     }
