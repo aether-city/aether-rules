@@ -1381,26 +1381,44 @@ mark {
     to { opacity: 0; transform: translate(var(--dx, 0), 22px) scale(0.3); }
 }
 
-/* ----- 隠された鍵 ----- */
+/* ----- 隠された鍵 -----
+   合言葉を唱えるまで存在しない (.keys-awake が付くまで非表示)。
+   目覚めたあとも、条件を満たして .lit が付いたときだけ見えて拾える。 */
 .hidden-key {
-    display: inline-grid; place-items: center;
+    display: none;
+    place-items: center;
     width: 22px; height: 22px;
     margin: 0 4px;
     padding: 0;
     border: 0;
     background: none;
     color: var(--gold);
-    opacity: 0.22;
+    opacity: 0;
+    pointer-events: none;
     cursor: pointer;
     vertical-align: middle;
-    transition: opacity 0.4s, transform 0.4s;
+    transition: opacity 0.8s, transform 0.4s;
 }
-.hidden-key:hover, .hidden-key:focus-visible { opacity: 0.95; transform: rotate(-12deg) scale(1.15); }
+:root.keys-awake .hidden-key { display: inline-grid; }
+.hidden-key.lit {
+    opacity: 0.95;
+    pointer-events: auto;
+    animation: keyglow 2.2s ease-in-out infinite;
+}
+.hidden-key.lit:hover, .hidden-key.lit:focus-visible { transform: rotate(-12deg) scale(1.2); }
 .hidden-key svg { width: 15px; height: 15px; }
-.hidden-key.glow { opacity: 0.85; animation: keyglow 2.2s ease-in-out infinite; }
 @keyframes keyglow {
     0%, 100% { filter: drop-shadow(0 0 0 rgba(214, 178, 110, 0)); }
-    50% { filter: drop-shadow(0 0 6px rgba(214, 178, 110, 0.95)); }
+    50% { filter: drop-shadow(0 0 7px rgba(214, 178, 110, 1)); }
+}
+/* 霧の手前に浮かぶ幻の鍵 */
+.hidden-key.phantom {
+    display: grid;
+    position: fixed;
+    z-index: 31;
+    margin: 0;
+    color: #fff3cf;
+    width: 26px; height: 26px;
 }
 .hidden-key.found { animation: keyfound 0.9s ease forwards; pointer-events: none; }
 @keyframes keyfound {
@@ -1408,16 +1426,17 @@ mark {
     40% { opacity: 1; transform: scale(1.8) rotate(-20deg); }
     100% { opacity: 0; transform: scale(0.4) translateY(-30px); }
 }
-.hidden-key.gone { display: none; }
+:root.keys-awake .hidden-key.gone, .hidden-key.gone { display: none; }
 
 /* 第二の書架 (禁書庫の中、三つの鍵で開く) */
 .second-shelf { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
 
 /* ----- インクの暗号: 印のついた文字 ----- */
-.ink.revealed .c.cipher {
-    color: #7fa6d8 !important;
-    text-shadow: 0 0 6px rgba(127, 166, 216, 0.6);
-    border-bottom: 1px dotted rgba(127, 166, 216, 0.7);
+/* (アトラメントでインクを出しても、印の文字はほかと同じ色。カンデラの灯りが近づいたときだけ光る) */
+.ink.revealed .c.cipher { transition: color 0.6s, text-shadow 0.6s; }
+.ink.revealed .c.cipher.shine {
+    color: #9cc0f0 !important;
+    text-shadow: 0 0 8px rgba(140, 180, 240, 0.9);
 }
 
 /* ----- 季節の舞い物 ----- */
@@ -1498,3 +1517,129 @@ mark {
 .owl-ask .answer-area .num { color: var(--gold); font-size: 0.75rem; margin-right: 6px; }
 .owl-ask .row-end { display: flex; justify-content: space-between; margin-top: 8px; }
 .owl-ask .row-end button { border-color: var(--line); color: var(--ink-soft); }
+
+/* ----- フクロウの名前と親しさ (尋ねる窓の上) ----- */
+.owl-ask-head {
+    margin: 0 0 8px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+}
+
+/* ----- 夜の書架: 夜の色をうっすら差す ----- */
+.night-shelf {
+    position: relative;
+    border-top-color: rgba(127, 150, 210, 0.35);
+}
+.night-shelf::before {
+    content: "";
+    position: absolute; inset: 0 -24px auto -24px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(60, 70, 130, 0.10), transparent 70%);
+    pointer-events: none;
+}
+.night-shelf .section-title { color: #8fa2d8; }
+
+/* =====================================================================
+   通知 (右上のカード) と 画面中央の告知 (文字だけ)
+   ===================================================================== */
+#toast, .toast { display: none !important; } /* 以前の下の通知は使わない */
+
+/* ----- 右上の通知カード ----- */
+.notify-stack {
+    position: fixed;
+    top: 18px; right: 18px;
+    z-index: 32;
+    width: min(320px, calc(100vw - 32px));
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+.notify {
+    pointer-events: auto;
+    cursor: pointer;
+    background: var(--paper);
+    border: 1px solid var(--gold-faint);
+    border-left: 2px solid var(--gold);
+    padding: 10px 14px 10px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    opacity: 0;
+    transform: translateX(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.notify.show { opacity: 1; transform: none; }
+.notify.leave { opacity: 0; transform: translateX(18px); }
+.notify p { margin: 0; }
+.notify .n-eyebrow {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    line-height: 1.5;
+}
+.notify .n-title { font-size: 0.9rem; line-height: 1.7; }
+.notify .n-eyebrow + .n-title { font-weight: 600; letter-spacing: 0.06em; }
+.notify .n-sub { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.7; margin-top: 2px; }
+
+/* ----- 画面中央の告知: パネルもボタンもなく、文字だけが浮かんで消える ----- */
+.proclaim {
+    position: fixed;
+    left: 50%; top: 46%;
+    z-index: 29;
+    width: min(680px, calc(100vw - 32px));
+    transform: translate(-50%, -50%) scale(0.98);
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    filter: blur(6px);
+    transition: opacity 1s ease, filter 1s ease, transform 1.2s ease;
+}
+.proclaim.show { opacity: 1; filter: none; transform: translate(-50%, -50%); }
+/* 本文の上でも読めるよう、文字の後ろだけを背景色でぼかす (縁はなめらかに消えるので、パネルには見えない) */
+.proclaim::before {
+    content: "";
+    position: absolute;
+    inset: -70px -160px;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, var(--bg) 0%, var(--bg) 50%, transparent 78%);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 45%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, #000 45%, transparent 75%);
+}
+.proclaim p { margin: 0; }
+.proclaim .p-eyebrow {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 6px;
+}
+.proclaim h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    line-height: 1.45;
+    color: var(--ink);
+    white-space: nowrap; /* 見出しは 1 行。収まらないときは app.js の fitOneLine が文字を小さくする */
+    overflow: hidden;
+}
+.proclaim .p-line {
+    height: 1px;
+    width: 0;
+    margin: 16px auto 14px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transition: width 1.6s ease 0.3s;
+}
+.proclaim.show .p-line { width: 60%; }
+.proclaim .p-sub { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.9; }
+
+@media (max-width: 900px) {
+    .notify-stack { top: 12px; right: 12px; }
+    .proclaim h2 { letter-spacing: 0.12em; }
+}
+@media print { .notify-stack, .proclaim { display: none !important; } }

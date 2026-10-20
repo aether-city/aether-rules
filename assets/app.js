@@ -81,15 +81,17 @@ var ASK_URL = "";
                 eyebrow: "Hidden Key",
                 found: function (n, total) { return "隠された鍵 " + n + " / " + total; },
                 foundSub: "残りの鍵も、この書のどこかに眠っている。",
-                allTitle: "第二の書架が開いた",
-                allSub: "禁書庫のさらに奥に、もうひとつの書架が現れた。",
-                allSubSealed: "禁書庫の奥で、何かが開く音がした。……まずは禁書庫の封印を解こう。",
+                allTitle: "三つの鍵がそろった",
+                allSub: "だが、書架の扉にはまだ最後の封印が残っている。禁書庫の中で、封印の印を描け。",
+                allSubSealed: "だが、鍵を使う扉はまだ見えない。……まずは禁書庫の封印を解こう。",
+                sealTitle: "第二の書架が開いた",
+                sealSub: "星の印が封印を砕いた。禁書庫のさらに奥に、もうひとつの書架が現れた。",
                 go: "第二の書架へ"
             },
             passcode: {
                 eyebrow: "Passphrase",
                 title: "合言葉が受け入れられた",
-                sub: "この書に隠された鍵が、かすかに光りはじめた。",
+                sub: "眠っていた三つの鍵が目を覚ました。\n言葉の書は灯りを、裁きの書は霧を、時の書は凍てつく息を待っている。",
                 again: "その合言葉は、もう届いている。"
             },
             ask: {
@@ -103,6 +105,24 @@ var ASK_URL = "";
             spellNew: function (n, total) { return "(新しい呪文を覚えた " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "見つけた呪文 " + n + " / " + total; },
             spellUnknown: "まだ知らない呪文",
+            // 呪文帳の「？？？」に添える謎かけ (呪文の名は、古い言葉 (ラテン語) の意味から来ている)
+            spellRiddles: {
+                candela: "古い言葉で「ろうそく」。闇に小さな灯をともす。",
+                somna: "古い言葉で「眠り」。灯りを寝かしつける。",
+                solaris: "古い言葉で「太陽の」。目を焼くほどの光を放つ。",
+                atramento: "古い言葉で「墨」。隠された文字を呼び覚ます。",
+                perspica: "古い言葉で「見通す」。余白に潜む声をすべて暴く。",
+                vocare: "古い言葉で「呼ぶ」。あとに続けた言葉の規則が飛んでくる。",
+                aeria: "古い言葉で「空気」。書物を宙へ放つ。下から上へ、まっすぐ描いても呼べる。",
+                scintilla: "古い言葉で「火花」。三つの角を持つ形を描いても呼べる。",
+                nebula: "古い言葉で「霧」。書庫を白く閉ざす。",
+                glacies: "古い言葉で「氷」。稲妻のような形を描いても呼べる。",
+                magna: "古い言葉で「大いなる」。文字を大きくする。",
+                parva: "古い言葉で「小さな」。大きくした文字を元に戻す。",
+                solve: "古い言葉で「ほどけ」。かけた魔法をすべて解く。",
+                lethe: "忘却の川の名。読んだ記憶を流し去る。",
+                virga: "古い言葉で「杖」。指先に宿り、金の粉をこぼす。"
+            },
             inkFound: function (n) { return "隠されたインクが浮かび上がる……(" + n + " か所)"; },
             summonNone: "呼び寄せる規則が見つからなかった",
             letheWarn: "読んだ記憶をすべて消すつもりか？ 本当なら、もう一度唱えよ",
@@ -118,7 +138,7 @@ var ASK_URL = "";
                 spellGo: "呪文帳を見る",
                 chapterEyebrow: "Chapter Complete",
                 chapterTitle: function (name) { return "「" + name + "」を読み終えた"; },
-                chapterSub: function (left) { return left > 0 ? "残り " + left + " 項目。禁書庫の封印が解けるまで、あと少し。" : ""; }
+                chapterSub: function () { return ""; } // 章の読了は見出しだけ
             },
             owl: {
                 greet: "ようこそ、旅の人。分からないことがあれば、私を押してごらん。",
@@ -131,7 +151,46 @@ var ASK_URL = "";
                 rune: "見事なルーンだ。指先で描く魔法も、悪くないだろう？",
                 key: "鍵か……古い錠前の匂いがする。",
                 keysAll: "三つそろったか。……私の昔話を読まれるのは、少し照れるな。",
-                passcode: "その言葉を見つけたか。鍵たちが目を覚ましたぞ。",
+                passcode: "その言葉を見つけたか。……だが鍵たちは臆病だ。好む場所でしか姿を見せんぞ。",
+                keysAllHint: "最後の封印は、星の形をしている。禁書庫の余白に描いてみよ。",
+                starWrongPlace: "その星は、ここではない。鍵を使う扉は、禁書庫の中にある。",
+                starNotYet: "見事な星だ。……だが、まだ鍵が足りないようだな。",
+                night: "夜の書架に気づいたか。……夜明けまでには閉じるぞ。",
+                // 親しさ (0: よそよそしい / 1: ふつう / 2: 打ち解けた / 3: 名を明かした)
+                name: "オルド",
+                nobody: "司書のフクロウ",
+                affinity: "親しさ",
+                levelUp: ["", "……ふむ。君となら、少しは話してもよさそうだ。", "君とは気が合いそうだ。また来るといい。", ""],
+                greetBack: ["", "また来たか。", "おや、待っていたよ。", "やあ、友よ。今日は何を読む？"],
+                tipsCold: [
+                    "……読みに来たのなら、静かに読みたまえ。",
+                    "規則の書は逃げない。急がずともよい。",
+                    "君はまだ見ない顔だな。",
+                    "用があるなら、上の欄に書きたまえ。"
+                ],
+                tipsWarm: [
+                    "封印の星は、一筆で五つの角を描く。……覚えておくといい。",
+                    "また来たのか。君が来ると、書庫が少し明るくなる。",
+                    "君の読み方は丁寧だ。気に入った。",
+                    "ひとつ秘密を。私は昔、人の姿をしていた。……冗談だと思うかね？",
+                    "夜更けに来てみるといい。夜にしか開かない書架がある。"
+                ],
+                tipsFriend: [
+                    "オルドと呼んでくれていい。古い友には、そう呼ばれていた。",
+                    "規則を守る者は多いが、規則を楽しむ者は少ない。君は後者だ。",
+                    "君になら、禁書庫の鍵を預けてもいい気がする。",
+                    "初代の司書だった頃より、今のほうが楽しいかもしれん。君のおかげでな。"
+                ],
+                nameAnnounce: {
+                    eyebrow: "The Librarian",
+                    title: "司書の名は「オルド」",
+                    sub: "フクロウが、ようやく名を明かしてくれた。\nかつて学院の初代司書だった者の名だ。"
+                },
+                nightAnnounce: {
+                    eyebrow: "Midnight",
+                    title: "夜の書架が現れた",
+                    sub: "真夜中のあいだだけ、禁書庫に開く書架がある。"
+                },
                 tips: [
                     "迷ったら、事例集を開くとよい。",
                     "点線の言葉には、意味が隠されている。",
@@ -144,7 +203,7 @@ var ASK_URL = "";
                     "禁書庫には、見つけた呪文を記す帳面がある。",
                     "本文の余白に、マウスで円を描いてみるといい。……何が起きるかは、お楽しみだ。",
                     "インクの中に、色の違う文字が混じっている。",
-                    "この書のどこかに、小さな鍵が三つ隠れている。",
+                    "この書のどこかに、小さな鍵が三つ眠っている。目を覚ます言葉は、インクの中だ。",
                     "呪文を唱えすぎると、魔力が尽きる。左の青い線を見ておけ。"
                 ]
             }
@@ -199,15 +258,17 @@ var ASK_URL = "";
                 eyebrow: "Hidden Key",
                 found: function (n, total) { return "Hidden key " + n + " / " + total; },
                 foundSub: "The other keys still sleep somewhere in this book.",
-                allTitle: "The Second Shelf is open",
-                allSub: "Another shelf has appeared deeper within the Archive.",
-                allSubSealed: "Something unlocked deep within the Archive… First, break the Archive's seal.",
+                allTitle: "All three keys are gathered",
+                allSub: "But one last seal still binds the shelf. Draw the sigil of the seal inside the Archive.",
+                allSubSealed: "But the door these keys open is not yet in sight… First, break the Archive's seal.",
+                sealTitle: "The Second Shelf is open",
+                sealSub: "The star sigil shattered the seal. Another shelf has appeared deeper within the Archive.",
                 go: "Go to the Second Shelf"
             },
             passcode: {
                 eyebrow: "Passphrase",
                 title: "The passphrase is accepted",
-                sub: "The keys hidden in this book begin to glow faintly.",
+                sub: "Three sleeping keys have awakened.\nThe Book of Words awaits light, the Book of Judgment awaits mist, and the Book of Time awaits a frozen breath.",
                 again: "That passphrase has already been heard."
             },
             ask: {
@@ -221,6 +282,23 @@ var ASK_URL = "";
             spellNew: function (n, total) { return "(New spell learned " + n + " / " + total + ")"; },
             spellCount: function (n, total) { return "Spells found " + n + " / " + total; },
             spellUnknown: "A spell not yet known",
+            spellRiddles: {
+                candela: "The old word for \u201ccandle.\u201d Lights a small flame in the dark.",
+                somna: "The old word for \u201csleep.\u201d Puts the light to bed.",
+                solaris: "The old word for \u201cof the sun.\u201d A light bright enough to blind.",
+                atramento: "The old word for \u201cink.\u201d Awakens hidden writing.",
+                perspica: "The old word for \u201csee through.\u201d Exposes every voice hiding in the margins.",
+                vocare: "The old word for \u201cto call.\u201d The rule you name after it flies to you.",
+                aeria: "The old word for \u201cair.\u201d Sends books into the sky. Also cast by drawing a straight line upward.",
+                scintilla: "The old word for \u201cspark.\u201d Also cast by drawing a shape with three corners.",
+                nebula: "The old word for \u201cmist.\u201d Shrouds the library in white.",
+                glacies: "The old word for \u201cice.\u201d Also cast by drawing a shape like a lightning bolt.",
+                magna: "The old word for \u201cgreat.\u201d Makes the text larger.",
+                parva: "The old word for \u201csmall.\u201d Returns enlarged text to normal.",
+                solve: "The old word for \u201cloosen.\u201d Undoes every spell you cast.",
+                lethe: "The name of the river of oblivion. Washes away what you have read.",
+                virga: "The old word for \u201cwand.\u201d Dwells in your fingertip and sheds golden dust."
+            },
             inkFound: function (n) { return "Hidden ink begins to appear… (" + n + " places)"; },
             summonNone: "No rule answered the summons",
             letheWarn: "Erase everything you have read? If you mean it, cast it again",
@@ -235,7 +313,7 @@ var ASK_URL = "";
                 spellGo: "Open the Book of Spells",
                 chapterEyebrow: "Chapter Complete",
                 chapterTitle: function (name) { return "You finished “" + name + "”"; },
-                chapterSub: function (left) { return left > 0 ? left + (left === 1 ? " item" : " items") + " left until the Archive's seal breaks." : ""; }
+                chapterSub: function () { return ""; }
             },
             owl: {
                 greet: "Welcome, traveler. If anything puzzles you, give me a tap.",
@@ -248,7 +326,45 @@ var ASK_URL = "";
                 rune: "A fine rune. Magic drawn by hand isn't bad, is it?",
                 key: "A key… it smells of old locks.",
                 keysAll: "All three, then. …It's a little embarrassing to have my old story read.",
-                passcode: "So you found the words. The keys have awakened.",
+                passcode: "So you found the words. …But the keys are shy. They show themselves only where they like.",
+                keysAllHint: "The last seal takes the shape of a star. Draw it in the margins of the Archive.",
+                starWrongPlace: "Not here. The door these keys open lies within the Archive.",
+                starNotYet: "A fine star. …But you seem to be short of keys.",
+                night: "You noticed the Midnight Shelf. …It closes before dawn.",
+                name: "Ord",
+                nobody: "The librarian owl",
+                affinity: "Friendship",
+                levelUp: ["", "…Hm. Perhaps I can talk with you a little.", "I think we'll get along. Come again.", ""],
+                greetBack: ["", "Back again, I see.", "Ah, I was waiting for you.", "Hello, my friend. What shall we read today?"],
+                tipsCold: [
+                    "…If you came to read, read quietly.",
+                    "The Book of Rules won't run away. No need to hurry.",
+                    "I don't recognize your face.",
+                    "If you need something, write it in the box above."
+                ],
+                tipsWarm: [
+                    "The star of the seal is drawn in one stroke, with five points. …Remember that.",
+                    "Back again? The library feels a little brighter when you come.",
+                    "You read carefully. I like that.",
+                    "A secret: I once had human form. …Do you think I'm joking?",
+                    "Come late at night. There is a shelf that opens only then."
+                ],
+                tipsFriend: [
+                    "You may call me Ord. My old friends did.",
+                    "Many keep the rules; few enjoy them. You are one of the few.",
+                    "I feel I could trust you with the keys to the Archive.",
+                    "I may be happier now than when I was the first librarian. Thanks to you."
+                ],
+                nameAnnounce: {
+                    eyebrow: "The Librarian",
+                    title: "The librarian's name is \u201cOrd\u201d",
+                    sub: "The owl has finally told you its name.\nIt was the name of the Academy's first librarian."
+                },
+                nightAnnounce: {
+                    eyebrow: "Midnight",
+                    title: "The Midnight Shelf has appeared",
+                    sub: "There is a shelf in the Archive that opens only in the dead of night."
+                },
                 tips: [
                     "When in doubt, open the Precedents.",
                     "Dotted words hide their meanings.",
@@ -261,7 +377,7 @@ var ASK_URL = "";
                     "The Archive holds a book that records the spells you find.",
                     "Try drawing a circle with your mouse in the empty margins… you'll see.",
                     "Some letters in the hidden ink are a different color.",
-                    "Three small keys are hidden somewhere in this book.",
+                    "Three small keys sleep somewhere in this book. The word that wakes them lies in the ink.",
                     "Cast too much and your mana runs dry. Watch the blue line on the left."
                 ]
             }
@@ -286,7 +402,6 @@ var ASK_URL = "";
     var status = document.getElementById("q-status");
     var empty = document.getElementById("empty");
     var tip = document.getElementById("tip");
-    var toast = document.getElementById("toast");
     var chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter"));
     var links = Array.prototype.slice.call(document.querySelectorAll(".chapter-link"));
     var cards = Array.prototype.slice.call(document.querySelectorAll(".rule"));
@@ -685,21 +800,40 @@ var ASK_URL = "";
     });
 
     // ---------- リンクのコピー・質問 ----------
-    var toastTimer;
-    // ---------- 画面中央の告知 ----------
-    // 大事な出来事 (禁書庫の解放・新しい呪文・章の読了) を中央に出す。重なったときは順番に出す。
-    var ANNOUNCE_MS = 6500;
+    // ---------- 通知 ----------
+    // 右上の通知カード (notify): ちょっとしたお知らせ・新しい呪文・鍵など。積み重なって、数秒で消える (押しても消える)。
+    // 画面中央の告知 (announce): 禁書庫の解放など大きな出来事。文字だけが浮かんで消える。重なったときは順番に出す。
+    var NOTIFY_MAX = 4;
+    var notifyStack = el("div", "notify-stack");
+    notifyStack.setAttribute("aria-live", "polite");
+    document.body.appendChild(notifyStack);
+
+    function notify(o) {
+        if (typeof o === "string") o = { title: o };
+        var card = el("div", "notify");
+        if (o.eyebrow) card.appendChild(el("p", "n-eyebrow", o.eyebrow));
+        card.appendChild(el("p", "n-title", o.title));
+        if (o.sub) card.appendChild(el("p", "n-sub", o.sub.replace(/\n/g, " ")));
+        notifyStack.appendChild(card);
+        while (notifyStack.children.length > NOTIFY_MAX) notifyStack.firstChild.remove();
+        requestAnimationFrame(function () { card.classList.add("show"); });
+        var gone = false;
+        function dismiss() {
+            if (gone) return;
+            gone = true;
+            card.classList.remove("show");
+            card.classList.add("leave");
+            setTimeout(function () { card.remove(); }, 500);
+        }
+        card.addEventListener("click", dismiss);
+        setTimeout(dismiss, o.ms || 4500);
+    }
+
+    var PROCLAIM_MS = 5000;
     var announceQueue = [];
     var announcing = false;
-    var SIGIL = '<svg class="sigil" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">'
-        + '<circle class="s1" cx="40" cy="40" r="37"/>'
-        + '<circle class="s2" cx="40" cy="40" r="31" stroke-dasharray="2 3"/>'
-        + '<polygon class="s3" points="40,9 67,55 13,55"/>'
-        + '<polygon class="s3" points="40,71 13,25 67,25"/>'
-        + '<path class="s4" d="M40 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>'
-        + '</svg>';
-
     function announce(o) {
+        if (o.light) { notify(o); return; } // 小さな出来事は右上のカードで
         announceQueue.push(o);
         if (!announcing) nextAnnounce();
     }
@@ -708,52 +842,39 @@ var ASK_URL = "";
         if (!o) { announcing = false; return; }
         announcing = true;
         hideTip();
-
-        var wrap = el("div", "announce-wrap" + (o.light ? " light" : ""));
-        wrap.setAttribute("role", "dialog");
-        wrap.setAttribute("aria-live", "assertive");
-        var box = el("div", "announce");
-        box.innerHTML = SIGIL;
-        if (o.eyebrow) box.appendChild(el("p", "eyebrow-a", o.eyebrow));
-        box.appendChild(el("h2", null, o.title));
+        var p = el("div", "proclaim");
+        p.setAttribute("role", "status");
+        p.setAttribute("aria-live", "assertive");
+        if (o.eyebrow) p.appendChild(el("p", "p-eyebrow", o.eyebrow));
+        p.appendChild(el("h2", null, o.title));
+        p.appendChild(el("div", "p-line"));
         if (o.sub) {
-            var sub = el("p", "sub");
+            var sub = el("p", "p-sub");
             o.sub.split("\n").forEach(function (line, i) {
                 if (i) sub.appendChild(el("br"));
                 sub.appendChild(document.createTextNode(line));
             });
-            box.appendChild(sub);
+            p.appendChild(sub);
         }
-        var actions = el("div", "actions");
-        if (o.href) {
-            var go = el("a", null, o.go);
-            go.href = o.href;
-            go.addEventListener("click", function () { close(); });
-            actions.appendChild(go);
-        }
-        var closeBtn = el("button", "quiet", TEXT.announce.close);
-        closeBtn.type = "button";
-        closeBtn.addEventListener("click", function () { close(); });
-        actions.appendChild(closeBtn);
-        box.appendChild(actions);
-        wrap.appendChild(box);
-        document.body.appendChild(wrap);
+        document.body.appendChild(p);
+        fitOneLine(p.querySelector("h2"));
+        requestAnimationFrame(function () { p.classList.add("show"); });
+        setTimeout(function () {
+            p.classList.remove("show");
+            setTimeout(function () { p.remove(); nextAnnounce(); }, 1000);
+        }, Math.min(o.ms || PROCLAIM_MS, 6500));
+    }
 
-        var closed = false;
-        function close() {
-            if (closed) return;
-            closed = true;
-            clearTimeout(timer);
-            document.removeEventListener("keydown", onKey);
-            wrap.classList.remove("show");
-            setTimeout(function () { wrap.remove(); nextAnnounce(); }, 600);
+    // 見出しを 1 行に収める (はみ出す間、文字を少しずつ小さくし、字の間隔も詰める)
+    function fitOneLine(h) {
+        var size = parseFloat(getComputedStyle(h).fontSize);
+        var spacing = 0.22;
+        for (var i = 0; i < 30 && h.scrollWidth > h.clientWidth && size > 13; i++) {
+            size *= 0.94;
+            spacing = Math.max(0.04, spacing - 0.02);
+            h.style.fontSize = size + "px";
+            h.style.letterSpacing = spacing + "em";
         }
-        function onKey(e) { if (e.key === "Escape") close(); }
-        // 外側を押しても閉じる
-        wrap.addEventListener("click", function (e) { if (e.target === wrap) close(); });
-        document.addEventListener("keydown", onKey);
-        var timer = setTimeout(close, o.ms || ANNOUNCE_MS);
-        requestAnimationFrame(function () { wrap.classList.add("show"); });
     }
 
     // 唱えた呪文の名前を画面中央に浮かべる
@@ -766,10 +887,7 @@ var ASK_URL = "";
     }
 
     function showToast(text) {
-        toast.textContent = text;
-        toast.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 3000);
+        notify({ title: text, ms: 3200 });
     }
 
     function copyText(text) {
@@ -888,8 +1006,80 @@ var ASK_URL = "";
         owlTimer = setTimeout(function () { owlBubble.classList.remove("show"); }, OWL_SHOW_MS);
     }
 
+    // ---------- フクロウの親しさ ----------
+    // 話しかける・尋ねる・呪文やルーン・鍵・毎日の訪問などで少しずつ上がり、口調が打ち解けていく。
+    // 最後の段階で名前 (オルド) を明かす。記録はこのブラウザに残る。
+    var OWL_LEVELS = [0, 10, 25, 45]; // この値以上でその段階
+    var affinity = +(load("rules-owl-affinity") || 0) || 0;
+    var befriendAt = {};
+    function owlLevel(v) {
+        v = v == null ? affinity : v;
+        for (var i = OWL_LEVELS.length - 1; i >= 0; i--) if (v >= OWL_LEVELS[i]) return i;
+        return 0;
+    }
+    function owlName() { return owlLevel() >= 3 ? TEXT.owl.name : TEXT.owl.nobody; }
+    // 親しさを上げる (同じ理由で続けて上がりすぎないよう、cooldown ミリ秒あける)
+    function befriend(n, why, cooldown) {
+        var t = Date.now();
+        if (cooldown && befriendAt[why] && t - befriendAt[why] < cooldown) return;
+        befriendAt[why] = t;
+        var before = owlLevel();
+        affinity += n;
+        save("rules-owl-affinity", String(affinity));
+        var after = owlLevel();
+        drawOwlName();
+        if (after > before) {
+            if (after >= 3) {
+                setTimeout(function () {
+                    announce({
+                        eyebrow: TEXT.owl.nameAnnounce.eyebrow,
+                        title: TEXT.owl.nameAnnounce.title,
+                        sub: TEXT.owl.nameAnnounce.sub,
+                        ms: 9000
+                    });
+                    owlSay(TEXT.owl.tipsFriend[0], true);
+                }, 2500);
+            } else {
+                setTimeout(function () { owlSay(TEXT.owl.levelUp[after], true); }, 2500);
+            }
+        }
+    }
+    function drawOwlName() {
+        if (owlBtn) {
+            owlBtn.title = owlName();
+            owlBtn.setAttribute("aria-label", owlName());
+        }
+        if (askHead) {
+            var lv = owlLevel();
+            askHead.textContent = owlName() + " ― " + TEXT.owl.affinity + " "
+                + "●●●".slice(0, lv) + "○○○".slice(0, 3 - lv);
+        }
+    }
+    var askHead = null;
+
+    // 毎日はじめて来たときに少し親しくなり、2 回目以降はあいさつを返す
+    (function () {
+        var today = new Date().toDateString();
+        if (load("rules-owl-day") !== today) {
+            save("rules-owl-day", today);
+            if (load("rules-owl-greeted")) befriend(2, "day");
+        }
+        var lv = owlLevel();
+        var said = false;
+        try { said = !!sessionStorage.getItem("rules-owl-hello"); } catch (e) {}
+        if (load("rules-owl-greeted") && lv >= 1 && !said) {
+            try { sessionStorage.setItem("rules-owl-hello", "1"); } catch (e) {}
+            setTimeout(function () { owlSay(TEXT.owl.greetBack[lv], true); }, 3500);
+        }
+    })();
+
     function owlTip() {
-        var tips = TEXT.owl.tips;
+        befriend(1, "tip", 20000);
+        var lv = owlLevel();
+        var tips = lv === 0 ? TEXT.owl.tipsCold
+            : lv === 1 ? TEXT.owl.tips
+            : lv === 2 ? TEXT.owl.tips.concat(TEXT.owl.tipsWarm)
+            : TEXT.owl.tipsWarm.concat(TEXT.owl.tipsFriend, TEXT.owl.tips.slice(0, 3));
         var i;
         do { i = Math.floor(Math.random() * tips.length); } while (tips.length > 1 && i === lastTip);
         lastTip = i;
@@ -1025,6 +1215,7 @@ var ASK_URL = "";
         if (!known[id]) {
             known[id] = true;
             save("rules-spells", JSON.stringify(Object.keys(known)));
+            befriend(3, "spell-" + id);
             renderSpellbook();
             var learned = {
                 eyebrow: TEXT.announce.spellEyebrow,
@@ -1161,11 +1352,13 @@ var ASK_URL = "";
             var m = el("div", "mist");
             document.body.appendChild(m);
             m.addEventListener("animationend", function () { m.remove(); });
+            keyWeather("mist", 9000);
         },
         glacies: function () {
             root.classList.add("frozen");
             clearTimeout(frostTimer);
             frostTimer = setTimeout(function () { root.classList.remove("frozen"); }, 7000);
+            keyWeather("frost", 7000);
         },
         aeria: function () {
             // 画面に見えているカードだけを、1 枚ずつ違う方向へ飛ばして、数秒後に元の場所へ戻す
@@ -1256,7 +1449,7 @@ var ASK_URL = "";
             var li = el("li", known[sp.id] ? "" : "unknown");
             var info = TEXT.spells[sp.id];
             li.appendChild(el("b", null, known[sp.id] ? info.name : "？？？"));
-            li.appendChild(document.createTextNode(known[sp.id] ? info.desc : TEXT.spellUnknown));
+            li.appendChild(document.createTextNode(known[sp.id] ? info.desc : (TEXT.spellRiddles[sp.id] || TEXT.spellUnknown)));
             if (known[sp.id] && TEXT.runes[sp.id]) {
                 li.appendChild(el("br"));
                 li.appendChild(el("small", null, TEXT.runeLabel(TEXT.runes[sp.id])));
@@ -1278,12 +1471,29 @@ var ASK_URL = "";
             candleFrame = 0;
             candle.style.setProperty("--x", x + "px");
             candle.style.setProperty("--y", y + "px");
+            lightUp(x, y);
         });
     }
     window.addEventListener("mousemove", function (e) { moveCandle(e.clientX, e.clientY); }, { passive: true });
     window.addEventListener("touchmove", function (e) {
         if (e.touches[0]) moveCandle(e.touches[0].clientX, e.touches[0].clientY);
     }, { passive: true });
+
+    // 灯りの届く所 (半径 CANDLE_R) にある暗号の印と「灯りの鍵」だけを光らせる
+    var CANDLE_R = 160;
+    function near(elm, x, y) {
+        var r = elm.getBoundingClientRect();
+        if (!r.width) return false;
+        return Math.hypot(r.left + r.width / 2 - x, r.top + r.height / 2 - y) < CANDLE_R;
+    }
+    function lightUp(x, y) {
+        var on = candle.classList.contains("lit");
+        document.querySelectorAll(".ink.revealed .c.cipher").forEach(function (c) {
+            c.classList.toggle("shine", on && near(c, x, y));
+        });
+        var k = document.querySelector('.hidden-key[data-key="1"]');
+        if (k) k.classList.toggle("lit", on && keysAwake() && !keysFound["1"] && near(k, x, y));
+    }
 
     // ---------- ルーン (本文の余白にマウスで描いて唱える) ----------
     // 何もない余白 (カードや文字の上ではない所) でマウスを押したまま描くと、形を見分けて呪文を唱える。
@@ -1376,6 +1586,8 @@ var ASK_URL = "";
         }
 
         if (!closed && corners === 0 && (first.y - last.y) > len * 0.8 && h > 90) return "up";
+        // 五芒星: 一筆で描く星。向きの変化の合計が三角や円のほぼ倍になる
+        if (closed && corners >= 3 && totalTurn > 9.5) return "star";
         if (closed && corners >= 2 && corners <= 4) return "triangle";
         if (closed && corners <= 1 && totalTurn > 4.5 && w > 0.4 * h && h > 0.4 * w) return "circle";
         if (!closed && corners >= 3) return "zigzag";
@@ -1411,7 +1623,9 @@ var ASK_URL = "";
             runePts = null;
             runeFade = setTimeout(fade, 30);
         })();
+        if (shape === "star") { drawStar(); return; }
         if (shape && performSpell(RUNE_SPELL[shape], "")) {
+            befriend(2, "rune", 60000);
             setTimeout(function () { owlSay(TEXT.owl.rune); }, 2600);
         }
     });
@@ -1432,65 +1646,112 @@ var ASK_URL = "";
     }, { passive: true });
 
     // ---------- 隠された三つの鍵 ----------
-    // 見つけた鍵はこのブラウザに記録する。三つそろうと、禁書庫に「第二の書架」が開く。
+    // 合言葉を唱えるまで、鍵はどこにも存在しない。目覚めたあとも、鍵はそれぞれ好む場所でしか姿を見せない。
+    //   鍵 1 (用語集の説明文): カンデラの灯りを近づけたとき
+    //   鍵 2 (罰則の注意書き): ネブラの霧の中
+    //   鍵 3 (改訂履歴の見出し): グラキエスで凍っているあいだ
+    // 三つそろったら、禁書庫の余白に五芒星のルーンを描くと「第二の書架」が開く。
     var KEY_TOTAL = 3;
     var keysFound = {};
     try { (JSON.parse(load("rules-keys") || "[]") || []).forEach(function (k) { keysFound[k] = true; }); } catch (e) {}
     var secondShelf = document.getElementById("second-shelf");
+    var sealBroken = !!load("rules-seal");
+    var passcodeHeard = !!load("rules-passcode");
     function keyCount() { return Object.keys(keysFound).length; }
+    function keysAwake() { return passcodeHeard; }
+    function shelfOpen() { return keyCount() >= KEY_TOTAL && sealBroken; }
     function drawKeys() {
+        root.classList.toggle("keys-awake", keysAwake());
         document.querySelectorAll(".hidden-key").forEach(function (k) {
             k.classList.toggle("gone", !!keysFound[k.getAttribute("data-key")]);
         });
     }
-    document.addEventListener("click", function (e) {
-        var k = e.target.closest(".hidden-key");
-        if (!k) return;
-        e.preventDefault();
-        var id = k.getAttribute("data-key");
+
+    // 霧の中の鍵は、霧より手前に「幻の鍵」を浮かべて拾えるようにする (霧が本文を覆ってしまうため)
+    var phantom = null;
+    function keyWeather(kind, ms) {
+        if (!keysAwake()) return;
+        var id = kind === "mist" ? "2" : "3";
+        if (keysFound[id]) return;
+        var k = document.querySelector('.hidden-key[data-key="' + id + '"]');
+        if (!k || k.offsetParent === null) return; // その章を開いていない
+        if (kind === "frost") {
+            k.classList.add("lit");
+            setTimeout(function () { k.classList.remove("lit"); }, ms);
+            return;
+        }
+        // 霧: 少し遅れて、霧がいちばん濃くなる頃に浮かぶ
+        setTimeout(function () {
+            var r = k.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > window.innerHeight) return;
+            if (phantom) phantom.remove();
+            phantom = k.cloneNode(true);
+            phantom.classList.add("phantom", "lit");
+            phantom.style.left = r.left + "px";
+            phantom.style.top = r.top + "px";
+            document.body.appendChild(phantom);
+            var p = phantom;
+            setTimeout(function () { if (p.parentNode) p.remove(); if (phantom === p) phantom = null; }, ms - 2500);
+        }, 1800);
+    }
+    window.addEventListener("scroll", function () { if (phantom) { phantom.remove(); phantom = null; } }, { passive: true });
+
+    function collectKey(id, k) {
         if (keysFound[id]) return;
         keysFound[id] = true;
         save("rules-keys", JSON.stringify(Object.keys(keysFound)));
         k.classList.add("found");
-        setTimeout(function () { k.classList.add("gone"); }, 900);
+        befriend(3, "key-" + id);
+        setTimeout(function () { drawKeys(); if (k.classList.contains("phantom")) k.remove(); }, 900);
         var n = keyCount();
         if (n < KEY_TOTAL) {
             announce({ eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.found(n, KEY_TOTAL), sub: TEXT.keys.foundSub, light: true, ms: 4000 });
             owlSay(TEXT.owl.key, true);
         } else {
-            var shelf = { eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.allTitle, ms: 10000 };
-            if (archiveOpen) {
-                shelf.sub = TEXT.keys.allSub;
-                shelf.href = "#second-shelf";
-                shelf.go = TEXT.keys.go;
-            } else {
-                shelf.sub = TEXT.keys.allSubSealed;
-            }
-            announce(shelf);
-            owlSay(TEXT.owl.keysAll, true);
-            updateProgress();
+            announce({ eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.allTitle, sub: archiveOpen ? TEXT.keys.allSub : TEXT.keys.allSubSealed, ms: 10000 });
+            owlSay(TEXT.owl.keysAllHint, true);
         }
+    }
+    document.addEventListener("click", function (e) {
+        var k = e.target.closest(".hidden-key");
+        if (!k) return;
+        e.preventDefault();
+        if (!k.classList.contains("lit")) return; // 姿を見せていない鍵は拾えない
+        collectKey(k.getAttribute("data-key"), k);
     });
     drawKeys();
 
-    // ---------- 合言葉 (インクの暗号を解くと、鍵が光りはじめる) ----------
-    var passcodeHeard = false;
-    try { passcodeHeard = !!load("rules-passcode"); } catch (e) {}
-    function glowKeys() {
-        document.querySelectorAll(".hidden-key").forEach(function (k) { k.classList.add("glow"); });
+    // 五芒星を描いたとき: 禁書庫の中で、鍵が三つそろっていれば封印が解ける
+    function drawStar() {
+        if (shelfOpen()) return;
+        if (keyCount() < KEY_TOTAL) { owlSay(TEXT.owl.starNotYet, true); return; }
+        if (current !== "archive" || !archiveOpen) { owlSay(TEXT.owl.starWrongPlace, true); return; }
+        sealBroken = true;
+        save("rules-seal", "1");
+        befriend(5, "seal");
+        var f = el("div", "flash");
+        document.body.appendChild(f);
+        setTimeout(function () { f.remove(); }, 1900);
+        updateProgress();
+        setTimeout(function () {
+            announce({ eyebrow: TEXT.keys.eyebrow, title: TEXT.keys.sealTitle, sub: TEXT.keys.sealSub, href: "#second-shelf", go: TEXT.keys.go, ms: 12000 });
+            owlSay(TEXT.owl.keysAll, true);
+        }, 1200);
     }
+
+    // ---------- 合言葉 (インクの暗号を解くと、鍵が目を覚ます) ----------
     function speakPasscode() {
         incant(LANG === "en" ? "UNLOCK" : "とびらをひらけ");
-        if (passcodeHeard) { showToast(TEXT.passcode.again); glowKeys(); return; }
+        if (passcodeHeard) { showToast(TEXT.passcode.again); return; }
         passcodeHeard = true;
         save("rules-passcode", "1");
-        glowKeys();
+        befriend(4, "passcode");
+        drawKeys();
         setTimeout(function () {
-            announce({ eyebrow: TEXT.passcode.eyebrow, title: TEXT.passcode.title, sub: TEXT.passcode.sub, ms: 8000 });
+            announce({ eyebrow: TEXT.passcode.eyebrow, title: TEXT.passcode.title, sub: TEXT.passcode.sub, ms: 12000 });
             owlSay(TEXT.owl.passcode, true);
         }, 1200);
     }
-    if (passcodeHeard) glowKeys();
 
     // ---------- 季節の舞い物 ----------
     // 月に合わせて、ときどきひとつずつ舞い落ちる (春: 花びら / 夏: 蛍 / 秋: 落ち葉 / 冬: 雪)
@@ -1529,6 +1790,8 @@ var ASK_URL = "";
         if (askBox && !askBox.hidden) { askBox.hidden = true; return; }
         if (!askBox) {
             askBox = el("div", "owl-ask");
+            askHead = el("p", "owl-ask-head");
+            askBox.appendChild(askHead);
             var form = el("form");
             var q = el("input");
             q.type = "text";
@@ -1562,6 +1825,7 @@ var ASK_URL = "";
             owlEl.insertBefore(askBox, owlBtn);
         }
         askBox.hidden = false;
+        drawOwlName();
         owlBubble.classList.remove("show");
         askBox.querySelector("input").focus();
     }
@@ -1603,6 +1867,7 @@ var ASK_URL = "";
             askAnswer.appendChild(document.createTextNode(TEXT.ask.none));
             return;
         }
+        befriend(2, "ask", 30000);
         askAnswer.appendChild(document.createTextNode(TEXT.ask.intro));
         var ul = el("ul");
         best.forEach(function (x) {
@@ -1617,6 +1882,32 @@ var ASK_URL = "";
         });
         askAnswer.appendChild(ul);
     }
+
+    // ---------- 夜の書架 (見ている人の時計で 0〜4 時、禁書庫が開いていれば現れる) ----------
+    var nightShelf = document.getElementById("night-shelf");
+    function isMidnight() { var h = new Date().getHours(); return h >= 0 && h < 4; }
+    function updateNight() {
+        if (!nightShelf) return;
+        var show = archiveOpen && isMidnight();
+        nightShelf.hidden = !show;
+        if (!show) return;
+        // その夜に初めて現れたときだけ告知する (日付で覚える)
+        var night = new Date().toDateString();
+        if (load("rules-night") === night) return;
+        save("rules-night", night);
+        setTimeout(function () {
+            announce({
+                eyebrow: TEXT.owl.nightAnnounce.eyebrow,
+                title: TEXT.owl.nightAnnounce.title,
+                sub: TEXT.owl.nightAnnounce.sub,
+                href: "#night-shelf",
+                go: TEXT.announce.archiveGo,
+                ms: 9000
+            });
+            owlSay(TEXT.owl.night, true);
+        }, 2000);
+    }
+    setInterval(updateNight, 60 * 1000);
 
     // ---------- 時刻で変わる空 ----------
     // 5-7 時: 明け方 / 7-16 時: 昼 / 16-19 時: 夕方 / 19-5 時: 夜 (見ている人の時計で決まる)
@@ -1708,7 +1999,8 @@ var ASK_URL = "";
         archiveSealed.hidden = open;
         archiveContent.hidden = !open;
         if (spellbook) spellbook.hidden = !open;
-        if (secondShelf) secondShelf.hidden = !(open && keyCount() >= KEY_TOTAL);
+        if (secondShelf) secondShelf.hidden = !(open && shelfOpen());
+        updateNight();
         archiveProgress.textContent = TEXT.archiveProgress(done, readable.length);
         if (opening) {
             var link = archiveNav.querySelector(".chapter-link");
@@ -1724,6 +2016,7 @@ var ASK_URL = "";
                 ms: 12000
             });
             owlSay(TEXT.owl.archive, true);
+            befriend(5, "archive");
         }
     }
 
