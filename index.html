@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3l3 10 10 3-10 3-3 10-3-10-10-3 10-3z' fill='%23a8894f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Zen+Kurenaido&family=Caveat:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -32,6 +32,7 @@
         <line x1="168" y1="32" x2="32" y2="168"/>
     </g>
 </svg>
+<div class="sky" id="sky" aria-hidden="true"></div>
 
 <div class="layout">
 
@@ -122,6 +123,13 @@
                 <a class="chapter-link" href="#chronicle" data-chapter="chronicle">
                     <span class="en">Chronicle</span>
                     <span class="ja">改訂履歴<span class="count"></span></span>
+                </a>
+            </div>
+            <!-- 禁書庫: サーバー規則・職業別規則・キャラクター作成・事例集をすべて読むと現れる -->
+            <div id="archive-nav" hidden>
+                <a class="chapter-link archive-link" href="#archive" data-chapter="archive">
+                    <span class="en">Forbidden Archive</span>
+                    <span class="ja">禁書庫<span class="count"></span></span>
                 </a>
             </div>
         </nav>
@@ -221,6 +229,8 @@
                 <li><a href="#faq"><small>困ったら</small>よくある質問<span>配信・通報・不具合などの疑問</span></a></li>
                 <li><a href="#glossary"><small>わからない言葉は</small>用語集<span>RDM・メタ・NLR などの意味</span></a></li>
             </ul>
+            <!-- 透明インク: 検索欄で「アパレシウム」と唱えると浮かび上がる (各章に 1 つずつ) -->
+            <p class="ink" aria-hidden="true">はじめの一歩を踏み出した者に、祝福を。</p>
         </section>
 
         <!--
@@ -251,18 +261,21 @@
                     <h3>魔法を乱用しないこと</h3>
                     <p>理由なき攻撃魔法の使用 (RDM)、ロールプレイを無視した魔法の連発を禁ずる。</p>
                     <p>魔法は物語を彩るために使うこと。</p>
+                    <aside class="margin-note"><span>去年の冬、これで三人が街を追われた。</span><cite>— 図書館司書</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-3" data-num="第三条" data-grade="2" data-keywords="メタ メタゲーム 配信 通話 ディスコード Discord">
                     <p class="article">第三条</p>
                     <h3>世界の外の知識を持ち込まないこと</h3>
                     <p>配信・通話など、キャラクターが知り得ない情報を物語に持ち込むこと (メタゲーム) を禁ずる。</p>
+                    <aside class="margin-note"><span>通話の向こうの声は、この街には届かない。覚えておきなさい。</span><cite>— 風紀委員長</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-4" data-num="第四条" data-grade="1" data-keywords="バグ グリッチ チート 報告 管理者">
                     <p class="article">第四条</p>
                     <h3>不具合を悪用しないこと</h3>
                     <p>不具合を見つけたら悪用せず、速やかに管理者へ報告すること。</p>
+                    <aside class="margin-note"><span>壁の向こうに行けた？ 報告書を書くのが先よ。</span><cite>— 魔法工房の主</cite></aside>
                 </li>
             </ol>
 
@@ -274,6 +287,7 @@
                 Discord などの連絡先を載せる場合は、下のコメントを外して URL を書き換えてください。
                 <p class="closing"><a href="https://discord.gg/xxxxxx">Discord で管理者に連絡する</a></p>
             -->
+            <p class="ink" aria-hidden="true">この書を最後まで読んだ者にだけ、禁書庫の扉は開かれる。</p>
         </section>
 
         <!--
@@ -333,6 +347,7 @@
                         <li>犯罪に加担しないこと。治療中・搬送中に知った情報を、犯罪のために流さないこと。</li>
                         <li>医療用の道具や薬を、勤務外に売ったり渡したりしないこと。</li>
                     </ol>
+                    <aside class="margin-note"><span>敵も味方も、血の色は同じだ。</span><cite>— 治療院の老医師</cite></aside>
                 </li>
 
                 <li class="rule" id="job-law" data-num="司法" data-grade="3" data-keywords="裁判 裁判官 判決 弁護 法律 名誉職">
@@ -407,6 +422,7 @@
                 <h3 class="section-title">この職業に関連する事例</h3>
                 <ul id="job-cases-list"></ul>
             </div>
+            <p class="ink" aria-hidden="true">職は人をつくる。だが、人が職を汚すこともある。</p>
         </section>
 
         <!--
@@ -458,6 +474,7 @@
                         <div class="ex good"><b>○ 良い例</b><ul><li>港町の薬師の家に生まれ、失踪した姉を探して街に来た。人見知りだが、薬草の話になると止まらない。</li></ul></div>
                         <div class="ex bad"><b>× 避ける例</b><ul><li>あらゆる魔法を極めた不死身の王族で、誰にも負けたことがない。</li></ul></div>
                     </div>
+                    <aside class="margin-note"><span>秘密は少しずつ明かすほうが、物語は面白い。</span><cite>— 酒場の吟遊詩人</cite></aside>
                 </li>
 
                 <li class="rule" id="char-magic" data-num="其の四" data-keywords="魔法 覚醒 寮 組分け 属性 魔力">
@@ -480,6 +497,7 @@
                     </ol>
                 </li>
             </ol>
+            <p class="ink" aria-hidden="true">名とは、人が最初にかける呪文である。</p>
         </section>
 
         <!--
@@ -519,6 +537,7 @@
                     <p class="verdict ok"><b>○</b>問題なし</p>
                     <p>目的と要求を相手に伝え、ロールプレイの流れの中で魔法を使っています。物語を進めるための使い方として認められます。</p>
                     <p class="related">関連する規則：<a href="#rule-2">第二条</a></p>
+                    <aside class="margin-note"><span>脅すなら、せめて台詞くらいは考えておくことね。</span><cite>— 名もなき住人</cite></aside>
                 </li>
 
                 <li class="rule" id="case-4" data-num="事例四" data-keywords="バグ 壁抜け すり抜け 報告">
@@ -545,6 +564,7 @@
                     <p class="related">関連する規則：<a href="#job-medic">医療</a></p>
                 </li>
             </ol>
+            <p class="ink" aria-hidden="true">前例は、まだ見ぬ誰かを救うために記される。</p>
         </section>
 
         <!--
@@ -603,6 +623,7 @@
                     <p class="answer">問い合わせ窓口で運営に相談してください。作り直す場合、前のキャラクターの持ち物や人間関係は引き継げません。</p>
                 </li>
             </ol>
+            <p class="ink" aria-hidden="true">答えの無い問いは、右下の司書に聞いてごらん。</p>
         </section>
 
         <!--
@@ -671,6 +692,7 @@
                     <p class="def">職業の仕事をしている状態のこと。職場で出勤の手続きをすると切り替わり、職業の道具や権限が使えるようになります。</p>
                 </li>
             </ol>
+            <p class="ink" aria-hidden="true">言葉を知る者は、呪文を知る者でもある。……ためしに「ルーモス」と唱えてごらん。</p>
         </section>
 
         <!--
@@ -718,6 +740,7 @@
                 <li>悪質な場合や、運営が必要と判断した場合は、段階を飛ばして処分することがあります。</li>
                 <li>処分に納得できない場合は、Discord の問い合わせ窓口から異議を申し立てられます。</li>
             </ul>
+            <p class="ink" aria-hidden="true">封印は、破られるためにあるのではない。守る者がいることを示すためにある。</p>
         </section>
 
         <!--
@@ -744,6 +767,54 @@
                     </ul>
                 </li>
             </ol>
+            <p class="ink" aria-hidden="true">この書もまた、生きている。</p>
+        </section>
+
+        <!--
+            ===== 禁書庫 (仮) =====
+            規則の書をすべて読んだ人にだけ開く章です (検索には出ません)。
+            世界観の断片や、運営からの言葉を書きます。
+        -->
+        <section class="chapter" id="archive">
+            <div class="chapter-head">
+                <p class="eyebrow">Forbidden Archive</p>
+                <h2>禁書庫</h2>
+                <p class="lead">規則の書を読み終えた者だけが入れる、学院の奥の書庫。</p>
+                <span class="draft">※ 現在は仮の内容です</span>
+                <div class="rule-line"></div>
+            </div>
+
+            <div class="sealed" id="archive-sealed">
+                <svg class="lock" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1"><circle cx="24" cy="24" r="22"/><circle cx="24" cy="24" r="17" stroke-dasharray="2 3"/><rect x="16" y="22" width="16" height="12" rx="1"/><path d="M19 22v-4a5 5 0 0 1 10 0v4"/><path d="M24 27v3"/></svg>
+                <p>この書庫は封印されている。<br>規則の書をすべて読み終えた者にだけ、扉は開かれる。</p>
+                <p id="archive-progress"></p>
+            </div>
+
+            <ol class="lore" id="archive-content" hidden>
+                <li>
+                    <h3>エーテルの起源</h3>
+                    <p>この街の地下には、目に見えない力の流れがある。古い書物はそれを「エーテル」と呼んだ。</p>
+                    <p>かつて人々はエーテルを汲み上げて灯りをともし、病を癒やした。やがてそれは結晶として取り引きされ、いまでは街の通貨の名として残っている。財布の中の硬貨が、かすかに温かいことがあるのはそのためだ。</p>
+                </li>
+                <li>
+                    <h3>学院の創立</h3>
+                    <p>魔法学院は、エーテルの流れが最も濃く交わる場所に建てられた。創立者たちは、力を持つ者が増えすぎた街に、秩序を教える場が必要だと考えたという。</p>
+                    <p>規則の書の最初の一条が「礼節」であるのは、彼らが最初に失ったものがそれだったからだ、と伝えられている。</p>
+                </li>
+                <li>
+                    <h3>運営より</h3>
+                    <p>ここまで読んでくださって、ありがとうございます。規則は、あなたの物語を守るためにあります。</p>
+                    <p>この禁書庫の存在は、まだ読み終えていない人には内緒にしておいてください。</p>
+                    <p class="sign">— AETHER CITY 運営</p>
+                </li>
+            </ol>
+
+            <!-- 呪文帳: 見つけた呪文が記されていく (中身は assets/app.js の SPELLS から作られます) -->
+            <div class="spellbook" id="spellbook" hidden>
+                <h3 class="section-title">呪文帳</h3>
+                <p class="count-line" id="spellbook-count"></p>
+                <ol id="spellbook-list"></ol>
+            </div>
         </section>
 
         <p class="empty" id="empty" hidden>
@@ -755,6 +826,26 @@
 
 <div class="tip" id="tip" role="tooltip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- 司書のフクロウ (押すと一言) / ロウソクの灯り (ルーモス) -->
+<div class="owl" id="owl">
+    <div class="owl-say" id="owl-say" role="status" aria-live="polite"></div>
+    <button class="owl-btn" id="owl-btn" type="button" aria-label="司書のフクロウ" title="司書のフクロウ">
+        <svg viewBox="0 0 46 52" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 10 L13 17 M37 10 L33 17"/>
+            <path d="M13 17 C8 22 7 32 10 40 C13 47 33 47 36 40 C39 32 38 22 33 17 C28 13 18 13 13 17 Z"/>
+            <circle cx="17.5" cy="24" r="5"/>
+            <circle cx="28.5" cy="24" r="5"/>
+            <circle class="owl-eye" cx="17.5" cy="24" r="1.6" fill="currentColor" stroke="none"/>
+            <circle class="owl-eye" cx="28.5" cy="24" r="1.6" fill="currentColor" stroke="none"/>
+            <path d="M23 28 L21.5 31 L23 32.5 L24.5 31 Z" fill="currentColor" stroke="none"/>
+            <path d="M16 36 C19 38 27 38 30 36 M17 40 C20 41.5 26 41.5 29 40" opacity="0.6"/>
+            <path d="M18 46.5 v3 M28 46.5 v3"/>
+            <path d="M4 50 H42" opacity="0.5"/>
+        </svg>
+    </button>
+</div>
+<div class="candle" id="candle" aria-hidden="true"></div>
+
 
 <script src="assets/app.js"></script>
 </body>
