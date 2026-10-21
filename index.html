@@ -126,7 +126,7 @@
                 </a>
             </div>
             <!-- 禁書庫: サーバー規則・職業別規則・キャラクター作成・事例集をすべて読むと現れる -->
-            <div id="archive-nav" hidden>
+            <div id="archive-nav" data-only="magic" hidden>
                 <a class="chapter-link archive-link" href="#archive" data-chapter="archive">
                     <span class="en">Forbidden Archive</span>
                     <span class="ja">禁書庫<span class="count"></span></span>
@@ -142,7 +142,7 @@
             </div>
             <div class="progress-bar"><span id="progress-bar"></span></div>
             <!-- 魔力: 呪文を唱えると減り、時間がたつと戻る -->
-            <div class="mana" id="mana">
+            <div class="mana" id="mana" data-only="magic">
                 <div class="progress-row"><span>魔力</span><span id="mana-text"></span></div>
                 <div class="progress-bar mana-bar"><span id="mana-bar"></span></div>
             </div>
@@ -204,7 +204,7 @@
                 </li>
                 <li>
                     <strong>理由なく攻撃しない</strong>
-                    <p>魔法も乗り物も、物語の流れがあって初めて使えるものです。<a href="#rule-2">第二条</a></p>
+                    <p><span data-only="magic">魔法も乗り物も</span><span data-only="normal">武器も乗り物も</span>、物語の流れがあって初めて使えるものです。<a href="#rule-2">第二条</a></p>
                 </li>
                 <li>
                     <strong>ゲームの外の情報を持ち込まない</strong>
@@ -255,30 +255,30 @@
                 <li class="rule" id="rule-1" data-num="第一条" data-grade="2" data-keywords="暴言 ハラスメント 迷惑行為 マナー">
                     <p class="article">第一条</p>
                     <h3>礼節を重んじること</h3>
-                    <p>他の学徒・住人への暴言、差別的な発言、つきまといを禁ずる。</p>
+                    <p><span data-only="magic">他の学徒・住人</span><span data-only="normal">他の住人</span>への暴言、差別的な発言、つきまといを禁ずる。</p>
                     <p>困ったときは、まず言葉で解決を試みること。</p>
                 </li>
 
                 <li class="rule" id="rule-2" data-num="第二条" data-grade="2" data-keywords="RDM 攻撃 戦闘 呪文 スペル">
                     <p class="article">第二条</p>
-                    <h3>魔法を乱用しないこと</h3>
-                    <p>理由なき攻撃魔法の使用 (RDM)、ロールプレイを無視した魔法の連発を禁ずる。</p>
-                    <p>魔法は物語を彩るために使うこと。</p>
-                    <aside class="margin-note"><span>去年の冬、これで三人が街を追われた。</span><cite>— 図書館司書</cite></aside>
+                    <h3><span data-only="magic">魔法を乱用しないこと</span><span data-only="normal">暴力を乱用しないこと</span></h3>
+                    <p><span data-only="magic">理由なき攻撃魔法の使用 (RDM)、ロールプレイを無視した魔法の連発を禁ずる。</span><span data-only="normal">理由なき攻撃 (RDM)、ロールプレイを無視した武器の乱用を禁ずる。</span></p>
+                    <p><span data-only="magic">魔法は物語を彩るために使うこと。</span><span data-only="normal">力は物語を動かすために使うこと。</span></p>
+                    <aside class="margin-note" data-only="magic"><span>去年の冬、これで三人が街を追われた。</span><cite>— 図書館司書</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-3" data-num="第三条" data-grade="2" data-keywords="メタ メタゲーム 配信 通話 ディスコード Discord">
                     <p class="article">第三条</p>
                     <h3>世界の外の知識を持ち込まないこと</h3>
                     <p>配信・通話など、キャラクターが知り得ない情報を物語に持ち込むこと (メタゲーム) を禁ずる。</p>
-                    <aside class="margin-note"><span>通話の向こうの声は、この街には届かない。覚えておきなさい。</span><cite>— 風紀委員長</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>通話の向こうの声は、この街には届かない。覚えておきなさい。</span><cite>— 風紀委員長</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-4" data-num="第四条" data-grade="1" data-keywords="バグ グリッチ チート 報告 管理者">
                     <p class="article">第四条</p>
                     <h3>不具合を悪用しないこと</h3>
                     <p>不具合を見つけたら悪用せず、速やかに管理者へ報告すること。</p>
-                    <aside class="margin-note"><span>壁の向こうに行けた？ 報告書を書くのが先よ。</span><cite>— 魔法工房の主</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>壁の向こうに行けた？ 報告書を書くのが先よ。</span><cite>— 魔法工房の主</cite></aside>
                 </li>
             </ol>
 
@@ -313,7 +313,183 @@
             </div>
 
             <ol class="rules">
-                <li class="rule" id="job-common" data-num="共通" data-keywords="勤務 出勤 退勤 オンデューティ 給料">
+                <li class="rule" data-only="magic" id="job-common" data-num="共通" data-keywords="勤務 出勤 退勤 オンデューティ 給料 委員 部活">
+                    <p class="article">共通</p>
+                    <h3>すべての職業</h3>
+                    <div class="jobs"><span>全職業</span></div>
+                    <ol class="items">
+                        <li>勤務するときは必ず出勤状態にし、離れるときは退勤すること。</li>
+                        <li>職務で得た権限・道具・資金・魔法を、私的な目的に使わないこと。</li>
+                        <li>職場の仲間や上司 (委員長・部長など) の指示に従い、職場の規則がある場合はそれも守ること。</li>
+                        <li>複数の職を掛け持ちする場合も、同時に勤務するのは一つまでとすること。</li>
+                        <li>その職業だけが使える魔法や道具は、職の務めのためにだけ使うこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-auror" data-num="治安" data-grade="2" data-keywords="逮捕 拘束 手錠 スタン 取り締まり 押収 治安 警察">
+                    <p class="article">治安</p>
+                    <h3>風紀委員</h3>
+                    <div class="jobs"><span>風紀委員</span></div>
+                    <ol class="items">
+                        <li>拘束・スタン系の魔法は、勤務中の風紀委員だけが使えるものとする。勤務外に使ってはならない。</li>
+                        <li>拘束・逮捕する前に、その理由をロールプレイで相手に伝えること。</li>
+                        <li>拘束した相手を長く放置せず、速やかに取り調べ・処分を行うこと (目安は30分以内)。</li>
+                        <li>事件の規模に見合った人数で対応し、必要以上の人数で押しかけないこと。</li>
+                        <li>押収した品物や金銭を、自分のものにしないこと。</li>
+                        <li>職権を、個人的な揉めごとの解決に使わないこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-medic" data-num="保健" data-grade="2" data-keywords="救急 医者 医療 治療 蘇生 搬送 保健室 白寮 ヒーラー">
+                    <p class="article">保健</p>
+                    <h3>保健委員</h3>
+                    <div class="jobs"><span>保健委員</span></div>
+                    <ol class="items">
+                        <li>治療は中立に行うこと。相手の所属や罪の有無で、治療を拒んではならない。</li>
+                        <li>蘇生の魔法は保健委員の務めとして使い、取引や脅しの材料にしないこと。</li>
+                        <li>戦闘が続いている場所には踏み込まず、安全が確かめられてから向かうこと。</li>
+                        <li>犯罪に加担しないこと。治療中・搬送中に知った情報を、犯罪のために流さないこと。</li>
+                        <li>医療用の道具や薬を、勤務外に売ったり渡したりしないこと。</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>敵も味方も、血の色は同じだ。</span><cite>— 保健室の老先生</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-law" data-num="司法" data-grade="3" data-keywords="裁判 判事 判決 弁護 法律">
+                    <p class="article">司法</p>
+                    <h3>魔法裁判所・魔法弁護士</h3>
+                    <div class="jobs"><span>魔法裁判所</span><span>魔法弁護士事務所</span></div>
+                    <ol class="items">
+                        <li>判決は公平に下し、その根拠を当事者に示すこと。</li>
+                        <li>弁護士は依頼人から聞いたことを、本人の許しなく他人に漏らさないこと。</li>
+                        <li>裁判の内容がサーバー規則に反するものであってはならない。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-press" data-num="報道" data-grade="3" data-keywords="新聞 記事 ニュース 取材 報道 委員長 噂">
+                    <p class="article">報道</p>
+                    <h3>新聞委員</h3>
+                    <div class="jobs"><span>新聞委員</span></div>
+                    <ol class="items">
+                        <li>記事にするのは物語の中の出来事だけとし、プレイヤー本人への中傷は書かないこと。</li>
+                        <li>配信や通話で知った情報 (メタ情報) を記事にしないこと。</li>
+                        <li>記事は新聞委員長の確認を経てから発行すること。</li>
+                        <li>街の噂を記事にするときは、噂であることが分かるように書くこと。</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>書き損じた手紙も「アトラメント」と唱えれば、消したはずの墨が浮かぶ。……と、祖母はよく言っていた。</span><cite>— 新聞委員</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-craft" data-num="工房" data-grade="3" data-keywords="整備 修理 改造 杖 杖選び 儀式 工房">
+                    <p class="article">工房</p>
+                    <h3>魔法工房・杖工房</h3>
+                    <div class="jobs"><span>魔法工房</span><span>杖工房</span></div>
+                    <ol class="items">
+                        <li>料金は工房で定めた価格に従い、不当に高い料金を求めないこと。</li>
+                        <li>修理・改造は原則として工房の中で行うこと。出張は依頼を受けたときだけとする。</li>
+                        <li>預かった乗り物や品物を、持ち主の許しなく使わないこと。</li>
+                        <li>杖選びの儀式は、勤務中に、望む客にだけ執り行うこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-transport" data-num="輸送" data-grade="3" data-keywords="タクシー バス 配送 運転 箒 絨毯 結界 禁域">
+                    <p class="article">輸送</p>
+                    <h3>箒タクシー・箒バス・飛行絨毯配送</h3>
+                    <div class="jobs"><span>箒タクシー</span><span>箒バス</span><span>飛行絨毯配送</span></div>
+                    <ol class="items">
+                        <li>乗客を、行き先として告げられた場所以外へ連れて行かないこと。</li>
+                        <li>結界や夜間禁域など、立ち入りが制限された場所へ乗客を運ばないこと。</li>
+                        <li>預かった荷物を勝手に開けたり、中身を抜き取ったりしないこと。</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>霧の夜は「ネブラ」と唱えて家に籠もる。それがこの街の古い習わしだ。客が来ないのが困りものだが。</span><cite>— 箒タクシーの運転手</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-cityworks" data-num="街の仕事" data-grade="3" data-keywords="レッカー 回収 清掃 浄化 ゴミ">
+                    <p class="article">街の仕事</p>
+                    <h3>浮遊レッカー・浄化魔法清掃隊</h3>
+                    <div class="jobs"><span>浮遊レッカー業者</span><span>浄化魔法清掃隊</span></div>
+                    <ol class="items">
+                        <li>レッカーで運んでよいのは放置された乗り物だけとし、使われている乗り物を勝手に運ばないこと。</li>
+                        <li>清掃中に見つけた他人の持ち物は、持ち主か風紀委員に届けること。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-shop" data-num="商い" data-grade="3" data-keywords="販売 屋台 店 価格 薬草 箒">
+                    <p class="article">商い</p>
+                    <h3>魔法屋台・魔法薬草園・箒専門店</h3>
+                    <div class="jobs"><span>魔法屋台</span><span>魔法薬草園</span><span>箒専門店</span></div>
+                    <ol class="items">
+                        <li>商品は店で定めた価格で売ること。</li>
+                        <li>店の在庫や材料を、勤務外に自分のものとして使わないこと。</li>
+                        <li>呼び込みや宣伝は、周りの迷惑にならない範囲で行うこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-estate" data-num="不動産" data-grade="3" data-keywords="家 住宅 物件 鍵 契約 ハウス">
+                    <p class="article">不動産</p>
+                    <h3>魔法不動産</h3>
+                    <div class="jobs"><span>魔法不動産</span></div>
+                    <ol class="items">
+                        <li>同じ物件を、二人以上に売らないこと。</li>
+                        <li>契約の内容 (価格・期間など) を、事前に相手へはっきり伝えること。</li>
+                        <li>他人の家の鍵を、持ち主の許しなく作ったり渡したりしないこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-beast" data-num="飼育" data-grade="3" data-keywords="使い魔 魔物 捕獲 封獣の札 譲渡 委員会">
+                    <p class="article">飼育</p>
+                    <h3>飼育委員</h3>
+                    <div class="jobs"><span>飼育委員</span></div>
+                    <ol class="items">
+                        <li>使い魔を他人にけしかけたり、攻撃の道具にしたりしないこと。</li>
+                        <li>魔物の捕獲は、ほかの住人を巻き込まない場所で行うこと。</li>
+                        <li>使い魔を譲るときは、相手の同意を得て、ロールプレイの中で行うこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-library" data-num="図書" data-grade="3" data-keywords="魔導書 創成魔法 写字 羊皮紙 委員会">
+                    <p class="article">図書</p>
+                    <h3>図書委員</h3>
+                    <div class="jobs"><span>図書委員</span></div>
+                    <ol class="items">
+                        <li>創成魔法の魔導書に、サーバー規則に反する効果や文章を書かないこと。</li>
+                        <li>写字で作った品を、不当に高い値で売らないこと。</li>
+                        <li>書庫の本や記録を、許しなく持ち出さないこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-alchemy" data-num="錬金" data-grade="3" data-keywords="錬金 調合 薬 ポーション 委員会">
+                    <p class="article">錬金</p>
+                    <h3>錬金委員</h3>
+                    <div class="jobs"><span>錬金委員</span></div>
+                    <ol class="items">
+                        <li>調合した薬は、店や依頼で定めた価格で扱うこと。</li>
+                        <li>害のある薬を、相手の同意なく使ったり飲ませたりしないこと。</li>
+                        <li>調合台を、私的な取引のために独り占めしないこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-astronomy" data-num="天文" data-grade="3" data-keywords="天文 望遠鏡 星詠み 予兆 赤い月 流星 部活">
+                    <p class="article">天文</p>
+                    <h3>天文部</h3>
+                    <div class="jobs"><span>天文部</span></div>
+                    <ol class="items">
+                        <li>星の兆しで知った出来事は、ロールプレイの中で伝えること。ゲームの外で広めてはならない。</li>
+                        <li>予兆の知らせを、犯罪や悪事のために流さないこと。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-guide" data-num="案内" data-grade="3" data-keywords="新入生 初心者 案内 ガイド">
+                    <p class="article">案内</p>
+                    <h3>初心者案内</h3>
+                    <div class="jobs"><span>初心者案内</span></div>
+                    <ol class="items">
+                        <li>新入生には丁寧に接し、分かりやすく案内すること。</li>
+                        <li>案内の最中に、勧誘や私的な頼みごとをしないこと。</li>
+                        <li>規則について分からないことは、自分で決めつけず運営に確かめること。</li>
+                    </ol>
+                </li>
+
+                <!-- ↓ 通常モード (魔法を知らない人向け) の職業。id は魔法モードの対応する職と同じ -->
+                <li class="rule" id="job-common" data-only="normal" data-num="共通" data-keywords="勤務 出勤 退勤 オンデューティ 給料">
                     <p class="article">共通</p>
                     <h3>すべての職業</h3>
                     <div class="jobs"><span>全職業</span></div>
@@ -325,12 +501,12 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-auror" data-num="治安" data-grade="2" data-keywords="警察 逮捕 拘束 手錠 スタン 取り締まり 押収 治安">
+                <li class="rule" id="job-auror" data-only="normal" data-num="治安" data-grade="2" data-keywords="逮捕 拘束 手錠 スタン 取り締まり 押収 治安">
                     <p class="article">治安</p>
-                    <h3>風紀委員・警察</h3>
-                    <div class="jobs"><span>風紀委員</span><span>警察</span></div>
+                    <h3>警察</h3>
+                    <div class="jobs"><span>警察</span></div>
                     <ol class="items">
-                        <li>拘束・スタン系の魔法は、勤務中の風紀委員だけが使えるものとする。勤務外に使ってはならない。</li>
+                        <li>手錠・スタンガンなどの拘束の道具は、勤務中の警察官だけが使えるものとする。</li>
                         <li>拘束・逮捕する前に、その理由をロールプレイで相手に伝えること。</li>
                         <li>拘束した相手を長く放置せず、速やかに取り調べ・処分を行うこと (目安は30分以内)。</li>
                         <li>事件の規模に見合った人数で対応し、必要以上の人数で押しかけないこと。</li>
@@ -339,23 +515,22 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-medic" data-num="医療" data-grade="2" data-keywords="救急 医者 医療 治療 蘇生 搬送 病院 ヒーラー">
+                <li class="rule" id="job-medic" data-only="normal" data-num="医療" data-grade="2" data-keywords="救急 医者 医療 治療 蘇生 搬送 病院">
                     <p class="article">医療</p>
-                    <h3>魔法治療院・救急隊</h3>
-                    <div class="jobs"><span>魔法治療院</span><span>救急隊</span></div>
+                    <h3>救急隊</h3>
+                    <div class="jobs"><span>救急隊</span></div>
                     <ol class="items">
                         <li>治療は中立に行うこと。相手の所属や罪の有無で、治療を拒んではならない。</li>
                         <li>戦闘が続いている場所には踏み込まず、安全が確かめられてから向かうこと。</li>
                         <li>犯罪に加担しないこと。治療中・搬送中に知った情報を、犯罪のために流さないこと。</li>
                         <li>医療用の道具や薬を、勤務外に売ったり渡したりしないこと。</li>
                     </ol>
-                    <aside class="margin-note"><span>敵も味方も、血の色は同じだ。</span><cite>— 治療院の老医師</cite></aside>
                 </li>
 
-                <li class="rule" id="job-law" data-num="司法" data-grade="3" data-keywords="裁判 裁判官 判決 弁護 法律 名誉職">
+                <li class="rule" id="job-law" data-only="normal" data-num="司法" data-grade="3" data-keywords="裁判 裁判官 判決 弁護 法律 名誉職">
                     <p class="article">司法</p>
-                    <h3>魔法裁判所・弁護士</h3>
-                    <div class="jobs"><span>魔法裁判所</span><span>名誉職 (裁判官)</span><span>魔法弁護士事務所</span><span>法律事務所</span></div>
+                    <h3>裁判官・弁護士</h3>
+                    <div class="jobs"><span>名誉職 (裁判官)</span><span>法律事務所</span></div>
                     <ol class="items">
                         <li>判決は公平に下し、その根拠を当事者に示すこと。</li>
                         <li>弁護士は依頼人から聞いたことを、本人の許しなく他人に漏らさないこと。</li>
@@ -363,45 +538,53 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-press" data-num="報道" data-grade="3" data-keywords="新聞 記事 ニュース 取材 報道 編集長">
+                <li class="rule" id="job-press" data-only="normal" data-num="報道" data-grade="3" data-keywords="新聞 記事 ニュース 取材 報道 編集長">
                     <p class="article">報道</p>
-                    <h3>魔法新聞社・記者</h3>
-                    <div class="jobs"><span>魔法新聞社</span><span>記者</span></div>
+                    <h3>記者</h3>
+                    <div class="jobs"><span>記者</span></div>
                     <ol class="items">
                         <li>記事にするのは物語の中の出来事だけとし、プレイヤー本人への中傷は書かないこと。</li>
                         <li>配信や通話で知った情報 (メタ情報) を記事にしないこと。</li>
                         <li>記事は編集長の確認を経てから発行すること。</li>
                     </ol>
-                    <aside class="margin-note"><span>書き損じた手紙も「アトラメント」と唱えれば、消したはずの墨が浮かぶ。……と、祖母はよく言っていた。</span><cite>— 魔法新聞社の記者</cite></aside>
                 </li>
 
-                <li class="rule" id="job-craft" data-num="工房" data-grade="3" data-keywords="整備 修理 改造 メカニック 杖 カスタム ベニーズ ビーカーズ">
-                    <p class="article">工房</p>
-                    <h3>魔法工房・杖工房・整備</h3>
-                    <div class="jobs"><span>魔法工房</span><span>杖工房</span><span>LSカスタム</span><span>ビーカーズガレージ</span><span>ベニーズ</span></div>
+                <li class="rule" id="job-craft" data-only="normal" data-num="整備" data-grade="3" data-keywords="整備 修理 改造 メカニック カスタム">
+                    <p class="article">整備</p>
+                    <h3>整備工場</h3>
+                    <div class="jobs"><span>LSカスタム</span><span>ビーカーズガレージ</span><span>ベニーズ</span></div>
                     <ol class="items">
                         <li>料金は店で定めた価格に従い、不当に高い料金を求めないこと。</li>
-                        <li>修理・改造は原則として工房の中で行うこと。出張は依頼を受けたときだけとする。</li>
+                        <li>修理・改造は原則として工場の中で行うこと。出張は依頼を受けたときだけとする。</li>
                         <li>預かった乗り物や品物を、持ち主の許しなく使わないこと。</li>
                     </ol>
                 </li>
 
-                <li class="rule" id="job-transport" data-num="輸送" data-grade="3" data-keywords="タクシー バス 配送 運転 レッカー トラック 箒 絨毯 結界 禁域">
+                <li class="rule" id="job-transport" data-only="normal" data-num="輸送" data-grade="3" data-keywords="タクシー バス 配送 運転 トラック">
                     <p class="article">輸送</p>
-                    <h3>箒タクシー・配送・レッカー</h3>
-                    <div class="jobs"><span>箒タクシー</span><span>箒バス</span><span>飛行絨毯配送</span><span>浮遊レッカー業者</span><span>タクシー</span><span>バス運転手</span><span>トラック運転手</span><span>レッカー業者</span></div>
+                    <h3>タクシー・バス・トラック</h3>
+                    <div class="jobs"><span>タクシー</span><span>バス運転手</span><span>トラック運転手</span></div>
                     <ol class="items">
                         <li>乗客を、行き先として告げられた場所以外へ連れて行かないこと。</li>
-                        <li>レッカーで運んでよいのは放置された乗り物だけとし、使われている乗り物を勝手に運ばないこと。</li>
-                        <li>結界や夜間禁域など、立ち入りが制限された場所へ乗客を運ばないこと。</li>
+                        <li>立ち入りが制限された場所へ乗客を運ばないこと。</li>
+                        <li>預かった荷物を勝手に開けたり、中身を抜き取ったりしないこと。</li>
                     </ol>
-                    <aside class="margin-note"><span>霧の夜は「ネブラ」と唱えて家に籠もる。それがこの街の古い習わしだ。客が来ないのが困りものだが。</span><cite>— 箒タクシーの運転手</cite></aside>
                 </li>
 
-                <li class="rule" id="job-shop" data-num="商い" data-grade="3" data-keywords="飲食 カフェ 料理 販売 屋台 店 価格 ワイナリー 箒専門店 車両販売">
+                <li class="rule" id="job-cityworks" data-only="normal" data-num="街の仕事" data-grade="3" data-keywords="レッカー 回収 清掃 ゴミ">
+                    <p class="article">街の仕事</p>
+                    <h3>レッカー・ゴミ収集</h3>
+                    <div class="jobs"><span>レッカー業者</span><span>ゴミ収集</span></div>
+                    <ol class="items">
+                        <li>レッカーで運んでよいのは放置された乗り物だけとし、使われている乗り物を勝手に運ばないこと。</li>
+                        <li>作業中に見つけた他人の持ち物は、持ち主か警察に届けること。</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-shop" data-only="normal" data-num="商い" data-grade="3" data-keywords="飲食 カフェ 料理 販売 店 価格 ワイナリー 車両販売">
                     <p class="article">商い</p>
-                    <h3>飲食店・販売店・薬草園</h3>
-                    <div class="jobs"><span>カフェ</span><span>ハンバーガー店</span><span>魔法屋台</span><span>ホットドッグ販売</span><span>魔法薬草園</span><span>ワイナリー</span><span>箒専門店</span><span>車両販売店</span></div>
+                    <h3>飲食店・販売店</h3>
+                    <div class="jobs"><span>カフェ</span><span>ハンバーガー店</span><span>ホットドッグ販売</span><span>ワイナリー</span><span>車両販売店</span></div>
                     <ol class="items">
                         <li>商品は店で定めた価格で売ること。</li>
                         <li>店の在庫や材料を、勤務外に自分のものとして使わないこと。</li>
@@ -409,10 +592,10 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-estate" data-num="不動産" data-grade="3" data-keywords="家 住宅 物件 鍵 契約 ハウス">
+                <li class="rule" id="job-estate" data-only="normal" data-num="不動産" data-grade="3" data-keywords="家 住宅 物件 鍵 契約 ハウス">
                     <p class="article">不動産</p>
-                    <h3>魔法不動産・不動産</h3>
-                    <div class="jobs"><span>魔法不動産</span><span>不動産</span></div>
+                    <h3>不動産</h3>
+                    <div class="jobs"><span>不動産</span></div>
                     <ol class="items">
                         <li>同じ物件を、二人以上に売らないこと。</li>
                         <li>契約の内容 (価格・期間など) を、事前に相手へはっきり伝えること。</li>
@@ -475,12 +658,12 @@
                     </ol>
                     <div class="examples">
                         <div class="ex good"><b>○ 良い例</b><ul><li>港町の薬師の家に生まれ、失踪した姉を探して街に来た。人見知りだが、薬草の話になると止まらない。</li></ul></div>
-                        <div class="ex bad"><b>× 避ける例</b><ul><li>あらゆる魔法を極めた不死身の王族で、誰にも負けたことがない。</li></ul></div>
+                        <div class="ex bad"><b>× 避ける例</b><ul><li><span data-only="magic">あらゆる魔法を極めた</span><span data-only="normal">あらゆる武術を極めた</span>不死身の王族で、誰にも負けたことがない。</li></ul></div>
                     </div>
-                    <aside class="margin-note"><span>秘密は少しずつ明かすほうが、物語は面白い。</span><cite>— 酒場の吟遊詩人</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>秘密は少しずつ明かすほうが、物語は面白い。</span><cite>— 酒場の吟遊詩人</cite></aside>
                 </li>
 
-                <li class="rule" id="char-magic" data-num="其の四" data-keywords="魔法 覚醒 寮 組分け 属性 魔力">
+                <li class="rule" id="char-magic" data-only="magic" data-num="其の四" data-keywords="魔法 覚醒 寮 組分け 属性 魔力">
                     <p class="article">其の四</p>
                     <h3>魔法との関わり</h3>
                     <ol class="items">
@@ -527,7 +710,7 @@
 
                 <li class="rule" id="case-2" data-num="事例二" data-keywords="口論 喧嘩 攻撃">
                     <p class="article">事例二</p>
-                    <h3>口論になった相手を、いきなり攻撃魔法で倒した</h3>
+                    <h3>口論になった相手を、いきなり<span data-only="magic">攻撃魔法</span><span data-only="normal">武器</span>で倒した</h3>
                     <p class="verdict ng"><b>×</b>違反</p>
                     <p>やり取りが言い合いだけで、攻撃に至る理由がロールプレイで示されていません。理由なき攻撃 (RDM) にあたります。</p>
                     <p class="related">関連する規則：<a href="#rule-2">第二条</a></p>
@@ -535,11 +718,11 @@
 
                 <li class="rule" id="case-3" data-num="事例三" data-keywords="強盗 人質 脅し 威嚇 犯罪">
                     <p class="article">事例三</p>
-                    <h3>強盗の最中、要求を伝えてから魔法で脅した</h3>
+                    <h3>強盗の最中、要求を伝えてから<span data-only="magic">魔法</span><span data-only="normal">武器</span>で脅した</h3>
                     <p class="verdict ok"><b>○</b>問題なし</p>
-                    <p>目的と要求を相手に伝え、ロールプレイの流れの中で魔法を使っています。物語を進めるための使い方として認められます。</p>
+                    <p>目的と要求を相手に伝え、ロールプレイの流れの中で<span data-only="magic">魔法</span><span data-only="normal">武器</span>を使っています。物語を進めるための使い方として認められます。</p>
                     <p class="related">関連する規則：<a href="#rule-2">第二条</a></p>
-                    <aside class="margin-note"><span>脅すなら、せめて台詞くらいは考えておくことね。</span><cite>— 名もなき住人</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>脅すなら、せめて台詞くらいは考えておくことね。</span><cite>— 名もなき住人</cite></aside>
                 </li>
 
                 <li class="rule" id="case-4" data-num="事例四" data-keywords="バグ 壁抜け すり抜け 報告">
@@ -548,23 +731,23 @@
                     <p class="verdict ok"><b>○</b>問題なし</p>
                     <p>悪用せずに報告するのが正しい対応です。再現の手順を添えてもらえると、運営の修正が早くなります。</p>
                     <p class="related">関連する規則：<a href="#rule-4">第四条</a></p>
-                    <aside class="margin-note"><span>冬の朝、窓という窓が凍りついていた。犯人は「グラキエス」を覚えたての弟だ。</span><cite>— 名もなき住人</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>冬の朝、窓という窓が凍りついていた。犯人は「グラキエス」を覚えたての弟だ。</span><cite>— 名もなき住人</cite></aside>
                 </li>
 
-                <li class="rule" id="case-5" data-num="事例五" data-keywords="勤務外 拘束 風紀委員 私用 職権">
+                <li class="rule" id="case-5" data-num="事例五" data-keywords="勤務外 拘束 私用 職権 手錠">
                     <p class="article">事例五</p>
-                    <h3>勤務外の風紀委員が、知人との揉めごとで拘束魔法を使った</h3>
+                    <h3><span data-only="magic">勤務外の風紀委員が、知人との揉めごとで拘束魔法を使った</span><span data-only="normal">勤務外の警察官が、知人との揉めごとで手錠を使った</span></h3>
                     <p class="verdict ng"><b>×</b>違反</p>
-                    <p>拘束の魔法は勤務中だけ使えるものです。また、職権を個人的な揉めごとに使うことも禁じられています。</p>
+                    <p><span data-only="magic">拘束の魔法</span><span data-only="normal">拘束の道具</span>は勤務中だけ使えるものです。また、職権を個人的な揉めごとに使うことも禁じられています。</p>
                     <p class="related">関連する規則：<a href="#job-auror">治安</a><a href="#job-common">共通</a></p>
                 </li>
 
                 <li class="rule" id="case-6" data-num="事例六" data-keywords="治療 拒否 敵対 ギャング 医療">
                     <p class="article">事例六</p>
-                    <h3>治療院の職員が、敵対する組織の者の治療を断った</h3>
+                    <h3><span data-only="magic">保健委員</span><span data-only="normal">救急隊員</span>が、敵対する組織の者の治療を断った</h3>
                     <p class="verdict ng"><b>×</b>違反</p>
                     <p>治療は相手の所属を問わず中立に行います。キャラクター同士の因縁があっても、勤務中は治療を優先してください。</p>
-                    <p class="related">関連する規則：<a href="#job-medic">医療</a></p>
+                    <p class="related">関連する規則：<a href="#job-medic"><span data-only="magic">保健</span><span data-only="normal">医療</span></a></p>
                 </li>
             </ol>
         </section>
@@ -605,14 +788,14 @@
                     <p class="article">問四</p>
                     <h3>規則違反を見かけたらどうすればいいですか？</h3>
                     <p class="answer">その場で言い争わず、ロールプレイを続けてください。あとで、録画やスクリーンショットなどの証拠を添えて Discord の問い合わせ窓口に報告してください。</p>
-                    <aside class="margin-note"><span>見えないものを見たければ「ペルスピカ」。ただし、覗き見はほどほどにしておけ。</span><cite>— 風紀委員</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>見えないものを見たければ「ペルスピカ」。ただし、覗き見はほどほどにしておけ。</span><cite>— 風紀委員</cite></aside>
                 </li>
 
                 <li class="rule" id="faq-bug" data-num="問五" data-keywords="バグ 不具合 消えた 補填 アイテム お金">
                     <p class="article">問五</p>
                     <h3>不具合で持ち物やお金を失いました。</h3>
                     <p class="answer">起きた日時と状況を、できれば証拠と一緒に問い合わせ窓口へ報告してください。補填するかどうかは、運営が確認したうえで判断します。</p>
-                    <aside class="margin-note"><span>魔法がこじれたときは「ソルヴェ」。たいていの災難は、それでほどける。</span><cite>— 魔法工房の主</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>魔法がこじれたときは「ソルヴェ」。たいていの災難は、それでほどける。</span><cite>— 魔法工房の主</cite></aside>
                 </li>
 
                 <li class="rule" id="faq-ooc" data-num="問六" data-keywords="ゲーム外 OOC 雑談 中の人 相談">
@@ -659,10 +842,10 @@
                     <h3>理由なき攻撃</h3>
                     <p class="def">ロールプレイ上の理由なく、他のキャラクターを攻撃・殺害すること (Random Death Match)。</p>
                 </li>
-                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="轢く 乗り物 箒 車">
+                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="轢く 乗り物 車">
                     <p class="article">VDM</p>
                     <h3>乗り物での理由なき攻撃</h3>
-                    <p class="def">車・箒などの乗り物で、理由なく他のキャラクターを轢いたり体当たりしたりすること (Vehicle Death Match)。</p>
+                    <p class="def"><span data-only="magic">車・箒</span><span data-only="normal">車・バイク</span>などの乗り物で、理由なく他のキャラクターを轢いたり体当たりしたりすること (Vehicle Death Match)。</p>
                 </li>
                 <li class="rule" id="term-meta" data-term="メタゲーム" data-match="メタゲーム メタ情報" data-keywords="メタ 配信 通話">
                     <p class="article">メタ</p>
@@ -706,7 +889,7 @@
             <div class="chapter-head">
                 <p class="eyebrow">Scales of Judgment</p>
                 <h2>罰則</h2>
-                <p class="lead">規則を破った者に科される処分の段階。規則ごとに「封印の格」が定められ、格によって最初に科される処分が変わります。</p>
+                <p class="lead">規則を破った者に科される処分の段階。<span data-only="magic">規則ごとに「封印の格」が定められ、格によって最初に科される処分が変わります。</span><span data-only="normal">規則ごとに違反の重さが定められ、重さによって最初に科される処分が変わります。</span></p>
                 <span class="draft">※ 現在は仮の内容です</span>
                 <div class="rule-line"></div>
             </div>
@@ -719,21 +902,21 @@
                 <li><div class="dot">肆</div><h3>永久追放</h3><p>二度と街に入ることを許さない</p></li>
             </ol>
 
-            <h3 class="section-title">封印の格と処分</h3>
-            <div class="matrix" role="table" aria-label="封印の格ごとの処分の範囲">
+            <h3 class="section-title"><span data-only="magic">封印の格と処分</span><span data-only="normal">違反の重さと処分</span></h3>
+            <div class="matrix" role="table" aria-label="違反の重さごとの処分の範囲">
                 <div class="head" role="columnheader"></div>
                 <div class="head" role="columnheader">注意</div>
                 <div class="head" role="columnheader">警告</div>
                 <div class="head" role="columnheader">一時追放</div>
                 <div class="head" role="columnheader">永久追放</div>
 
-                <div class="grade" role="rowheader"><b>三級禁呪</b><span>軽い違反</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">三級禁呪</span><span data-only="normal">軽度</span></b><span>軽い違反</span></div>
                 <div class="bar" role="cell" aria-label="注意から一時追放まで"><span style="left: 12.5%; right: 37.5%;"></span></div>
 
-                <div class="grade" role="rowheader"><b>二級禁呪</b><span>重い違反</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">二級禁呪</span><span data-only="normal">中度</span></b><span>重い違反</span></div>
                 <div class="bar" role="cell" aria-label="警告から永久追放まで"><span style="left: 37.5%; right: 12.5%;"></span></div>
 
-                <div class="grade" role="rowheader"><b>一級禁呪</b><span>極めて重い違反</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">一級禁呪</span><span data-only="normal">重度</span></b><span>極めて重い違反</span></div>
                 <div class="bar" role="cell" aria-label="一時追放から永久追放まで"><span style="left: 62.5%; right: 12.5%;"></span></div>
             </div>
             <ul class="penalty-notes">
@@ -775,7 +958,7 @@
             規則の書をすべて読んだ人にだけ開く章です (検索には出ません)。
             世界観の断片や、運営からの言葉を書きます。
         -->
-        <section class="chapter" id="archive">
+        <section class="chapter" id="archive" data-only="magic">
             <div class="chapter-head">
                 <p class="eyebrow">Forbidden Archive</p>
                 <h2>禁書庫</h2>
@@ -811,7 +994,7 @@
 <div class="tip" id="tip" role="tooltip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <!-- 司書のフクロウ (押すと一言) / ロウソクの灯り (カンデラ) -->
-<div class="owl" id="owl">
+<div class="owl" id="owl" data-only="magic">
     <div class="owl-say" id="owl-say" role="status" aria-live="polite"></div>
     <button class="owl-btn" id="owl-btn" type="button" aria-label="司書のフクロウ" title="司書のフクロウ">
         <svg viewBox="0 0 46 52" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

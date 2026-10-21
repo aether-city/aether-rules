@@ -125,7 +125,7 @@
                     <span class="ja">Revisions<span class="count"></span></span>
                 </a>
             </div>
-            <div id="archive-nav" hidden>
+            <div id="archive-nav" data-only="magic" hidden>
                 <a class="chapter-link archive-link" href="#archive" data-chapter="archive">
                     <span class="en">Forbidden Archive</span>
                     <span class="ja">The Archive<span class="count"></span></span>
@@ -139,7 +139,7 @@
                 <button type="button" id="progress-reset" title="Clear reading record">Reset</button>
             </div>
             <div class="progress-bar"><span id="progress-bar"></span></div>
-            <div class="mana" id="mana">
+            <div class="mana" id="mana" data-only="magic">
                 <div class="progress-row"><span>Mana</span><span id="mana-text"></span></div>
                 <div class="progress-bar mana-bar"><span id="mana-bar"></span></div>
             </div>
@@ -177,7 +177,7 @@
                 </li>
                 <li>
                     <strong>Never attack without a reason</strong>
-                    <p>Magic and vehicles are only used when the story calls for it.<a href="#rule-2">Article II</a></p>
+                    <p><span data-only="magic">Magic</span><span data-only="normal">Weapons</span> and vehicles are only used when the story calls for it.<a href="#rule-2">Article II</a></p>
                 </li>
                 <li>
                     <strong>Keep outside knowledge out of the game</strong>
@@ -225,30 +225,30 @@
                 <li class="rule" id="rule-1" data-num="Article I" data-grade="2" data-keywords="harassment abuse insult toxic manners">
                     <p class="article">Article I</p>
                     <h3>Be courteous</h3>
-                    <p>Abusive language, discriminatory remarks and stalking toward other students or residents are forbidden.</p>
+                    <p>Abusive language, discriminatory remarks and stalking toward <span data-only="magic">other students or residents</span><span data-only="normal">other residents</span> are forbidden.</p>
                     <p>When trouble arises, first try to resolve it with words.</p>
                 </li>
 
                 <li class="rule" id="rule-2" data-num="Article II" data-grade="2" data-keywords="RDM attack combat spell kill">
                     <p class="article">Article II</p>
-                    <h3>Do not abuse magic</h3>
-                    <p>Using attack magic without a reason (RDM) and spamming spells while ignoring roleplay are forbidden.</p>
-                    <p>Use magic to enrich the story.</p>
-                    <aside class="margin-note"><span>Last winter, three were driven out of the city for this.</span><cite>— The Librarian</cite></aside>
+                    <h3><span data-only="magic">Do not abuse magic</span><span data-only="normal">Do not abuse violence</span></h3>
+                    <p><span data-only="magic">Using attack magic without a reason (RDM) and spamming spells while ignoring roleplay are forbidden.</span><span data-only="normal">Attacking without a reason (RDM) and misusing weapons while ignoring roleplay are forbidden.</span></p>
+                    <p><span data-only="magic">Use magic to enrich the story.</span><span data-only="normal">Use force only to move the story forward.</span></p>
+                    <aside class="margin-note" data-only="magic"><span>Last winter, three were driven out of the city for this.</span><cite>— The Librarian</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-3" data-num="Article III" data-grade="2" data-keywords="meta metagame stream voice Discord">
                     <p class="article">Article III</p>
                     <h3>Do not bring in knowledge from outside the world</h3>
                     <p>Bringing information your character could not know, such as things learned from streams or voice chat, into the story (metagaming) is forbidden.</p>
-                    <aside class="margin-note"><span>Voices on the other end of a call never reach this city. Remember that.</span><cite>— Head Prefect</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>Voices on the other end of a call never reach this city. Remember that.</span><cite>— Head Prefect</cite></aside>
                 </li>
 
                 <li class="rule" id="rule-4" data-num="Article IV" data-grade="1" data-keywords="bug glitch exploit cheat report admin">
                     <p class="article">Article IV</p>
                     <h3>Do not exploit bugs</h3>
                     <p>If you find a bug, do not exploit it. Report it to the staff promptly.</p>
-                    <aside class="margin-note"><span>Got through the wall? Write the report first.</span><cite>— Master of the Magic Workshop</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>Got through the wall? Write the report first.</span><cite>— Master of the Magic Workshop</cite></aside>
                 </li>
             </ol>
 
@@ -274,7 +274,183 @@
             </div>
 
             <ol class="rules">
-                <li class="rule" id="job-common" data-num="Common" data-keywords="duty clock in clock out salary">
+                <li class="rule" data-only="magic" id="job-common" data-num="Common" data-keywords="duty clock in clock out salary committee club">
+                    <p class="article">Common</p>
+                    <h3>All jobs</h3>
+                    <div class="jobs"><span>All jobs</span></div>
+                    <ol class="items">
+                        <li>Always go on duty when working, and go off duty when you leave.</li>
+                        <li>Do not use the authority, tools, funds or magic of your job for personal purposes.</li>
+                        <li>Follow your coworkers and superiors (committee heads, club leaders, etc.), and any workplace rules.</li>
+                        <li>Even if you hold several jobs, you may only be on duty for one at a time.</li>
+                        <li>Magic and tools only your job can use must be used only for that job.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-auror" data-num="Order" data-grade="2" data-keywords="arrest restrain cuffs stun enforce seize police">
+                    <p class="article">Order</p>
+                    <h3>Prefects</h3>
+                    <div class="jobs"><span>Prefects</span></div>
+                    <ol class="items">
+                        <li>Restraint and stun spells may only be used by Prefects while on duty. Never use them off duty.</li>
+                        <li>Before restraining or arresting someone, tell them the reason through roleplay.</li>
+                        <li>Do not leave a restrained person waiting; process them promptly (about 30 minutes at most).</li>
+                        <li>Respond with a number of people suited to the incident. Do not show up in excessive numbers.</li>
+                        <li>Do not keep seized items or money for yourself.</li>
+                        <li>Do not use your authority to settle personal disputes.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-medic" data-num="Health" data-grade="2" data-keywords="EMS doctor medic heal revive infirmary white house healer">
+                    <p class="article">Health</p>
+                    <h3>Health Committee</h3>
+                    <div class="jobs"><span>Health Committee</span></div>
+                    <ol class="items">
+                        <li>Treat patients neutrally. Never refuse treatment because of someone's affiliation or crimes.</li>
+                        <li>Use revival magic as part of your duty, never as a bargaining chip or a threat.</li>
+                        <li>Do not enter an ongoing fight. Wait until the area is confirmed safe.</li>
+                        <li>Do not take part in crimes, or pass on information learned while treating or transporting patients.</li>
+                        <li>Do not sell or hand out medical tools or medicine while off duty.</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>Friend or foe, the blood is the same color.</span><cite>— The old infirmary teacher</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-law" data-num="Justice" data-grade="3" data-keywords="court judge verdict lawyer law">
+                    <p class="article">Justice</p>
+                    <h3>Magic Court &amp; Lawyers</h3>
+                    <div class="jobs"><span>Magic Court</span><span>Magic Law Office</span></div>
+                    <ol class="items">
+                        <li>Deliver verdicts fairly, and show the parties the grounds for them.</li>
+                        <li>Lawyers must not reveal what clients told them without permission.</li>
+                        <li>Trials must not go against the Server Rules.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-press" data-num="Press" data-grade="3" data-keywords="newspaper article news report editor rumor">
+                    <p class="article">Press</p>
+                    <h3>Newspaper Committee</h3>
+                    <div class="jobs"><span>Newspaper Committee</span></div>
+                    <ol class="items">
+                        <li>Write only about events within the story. Never attack the players themselves.</li>
+                        <li>Do not publish information learned from streams or voice chat (meta information).</li>
+                        <li>Articles are published only after the committee head has reviewed them.</li>
+                        <li>When reporting city rumors, make it clear that they are rumors.</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>Even a spoiled letter shows its erased ink again if you say "Atramento." …Or so my grandmother always said.</span><cite>— Newspaper Committee member</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-craft" data-num="Workshop" data-grade="3" data-keywords="repair tune wand wand choosing ritual workshop">
+                    <p class="article">Workshop</p>
+                    <h3>Magic Workshop &amp; Wand Workshop</h3>
+                    <div class="jobs"><span>Magic Workshop</span><span>Wand Workshop</span></div>
+                    <ol class="items">
+                        <li>Charge the prices set by the workshop. Do not demand unfair fees.</li>
+                        <li>Repairs and modifications are done inside the workshop. Go out only when requested.</li>
+                        <li>Do not use vehicles or items left with you without the owner's permission.</li>
+                        <li>Perform the wand-choosing ritual only while on duty, and only for customers who want it.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-transport" data-num="Transport" data-grade="3" data-keywords="taxi bus delivery driver broom carpet barrier curfew">
+                    <p class="article">Transport</p>
+                    <h3>Broom Taxi, Broom Bus &amp; Carpet Delivery</h3>
+                    <div class="jobs"><span>Broom Taxi</span><span>Broom Bus</span><span>Flying Carpet Delivery</span></div>
+                    <ol class="items">
+                        <li>Do not take passengers anywhere other than the destination they asked for.</li>
+                        <li>Do not carry passengers into restricted areas such as barriers or the night curfew zone.</li>
+                        <li>Do not open packages left with you or take anything out of them.</li>
+                    </ol>
+                    <aside class="margin-note" data-only="magic"><span>On misty nights we say "Nebula" and stay indoors. An old custom of this city. Bad for business, though.</span><cite>— Broom taxi driver</cite></aside>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-cityworks" data-num="City Work" data-grade="3" data-keywords="tow recovery cleaning purification garbage">
+                    <p class="article">City Work</p>
+                    <h3>Levitation Towing &amp; Purification Corps</h3>
+                    <div class="jobs"><span>Levitation Towing</span><span>Purification Cleaning Corps</span></div>
+                    <ol class="items">
+                        <li>Only tow abandoned vehicles. Never tow a vehicle that is in use.</li>
+                        <li>Return anyone's belongings found while cleaning to the owner or to a Prefect.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-shop" data-num="Trade" data-grade="3" data-keywords="shop stall price herb broom">
+                    <p class="article">Trade</p>
+                    <h3>Food Stall, Herb Garden &amp; Broom Shop</h3>
+                    <div class="jobs"><span>Magic Food Stall</span><span>Magic Herb Garden</span><span>Broom Shop</span></div>
+                    <ol class="items">
+                        <li>Sell goods at the prices set by the shop.</li>
+                        <li>Do not use the shop's stock or ingredients as your own while off duty.</li>
+                        <li>Advertise and call out to customers without disturbing others.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-estate" data-num="Estate" data-grade="3" data-keywords="house home property key contract">
+                    <p class="article">Estate</p>
+                    <h3>Magic Real Estate</h3>
+                    <div class="jobs"><span>Magic Real Estate</span></div>
+                    <ol class="items">
+                        <li>Never sell the same property to more than one person.</li>
+                        <li>Clearly explain the terms of a contract (price, period, etc.) beforehand.</li>
+                        <li>Do not make or hand out keys to someone's home without the owner's permission.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-beast" data-num="Beasts" data-grade="3" data-keywords="familiar monster capture seal card transfer committee">
+                    <p class="article">Beasts</p>
+                    <h3>Beastkeeping Committee</h3>
+                    <div class="jobs"><span>Beastkeeping Committee</span></div>
+                    <ol class="items">
+                        <li>Never set a familiar on others or use it as a weapon.</li>
+                        <li>Capture monsters only where other residents will not be caught up in it.</li>
+                        <li>When giving a familiar away, do so with the other person's consent, through roleplay.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-library" data-num="Library" data-grade="3" data-keywords="grimoire spellforge scribe parchment committee">
+                    <p class="article">Library</p>
+                    <h3>Library Committee</h3>
+                    <div class="jobs"><span>Library Committee</span></div>
+                    <ol class="items">
+                        <li>Do not write effects or text that break the Server Rules into a forged grimoire.</li>
+                        <li>Do not sell scribed items at unfair prices.</li>
+                        <li>Do not take books or records out of the library without permission.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-alchemy" data-num="Alchemy" data-grade="3" data-keywords="alchemy brew potion committee">
+                    <p class="article">Alchemy</p>
+                    <h3>Alchemy Committee</h3>
+                    <div class="jobs"><span>Alchemy Committee</span></div>
+                    <ol class="items">
+                        <li>Handle brewed potions at the prices set by the shop or the request.</li>
+                        <li>Never use or give a harmful potion to someone without their consent.</li>
+                        <li>Do not monopolize the brewing table for private deals.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-astronomy" data-num="Astronomy" data-grade="3" data-keywords="astronomy telescope stargazing omen red moon meteor club">
+                    <p class="article">Astronomy</p>
+                    <h3>Astronomy Club</h3>
+                    <div class="jobs"><span>Astronomy Club</span></div>
+                    <ol class="items">
+                        <li>Share what you learn from the omens of the stars within roleplay. Never spread it outside the game.</li>
+                        <li>Do not pass on omens to help crimes or wrongdoing.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" data-only="magic" id="job-guide" data-num="Guide" data-grade="3" data-keywords="newcomer beginner guide tour">
+                    <p class="article">Guide</p>
+                    <h3>Newcomer Guide</h3>
+                    <div class="jobs"><span>Newcomer Guide</span></div>
+                    <ol class="items">
+                        <li>Treat newcomers kindly and guide them clearly.</li>
+                        <li>Do not recruit or make personal requests while guiding.</li>
+                        <li>If you are unsure about a rule, do not guess; check with the staff.</li>
+                    </ol>
+                </li>
+
+                <!-- ↓ 通常モード (魔法を知らない人向け) の職業。id は魔法モードの対応する職と同じ -->
+                <li class="rule" id="job-common" data-only="normal" data-num="Common" data-keywords="duty clock in clock out salary">
                     <p class="article">Common</p>
                     <h3>All jobs</h3>
                     <div class="jobs"><span>All jobs</span></div>
@@ -286,12 +462,12 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-auror" data-num="Order" data-grade="2" data-keywords="police arrest restrain cuffs stun enforce seize">
+                <li class="rule" id="job-auror" data-only="normal" data-num="Order" data-grade="2" data-keywords="police arrest restrain cuffs stun enforce seize">
                     <p class="article">Order</p>
-                    <h3>Prefects &amp; Police</h3>
-                    <div class="jobs"><span>Prefects</span><span>Police</span></div>
+                    <h3>Police</h3>
+                    <div class="jobs"><span>Police</span></div>
                     <ol class="items">
-                        <li>Restraint and stun spells may only be used by Prefects while on duty. Never use them off duty.</li>
+                        <li>Restraint tools such as handcuffs and stun guns may only be used by police officers on duty.</li>
                         <li>Before restraining or arresting someone, tell them the reason through roleplay.</li>
                         <li>Do not leave a restrained person waiting; process them promptly (about 30 minutes at most).</li>
                         <li>Respond with a number of people suited to the incident. Do not show up in excessive numbers.</li>
@@ -300,23 +476,22 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-medic" data-num="Medical" data-grade="2" data-keywords="EMS doctor medic heal revive hospital healer">
+                <li class="rule" id="job-medic" data-only="normal" data-num="Medical" data-grade="2" data-keywords="EMS doctor medic heal revive hospital">
                     <p class="article">Medical</p>
-                    <h3>Magic Infirmary &amp; EMS</h3>
-                    <div class="jobs"><span>Magic Infirmary</span><span>EMS</span></div>
+                    <h3>EMS</h3>
+                    <div class="jobs"><span>EMS</span></div>
                     <ol class="items">
                         <li>Treat patients neutrally. Never refuse treatment because of someone's affiliation or crimes.</li>
                         <li>Do not enter an ongoing fight. Wait until the area is confirmed safe.</li>
                         <li>Do not take part in crimes, or pass on information learned while treating or transporting patients.</li>
                         <li>Do not sell or hand out medical tools or medicine while off duty.</li>
                     </ol>
-                    <aside class="margin-note"><span>Friend or foe, the blood is the same color.</span><cite>— Old infirmary doctor</cite></aside>
                 </li>
 
-                <li class="rule" id="job-law" data-num="Justice" data-grade="3" data-keywords="court judge verdict lawyer law">
+                <li class="rule" id="job-law" data-only="normal" data-num="Justice" data-grade="3" data-keywords="court judge verdict lawyer law">
                     <p class="article">Justice</p>
-                    <h3>Magic Court &amp; Lawyers</h3>
-                    <div class="jobs"><span>Magic Court</span><span>Honorary Office (Judge)</span><span>Magic Law Office</span><span>Law Office</span></div>
+                    <h3>Judges &amp; Lawyers</h3>
+                    <div class="jobs"><span>Honorary Office (Judge)</span><span>Law Office</span></div>
                     <ol class="items">
                         <li>Deliver verdicts fairly, and show the parties the grounds for them.</li>
                         <li>Lawyers must not reveal what clients told them without permission.</li>
@@ -324,45 +499,53 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-press" data-num="Press" data-grade="3" data-keywords="newspaper article news report editor">
+                <li class="rule" id="job-press" data-only="normal" data-num="Press" data-grade="3" data-keywords="newspaper article news report editor">
                     <p class="article">Press</p>
-                    <h3>Magic Newspaper &amp; Reporters</h3>
-                    <div class="jobs"><span>Magic Newspaper</span><span>Reporter</span></div>
+                    <h3>Reporters</h3>
+                    <div class="jobs"><span>Reporter</span></div>
                     <ol class="items">
                         <li>Write only about events within the story. Never attack the players themselves.</li>
                         <li>Do not publish information learned from streams or voice chat (meta information).</li>
                         <li>Articles are published only after the editor-in-chief has reviewed them.</li>
                     </ol>
-                    <aside class="margin-note"><span>Even a spoiled letter shows its erased ink again if you say "Atramento." …Or so my grandmother always said.</span><cite>— Magic Newspaper reporter</cite></aside>
                 </li>
 
-                <li class="rule" id="job-craft" data-num="Workshop" data-grade="3" data-keywords="mechanic repair tune wand custom">
-                    <p class="article">Workshop</p>
-                    <h3>Magic Workshop, Wand Workshop &amp; Mechanics</h3>
-                    <div class="jobs"><span>Magic Workshop</span><span>Wand Workshop</span><span>LS Customs</span><span>Beeker's Garage</span><span>Benny's</span></div>
+                <li class="rule" id="job-craft" data-only="normal" data-num="Garage" data-grade="3" data-keywords="mechanic repair tune custom">
+                    <p class="article">Garage</p>
+                    <h3>Garages</h3>
+                    <div class="jobs"><span>LS Customs</span><span>Beeker's Garage</span><span>Benny's</span></div>
                     <ol class="items">
                         <li>Charge the prices set by the shop. Do not demand unfair fees.</li>
-                        <li>Repairs and modifications are done inside the workshop. Go out only when requested.</li>
+                        <li>Repairs and modifications are done inside the garage. Go out only when requested.</li>
                         <li>Do not use vehicles or items left with you without the owner's permission.</li>
                     </ol>
                 </li>
 
-                <li class="rule" id="job-transport" data-num="Transport" data-grade="3" data-keywords="taxi bus delivery driver tow truck broom carpet barrier curfew">
+                <li class="rule" id="job-transport" data-only="normal" data-num="Transport" data-grade="3" data-keywords="taxi bus delivery driver truck">
                     <p class="article">Transport</p>
-                    <h3>Broom Taxi, Delivery &amp; Towing</h3>
-                    <div class="jobs"><span>Broom Taxi</span><span>Broom Bus</span><span>Flying Carpet Delivery</span><span>Levitation Towing</span><span>Taxi</span><span>Bus Driver</span><span>Truck Driver</span><span>Tow Truck</span></div>
+                    <h3>Taxi, Bus &amp; Trucking</h3>
+                    <div class="jobs"><span>Taxi</span><span>Bus Driver</span><span>Truck Driver</span></div>
                     <ol class="items">
                         <li>Do not take passengers anywhere other than the destination they asked for.</li>
-                        <li>Only tow abandoned vehicles. Never tow a vehicle that is in use.</li>
-                        <li>Do not carry passengers into restricted areas such as barriers or the night curfew zone.</li>
+                        <li>Do not carry passengers into restricted areas.</li>
+                        <li>Do not open packages left with you or take anything out of them.</li>
                     </ol>
-                    <aside class="margin-note"><span>On misty nights we say "Nebula" and stay indoors. An old custom of this city. Bad for business, though.</span><cite>— Broom taxi driver</cite></aside>
                 </li>
 
-                <li class="rule" id="job-shop" data-num="Trade" data-grade="3" data-keywords="restaurant cafe food shop stall price winery dealer">
+                <li class="rule" id="job-cityworks" data-only="normal" data-num="City Work" data-grade="3" data-keywords="tow recovery cleaning garbage">
+                    <p class="article">City Work</p>
+                    <h3>Towing &amp; Garbage Collection</h3>
+                    <div class="jobs"><span>Tow Truck</span><span>Garbage Collection</span></div>
+                    <ol class="items">
+                        <li>Only tow abandoned vehicles. Never tow a vehicle that is in use.</li>
+                        <li>Return anyone's belongings found while working to the owner or to the police.</li>
+                    </ol>
+                </li>
+
+                <li class="rule" id="job-shop" data-only="normal" data-num="Trade" data-grade="3" data-keywords="restaurant cafe food shop price winery dealer">
                     <p class="article">Trade</p>
-                    <h3>Restaurants, Shops &amp; Herb Garden</h3>
-                    <div class="jobs"><span>Café</span><span>Burger Shop</span><span>Magic Food Stall</span><span>Hot Dog Stand</span><span>Magic Herb Garden</span><span>Winery</span><span>Broom Shop</span><span>Car Dealership</span></div>
+                    <h3>Restaurants &amp; Shops</h3>
+                    <div class="jobs"><span>Café</span><span>Burger Shop</span><span>Hot Dog Stand</span><span>Winery</span><span>Car Dealership</span></div>
                     <ol class="items">
                         <li>Sell goods at the prices set by the shop.</li>
                         <li>Do not use the shop's stock or ingredients as your own while off duty.</li>
@@ -370,10 +553,10 @@
                     </ol>
                 </li>
 
-                <li class="rule" id="job-estate" data-num="Estate" data-grade="3" data-keywords="house home property key contract">
+                <li class="rule" id="job-estate" data-only="normal" data-num="Estate" data-grade="3" data-keywords="house home property key contract">
                     <p class="article">Estate</p>
-                    <h3>Magic Real Estate &amp; Real Estate</h3>
-                    <div class="jobs"><span>Magic Real Estate</span><span>Real Estate</span></div>
+                    <h3>Real Estate</h3>
+                    <div class="jobs"><span>Real Estate</span></div>
                     <ol class="items">
                         <li>Never sell the same property to more than one person.</li>
                         <li>Clearly explain the terms of a contract (price, period, etc.) beforehand.</li>
@@ -432,12 +615,12 @@
                     </ol>
                     <div class="examples">
                         <div class="ex good"><b>○ Good</b><ul><li>Born into a family of apothecaries in a harbor town, came to the city looking for a missing sister. Shy, but can't stop talking about herbs.</li></ul></div>
-                        <div class="ex bad"><b>× Avoid</b><ul><li>An immortal royal who has mastered every kind of magic and has never lost to anyone.</li></ul></div>
+                        <div class="ex bad"><b>× Avoid</b><ul><li>An immortal royal who has mastered every kind of <span data-only="magic">magic</span><span data-only="normal">combat</span> and has never lost to anyone.</li></ul></div>
                     </div>
-                    <aside class="margin-note"><span>A story is better when secrets are revealed little by little.</span><cite>— Tavern bard</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>A story is better when secrets are revealed little by little.</span><cite>— Tavern bard</cite></aside>
                 </li>
 
-                <li class="rule" id="char-magic" data-num="Part IV" data-keywords="magic awakening house sorting element mana">
+                <li class="rule" id="char-magic" data-only="magic" data-num="Part IV" data-keywords="magic awakening house sorting element mana">
                     <p class="article">Part IV</p>
                     <h3>Your relationship with magic</h3>
                     <ol class="items">
@@ -480,7 +663,7 @@
 
                 <li class="rule" id="case-2" data-num="Case 2" data-keywords="argument fight attack">
                     <p class="article">Case 2</p>
-                    <h3>Suddenly took down someone with attack magic during an argument</h3>
+                    <h3>Suddenly took down someone with <span data-only="magic">attack magic</span><span data-only="normal">a weapon</span> during an argument</h3>
                     <p class="verdict ng"><b>×</b>Violation</p>
                     <p>It was only an exchange of words, and no reason for an attack was shown through roleplay. This is RDM.</p>
                     <p class="related">Related rules: <a href="#rule-2">Article II</a></p>
@@ -488,11 +671,11 @@
 
                 <li class="rule" id="case-3" data-num="Case 3" data-keywords="robbery hostage threat crime">
                     <p class="article">Case 3</p>
-                    <h3>During a robbery, stated demands and then threatened with magic</h3>
+                    <h3>During a robbery, stated demands and then threatened with <span data-only="magic">magic</span><span data-only="normal">a weapon</span></h3>
                     <p class="verdict ok"><b>○</b>Allowed</p>
-                    <p>The goal and demands were communicated, and magic was used within the flow of roleplay. This is an acceptable use that moves the story forward.</p>
+                    <p>The goal and demands were communicated, and <span data-only="magic">magic was</span><span data-only="normal">the weapon was</span> used within the flow of roleplay. This is an acceptable use that moves the story forward.</p>
                     <p class="related">Related rules: <a href="#rule-2">Article II</a></p>
-                    <aside class="margin-note"><span>If you're going to threaten someone, at least prepare your lines.</span><cite>— A nameless resident</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>If you're going to threaten someone, at least prepare your lines.</span><cite>— A nameless resident</cite></aside>
                 </li>
 
                 <li class="rule" id="case-4" data-num="Case 4" data-keywords="bug wall clip report">
@@ -501,23 +684,23 @@
                     <p class="verdict ok"><b>○</b>Allowed</p>
                     <p>Reporting without exploiting is the right response. Including steps to reproduce helps the staff fix it faster.</p>
                     <p class="related">Related rules: <a href="#rule-4">Article IV</a></p>
-                    <aside class="margin-note"><span>One winter morning every window was frozen shut. The culprit: my little brother, who had just learned "Glacies."</span><cite>— A nameless resident</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>One winter morning every window was frozen shut. The culprit: my little brother, who had just learned "Glacies."</span><cite>— A nameless resident</cite></aside>
                 </li>
 
-                <li class="rule" id="case-5" data-num="Case 5" data-keywords="off duty restrain prefect personal authority">
+                <li class="rule" id="case-5" data-num="Case 5" data-keywords="off duty restrain personal authority handcuffs">
                     <p class="article">Case 5</p>
-                    <h3>An off-duty Prefect used restraint magic in a personal dispute</h3>
+                    <h3><span data-only="magic">An off-duty Prefect used restraint magic in a personal dispute</span><span data-only="normal">An off-duty police officer used handcuffs in a personal dispute</span></h3>
                     <p class="verdict ng"><b>×</b>Violation</p>
-                    <p>Restraint magic may only be used on duty. Using authority to settle personal disputes is also forbidden.</p>
+                    <p><span data-only="magic">Restraint magic</span><span data-only="normal">Restraint tools</span> may only be used on duty. Using authority to settle personal disputes is also forbidden.</p>
                     <p class="related">Related rules: <a href="#job-auror">Order</a><a href="#job-common">Common</a></p>
                 </li>
 
                 <li class="rule" id="case-6" data-num="Case 6" data-keywords="treatment refuse rival gang medical">
                     <p class="article">Case 6</p>
-                    <h3>An infirmary worker refused to treat a member of a rival group</h3>
+                    <h3><span data-only="magic">A Health Committee member</span><span data-only="normal">An EMS worker</span> refused to treat a member of a rival group</h3>
                     <p class="verdict ng"><b>×</b>Violation</p>
                     <p>Treatment is given neutrally, regardless of affiliation. Even if the characters have history, treatment comes first while on duty.</p>
-                    <p class="related">Related rules: <a href="#job-medic">Medical</a></p>
+                    <p class="related">Related rules: <a href="#job-medic"><span data-only="magic">Health</span><span data-only="normal">Medical</span></a></p>
                 </li>
             </ol>
         </section>
@@ -555,14 +738,14 @@
                     <p class="article">Q4</p>
                     <h3>What should I do if I see a rule violation?</h3>
                     <p class="answer">Do not argue on the spot — keep roleplaying. Afterwards, report it to the Discord support channel with evidence such as a clip or screenshot.</p>
-                    <aside class="margin-note"><span>If you want to see the unseen, say "Perspica." But keep the peeking to a minimum.</span><cite>— Prefect</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>If you want to see the unseen, say "Perspica." But keep the peeking to a minimum.</span><cite>— Prefect</cite></aside>
                 </li>
 
                 <li class="rule" id="faq-bug" data-num="Q5" data-keywords="bug lost items money refund compensation">
                     <p class="article">Q5</p>
                     <h3>I lost items or money because of a bug.</h3>
                     <p class="answer">Report the date, time and situation to the support channel, with evidence if possible. The staff will decide on compensation after checking.</p>
-                    <aside class="margin-note"><span>When magic gets tangled, say "Solve." Most troubles come undone with that.</span><cite>— Master of the Magic Workshop</cite></aside>
+                    <aside class="margin-note" data-only="magic"><span>When magic gets tangled, say "Solve." Most troubles come undone with that.</span><cite>— Master of the Magic Workshop</cite></aside>
                 </li>
 
                 <li class="rule" id="faq-ooc" data-num="Q6" data-keywords="OOC out of character chat talk">
@@ -604,10 +787,10 @@
                     <h3>Random Death Match</h3>
                     <p class="def">Attacking or killing another character without a roleplay reason.</p>
                 </li>
-                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="vehicle death match run over broom car">
+                <li class="rule" id="term-vdm" data-term="VDM" data-match="VDM" data-keywords="vehicle death match run over car">
                     <p class="article">VDM</p>
                     <h3>Vehicle Death Match</h3>
-                    <p class="def">Running over or ramming other characters with a car, broom or other vehicle without a reason.</p>
+                    <p class="def">Running over or ramming other characters with a <span data-only="magic">car, broom</span><span data-only="normal">car, motorcycle</span> or other vehicle without a reason.</p>
                 </li>
                 <li class="rule" id="term-meta" data-term="Metagaming" data-match="metagaming meta information" data-keywords="meta stream voice">
                     <p class="article">Meta</p>
@@ -647,7 +830,7 @@
             <div class="chapter-head">
                 <p class="eyebrow">Scales of Judgment</p>
                 <h2>Penalties</h2>
-                <p class="lead">The stages of punishment for those who break the rules. Each rule has a seal class, which decides the first penalty given.</p>
+                <p class="lead">The stages of punishment for those who break the rules. <span data-only="magic">Each rule has a seal class, which decides the first penalty given.</span><span data-only="normal">Each rule has a severity, which decides the first penalty given.</span></p>
                 <span class="draft">* Draft — subject to change</span>
                 <div class="rule-line"></div>
             </div>
@@ -660,21 +843,21 @@
                 <li><div class="dot">IV</div><h3>Permanent ban</h3><p>Never allowed into the city again</p></li>
             </ol>
 
-            <h3 class="section-title">Seal classes and penalties</h3>
-            <div class="matrix" role="table" aria-label="Range of penalties for each seal class">
+            <h3 class="section-title"><span data-only="magic">Seal classes and penalties</span><span data-only="normal">Severity and penalties</span></h3>
+            <div class="matrix" role="table" aria-label="Range of penalties for each severity">
                 <div class="head" role="columnheader"></div>
                 <div class="head" role="columnheader">Notice</div>
                 <div class="head" role="columnheader">Warning</div>
                 <div class="head" role="columnheader">Temp ban</div>
                 <div class="head" role="columnheader">Perm ban</div>
 
-                <div class="grade" role="rowheader"><b>Class III</b><span>Minor</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">Class III</span><span data-only="normal">Minor</span></b><span>Minor</span></div>
                 <div class="bar" role="cell" aria-label="From notice to temporary ban"><span style="left: 12.5%; right: 37.5%;"></span></div>
 
-                <div class="grade" role="rowheader"><b>Class II</b><span>Serious</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">Class II</span><span data-only="normal">Serious</span></b><span>Serious</span></div>
                 <div class="bar" role="cell" aria-label="From warning to permanent ban"><span style="left: 37.5%; right: 12.5%;"></span></div>
 
-                <div class="grade" role="rowheader"><b>Class I</b><span>Grave</span></div>
+                <div class="grade" role="rowheader"><b><span data-only="magic">Class I</span><span data-only="normal">Grave</span></b><span>Grave</span></div>
                 <div class="bar" role="cell" aria-label="From temporary ban to permanent ban"><span style="left: 62.5%; right: 12.5%;"></span></div>
             </div>
             <ul class="penalty-notes">
@@ -708,7 +891,7 @@
         </section>
 
         <!-- ===== Forbidden Archive (draft) — opens only after reading everything; not searchable ===== -->
-        <section class="chapter" id="archive">
+        <section class="chapter" id="archive" data-only="magic">
             <div class="chapter-head">
                 <p class="eyebrow">Forbidden Archive</p>
                 <h2>The Archive</h2>
@@ -744,7 +927,7 @@
 <div class="tip" id="tip" role="tooltip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <!-- 司書のフクロウ (押すと一言) / ロウソクの灯り (カンデラ) -->
-<div class="owl" id="owl">
+<div class="owl" id="owl" data-only="magic">
     <div class="owl-say" id="owl-say" role="status" aria-live="polite"></div>
     <button class="owl-btn" id="owl-btn" type="button" aria-label="The librarian owl" title="The librarian owl">
         <svg viewBox="0 0 46 52" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -475,7 +475,31 @@ var ASK_URL = "";
         }
     };
 
+    // ===== 表示モード =====
+    //   magic  … 魔法の世界の規則 (魔法の職業・呪文・禁書庫などの仕掛けがすべて出る)
+    //   normal … 魔法を知らない人向けの通常の規則 (ふつうの職業。魔法の言葉や仕掛けは一切出ない)
+    // HTML の data-only="magic" / data-only="normal" の要素のうち、今のモードでないものを最初に取り除く。
+    // 今は URL の ?mode=normal / ?mode=magic で切り替え、選んだモードはこのブラウザに記憶する (指定がなければ魔法)。
+    // (ゲームからの切り替え方法は今後決める。ここで MODE を決めれば、あとはすべてそれに従う)
+    var MODE = (function () {
+        var asked = new URLSearchParams(location.search).get("mode");
+        if (asked === "normal" || asked === "magic") { save("rules-mode", asked); return asked; }
+        var saved = load("rules-mode");
+        return saved === "normal" ? "normal" : "magic";
+    })();
+    document.documentElement.setAttribute("data-mode", MODE);
+    document.querySelectorAll('[data-only]:not([data-only="' + MODE + '"])').forEach(function (n) { n.remove(); });
+    if (MODE === "normal") {
+        // 違反の重さの呼び方も、魔法の言葉を使わない
+        TEXT.grades = LANG === "en"
+            ? { "1": "Grave", "2": "Serious", "3": "Minor" }
+            : { "1": "重度", "2": "中度", "3": "軽度" };
+        TEXT.sealGlyph = "◆";
+        TEXT.sealTitle = LANG === "en" ? "Severity of the violation" : "違反の重さ";
+    }
+
     (function placeSecrets() {
+        if (MODE !== "magic") return; // 隠し要素は魔法モードだけ
         var sec = SECRETS[LANG];
         var archiveList = document.getElementById("archive-content");
         if (archiveList) {
@@ -1144,6 +1168,7 @@ var ASK_URL = "";
     function owlName() { return owlLevel() >= 3 ? TEXT.owl.name : TEXT.owl.nobody; }
     // 親しさを上げる (同じ理由で続けて上がりすぎないよう、cooldown ミリ秒あける)
     function befriend(n, why, cooldown) {
+        if (MODE !== "magic") return; // フクロウは魔法モードだけ
         var t = Date.now();
         if (cooldown && befriendAt[why] && t - befriendAt[why] < cooldown) return;
         befriendAt[why] = t;
@@ -1301,6 +1326,7 @@ var ASK_URL = "";
 
     // 検索欄に唱えた言葉を呪文として扱う (呪文でなければ false を返し、ふつうの検索になる)
     function castSpell() {
+        if (MODE !== "magic") return false; // 通常モードでは呪文は無く、ふつうの検索になる
         var raw = input.value;
         if (PASSCODES.indexOf(compact(raw)) !== -1) {
             input.value = "";
@@ -1366,6 +1392,7 @@ var ASK_URL = "";
     var manaBar = document.getElementById("mana-bar");
     var manaText = document.getElementById("mana-text");
     function drawMana() {
+        if (!manaBox) return; // 通常モードには魔力ゲージが無い
         manaBar.style.width = (mana / MANA_MAX * 100) + "%";
         manaText.textContent = TEXT.mana.label(mana, MANA_MAX);
         manaBox.classList.toggle("empty", mana < 10);
@@ -1719,6 +1746,7 @@ var ASK_URL = "";
     }
 
     document.addEventListener("pointerdown", function (e) {
+        if (MODE !== "magic") return; // ルーンは魔法モードだけ
         if (e.button !== 0 || (e.pointerType !== "mouse" && e.pointerType !== "pen")) return;
         if (!isBlank(e.target)) return;
         e.preventDefault();
@@ -2115,7 +2143,8 @@ var ASK_URL = "";
             resumeLink.href = "#" + next.el.id;
         }
 
-        // 禁書庫: すべて読み終えると左に扉が現れ、中身が読めるようになる
+        // 禁書庫: すべて読み終えると左に扉が現れ、中身が読めるようになる (魔法モードだけ)
+        if (MODE !== "magic" || !archiveNav) return;
         var open = readable.length > 0 && done === readable.length;
         var opening = open && !archiveOpen && progressReady; // 読んでいる最中に開いた瞬間
         archiveOpen = open;
