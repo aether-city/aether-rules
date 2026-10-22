@@ -1808,3 +1808,117 @@ mark {
 :root[data-mode="normal"] .wax { background: var(--gold); color: #fff; opacity: 1; font-size: 0.7rem; }
 :root[data-mode="normal"] .lang-switch { font-family: inherit; letter-spacing: 0.04em; border-radius: 6px; }
 :root[data-mode="normal"] .job-filter select { border-radius: 8px; }
+
+/* =====================================================================
+   モードの切り替えの仕掛け
+   ① 通常 → 魔法: 青いエーテルの残滓 (光の粒) を 3 つ捕まえると、青い光が広がって「覚醒」する
+   ② 魔法 → 通常: 呪文「オブスクーラ」で、色と飾りが霧に沈んで普通の紙面に戻る
+   ===================================================================== */
+
+/* 青いエーテルの残滓 (通常モードに、ときどき現れては消える光の粒) */
+.mote {
+    position: fixed;
+    z-index: 12;
+    width: 26px; height: 26px;
+    margin: -13px 0 0 -13px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    animation: motedrift var(--d, 7s) ease-in-out forwards;
+}
+.mote::before {
+    content: "";
+    position: absolute;
+    left: 10px; top: 10px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #8fbcff;
+    box-shadow: 0 0 8px 3px rgba(110, 170, 255, 0.75), 0 0 18px 6px rgba(90, 150, 255, 0.25);
+    animation: moteflicker 1.4s ease-in-out infinite;
+}
+@keyframes motedrift {
+    0% { opacity: 0; transform: translate(0, 0); }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx, 10px), var(--dy, -20px)); }
+}
+@keyframes moteflicker {
+    0%, 100% { opacity: 0.35; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+/* 捕まえた瞬間: 小さくはじけて消える */
+.mote.caught { animation: motecaught 0.7s ease-out forwards; pointer-events: none; }
+.mote.caught::before { animation: none; }
+@keyframes motecaught {
+    0% { opacity: 1; transform: scale(1); }
+    40% { opacity: 1; transform: scale(2.6); }
+    100% { opacity: 0; transform: scale(0.2); }
+}
+
+/* 覚醒: 押した場所から青い光が広がって画面を満たす */
+.awaken-light {
+    position: fixed;
+    z-index: 40;
+    width: 40px; height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, #f2f8ff 0%, #a9ccff 35%, rgba(80, 140, 240, 0.85) 60%, rgba(60, 110, 220, 0) 72%);
+    animation: awakenspread 1.9s cubic-bezier(.55, 0, .35, 1) forwards;
+}
+@keyframes awakenspread {
+    0% { transform: scale(0.2); opacity: 0.9; }
+    100% { transform: scale(110); opacity: 1; }
+}
+:root.awakening .layout { filter: blur(2px) saturate(1.4); transition: filter 1.6s ease; }
+
+/* 覚醒して魔法モードで開いたとき: 青い光が引いていき、魔法陣が描かれていく */
+.arrive {
+    position: fixed; inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, #f2f8ff 0%, #b8d4ff 45%, #6f9be0 100%);
+    animation: arrivefade 2.4s ease forwards;
+}
+@keyframes arrivefade { 0% { opacity: 1; } 35% { opacity: 0.85; } 100% { opacity: 0; } }
+:root.arriving .circle { opacity: 0.12; transition: opacity 6s ease; }
+:root.arriving .circle * {
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: circledraw 4.5s ease forwards;
+}
+:root.arriving .circle polygon { animation-delay: 1s; }
+:root.arriving .circle line { animation-delay: 1.8s; }
+@keyframes circledraw { to { stroke-dashoffset: 0; } }
+
+/* オブスクーラ: 色と飾りが霧に沈んでいく */
+.veil {
+    position: fixed; inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 30% 40%, rgba(226, 229, 234, 0.95), transparent 70%),
+        radial-gradient(ellipse at 70% 60%, rgba(214, 219, 226, 0.95), transparent 70%),
+        #e9ecf0;
+    animation: veilin 1.8s ease forwards;
+}
+@keyframes veilin { from { opacity: 0; } to { opacity: 1; } }
+:root.veiling .layout { filter: grayscale(1) blur(1.5px); transition: filter 1.6s ease; }
+:root.veiling .circle { opacity: 0; transition: opacity 1.2s ease; }
+
+/* 覆い隠されて通常モードで開いたとき: 霧が晴れるように現れる */
+.unveil {
+    position: fixed; inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background: #e9ecf0;
+    animation: unveilfade 1.4s ease forwards;
+}
+@keyframes unveilfade { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .veil { background: radial-gradient(ellipse at 30% 40%, rgba(60, 64, 72, 0.95), transparent 70%), radial-gradient(ellipse at 70% 60%, rgba(50, 54, 62, 0.95), transparent 70%), #1d2026; }
+    :root:not([data-theme="light"]) .unveil { background: #1d2026; }
+}
+:root[data-theme="dark"] .veil { background: radial-gradient(ellipse at 30% 40%, rgba(60, 64, 72, 0.95), transparent 70%), radial-gradient(ellipse at 70% 60%, rgba(50, 54, 62, 0.95), transparent 70%), #1d2026; }
+:root[data-theme="dark"] .unveil { background: #1d2026; }

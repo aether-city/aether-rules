@@ -71,7 +71,16 @@ var ASK_URL = "";
                 parva: { name: "パルヴァ", desc: "文字の大きさを元に戻す", toast: "文字の大きさが元に戻った", owl: "うむ、これくらいがちょうどいい。" },
                 solve: { name: "ソルヴェ", desc: "かけた魔法をすべてほどく", toast: "すべての魔法が解けた", owl: "散らかしたら片づける。よい心がけだ。" },
                 lethe: { name: "レーテ", desc: "読んだ記憶を忘却の川に流す", toast: "読んだ記憶が消え去った……", owl: "……はて、私は何をしていたのだったか。" },
-                virga: { name: "ヴィルガ", desc: "指先を杖に変え、金の粉をこぼす (もう一度唱えると戻る)", toast: "指先が杖になった (もう一度唱えると戻る)", toastOff: "杖をしまった", owl: "ほう、なかなか様になっているぞ。" }
+                virga: { name: "ヴィルガ", desc: "指先を杖に変え、金の粉をこぼす (もう一度唱えると戻る)", toast: "指先が杖になった (もう一度唱えると戻る)", toastOff: "杖をしまった", owl: "ほう、なかなか様になっているぞ。" },
+                obscura: { name: "オブスクーラ", desc: "魔法を人の目から覆い隠し、普通の書に戻す (10 秒以内にもう一度唱えると発動)", toast: "魔法が覆い隠されていく……", owl: "人の目から隠れるのも、我らの務めだ。……また会おう。" }
+            },
+            obscuraWarn: "魔法を覆い隠し、普通の書に戻るつもりか？ 本当なら、もう一度唱えよ",
+            // 覚醒して魔法モードで開いたときの告知
+            awaken: { eyebrow: "Awakening", title: "エーテルが目を覚ました", sub: "この書の、本当の姿が見えるようになった。" },
+            // 通常モードの光の粒 (魔法の言葉は使わない)
+            motes: {
+                label: "かすかな光",
+                caught: ["……今、何かが光った？", "指先に、かすかな青い光が残っている。", "青い光が、指先から広がっていく——"]
             },
             // ルーン: 本文の余白にマウスで描くと唱えられる呪文
             runes: { candela: "円", scintilla: "三角", glacies: "ジグザグ", aeria: "下から上へまっすぐ" },
@@ -121,7 +130,8 @@ var ASK_URL = "";
                 parva: "古い言葉で「小さな」。大きくした文字を元に戻す。",
                 solve: "古い言葉で「ほどけ」。かけた魔法をすべて解く。",
                 lethe: "忘却の川の名。読んだ記憶を流し去る。",
-                virga: "古い言葉で「杖」。指先に宿り、金の粉をこぼす。"
+                virga: "古い言葉で「杖」。指先に宿り、金の粉をこぼす。",
+                obscura: "古い言葉で「覆われた」。魔法を人の目から覆い隠す。"
             },
             inkFound: function (n) { return "隠されたインクが浮かび上がる……(" + n + " か所)"; },
             summonNone: "呼び寄せる規則が見つからなかった",
@@ -204,7 +214,8 @@ var ASK_URL = "";
                     "本文の余白に、マウスで円を描いてみるといい。……何が起きるかは、お楽しみだ。",
                     "インクの中に、色の違う文字が混じっている。",
                     "この書のどこかに、小さな鍵が三つ眠っている。目を覚ます言葉は、インクの中だ。",
-                    "呪文を唱えすぎると、魔力が尽きる。左の青い線を見ておけ。"
+                    "呪文を唱えすぎると、魔力が尽きる。左の青い線を見ておけ。",
+                    "魔法を人の目から隠す古い言葉がある。……知りたければ、禁書庫の呪文帳を開くといい。"
                 ]
             }
         },
@@ -249,7 +260,14 @@ var ASK_URL = "";
                 parva: { name: "Parva", desc: "Returns the text to normal size", toast: "The text returns to normal", owl: "Yes, that's just right." },
                 solve: { name: "Solve", desc: "Undoes every spell you have cast", toast: "Every spell has been undone", owl: "Clean up after yourself. Good habit." },
                 lethe: { name: "Lethe", desc: "Washes your reading memory into the river of oblivion", toast: "Your reading memory fades away…", owl: "…Hm? What was I doing again?" },
-                virga: { name: "Virga", desc: "Turns your fingertip into a wand that sheds golden dust (cast again to stop)", toast: "Your fingertip becomes a wand (cast again to stop)", toastOff: "You put the wand away", owl: "Oh, that suits you rather well." }
+                virga: { name: "Virga", desc: "Turns your fingertip into a wand that sheds golden dust (cast again to stop)", toast: "Your fingertip becomes a wand (cast again to stop)", toastOff: "You put the wand away", owl: "Oh, that suits you rather well." },
+                obscura: { name: "Obscura", desc: "Hides magic from human eyes and returns to the ordinary book (cast twice within 10 seconds)", toast: "The magic is being veiled…", owl: "Hiding from human eyes is our duty too. …Until we meet again." }
+            },
+            obscuraWarn: "Veil the magic and return to the ordinary book? If you mean it, cast it again",
+            awaken: { eyebrow: "Awakening", title: "The Aether has awakened", sub: "You can now see this book as it truly is." },
+            motes: {
+                label: "A faint light",
+                caught: ["…Did something just glimmer?", "A faint blue light lingers on your fingertip.", "The blue light spreads from your fingertip—"]
             },
             runes: { candela: "circle", scintilla: "triangle", glacies: "zigzag", aeria: "a straight line upward" },
             runeLabel: function (shape) { return "Rune: " + shape; },
@@ -297,7 +315,8 @@ var ASK_URL = "";
                 parva: "The old word for \u201csmall.\u201d Returns enlarged text to normal.",
                 solve: "The old word for \u201cloosen.\u201d Undoes every spell you cast.",
                 lethe: "The name of the river of oblivion. Washes away what you have read.",
-                virga: "The old word for \u201cwand.\u201d Dwells in your fingertip and sheds golden dust."
+                virga: "The old word for \u201cwand.\u201d Dwells in your fingertip and sheds golden dust.",
+                obscura: "The old word for \u201cveiled.\u201d Hides magic from human eyes."
             },
             inkFound: function (n) { return "Hidden ink begins to appear… (" + n + " places)"; },
             summonNone: "No rule answered the summons",
@@ -378,7 +397,8 @@ var ASK_URL = "";
                     "Try drawing a circle with your mouse in the empty margins… you'll see.",
                     "Some letters in the hidden ink are a different color.",
                     "Three small keys sleep somewhere in this book. The word that wakes them lies in the ink.",
-                    "Cast too much and your mana runs dry. Watch the blue line on the left."
+                    "Cast too much and your mana runs dry. Watch the blue line on the left.",
+                    "There is an old word that hides magic from human eyes. …Look in the Book of Spells in the Archive."
                 ]
             }
         }
@@ -1296,14 +1316,15 @@ var ASK_URL = "";
         { id: "parva", words: ["ぱるゔぁ", "ぱるば", "parva"] },
         { id: "solve", words: ["そるゔぇ", "そるべ", "solve"] },
         { id: "lethe", words: ["れーて", "lethe"] },
-        { id: "virga", words: ["ゔぃるが", "びるが", "virga"] }
+        { id: "virga", words: ["ゔぃるが", "びるが", "virga"] },
+        { id: "obscura", words: ["おぶすくーら", "obscura"] }
     ];
 
     var root = document.documentElement;
     var candle = document.getElementById("candle");
     var known = {};
     try { (JSON.parse(load("rules-spells") || "[]") || []).forEach(function (id) { known[id] = true; }); } catch (e) {}
-    var letheAt = 0;
+    var letheAt = 0, obscuraAt = 0;
 
     // 今ある呪文のうち、見つけた数 (昔の呪文の記録は数えない)
     function knownCount() { return SPELLS.filter(function (sp) { return known[sp.id]; }).length; }
@@ -1586,6 +1607,21 @@ var ASK_URL = "";
         virga: function () {
             wandOn = !wandOn;
             if (!wandOn) return TEXT.spells.virga.toastOff;
+        },
+        obscura: function () {
+            // 魔法を覆い隠して通常モードへ戻る。間違いで唱えても困らないよう、10 秒以内に 2 回唱えたときだけ
+            var t = Date.now();
+            if (t - obscuraAt > 10000) {
+                obscuraAt = t;
+                showToast(TEXT.obscuraWarn);
+                owlSay(TEXT.obscuraWarn, true);
+                return false;
+            }
+            obscuraAt = 0;
+            save("rules-motes", "0"); // もう一度覚醒するには、光の粒を集め直す
+            root.classList.add("veiling");
+            document.body.appendChild(el("div", "veil"));
+            setTimeout(function () { switchMode("normal", "rules-veil"); }, 1900);
         },
         lethe: function () {
             // 忘却: 大事な記録を消すので、10 秒以内にもう一度唱えたときだけ実行する
@@ -2219,6 +2255,97 @@ var ASK_URL = "";
     }
     updateProgress();
     progressReady = true;
+
+    // ---------- モードの切り替えの仕掛け ----------
+    // ① 通常 → 魔法: 通常モードのページに、ときどき青い光の粒 (エーテルの残滓) が現れては消える。
+    //    3 つ捕まえると、捕まえた場所から青い光が広がって魔法モードに「覚醒」する (捕まえた数はこのブラウザに記録)。
+    // ② 魔法 → 通常: 呪文オブスクーラ (上の EFFECTS.obscura)。
+    // どちらも、モードを記録して読み込み直し、読み込んだ先で到着の演出を出す。
+    var MOTE_NEED = 3;
+    var MOTE_FIRST_MS = 20000;              // 開いてから最初の粒が出るまで
+    var MOTE_EVERY_MS = [30000, 60000];     // その後、粒が出る間隔 (この範囲でばらつく)
+
+    function switchMode(to, arrivalFlag) {
+        save("rules-mode", to);
+        try { sessionStorage.setItem(arrivalFlag, "1"); } catch (e) {}
+        var u = new URL(location.href);
+        u.searchParams.delete("mode"); // URL の ?mode= が残っていると、そちらが優先されてしまうため
+        // (URL が今と同じだと replace では読み込み直されないので、URL を整えてから必ず読み込み直す)
+        try { history.replaceState(null, "", u.toString()); } catch (e) {}
+        location.reload();
+    }
+
+    if (MODE === "normal") {
+        var motesCaught = +(load("rules-motes") || 0) || 0;
+        var spawnMote = function () {
+            if (document.hidden || document.querySelector(".mote, .awaken-light")) return;
+            var area = document.getElementById("main").getBoundingClientRect();
+            var left = Math.max(area.left, 0) + 30, right = Math.min(area.right, window.innerWidth) - 30;
+            if (right <= left) return;
+            var m = el("button", "mote");
+            m.type = "button";
+            m.setAttribute("aria-label", TEXT.motes.label);
+            m.style.left = (left + Math.random() * (right - left)).toFixed(0) + "px";
+            m.style.top = (90 + Math.random() * Math.max(60, window.innerHeight - 180)).toFixed(0) + "px";
+            m.style.setProperty("--d", (7 + Math.random() * 3).toFixed(1) + "s");
+            m.style.setProperty("--dx", (Math.random() * 40 - 20).toFixed(0) + "px");
+            m.style.setProperty("--dy", (-20 - Math.random() * 30).toFixed(0) + "px");
+            m.addEventListener("animationend", function (e) { if (e.animationName === "motedrift") m.remove(); });
+            m.addEventListener("click", function (e) { catchMote(m, e.clientX, e.clientY); });
+            document.body.appendChild(m);
+        };
+        var catchMote = function (m, x, y) {
+            m.classList.add("caught");
+            setTimeout(function () { m.remove(); }, 700);
+            motesCaught++;
+            save("rules-motes", String(motesCaught));
+            if (motesCaught < MOTE_NEED) {
+                notify({ title: TEXT.motes.caught[motesCaught - 1], sub: "●●●".slice(0, motesCaught) + "○○○".slice(0, MOTE_NEED - motesCaught), ms: 4000 });
+                return;
+            }
+            // 3 つそろった: 青い光が広がって覚醒する
+            save("rules-motes", "0");
+            notify({ title: TEXT.motes.caught[2], ms: 2500 });
+            root.classList.add("awakening");
+            var light = el("div", "awaken-light");
+            light.style.left = x + "px";
+            light.style.top = y + "px";
+            document.body.appendChild(light);
+            setTimeout(function () { switchMode("magic", "rules-awaken"); }, 1900);
+        };
+        (function moteLoop(first) {
+            var wait = first ? MOTE_FIRST_MS : MOTE_EVERY_MS[0] + Math.random() * (MOTE_EVERY_MS[1] - MOTE_EVERY_MS[0]);
+            setTimeout(function () { spawnMote(); moteLoop(false); }, wait);
+        })(true);
+    }
+
+    // 切り替わった先で開いたときの演出
+    (function () {
+        var awakened = false, veiled = false;
+        try {
+            awakened = !!sessionStorage.getItem("rules-awaken");
+            veiled = !!sessionStorage.getItem("rules-veil");
+            sessionStorage.removeItem("rules-awaken");
+            sessionStorage.removeItem("rules-veil");
+        } catch (e) {}
+        if (awakened && MODE === "magic") {
+            // 青い光が引いていき、背景の魔法陣が描かれていく
+            root.classList.add("arriving");
+            var a = el("div", "arrive");
+            document.body.appendChild(a);
+            a.addEventListener("animationend", function () { a.remove(); });
+            setTimeout(function () { root.classList.remove("arriving"); }, 7000);
+            setTimeout(function () {
+                announce({ eyebrow: TEXT.awaken.eyebrow, title: TEXT.awaken.title, sub: TEXT.awaken.sub, ms: 6000 });
+            }, 1500);
+        }
+        if (veiled && MODE === "normal") {
+            // 霧が晴れるように、普通の紙面が現れる
+            var v = el("div", "unveil");
+            document.body.appendChild(v);
+            v.addEventListener("animationend", function () { v.remove(); });
+        }
+    })();
 
     // ---------- 最初の表示 ----------
     // (route が URL の ?q= を消してしまうので、先に読んでおく)
