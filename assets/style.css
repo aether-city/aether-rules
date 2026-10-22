@@ -1811,52 +1811,11 @@ mark {
 
 /* =====================================================================
    モードの切り替えの仕掛け
-   ① 通常 → 魔法: 青いエーテルの残滓 (光の粒) を 3 つ捕まえると、青い光が広がって「覚醒」する
+   ① 通常 → 魔法: 通常モードの検索欄に覚醒の言葉を打つと、青い光が広がって「覚醒」する
    ② 魔法 → 通常: 呪文「オブスクーラ」で、色と飾りが霧に沈んで普通の紙面に戻る
    ===================================================================== */
 
-/* 青いエーテルの残滓 (通常モードに、ときどき現れては消える光の粒) */
-.mote {
-    position: fixed;
-    z-index: 12;
-    width: 26px; height: 26px;
-    margin: -13px 0 0 -13px;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    animation: motedrift var(--d, 7s) ease-in-out forwards;
-}
-.mote::before {
-    content: "";
-    position: absolute;
-    left: 10px; top: 10px;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #8fbcff;
-    box-shadow: 0 0 8px 3px rgba(110, 170, 255, 0.75), 0 0 18px 6px rgba(90, 150, 255, 0.25);
-    animation: moteflicker 1.4s ease-in-out infinite;
-}
-@keyframes motedrift {
-    0% { opacity: 0; transform: translate(0, 0); }
-    15% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; transform: translate(var(--dx, 10px), var(--dy, -20px)); }
-}
-@keyframes moteflicker {
-    0%, 100% { opacity: 0.35; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.15); }
-}
-/* 捕まえた瞬間: 小さくはじけて消える */
-.mote.caught { animation: motecaught 0.7s ease-out forwards; pointer-events: none; }
-.mote.caught::before { animation: none; }
-@keyframes motecaught {
-    0% { opacity: 1; transform: scale(1); }
-    40% { opacity: 1; transform: scale(2.6); }
-    100% { opacity: 0; transform: scale(0.2); }
-}
-
-/* 覚醒: 押した場所から青い光が広がって画面を満たす */
+/* 覚醒: 検索欄から青い光が広がって画面を満たす */
 .awaken-light {
     position: fixed;
     z-index: 40;

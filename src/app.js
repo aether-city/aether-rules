@@ -77,11 +77,6 @@ var ASK_URL = "";
             obscuraWarn: "魔法を覆い隠し、普通の書に戻るつもりか？ 本当なら、もう一度唱えよ",
             // 覚醒して魔法モードで開いたときの告知
             awaken: { eyebrow: "Awakening", title: "エーテルが目を覚ました", sub: "この書の、本当の姿が見えるようになった。" },
-            // 通常モードの光の粒 (魔法の言葉は使わない)
-            motes: {
-                label: "かすかな光",
-                caught: ["……今、何かが光った？", "指先に、かすかな青い光が残っている。", "青い光が、指先から広がっていく——"]
-            },
             // ルーン: 本文の余白にマウスで描くと唱えられる呪文
             runes: { candela: "円", scintilla: "三角", glacies: "ジグザグ", aeria: "下から上へまっすぐ" },
             runeLabel: function (shape) { return "ルーン: " + shape; },
@@ -265,10 +260,6 @@ var ASK_URL = "";
             },
             obscuraWarn: "Veil the magic and return to the ordinary book? If you mean it, cast it again",
             awaken: { eyebrow: "Awakening", title: "The Aether has awakened", sub: "You can now see this book as it truly is." },
-            motes: {
-                label: "A faint light",
-                caught: ["…Did something just glimmer?", "A faint blue light lingers on your fingertip.", "The blue light spreads from your fingertip—"]
-            },
             runes: { candela: "circle", scintilla: "triangle", glacies: "zigzag", aeria: "a straight line upward" },
             runeLabel: function (shape) { return "Rune: " + shape; },
             mana: { empty: "Not enough mana. Rest a while", label: function (n, max) { return Math.floor(n) + " / " + max; } },
@@ -1362,7 +1353,16 @@ var ASK_URL = "";
 
     // 検索欄に唱えた言葉を呪文として扱う (呪文でなければ false を返し、ふつうの検索になる)
     function castSpell() {
-        if (MODE !== "magic") return false; // 通常モードでは呪文は無く、ふつうの検索になる
+        // 通常モードでは呪文は無く、ふつうの検索になる。ただし覚醒の言葉だけは受け付ける
+        if (MODE !== "magic") {
+            if (AWAKEN_WORDS.indexOf(compact(input.value)) === -1) return false;
+            var box = input.getBoundingClientRect();
+            input.value = "";
+            render();
+            input.blur();
+            awaken(box.left + box.width / 2, box.top + box.height / 2);
+            return true;
+        }
         var raw = input.value;
         if (PASSCODES.indexOf(compact(raw)) !== -1) {
             input.value = "";
@@ -1618,7 +1618,6 @@ var ASK_URL = "";
                 return false;
             }
             obscuraAt = 0;
-            save("rules-motes", "0"); // もう一度覚醒するには、光の粒を集め直す
             root.classList.add("veiling");
             document.body.appendChild(el("div", "veil"));
             setTimeout(function () { switchMode("normal", "rules-veil"); }, 1900);
@@ -2257,13 +2256,11 @@ var ASK_URL = "";
     progressReady = true;
 
     // ---------- モードの切り替えの仕掛け ----------
-    // ① 通常 → 魔法: 通常モードのページに、ときどき青い光の粒 (エーテルの残滓) が現れては消える。
-    //    3 つ捕まえると、捕まえた場所から青い光が広がって魔法モードに「覚醒」する (捕まえた数はこのブラウザに記録)。
-    // ② 魔法 → 通常: 呪文オブスクーラ (上の EFFECTS.obscura)。
+    // ① 通常 → 魔法: 通常モードの検索欄に「覚醒の言葉」を打つと、検索欄から青い光が広がって魔法モードに覚醒する。
+    //    言葉は物語の主神の名。通常モードのページには一切出てこないので、ふつうの検索で偶然切り替わることはない。
+    // ② 魔法 → 通常: 呪文オブスクーラ (EFFECTS.obscura)。
     // どちらも、モードを記録して読み込み直し、読み込んだ先で到着の演出を出す。
-    var MOTE_NEED = 3;
-    var MOTE_FIRST_MS = 20000;              // 開いてから最初の粒が出るまで
-    var MOTE_EVERY_MS = [30000, 60000];     // その後、粒が出る間隔 (この範囲でばらつく)
+    var AWAKEN_WORDS = ["あるてりおん", "arterion"]; // (ひらがな/カタカナ・大文字/小文字はどちらでも可)
 
     function switchMode(to, arrivalFlag) {
         save("rules-mode", to);
@@ -2275,48 +2272,14 @@ var ASK_URL = "";
         location.reload();
     }
 
-    if (MODE === "normal") {
-        var motesCaught = +(load("rules-motes") || 0) || 0;
-        var spawnMote = function () {
-            if (document.hidden || document.querySelector(".mote, .awaken-light")) return;
-            var area = document.getElementById("main").getBoundingClientRect();
-            var left = Math.max(area.left, 0) + 30, right = Math.min(area.right, window.innerWidth) - 30;
-            if (right <= left) return;
-            var m = el("button", "mote");
-            m.type = "button";
-            m.setAttribute("aria-label", TEXT.motes.label);
-            m.style.left = (left + Math.random() * (right - left)).toFixed(0) + "px";
-            m.style.top = (90 + Math.random() * Math.max(60, window.innerHeight - 180)).toFixed(0) + "px";
-            m.style.setProperty("--d", (7 + Math.random() * 3).toFixed(1) + "s");
-            m.style.setProperty("--dx", (Math.random() * 40 - 20).toFixed(0) + "px");
-            m.style.setProperty("--dy", (-20 - Math.random() * 30).toFixed(0) + "px");
-            m.addEventListener("animationend", function (e) { if (e.animationName === "motedrift") m.remove(); });
-            m.addEventListener("click", function (e) { catchMote(m, e.clientX, e.clientY); });
-            document.body.appendChild(m);
-        };
-        var catchMote = function (m, x, y) {
-            m.classList.add("caught");
-            setTimeout(function () { m.remove(); }, 700);
-            motesCaught++;
-            save("rules-motes", String(motesCaught));
-            if (motesCaught < MOTE_NEED) {
-                notify({ title: TEXT.motes.caught[motesCaught - 1], sub: "●●●".slice(0, motesCaught) + "○○○".slice(0, MOTE_NEED - motesCaught), ms: 4000 });
-                return;
-            }
-            // 3 つそろった: 青い光が広がって覚醒する
-            save("rules-motes", "0");
-            notify({ title: TEXT.motes.caught[2], ms: 2500 });
-            root.classList.add("awakening");
-            var light = el("div", "awaken-light");
-            light.style.left = x + "px";
-            light.style.top = y + "px";
-            document.body.appendChild(light);
-            setTimeout(function () { switchMode("magic", "rules-awaken"); }, 1900);
-        };
-        (function moteLoop(first) {
-            var wait = first ? MOTE_FIRST_MS : MOTE_EVERY_MS[0] + Math.random() * (MOTE_EVERY_MS[1] - MOTE_EVERY_MS[0]);
-            setTimeout(function () { spawnMote(); moteLoop(false); }, wait);
-        })(true);
+    // 覚醒: (x, y) から青い光が広がって画面を満たし、魔法モードで開き直す
+    function awaken(x, y) {
+        root.classList.add("awakening");
+        var light = el("div", "awaken-light");
+        light.style.left = x + "px";
+        light.style.top = y + "px";
+        document.body.appendChild(light);
+        setTimeout(function () { switchMode("magic", "rules-awaken"); }, 1900);
     }
 
     // 切り替わった先で開いたときの演出
