@@ -77,12 +77,12 @@ var ASK_URL = "";
             obscuraWarn: "魔法を覆い隠し、普通の書に戻るつもりか？ 本当なら、もう一度唱えよ",
             // 覚醒して魔法モードで開いたときの告知
             awaken: { eyebrow: "Awakening", title: "エーテルが目を覚ました", sub: "この書の、本当の姿が見えるようになった。" },
-            // 最後の禁書庫
+            // 最後の書架
             final: {
-                nav: "最後の禁書庫",
-                title: "最後の禁書庫",
+                nav: "最後の書架",
+                title: "最後の書架",
                 lead: "炎の日から閉ざされていた書架。司書が最後まで隠し通した、一冊の物語。",
-                announceTitle: "最後の禁書庫が開いた",
+                announceTitle: "最後の書架が開いた",
                 announceSub: "炎の日から、ずっと閉ざされていた書架。",
                 owlOpen: "……それは、私がずっと隠してきた物語だ。どうか、最後まで読んでやってくれ。",
                 askTooEarly: "……その名を、どこで聞いた？ 今はまだ、話せぬ。",
@@ -279,10 +279,10 @@ var ASK_URL = "";
             obscuraWarn: "Veil the magic and return to the ordinary book? If you mean it, cast it again",
             awaken: { eyebrow: "Awakening", title: "The Aether has awakened", sub: "You can now see this book as it truly is." },
             final: {
-                nav: "The Last Archive",
-                title: "The Last Archive",
+                nav: "The Last Shelf",
+                title: "The Last Shelf",
                 lead: "A shelf sealed since the day of the fire. The one story the librarian kept hidden to the very end.",
-                announceTitle: "The Last Archive is open",
+                announceTitle: "The Last Shelf is open",
                 announceSub: "A shelf sealed ever since the day of the fire.",
                 owlOpen: "…That is the story I have hidden all this time. Please, read it to the end.",
                 askTooEarly: "…Where did you hear that name? I cannot speak of it yet.",
@@ -521,7 +521,7 @@ var ASK_URL = "";
         }
     };
 
-    // 最後の禁書庫の小説「青の残滓」。条件を満たすまで、ページには書き出さない
+    // 最後の書架の小説「青の残滓」。条件を満たすまで、ページには書き出さない
     var FINAL_NOVEL = {
         "ja": {
             "title": "青の残滓",
@@ -821,7 +821,7 @@ var ASK_URL = "";
 
     // ===== 管理者の確認用の表示 =====
     // URL に ?admin=合言葉 を付けて開くと、そのタブだけ「管理者表示」になり、
-    // 禁書庫・第二の書架・夜の書架・最後の禁書庫を条件なしで見られる (参加者としての記録は書き換えない)。
+    // 禁書庫・第二の書架・夜の書架・最後の書架を条件なしで見られる (参加者としての記録は書き換えない)。
     // 合言葉はここには書かず、SHA-256 のハッシュ値だけを置く。合言葉を変えるときは、次で出した値に置き換える:
     //   node -e "console.log(require('crypto').createHash('sha256').update('新しい合言葉').digest('hex'))"
     var ADMIN_HASH = "ebceaf1f9b39a60982e7c8c0b21aee1691761cf0744c511d708c49f2f2cdbafc";
@@ -900,21 +900,21 @@ var ASK_URL = "";
             host.appendChild(b);
         });
 
-        // 最後の禁書庫: 左の章の項目と、本文の章の入れ物だけを作っておく (中身は開いたときに書き出す)
+        // 最後の書架: 左の章の項目と、本文の章の入れ物だけを作っておく (中身は開いたときに書き出す)
         var archiveNavEl = document.getElementById("archive-nav");
         var archiveSec = document.getElementById("archive");
         if (archiveNavEl && archiveSec) {
             var nav = document.createElement("div");
             nav.id = "final-nav";
             nav.hidden = true;
-            nav.innerHTML = '<a class="chapter-link final-link" href="#final" data-chapter="final"><span class="en">The Last Archive</span><span class="ja"></span></a>';
+            nav.innerHTML = '<a class="chapter-link final-link" href="#final" data-chapter="final"><span class="en">The Last Shelf</span><span class="ja"></span></a>';
             nav.querySelector(".ja").textContent = TEXT.final.nav;
             nav.querySelector(".ja").appendChild(Object.assign(document.createElement("span"), { className: "count" }));
             archiveNavEl.parentNode.insertBefore(nav, archiveNavEl.nextSibling);
             var sec2 = document.createElement("section");
             sec2.className = "chapter";
             sec2.id = "final";
-            sec2.innerHTML = '<div class="chapter-head"><p class="eyebrow">The Last Archive</p><h2></h2><p class="lead"></p><div class="rule-line"></div></div><div class="novel" id="final-novel"></div>';
+            sec2.innerHTML = '<div class="chapter-head"><p class="eyebrow">The Last Shelf</p><h2></h2><p class="lead"></p><div class="rule-line"></div></div><div class="novel" id="final-novel"></div>';
             sec2.querySelector("h2").textContent = TEXT.final.title;
             sec2.querySelector(".lead").textContent = TEXT.final.lead;
             archiveSec.parentNode.insertBefore(sec2, archiveSec.nextSibling);
@@ -2678,7 +2678,7 @@ var ASK_URL = "";
         }
     })();
 
-    // ---------- 最後の禁書庫 ----------
+    // ---------- 最後の書架 ----------
     // たどり着くには、次のすべてが必要 (管理者表示では条件なしで開く):
     //   1. 第二の書架の封印を解いている   2. すべての呪文を見つけている   3. フクロウの親しさが最高 (名を明かしている)
     //   4. フクロウに空の都の名 (エルスハイン) を尋ね、謎かけを聞く
@@ -2727,7 +2727,7 @@ var ASK_URL = "";
         setTimeout(function () { f.remove(); }, 1900);
         showFinal(true);
         setTimeout(function () {
-            announce({ eyebrow: "The Last Archive", title: TEXT.final.announceTitle, sub: TEXT.final.announceSub, ms: 7000 });
+            announce({ eyebrow: "The Last Shelf", title: TEXT.final.announceTitle, sub: TEXT.final.announceSub, ms: 7000 });
             owlSay(TEXT.final.owlOpen, true);
         }, 1200);
         setTimeout(function () { location.hash = "#final"; }, 5000);
