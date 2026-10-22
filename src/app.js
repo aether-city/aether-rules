@@ -483,11 +483,25 @@ var ASK_URL = "";
     // (ゲームからの切り替え方法は今後決める。ここで MODE を決めれば、あとはすべてそれに従う)
     var MODE = (function () {
         var asked = new URLSearchParams(location.search).get("mode");
+        // #jobs?mode=normal のように # の後ろに書かれていても受け付ける (受け付けたら # からは消す)
+        var inHash = /[?&]mode=(normal|magic)/.exec(location.hash);
+        if (!asked && inHash) {
+            asked = inHash[1];
+            try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/[?&]mode=(normal|magic)/, "")); } catch (e) {}
+        }
         if (asked === "normal" || asked === "magic") { save("rules-mode", asked); return asked; }
         var saved = load("rules-mode");
         return saved === "normal" ? "normal" : "magic";
     })();
     document.documentElement.setAttribute("data-mode", MODE);
+    // 開いたまま # の後ろに mode= を書き足されたとき (ページは読み込み直されない) も、モードを切り替えて読み込み直す
+    window.addEventListener("hashchange", function () {
+        var m = /[?&]mode=(normal|magic)/.exec(location.hash);
+        if (!m) return;
+        save("rules-mode", m[1]);
+        try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/[?&]mode=(normal|magic)/, "")); } catch (e) {}
+        location.reload();
+    });
     document.querySelectorAll('[data-only]:not([data-only="' + MODE + '"])').forEach(function (n) { n.remove(); });
     if (MODE === "normal") {
         // 違反の重さの呼び方も、魔法の言葉を使わない

@@ -9,6 +9,8 @@
 // (GitHub Pages を「ブランチから公開」のまま使っている間も、ページが動くように)。
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const hash = (t) => crypto.createHash('sha1').update(t).digest('hex').slice(0, 10);
 
 const ROOT = __dirname;
 const OUT = path.join(ROOT, '_site');
@@ -57,5 +59,15 @@ const js = DEV ? src : obfuscate(src);
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), js);
 if (!DEV) fs.writeFileSync(path.join(ROOT, 'assets', 'app.js'), js);
+
+// ブラウザに古い app.js / style.css が残って新しい HTML と食い違わないよう、読み込む URL に中身ごとの印を付ける
+const jsVer = hash(js);
+const cssVer = hash(fs.readFileSync(path.join(ROOT, 'assets', 'style.css'), 'utf8'));
+['index.html', 'en/index.html'].forEach((rel) => {
+    const f = path.join(OUT, rel);
+    let html = fs.readFileSync(f, 'utf8');
+    html = html.replace(/(assets\/app\.js)"/g, '$1?v=' + jsVer + '"').replace(/(assets\/style\.css)"/g, '$1?v=' + cssVer + '"');
+    fs.writeFileSync(f, html);
+});
 
 console.log((DEV ? '[dev] ' : '') + '_site/ を作りました (app.js: ' + Math.round(js.length / 1024) + ' KB)');

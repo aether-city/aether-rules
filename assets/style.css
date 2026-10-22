@@ -1643,3 +1643,8 @@ mark {
     .proclaim h2 { letter-spacing: 0.12em; }
 }
 @media print { .notify-stack, .proclaim { display: none !important; } }
+
+/* ===== 表示モード (通常 / 魔法) =====
+   もう片方のモードの要素は app.js が取り除くが、古い app.js が残っていても混ざって見えないよう CSS でも隠す */
+:root:not([data-mode="normal"]) [data-only="normal"],
+:root[data-mode="normal"] [data-only="magic"] { display: none !important; }
