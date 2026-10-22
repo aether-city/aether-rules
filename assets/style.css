@@ -1891,40 +1891,68 @@ mark {
     color: var(--gold);
     font-size: 0.8rem;
 }
+/* 本文は紙の面に載せ、背景の魔法陣や飾りが透けないようにする */
 .novel {
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 auto;
+    padding: 56px 64px 72px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
     font-size: 1.02rem;
-    line-height: 2.15;
+    line-height: 2.05;
+    letter-spacing: 0.03em;
+    text-align: justify;
+    line-break: strict;
+    color: var(--ink);
 }
 .novel .novel-title {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 600;
-    letter-spacing: 0.4em;
-    padding-left: 0.4em;
-    margin: 24px 0 48px;
+    letter-spacing: 0.35em;
+    padding-left: 0.35em;
+    margin: 0 0 8px;
 }
 .novel .novel-title::after {
     content: "";
     display: block;
-    width: 120px; height: 1px;
-    margin: 20px auto 0;
+    width: 96px; height: 1px;
+    margin: 22px auto 0;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
+/* 章の見出し: 前に小さな飾りを置き、前の章との間をしっかり空ける */
 .novel h3 {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: var(--gold);
-    margin: 64px 0 28px;
+    margin: 76px 0 34px;
 }
-.novel h3::before, .novel h3::after { content: "―"; margin: 0 0.8em; opacity: 0.5; }
+.novel h3::before {
+    content: "✦";
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0;
+    margin-bottom: 14px;
+    opacity: 0.6;
+}
+.novel .novel-title + h3 { margin-top: 48px; }
+/* 段落: 一字下げ。段落の間を少し空けて、まとまりが分かるようにする */
 .novel p { margin: 0; text-indent: 1em; }
-.novel p + p { margin-top: 0.4em; }
-:lang(en) .novel p { text-indent: 1.5em; }
+.novel p + p { margin-top: 0.85em; }
+/* 会話や独白の行は一字下げしない */
+.novel p.line { text-indent: 0; }
+:lang(en) .novel { font-size: 1.05rem; line-height: 1.85; letter-spacing: 0.01em; text-align: left; }
+:lang(en) .novel p { text-indent: 1.4em; }
+:lang(en) .novel p.line { text-indent: 1.4em; }
 :lang(en) .novel .novel-title { letter-spacing: 0.15em; padding-left: 0.15em; }
+@media (max-width: 900px) {
+    .novel { padding: 36px 22px 48px; font-size: 0.98rem; line-height: 2; letter-spacing: 0.02em; }
+    .novel .novel-title { font-size: 1.4rem; letter-spacing: 0.25em; padding-left: 0.25em; }
+    .novel h3 { margin: 56px 0 26px; letter-spacing: 0.1em; }
+}
 
 /* 管理者表示の札 (左下) */
 .admin-badge {

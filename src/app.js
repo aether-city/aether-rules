@@ -2701,7 +2701,8 @@ var ASK_URL = "";
         box.appendChild(el("h2", "novel-title", book.title));
         book.chapters.forEach(function (ch) {
             box.appendChild(el("h3", null, ch.h));
-            ch.ps.forEach(function (t) { box.appendChild(el("p", null, t)); });
+            // 会話や独白 (「 『 ― や引用符で始まる行) は一字下げをしない
+            ch.ps.forEach(function (t) { box.appendChild(el("p", /^[「『―"“(（—]/.test(t) ? "line" : null, t)); });
         });
     }
     function showFinal(appear) {
