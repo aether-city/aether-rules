@@ -510,6 +510,7 @@ var ASK_URL = "";
             : { "1": "重度", "2": "中度", "3": "軽度" };
         TEXT.sealGlyph = "◆";
         TEXT.sealTitle = LANG === "en" ? "Severity of the violation" : "違反の重さ";
+        TEXT.wax = "✓"; // 読了の印も、封蝋の「読」ではなくチェック
     }
 
     (function placeSecrets() {

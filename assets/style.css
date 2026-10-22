@@ -1648,3 +1648,163 @@ mark {
    もう片方のモードの要素は app.js が取り除くが、古い app.js が残っていても混ざって見えないよう CSS でも隠す */
 :root:not([data-mode="normal"]) [data-only="normal"],
 :root[data-mode="normal"] [data-only="magic"] { display: none !important; }
+
+/* =====================================================================
+   通常モードの見た目 (魔法を知らない人向け)
+   魔法の雰囲気 (羊皮紙・金・明朝・魔法陣・めくる演出) をなくし、白と青のすっきりした紙面にする。
+   :root[data-mode="normal"] から始まる指定だけなので、魔法モードの見た目には影響しない。
+   ===================================================================== */
+:root[data-mode="normal"] {
+    --bg: #f4f6f9;
+    --bg-deep: #eef1f5;
+    --paper: #ffffff;
+    --side: #ffffff;
+    --ink: #1f2933;
+    --ink-soft: #5f6b7a;
+    --gold: #2f6fd6;               /* (名前は gold のままだが、通常モードでは青のアクセント) */
+    --gold-faint: rgba(47, 111, 214, 0.28);
+    --mark: rgba(47, 111, 214, 0.16);
+    --line: rgba(31, 41, 51, 0.12);
+    --ok: #2e8b57;
+    --ng: #c0392b;
+}
+@media (prefers-color-scheme: dark) {
+    :root[data-mode="normal"]:not([data-theme="light"]) {
+        --bg: #14171c;
+        --bg-deep: #101318;
+        --paper: #1b1f26;
+        --side: #171a20;
+        --ink: #e4e8ee;
+        --ink-soft: #9aa4b1;
+        --gold: #6ea0f0;
+        --gold-faint: rgba(110, 160, 240, 0.3);
+        --mark: rgba(110, 160, 240, 0.22);
+        --line: rgba(228, 232, 238, 0.1);
+        --ok: #5fbf8a;
+        --ng: #e07b6f;
+    }
+}
+:root[data-mode="normal"][data-theme="dark"] {
+    --bg: #14171c;
+    --bg-deep: #101318;
+    --paper: #1b1f26;
+    --side: #171a20;
+    --ink: #e4e8ee;
+    --ink-soft: #9aa4b1;
+    --gold: #6ea0f0;
+    --gold-faint: rgba(110, 160, 240, 0.3);
+    --mark: rgba(110, 160, 240, 0.22);
+    --line: rgba(228, 232, 238, 0.1);
+    --ok: #5fbf8a;
+    --ng: #e07b6f;
+}
+
+/* 文字: ゴシック体 */
+:root[data-mode="normal"] body {
+    font-family: "Noto Sans JP", "Segoe UI", system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+    background: var(--bg);
+    letter-spacing: 0.02em;
+    line-height: 1.85;
+}
+:root[data-mode="normal"] .brand h1,
+:root[data-mode="normal"] .eyebrow,
+:root[data-mode="normal"] .chapter-head .eyebrow,
+:root[data-mode="normal"] .chapter-link .en,
+:root[data-mode="normal"] .chronicle time,
+:root[data-mode="normal"] .notify .n-eyebrow,
+:root[data-mode="normal"] .proclaim .p-eyebrow {
+    font-family: inherit;
+    font-style: normal;
+}
+
+/* 魔法の飾りを消す */
+:root[data-mode="normal"] .circle,
+:root[data-mode="normal"] .sky,
+:root[data-mode="normal"] .season,
+:root[data-mode="normal"] .brand .divider { display: none !important; }
+
+/* 左側 */
+:root[data-mode="normal"] .side { background: var(--side); }
+:root[data-mode="normal"] .brand h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; padding-left: 0.08em; }
+:root[data-mode="normal"] .brand h1 span { font-size: 0.5em; letter-spacing: 0.4em; padding-left: 0.4em; font-weight: 500; }
+:root[data-mode="normal"] .search-box { border-radius: 8px; }
+:root[data-mode="normal"] .chapter-link { border-radius: 8px; }
+:root[data-mode="normal"] .chapter-link .en { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+:root[data-mode="normal"] .chapter-link.active { background: var(--mark); border-color: transparent; }
+:root[data-mode="normal"] .chapter-link.active::before { width: 3px; border-radius: 2px; }
+:root[data-mode="normal"] .chapter-link .ja { font-weight: 500; }
+:root[data-mode="normal"] .theme-btn { border-radius: 8px; }
+
+/* 見出し */
+:root[data-mode="normal"] .chapter-head .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+}
+:root[data-mode="normal"] .chapter-head h2 { font-weight: 700; letter-spacing: 0.06em; }
+:root[data-mode="normal"] .chapter-head .rule-line { background: var(--line); }
+:root[data-mode="normal"] .draft { border-radius: 999px; letter-spacing: 0.05em; background: var(--mark); border-color: transparent; }
+:root[data-mode="normal"] .section-title { font-weight: 700; letter-spacing: 0.04em; }
+
+/* カード: 角丸と影。四隅の飾り線は無し */
+:root[data-mode="normal"] .rule {
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+:root[data-mode="normal"] .rule::before,
+:root[data-mode="normal"] .rule::after { display: none; }
+:root[data-mode="normal"] .rule .article { letter-spacing: 0.06em; font-weight: 500; }
+:root[data-mode="normal"] .rule h3 { font-weight: 700; letter-spacing: 0.03em; }
+:root[data-mode="normal"] .jobs span { border-radius: 999px; }
+:root[data-mode="normal"] .seal { border-radius: 999px; letter-spacing: 0.04em; }
+:root[data-mode="normal"] .tool-btn { border-radius: 6px; }
+:root[data-mode="normal"] .ex { border-radius: 8px; }
+:root[data-mode="normal"] .verdict b { font-weight: 700; }
+
+/* 箇条書きの番号: 漢数字ではなく 1. 2. 3. */
+:root[data-mode="normal"] .items li::before { content: counter(item) "."; font-weight: 500; }
+:root[data-mode="normal"] .points li::before {
+    content: counter(pt);
+    font-family: inherit;
+    border: 0;
+    background: var(--gold);
+    color: #fff;
+    font-weight: 700;
+}
+:root[data-mode="normal"] .points li,
+:root[data-mode="normal"] .next-steps a,
+:root[data-mode="normal"] .resume { border-radius: 12px; }
+
+/* 罰則の段階: 漢数字の丸ではなく、番号付きの青い丸 */
+:root[data-mode="normal"] .stages { counter-reset: st; }
+:root[data-mode="normal"] .stages li { counter-increment: st; }
+:root[data-mode="normal"] .stages .dot { font-size: 0; background: var(--gold); border-color: var(--gold); }
+:root[data-mode="normal"] .stages .dot::after { display: none; }
+:root[data-mode="normal"] .stages .dot::before { content: counter(st); font-size: 0.95rem; color: #fff; font-weight: 700; }
+:root[data-mode="normal"] .stages::before { background: var(--line); }
+
+/* 改訂履歴 */
+:root[data-mode="normal"] .chronicle::before { background: var(--line); }
+:root[data-mode="normal"] .chronicle > li::before { background: var(--gold); }
+:root[data-mode="normal"] .chronicle time { font-size: 0.85rem; letter-spacing: 0.06em; font-weight: 500; }
+
+/* 通知 */
+:root[data-mode="normal"] .notify { border-radius: 10px; }
+:root[data-mode="normal"] .notify .n-eyebrow { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+:root[data-mode="normal"] .proclaim .p-eyebrow { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+:root[data-mode="normal"] .proclaim h2 { font-weight: 700; letter-spacing: 0.08em; }
+:root[data-mode="normal"] .tip { border-radius: 10px; }
+
+/* 章を開くときは、めくる・にじむ演出ではなく、軽いフェードだけ */
+:root[data-mode="normal"] .chapter.turn { animation: plainfade 0.35s ease; }
+:root[data-mode="normal"] .chapter.turn .chapter-head,
+:root[data-mode="normal"] .chapter.turn .rule,
+:root[data-mode="normal"] .chapter.turn .chronicle > li,
+:root[data-mode="normal"] .chapter.turn .stages li { animation: none; }
+@keyframes plainfade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+/* 読了の印: 封蝋ではなく、青い丸のチェック */
+:root[data-mode="normal"] .wax { background: var(--gold); color: #fff; opacity: 1; font-size: 0.7rem; }
+:root[data-mode="normal"] .lang-switch { font-family: inherit; letter-spacing: 0.04em; border-radius: 6px; }
+:root[data-mode="normal"] .job-filter select { border-radius: 8px; }
