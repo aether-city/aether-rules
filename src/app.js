@@ -77,6 +77,23 @@ var ASK_URL = "";
             obscuraWarn: "魔法を覆い隠し、普通の書に戻るつもりか？ 本当なら、もう一度唱えよ",
             // 覚醒して魔法モードで開いたときの告知
             awaken: { eyebrow: "Awakening", title: "エーテルが目を覚ました", sub: "この書の、本当の姿が見えるようになった。" },
+            // 最後の禁書庫
+            final: {
+                nav: "最後の禁書庫",
+                title: "最後の禁書庫",
+                lead: "炎の日から閉ざされていた書架。司書が最後まで隠し通した、一冊の物語。",
+                announceTitle: "最後の禁書庫が開いた",
+                announceSub: "炎の日から、ずっと閉ざされていた書架。",
+                owlOpen: "……それは、私がずっと隠してきた物語だ。どうか、最後まで読んでやってくれ。",
+                askTooEarly: "……その名を、どこで聞いた？ 今はまだ、話せぬ。",
+                askShelf: "その名の続きは、第二の書架の封印を解いてからだ。",
+                askSpells: "すべての呪文を知る者にしか、話せぬことがある。",
+                askRiddle: "……空の都の名を、ついに口にしたか。ならば教えよう。\n月が天にある刻 (零時から四時)、手もとの灯と杖の灯、二つの灯をともし、禁書庫の余白に渦を描け。そこに、最後の扉がある。",
+                notHere: "扉は禁書庫の中だ。",
+                notTime: "まだ月の刻ではない。",
+                noLight: "灯が足りぬ。手もとの灯と、杖の灯だ。"
+            },
+            admin: { badge: "管理者表示 (このタブのみ)", exit: "終了", wrong: "合言葉が違います" },
             // ルーン: 本文の余白にマウスで描くと唱えられる呪文
             runes: { candela: "円", scintilla: "三角", glacies: "ジグザグ", aeria: "下から上へまっすぐ" },
             runeLabel: function (shape) { return "ルーン: " + shape; },
@@ -181,6 +198,7 @@ var ASK_URL = "";
                     "夜更けに来てみるといい。夜にしか開かない書架がある。"
                 ],
                 tipsFriend: [
+                    "空の都の名を、いつか私に尋ねてみるといい。……すべてを知ったあとでな。",
                     "オルドと呼んでくれていい。古い友には、そう呼ばれていた。",
                     "規則を守る者は多いが、規則を楽しむ者は少ない。君は後者だ。",
                     "君になら、禁書庫の鍵を預けてもいい気がする。",
@@ -260,6 +278,22 @@ var ASK_URL = "";
             },
             obscuraWarn: "Veil the magic and return to the ordinary book? If you mean it, cast it again",
             awaken: { eyebrow: "Awakening", title: "The Aether has awakened", sub: "You can now see this book as it truly is." },
+            final: {
+                nav: "The Last Archive",
+                title: "The Last Archive",
+                lead: "A shelf sealed since the day of the fire. The one story the librarian kept hidden to the very end.",
+                announceTitle: "The Last Archive is open",
+                announceSub: "A shelf sealed ever since the day of the fire.",
+                owlOpen: "…That is the story I have hidden all this time. Please, read it to the end.",
+                askTooEarly: "…Where did you hear that name? I cannot speak of it yet.",
+                askShelf: "The rest of that name waits until you break the seal of the Second Shelf.",
+                askSpells: "Some things can be told only to one who knows every spell.",
+                askRiddle: "…So you have finally spoken the name of the city in the sky. Then hear this.\nIn the hours when the moon is high (midnight to four), light two lights — the light in your hand and the light of your wand — and draw a spiral in the margins of the Archive. There lies the last door.",
+                notHere: "The door lies within the Archive.",
+                notTime: "It is not yet the moon's hour.",
+                noLight: "Not enough light. The light in your hand, and the light of your wand."
+            },
+            admin: { badge: "Admin view (this tab only)", exit: "Exit", wrong: "Wrong passphrase" },
             runes: { candela: "circle", scintilla: "triangle", glacies: "zigzag", aeria: "a straight line upward" },
             runeLabel: function (shape) { return "Rune: " + shape; },
             mana: { empty: "Not enough mana. Rest a while", label: function (n, max) { return Math.floor(n) + " / " + max; } },
@@ -360,6 +394,7 @@ var ASK_URL = "";
                     "Come late at night. There is a shelf that opens only then."
                 ],
                 tipsFriend: [
+                    "Someday, ask me the name of the city in the sky. …Once you know everything.",
                     "You may call me Ord. My old friends did.",
                     "Many keep the rules; few enjoy them. You are one of the few.",
                     "I feel I could trust you with the keys to the Archive.",
@@ -486,6 +521,313 @@ var ASK_URL = "";
         }
     };
 
+    // 最後の禁書庫の小説「青の残滓」。条件を満たすまで、ページには書き出さない
+    var FINAL_NOVEL = {
+        "ja": {
+            "title": "青の残滓",
+            "chapters": [
+                {
+                    "h": "序章　空が落ちた日",
+                    "ps": [
+                        "その朝、聖堂都市エルスハインの鐘は、いつもより少しだけ早く鳴った。",
+                        "白い石畳を朝の光が洗い、雲海から吹き上がる風が、回廊の旗を静かに揺らしていた。大聖堂の尖塔の頂では、主神アルテリオンの光が、いつもと変わらぬ拍子で脈打っていた。都に生まれた者なら、誰もがその色を知っている。夜明けの空よりもなお澄んだ、淡い青――エーテルの色だった。",
+                        "見習いの少女リュシアは、大聖堂の階段に腰を下ろして、遥か下の地上を眺めていた。雲の切れ間の底に、人間たちの街が小さく光っている。昨日も、一昨日も、都の魔法使いたちは祝福を携えて雲を下り、病を癒やし、枯れた畑に水を呼んだ。地上の人々は彼らを迎え、焼きたてのパンと葡萄酒を差し出した。少なくとも、リュシアはそう聞かされて育った。",
+                        "最初に異変に気づいたのは、鳥たちだった。",
+                        "雲の下から、群れがいっせいに舞い上がった。そのあとを追うように、低い唸りが昇ってきた。風の音でも、雷の音でもない。リュシアが生まれてから一度も耳にしたことのない、規則正しく、冷たい音だった。",
+                        "鉄の翼が、雲を裂いて現れた。",
+                        "そこから先のことを、リュシアはあまり覚えていない。燃え落ちる回廊。祈りの言葉を途中で失った司祭たち。光の盾を広げ、盾ごと吹き飛ばされていった教師の背中。そして――大聖堂の奥深く、主神の座が砕ける音。",
+                        "その瞬間、都じゅうのエーテルが、一度だけ大きく揺らいだ。まるで世界そのものが、息を呑んだかのように。",
+                        "誰かがリュシアの腕を掴み、崩れゆく階段を駆け下りた。燃える空の向こうで、尖塔の青い光が、ゆっくりと、ゆっくりと細くなっていくのが見えた。",
+                        "それが、魔法使いたちが空を失った日だった。"
+                    ]
+                },
+                {
+                    "h": "第一章　街の片隅で",
+                    "ps": [
+                        "本土の港町は、いつも少しだけ騒がしい。",
+                        "ノアがこの街に流れ着いて、三年になる。昼は倉庫で荷を運び、夜は安アパートの窓辺で、遠い高速道路の光の川を眺める。友人と呼べる相手は多くないが、困るほど少なくもない。どこにでもある、ありふれた暮らしだった。",
+                        "ただひとつだけ、誰にも話していないことがある。",
+                        "ときどき、空気が光るのだ。",
+                        "路地の曲がり角に、雨上がりの水たまりの上に、誰もいない駐車場の片隅に。かすかな青い揺らめきが、ふと漂っていることがある。陽炎に似ているのに熱はなく、近づけば溶けるように消えてしまう。物心ついた頃から見えていた。一度だけ母に話したことがある。母は困ったように笑って「疲れているのね」とノアの額に手を当て、それきり、ノアは誰にも言わなくなった。",
+                        "見えているのは自分だけらしい、ということも、とうに分かっていた。",
+                        "その夜、仕事帰りの高架下で、ノアはまた揺らめきを見た。いつもより濃く、いつもより長く、何かを待つように、ひとところに留まっていた。",
+                        "ノアは足を止めた。",
+                        "疲れていたのかもしれないし、退屈していたのかもしれない。理由はどうでもよかった。気づけば足が勝手に、光のほうへ向いていた。",
+                        "近づくと、揺らめきはふっと消えた。",
+                        "そして、数歩先に、また現れた。その先にも、もうひとつ。さらにその先にも。",
+                        "光は、道を描いていた。",
+                        "指先が熱い、とノアは思った。手のひらを返すと、皮膚の下で、細い糸のようなものがかすかに青く脈打っていた。"
+                    ]
+                },
+                {
+                    "h": "第二章　西の島",
+                    "ps": [
+                        "光の道は、街の西のはずれ、朽ちかけた桟橋で途切れていた。",
+                        "夜明け前の海は凪いでいて、すぐ沖に浮かぶ島の影が、手を伸ばせば届きそうなほど近くに見えた。本土から見ればただの小さな島で、地図には「私有地」とだけ記されている。何度も目にしてきたはずなのに、ノアは今朝まで一度も、そこに島があることを気に留めたことがなかった。",
+                        "気に留めないように、させられていたのだ。そう知ったのは、ずっと後のことだった。",
+                        "桟橋の先に、小舟が一艘つながれていた。舳先には、ノアと同じくらいの年頃の若者が、外套のフードを目深にかぶって座っていた。",
+                        "「遅かったな」と若者は言った。「三日前から、毎晩ここで待ってたんだぜ」",
+                        "「……誰を？」",
+                        "「おまえを、だよ。残滓をたどって来るやつは、たいてい明け方に着く」",
+                        "若者はカイと名乗った。学院の案内係だという。学院、という言葉の意味を、ノアはまだ知らなかった。",
+                        "舟が島に近づくにつれ、海の上の空気が、薄い膜のようにたわんだ。冷たい水の中をくぐり抜けるような感触があって――次の瞬間、ノアは息を呑んだ。",
+                        "さっきまでの「私有地」は、どこにもなかった。",
+                        "朝霧の中に、尖塔がいくつも立ち並んでいた。石造りの回廊、硝子張りの温室、小さな天文台。窓という窓に灯りがともり、見たこともない色の旗が潮風にはためいている。",
+                        "「結界だよ」とカイは言った。「外からは、ただの島にしか見えない。見えちゃいけないんだ。……地上の人間には、な」",
+                        "地上の、人間。",
+                        "その言い方が、ノアの胸に小さく引っかかった。まるで、自分たちは人間ではないかのような。",
+                        "カイはそれ以上何も言わず、舟を岸に寄せた。"
+                    ]
+                },
+                {
+                    "h": "第三章　覚醒",
+                    "ps": [
+                        "学院の奥、星の模様が刻まれた小部屋で、ノアは一つの結晶の前に立たされた。",
+                        "拳ほどの大きさの、透きとおった石だった。台座の上で、それはノアが近づいただけで、手のひらの糸と呼び交わすように淡く光った。",
+                        "「触れてごらん」と、白衣の老教師が言った。保健室を預かる先生だと、カイが耳打ちした。「怖がらなくていい。思い出すだけだからね」",
+                        "「思い出す……？」",
+                        "「おまえさんは、生まれたときから魔法使いだったんだよ。ただ、それを知らずに地上で育っただけさ。そういう子は、珍しくない」",
+                        "ノアは、結晶に触れた。",
+                        "世界が、裏返った。",
+                        "音が色になり、色が匂いになり、空気の粒のひとつひとつが光の糸となって見えた。糸は部屋を満たし、窓の外へ、島へ、海へ、空へと伸びていた。そのすべてが、ゆっくりと、大きな何かの鼓動に合わせて流れていた。",
+                        "エーテル。",
+                        "誰に教わったわけでもないのに、ノアはその名を知っていた。",
+                        "糸の流れをたどって、意識が空へと昇っていく。雲の上、はるかな高みに、白い何かが浮かんでいた。崩れかけた尖塔。折れた回廊。かつて都であったものの、骨のような影。",
+                        "その中心に、小さな、とても小さな、青い灯がひとつ。",
+                        "消えかけた蝋燭のように、震えていた。",
+                        "気づくと、ノアは床に膝をついて泣いていた。なぜ泣いているのか、自分でも分からなかった。",
+                        "「見えたかい」と、老教師が静かに言った。「あれが、わたしたちの空だよ」"
+                    ]
+                },
+                {
+                    "h": "第四章　赤い瞳",
+                    "ps": [
+                        "学院での日々は、驚くほどの速さで過ぎていった。",
+                        "ルーンの書き方を習い、杖を選び、寮に振り分けられた。指先でエーテルの糸をつまみ、ルーンの形に結ぶと、そこに小さな炎がともる。初めて火がついた夜、ノアは寮の部屋でひとり、何度も何度も、火をともしては消した。",
+                        "学院には決まりごとが多かった。中でもいちばん厳しく教えられたのは、たったひとつ。",
+                        "――地上の者に、決して悟られるな。",
+                        "街へ出るときは、魔法を使わない。杖を見せない。青い残滓を見かけても、立ち止まらない。理由を尋ねると、上級生たちは皆、少しだけ目を伏せた。",
+                        "その理由の一端を、ノアはある雨の夜に知ることになる。",
+                        "回廊の向こうから、風紀委員たちが誰かを連れて歩いてきた。両手を光の枷で縛られた、ノアより少し年上の青年だった。すれ違いざま、青年がふと顔を上げた。",
+                        "その瞳は、血のように赤かった。",
+                        "ぞっとするほど深い赤だった。ルーンの光とも、炎の色とも違う。濁った水の底で、何かが燃え残っているような色。",
+                        "「呪いを重ねすぎたんだ」と、隣のカイが低く言った。「腹の立つ相手に、ひとつ。次は、もう少し強いのを。そうやって少しずつエーテルを汚していくと、ある日、戻れなくなる。……ああなったら、地下行きだ」",
+                        "青年は、地下へと続く階段の暗がりへ消えていった。最後まで、一言も発さなかった。",
+                        "その夜、ノアは指先にともした炎を、いつまでも見つめていた。青く澄んだ、小さな炎だった。この色だけは失いたくない、と思った。"
+                    ]
+                },
+                {
+                    "h": "第五章　灰色の男",
+                    "ps": [
+                        "秋の初め、ノアは学院の使いで本土へ渡った。",
+                        "港の市場で薬草を受け取るだけの、簡単な用事だった。帰りの桟橋へ向かう途中、ノアは背中に視線を感じた。",
+                        "振り返ると、灰色の外套を着た男が、少し離れたベンチに腰かけていた。新聞を広げてはいるが、読んではいない。その手元で、小さな金属の箱が、かすかに針を震わせていた。",
+                        "針は、まっすぐにノアを指していた。",
+                        "ノアは歩調を変えずに通り過ぎようとした。男は新聞を畳み、独り言のように呟いた。",
+                        "「この街には、ときどき空気が光る場所がある。……君にも見えるんだろう？」",
+                        "ノアは答えなかった。止まりそうになる足を、必死に前へ運んだ。",
+                        "「心配しなくていい。捕まえようってわけじゃないさ」男は箱を懐にしまった。「ただ、ひとつだけ訊きたくてね。……君たちは、あの日のことを、本当に知っているのか？」",
+                        "「あの日？」",
+                        "思わず訊き返していた。男は少しだけ笑った。ひどく疲れた笑い方だった。",
+                        "「空の都が落ちた日のことさ。君たちの側では、どう語られている？ 人間が恐れて、人間が襲った。……それだけか？」",
+                        "男は立ち上がり、人波の中へ歩き去っていった。追いかけることは、できなかった。カイの声が、頭の中で繰り返し響いていた。決して悟られるな。",
+                        "桟橋で舟を待つあいだ、ノアの手のひらは、ずっと冷たいままだった。",
+                        "あの男は、いったい何を知っているのだろう。"
+                    ]
+                },
+                {
+                    "h": "第六章　大儀式",
+                    "ps": [
+                        "冬至の夜、学院の大広間で、大儀式が執り行われた。",
+                        "学徒たちは一年かけて集めたエーテルを小さな硝子の器に満たし、祭壇の前に並んだ。器の中で、青い光が静かに揺れていた。ノアの器も、その列の中にあった。",
+                        "学院長が祈りの言葉を唱え、学徒たちは一人ずつ、器を祭壇へと傾けていった。光は祭壇の上でひとつに集まり、細い柱となって、天井の高窓から夜空へ昇っていく。",
+                        "雲の上の、あの白い影のほうへ。",
+                        "光の柱を見上げていると、すぐ後ろで、上級生たちが小声で言葉を交わした。",
+                        "「去年より、細いな」",
+                        "「毎年、少しずつな」",
+                        "祭壇の光が細いのか、それとも空の灯が弱っているのか。はっきりと口にする者は、誰もいなかった。",
+                        "儀式が終わり、学徒たちが広間を後にする中で、ノアは回廊の暗がりから、もうひとつの声を聞いた。若い声だった。",
+                        "「いつまで、こうやって隠れてるつもりなんだ」",
+                        "「声が大きい」",
+                        "「祈って、捧げて、怯えて。そのあいだに、神さまはどんどん弱っていく。あいつらは今も、俺たちを探してるんだぞ。……奪われたものは、取り返すべきだ」",
+                        "声の主たちはノアに気づくと、すっと闇に溶けるように去っていった。",
+                        "ノアはひとり、回廊の窓から空を見上げた。",
+                        "雲の切れ間に、一瞬だけ、白い影が見えた気がした。崩れた尖塔の上で、小さな青い灯が、それでもまだ、消えずに揺れていた。"
+                    ]
+                },
+                {
+                    "h": "終章　問い",
+                    "ps": [
+                        "その夜、ノアは眠れなかった。",
+                        "人間は、魔法使いを恐れて都を落とした――学院では、そう教わった。けれど、灰色の男の言葉が、耳の奥から離れなかった。",
+                        "――それだけか？",
+                        "指先に、小さな炎をともす。青く澄んだ炎の中に、答えは映らなかった。",
+                        "窓の外では、海の向こうの本土の灯が、夜明けまで静かにまたたいていた。そこには、魔法を知らない人々が眠っている。魔法使いを探し続ける人々もいる。そしてたぶん、あの日の本当のことを知っている誰かも。",
+                        "ノアは炎を消し、そっと目を閉じた。",
+                        "明日もまた、ルーンを学ぼう。いつか、この目で確かめに行くために。",
+                        "雲の上の都で、あの日、本当は何が起きたのかを。"
+                    ]
+                }
+            ]
+        },
+        "en": {
+            "title": "Blue Remnants",
+            "chapters": [
+                {
+                    "h": "Prologue: The Day the Sky Fell",
+                    "ps": [
+                        "That morning, the bells of Elsheim, the Cathedral City, rang a little earlier than usual.",
+                        "Morning light washed the white flagstones, and the wind rising from the sea of clouds stirred the banners along the colonnades. At the summit of the cathedral spire, the light of the High God Arterion pulsed at its unchanging pace. Anyone born in the city knew its color: a pale blue, clearer even than the dawn sky — the color of Aether.",
+                        "Lucia, a young apprentice, sat on the cathedral steps and gazed down at the earth far below. Through a gap in the clouds, the towns of humankind glimmered small and distant. Yesterday, and the day before, the mages of the city had descended through the clouds bearing blessings, healing the sick and calling water to withered fields. The people below had welcomed them with fresh bread and wine. At least, that was what Lucia had been told all her life.",
+                        "The birds were the first to notice.",
+                        "A flock burst upward from beneath the clouds all at once. Following after it came a low drone — not the wind, not thunder, but a sound Lucia had never heard in her life: steady, regular, and cold.",
+                        "Iron wings tore through the clouds.",
+                        "Lucia remembered little of what came after. Colonnades collapsing in flame. Priests who lost their prayers halfway through. The back of a teacher who spread a shield of light and was flung away, shield and all. And then — deep within the cathedral — the sound of the god's seat shattering.",
+                        "In that moment, all the Aether in the city shuddered once, violently, as if the world itself had caught its breath.",
+                        "Someone seized Lucia's arm and ran with her down the crumbling stairs. Beyond the burning sky, she watched the blue light of the spire grow thin — slowly, so slowly.",
+                        "That was the day the mages lost their sky."
+                    ]
+                },
+                {
+                    "h": "Chapter One: A Corner of the City",
+                    "ps": [
+                        "The harbor town on the mainland was always a little noisy.",
+                        "Three years had passed since Noah drifted into this city. By day, hauling crates at a warehouse; by night, watching the distant river of highway lights from the window of a cheap apartment. Not many people Noah could call friends, but not so few as to be a problem. An ordinary life, like any other.",
+                        "There was only one thing Noah had never told anyone.",
+                        "Sometimes, the air glowed.",
+                        "At the bend of an alley, above a puddle after rain, in the corner of an empty parking lot — a faint blue shimmer would sometimes drift there. Like a heat haze, but with no heat, and it melted away whenever Noah came close. It had been there for as long as Noah could remember. Once, Noah had told their mother. She had smiled, troubled, laid a hand on Noah's forehead and said, \"You must be tired.\" After that, Noah never told anyone again.",
+                        "Noah had long since understood that no one else could see it.",
+                        "That night, beneath an overpass on the way home from work, Noah saw the shimmer again. Thicker than usual, lasting longer than usual, lingering in one place as if it were waiting for something.",
+                        "Noah stopped.",
+                        "Maybe it was tiredness. Maybe boredom. The reason didn't matter. Before Noah knew it, their feet were moving toward the light.",
+                        "As Noah drew near, the shimmer winked out.",
+                        "Then it appeared again, a few steps ahead. And another beyond that. And another beyond that.",
+                        "The light was drawing a path.",
+                        "My fingertips are hot, Noah thought. Turning a palm upward, Noah saw something like fine threads pulsing faintly blue beneath the skin."
+                    ]
+                },
+                {
+                    "h": "Chapter Two: The Western Isle",
+                    "ps": [
+                        "The path of light ended at a rotting pier on the western edge of the city.",
+                        "The sea before dawn lay calm, and the shadow of an island just offshore looked close enough to touch. From the mainland it was only a small island, marked on maps simply as \"private property.\" Noah must have seen it countless times, yet until this morning had never once given it a thought.",
+                        "Noah had been made not to give it a thought. That, Noah would learn much later.",
+                        "A small boat was moored at the end of the pier. At its bow sat a young person about Noah's age, the hood of a cloak pulled low.",
+                        "\"You're late,\" they said. \"I've been waiting here every night for three days.\"",
+                        "\"…Waiting for who?\"",
+                        "\"For you. The ones who follow the remnants usually show up around dawn.\"",
+                        "The young person's name was Kai, a guide from the Academy. Noah did not yet know what the word Academy meant.",
+                        "As the boat neared the island, the air above the sea bent like a thin membrane. There was a sensation like passing through cold water — and in the next moment, Noah's breath caught.",
+                        "The \"private property\" of a moment ago was gone.",
+                        "Spires stood in rows within the morning mist. Stone colonnades, glass greenhouses, a small observatory. Light burned in every window, and banners of colors Noah had never seen snapped in the sea breeze.",
+                        "\"It's a barrier,\" said Kai. \"From outside, it just looks like an island. It can't be seen. …Not by the humans on the ground, anyway.\"",
+                        "The humans on the ground.",
+                        "The phrase caught softly in Noah's chest. As if they themselves were not human.",
+                        "Kai said nothing more, and brought the boat to shore."
+                    ]
+                },
+                {
+                    "h": "Chapter Three: Awakening",
+                    "ps": [
+                        "Deep within the Academy, in a small room carved with patterns of stars, Noah was made to stand before a crystal.",
+                        "It was a clear stone about the size of a fist. Resting on its pedestal, it glowed faintly the moment Noah drew near, as if answering the threads in Noah's palm.",
+                        "\"Go on, touch it,\" said an old teacher in a white coat — the one who kept the infirmary, Kai whispered. \"No need to be afraid. You're only remembering.\"",
+                        "\"Remembering…?\"",
+                        "\"You've been a mage since the day you were born. You just grew up on the ground without knowing it. Children like you aren't so rare.\"",
+                        "Noah touched the crystal.",
+                        "The world turned inside out.",
+                        "Sound became color, color became scent, and every mote of air became a thread of light. The threads filled the room and stretched out the window, to the island, to the sea, to the sky. All of them flowed slowly, in time with the heartbeat of something vast.",
+                        "Aether.",
+                        "No one had taught Noah the name, and yet Noah knew it.",
+                        "Following the flow of threads, Noah's awareness rose into the sky. Above the clouds, far, far above, something white was floating. Crumbling spires. Broken colonnades. The bone-like shadow of what had once been a city.",
+                        "And at its center, a single blue light — small, so very small.",
+                        "Trembling, like a candle about to go out.",
+                        "When Noah came to, they were on their knees on the floor, weeping, without knowing why.",
+                        "\"You saw it, didn't you,\" the old teacher said quietly. \"That is our sky.\""
+                    ]
+                },
+                {
+                    "h": "Chapter Four: Red Eyes",
+                    "ps": [
+                        "The days at the Academy passed with astonishing speed.",
+                        "Noah learned to write runes, chose a wand, and was sorted into a house. Pinching a thread of Aether between the fingertips and tying it into the shape of a rune made a small flame appear. The first night a flame took, Noah sat alone in the dormitory, lighting it and putting it out again and again.",
+                        "The Academy had many rules. The one taught most strictly of all was only this:",
+                        "— Never let those on the ground notice you.",
+                        "When going into the city, use no magic. Show no wand. Even if you see the blue remnants, do not stop. When Noah asked why, the older students all lowered their eyes a little.",
+                        "Noah would learn part of the reason one rainy night.",
+                        "Prefects came walking down the colonnade, escorting someone — a young man a little older than Noah, his hands bound in shackles of light. As they passed, he suddenly looked up.",
+                        "His eyes were red as blood.",
+                        "A red so deep it made Noah's skin crawl. Not the light of runes, not the color of fire. A color like something still burning at the bottom of murky water.",
+                        "\"He stacked up too many curses,\" Kai said quietly beside Noah. \"One on someone who made him angry. Then a slightly stronger one. Keep fouling your Aether a little at a time, and one day you can't go back. …Once you're like that, it's the cells below.\"",
+                        "The young man vanished into the darkness of the stairway leading underground. He never said a word.",
+                        "That night, Noah stared for a long time at the flame on their fingertip. A small flame, clear and blue. This color, at least, I never want to lose, Noah thought."
+                    ]
+                },
+                {
+                    "h": "Chapter Five: The Man in Gray",
+                    "ps": [
+                        "In early autumn, Noah crossed to the mainland on an errand for the Academy.",
+                        "A simple task: pick up herbs at the harbor market. On the way back to the pier, Noah felt eyes on their back.",
+                        "Turning, Noah saw a man in a gray coat sitting on a bench a short distance away. He held a newspaper open but was not reading it. In his hand, a small metal box trembled, its needle quivering.",
+                        "The needle pointed straight at Noah.",
+                        "Noah tried to walk past without changing pace. The man folded his newspaper and murmured, as if to himself:",
+                        "\"In this city, there are places where the air sometimes glows. …You can see them too, can't you?\"",
+                        "Noah did not answer, forcing their feet forward though they wanted to stop.",
+                        "\"Don't worry. I'm not here to catch anyone.\" The man slipped the box into his coat. \"I just want to ask one thing. …Do your people really know what happened that day?\"",
+                        "\"That day?\"",
+                        "Noah had asked before thinking. The man smiled a little — a terribly tired smile.",
+                        "\"The day the city in the sky fell. How is it told on your side? Humans were afraid, and humans attacked. …Is that all?\"",
+                        "The man stood and walked off into the crowd. Noah could not follow. Kai's voice echoed again and again: never let them notice you.",
+                        "While waiting for the boat at the pier, Noah's palms stayed cold the whole time.",
+                        "What did that man know?"
+                    ]
+                },
+                {
+                    "h": "Chapter Six: The Great Rite",
+                    "ps": [
+                        "On the night of the winter solstice, the Great Rite was held in the Academy's great hall.",
+                        "The students filled small glass vessels with the Aether they had gathered over the year and lined up before the altar. Inside each vessel, blue light rocked gently. Noah's vessel was among them.",
+                        "The headmaster spoke the prayer, and one by one the students tipped their vessels toward the altar. Above it the light gathered into one, rising as a slender pillar through the high windows into the night sky.",
+                        "Toward that white shadow above the clouds.",
+                        "As Noah looked up at the pillar of light, older students murmured just behind.",
+                        "\"Thinner than last year.\"",
+                        "\"A little more every year.\"",
+                        "Was the altar's light growing thin, or was the light in the sky growing weak? No one said it outright.",
+                        "When the rite ended and the students left the hall, Noah heard another voice from the dark of the colonnade. A young voice.",
+                        "\"How long are we going to keep hiding like this?\"",
+                        "\"Keep your voice down.\"",
+                        "\"We pray, we offer, we cower. And all the while, the god keeps getting weaker. They're still looking for us, you know. …What was taken should be taken back.\"",
+                        "Noticing Noah, the speakers slipped away, melting into the dark.",
+                        "Alone, Noah looked up at the sky from the colonnade window.",
+                        "For a moment, through a gap in the clouds, Noah thought they saw the white shadow. Above the crumbling spire, a small blue light still flickered — and still, it did not go out."
+                    ]
+                },
+                {
+                    "h": "Epilogue: The Question",
+                    "ps": [
+                        "That night, Noah could not sleep.",
+                        "Humans feared the mages and brought down their city — that was what the Academy taught. But the man in gray's words would not leave Noah's ears.",
+                        "— Is that all?",
+                        "Noah lit a small flame on a fingertip. No answer appeared in the clear blue fire.",
+                        "Beyond the window, the lights of the mainland across the sea twinkled quietly until dawn. There, people who knew nothing of magic were sleeping. There were also people still searching for mages. And, perhaps, someone who knew the truth of that day.",
+                        "Noah put out the flame and gently closed their eyes.",
+                        "Tomorrow, I'll study runes again. So that someday I can go and see for myself.",
+                        "What truly happened that day, in the city above the clouds."
+                    ]
+                }
+            ]
+        }
+    };
+
+    // ===== 管理者の確認用の表示 =====
+    // URL に ?admin=合言葉 を付けて開くと、そのタブだけ「管理者表示」になり、
+    // 禁書庫・第二の書架・夜の書架・最後の禁書庫を条件なしで見られる (参加者としての記録は書き換えない)。
+    // 合言葉はここには書かず、SHA-256 のハッシュ値だけを置く。合言葉を変えるときは、次で出した値に置き換える:
+    //   node -e "console.log(require('crypto').createHash('sha256').update('新しい合言葉').digest('hex'))"
+    var ADMIN_HASH = "ebceaf1f9b39a60982e7c8c0b21aee1691761cf0744c511d708c49f2f2cdbafc";
+    var ADMIN = false;
+    try { ADMIN = sessionStorage.getItem("rules-admin") === "1"; } catch (e) {}
+
     // ===== 表示モード =====
     //   magic  … 魔法の世界の規則 (魔法の職業・呪文・禁書庫などの仕掛けがすべて出る)
     //   normal … 魔法を知らない人向けの通常の規則 (ふつうの職業。魔法の言葉や仕掛けは一切出ない)
@@ -493,6 +835,7 @@ var ASK_URL = "";
     // 今は URL の ?mode=normal / ?mode=magic で切り替え、選んだモードはこのブラウザに記憶する (指定がなければ魔法)。
     // (ゲームからの切り替え方法は今後決める。ここで MODE を決めれば、あとはすべてそれに従う)
     var MODE = (function () {
+        if (ADMIN) return "magic"; // 管理者表示は、いつも魔法モード
         var asked = new URLSearchParams(location.search).get("mode");
         // #jobs?mode=normal のように # の後ろに書かれていても受け付ける (受け付けたら # からは消す)
         var inHash = /[?&]mode=(normal|magic)/.exec(location.hash);
@@ -556,6 +899,26 @@ var ASK_URL = "";
             b.innerHTML = KEY_SVG;
             host.appendChild(b);
         });
+
+        // 最後の禁書庫: 左の章の項目と、本文の章の入れ物だけを作っておく (中身は開いたときに書き出す)
+        var archiveNavEl = document.getElementById("archive-nav");
+        var archiveSec = document.getElementById("archive");
+        if (archiveNavEl && archiveSec) {
+            var nav = document.createElement("div");
+            nav.id = "final-nav";
+            nav.hidden = true;
+            nav.innerHTML = '<a class="chapter-link final-link" href="#final" data-chapter="final"><span class="en">The Last Archive</span><span class="ja"></span></a>';
+            nav.querySelector(".ja").textContent = TEXT.final.nav;
+            nav.querySelector(".ja").appendChild(Object.assign(document.createElement("span"), { className: "count" }));
+            archiveNavEl.parentNode.insertBefore(nav, archiveNavEl.nextSibling);
+            var sec2 = document.createElement("section");
+            sec2.className = "chapter";
+            sec2.id = "final";
+            sec2.innerHTML = '<div class="chapter-head"><p class="eyebrow">The Last Archive</p><h2></h2><p class="lead"></p><div class="rule-line"></div></div><div class="novel" id="final-novel"></div>';
+            sec2.querySelector("h2").textContent = TEXT.final.title;
+            sec2.querySelector(".lead").textContent = TEXT.final.lead;
+            archiveSec.parentNode.insertBefore(sec2, archiveSec.nextSibling);
+        }
     })();
 
     var MARK_DAYS = 30; // 「新」「改」の印を付けておく日数
@@ -918,6 +1281,7 @@ var ASK_URL = "";
         var target = id && document.getElementById(id);
         var chapter = target && (target.classList.contains("chapter") ? target : target.closest(".chapter"));
         if (!chapter) { target = null; chapter = document.getElementById("start"); }
+        if (chapter.id === "final" && !finalOpen()) { target = null; chapter = document.getElementById("start"); }
 
         // 職業の絞り込みで隠れている規則を開こうとしたときは、絞り込みを外す
         if (target && target.closest("#jobs") && target.classList.contains("rule") && jobSelect.value) {
@@ -1791,6 +2155,8 @@ var ASK_URL = "";
         if (closed && corners >= 3 && totalTurn > 9.5) return "star";
         if (closed && corners >= 2 && corners <= 4) return "triangle";
         if (closed && corners <= 1 && totalTurn > 4.5 && w > 0.4 * h && h > 0.4 * w) return "circle";
+        // 渦: 閉じずに、角を作らず、ぐるぐると 1 周半以上まわる
+        if (!closed && corners <= 2 && totalTurn > 9) return "spiral";
         if (!closed && corners >= 3) return "zigzag";
         return null;
     }
@@ -1825,6 +2191,7 @@ var ASK_URL = "";
             runePts = null;
             runeFade = setTimeout(fade, 30);
         })();
+        if (shape === "spiral") { tryFinal(); return; }
         if (shape === "star") { drawStar(); return; }
         if (shape && performSpell(RUNE_SPELL[shape], "")) {
             befriend(2, "rune", 60000);
@@ -1861,7 +2228,7 @@ var ASK_URL = "";
     var passcodeHeard = !!load("rules-passcode");
     function keyCount() { return Object.keys(keysFound).length; }
     function keysAwake() { return passcodeHeard; }
-    function shelfOpen() { return keyCount() >= KEY_TOTAL && sealBroken; }
+    function shelfOpen() { return ADMIN || (keyCount() >= KEY_TOTAL && sealBroken); }
     function drawKeys() {
         root.classList.toggle("keys-awake", keysAwake());
         document.querySelectorAll(".hidden-key").forEach(function (k) {
@@ -2060,6 +2427,7 @@ var ASK_URL = "";
     function answer(query) {
         askAnswer.innerHTML = "";
         if (!query.trim()) return;
+        if (FINAL_NAMES.indexOf(compact(query)) !== -1) { askAnswer.appendChild(document.createTextNode(elsheimReply())); return; }
         var best = data
             .map(function (d) { return { d: d, s: score(query, d) }; })
             .filter(function (x) { return x.s >= 0.5; })
@@ -2090,9 +2458,9 @@ var ASK_URL = "";
     function isMidnight() { var h = new Date().getHours(); return h >= 0 && h < 4; }
     function updateNight() {
         if (!nightShelf) return;
-        var show = archiveOpen && isMidnight();
+        var show = archiveOpen && (isMidnight() || ADMIN);
         nightShelf.hidden = !show;
-        if (!show) return;
+        if (!show || ADMIN) return;
         // その夜に初めて現れたときだけ告知する (日付で覚える)
         var night = new Date().toDateString();
         if (load("rules-night") === night) return;
@@ -2195,7 +2563,7 @@ var ASK_URL = "";
 
         // 禁書庫: すべて読み終えると左に扉が現れ、中身が読めるようになる (魔法モードだけ)
         if (MODE !== "magic" || !archiveNav) return;
-        var open = readable.length > 0 && done === readable.length;
+        var open = ADMIN || (readable.length > 0 && done === readable.length);
         var opening = open && !archiveOpen && progressReady; // 読んでいる最中に開いた瞬間
         archiveOpen = open;
         archiveNav.hidden = !open;
@@ -2308,6 +2676,97 @@ var ASK_URL = "";
             document.body.appendChild(v);
             v.addEventListener("animationend", function () { v.remove(); });
         }
+    })();
+
+    // ---------- 最後の禁書庫 ----------
+    // たどり着くには、次のすべてが必要 (管理者表示では条件なしで開く):
+    //   1. 第二の書架の封印を解いている   2. すべての呪文を見つけている   3. フクロウの親しさが最高 (名を明かしている)
+    //   4. フクロウに空の都の名 (エルスハイン) を尋ね、謎かけを聞く
+    //   5. 謎かけのとおり、0〜4 時に、カンデラの灯とヴィルガの杖をともし、禁書庫の余白に渦のルーンを描く
+    var FINAL_NAMES = ["えるすはいん", "elsheim"];
+    function finalOpen() { return ADMIN || load("rules-final") === "1"; }
+
+    function elsheimReply() {
+        if (owlLevel() < 3) return TEXT.final.askTooEarly;
+        if (!shelfOpen()) return TEXT.final.askShelf;
+        if (knownCount() < SPELLS.length) return TEXT.final.askSpells;
+        save("rules-final-riddle", "1");
+        return TEXT.final.askRiddle.replace(/\n/g, " ");
+    }
+
+    function renderNovel() {
+        var box = document.getElementById("final-novel");
+        if (!box || box.childNodes.length) return;
+        var book = FINAL_NOVEL[LANG];
+        box.appendChild(el("h2", "novel-title", book.title));
+        book.chapters.forEach(function (ch) {
+            box.appendChild(el("h3", null, ch.h));
+            ch.ps.forEach(function (t) { box.appendChild(el("p", null, t)); });
+        });
+    }
+    function showFinal(appear) {
+        var nav = document.getElementById("final-nav");
+        if (!nav) return;
+        renderNovel();
+        nav.hidden = false;
+        if (appear) {
+            var link = nav.querySelector(".chapter-link");
+            link.classList.add("appear");
+        }
+    }
+
+    function tryFinal() {
+        if (finalOpen() || !load("rules-final-riddle")) return; // 謎かけを聞いていなければ、何も起きない
+        if (current !== "archive") { owlSay(TEXT.final.notHere, true); return; }
+        if (!isMidnight()) { owlSay(TEXT.final.notTime, true); return; }
+        if (!(candle.classList.contains("lit") && wandOn)) { owlSay(TEXT.final.noLight, true); return; }
+        save("rules-final", "1");
+        befriend(5, "final");
+        var f = el("div", "flash");
+        document.body.appendChild(f);
+        setTimeout(function () { f.remove(); }, 1900);
+        showFinal(true);
+        setTimeout(function () {
+            announce({ eyebrow: "The Last Archive", title: TEXT.final.announceTitle, sub: TEXT.final.announceSub, ms: 7000 });
+            owlSay(TEXT.final.owlOpen, true);
+        }, 1200);
+        setTimeout(function () { location.hash = "#final"; }, 5000);
+    }
+    if (MODE === "magic" && finalOpen()) showFinal(false);
+
+    // ---------- 管理者表示の入口と札 ----------
+    (function () {
+        var asked = new URLSearchParams(location.search).get("admin");
+        if (asked != null) {
+            // 合言葉を URL や履歴に残さないよう、確かめたらすぐ取り除いて読み込み直す
+            var u = new URL(location.href);
+            u.searchParams.delete("admin");
+            var digest = window.crypto && crypto.subtle
+                ? crypto.subtle.digest("SHA-256", new TextEncoder().encode(asked))
+                : Promise.reject();
+            digest.then(function (buf) {
+                var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+                if (hex !== ADMIN_HASH) throw new Error("wrong");
+                try { sessionStorage.setItem("rules-admin", "1"); } catch (e) {}
+                try { history.replaceState(null, "", u.toString()); } catch (e) {}
+                location.reload();
+            }).catch(function () {
+                try { history.replaceState(null, "", u.toString()); } catch (e) {}
+                showToast(TEXT.admin.wrong);
+            });
+            return;
+        }
+        if (!ADMIN) return;
+        var badge = el("div", "admin-badge");
+        badge.appendChild(el("span", null, TEXT.admin.badge));
+        var exit = el("button", null, TEXT.admin.exit);
+        exit.type = "button";
+        exit.addEventListener("click", function () {
+            try { sessionStorage.removeItem("rules-admin"); } catch (e) {}
+            location.reload();
+        });
+        badge.appendChild(exit);
+        document.body.appendChild(badge);
     })();
 
     // ---------- 最初の表示 ----------
