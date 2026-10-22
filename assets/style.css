@@ -1891,14 +1891,12 @@ mark {
     color: var(--gold);
     font-size: 0.8rem;
 }
-/* 本文は紙の面に載せ、背景の魔法陣や飾りが透けないようにする */
+/* 本文は背景の魔法陣の上にそのまま置く。線が重なっても読めるよう、文字の後ろだけ背景色でにじませる */
 .novel {
-    max-width: 680px;
+    max-width: 640px;
     margin: 0 auto;
-    padding: 56px 64px 72px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    padding: 8px 0 72px;
+    text-shadow: 0 0 6px var(--bg), 0 0 14px var(--bg);
     font-size: 1.02rem;
     line-height: 2.05;
     letter-spacing: 0.03em;
@@ -1944,12 +1942,38 @@ mark {
 .novel p + p { margin-top: 0.85em; }
 /* 会話や独白の行は一字下げしない */
 .novel p.line { text-indent: 0; }
+
+/* 抑揚: 山場の一文は大きく、中央に。前後を広めに空ける */
+.novel p.big {
+    text-indent: 0;
+    text-align: center;
+    font-size: 1.32em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.8;
+    margin: 1.5em 0;
+}
+.novel p.big + p { margin-top: 1.5em; }
+/* 色: 金 = 名前、青 = エーテルや光、赤 = 堕落や報復 */
+.novel .tone-g { color: var(--gold); }
+.novel .tone-b {
+    color: #3f6dc2;
+    text-shadow: 0 0 6px var(--bg), 0 0 12px rgba(80, 140, 230, 0.25);
+}
+.novel .tone-r { color: #a3372d; }
+:root[data-theme="dark"] .novel .tone-b { color: #9cc0f2; text-shadow: 0 0 6px var(--bg), 0 0 14px rgba(110, 165, 245, 0.45); }
+:root[data-theme="dark"] .novel .tone-r { color: #e07a6e; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .novel .tone-b { color: #9cc0f2; text-shadow: 0 0 6px var(--bg), 0 0 14px rgba(110, 165, 245, 0.45); }
+    :root:not([data-theme="light"]) .novel .tone-r { color: #e07a6e; }
+}
+:lang(en) .novel p.big { font-size: 1.25em; letter-spacing: 0.04em; font-style: italic; font-weight: 500; }
 :lang(en) .novel { font-size: 1.05rem; line-height: 1.85; letter-spacing: 0.01em; text-align: left; }
 :lang(en) .novel p { text-indent: 1.4em; }
 :lang(en) .novel p.line { text-indent: 1.4em; }
 :lang(en) .novel .novel-title { letter-spacing: 0.15em; padding-left: 0.15em; }
 @media (max-width: 900px) {
-    .novel { padding: 36px 22px 48px; font-size: 0.98rem; line-height: 2; letter-spacing: 0.02em; }
+    .novel { padding: 8px 0 48px; font-size: 0.98rem; line-height: 2; letter-spacing: 0.02em; }
     .novel .novel-title { font-size: 1.4rem; letter-spacing: 0.25em; padding-left: 0.25em; }
     .novel h3 { margin: 56px 0 26px; letter-spacing: 0.1em; }
 }

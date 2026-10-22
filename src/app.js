@@ -522,6 +522,7 @@ var ASK_URL = "";
     };
 
     // 最後の書架の小説「青の残滓」。条件を満たすまで、ページには書き出さない
+    // 抑揚の印: 段落の頭の "!!" = 大きく中央寄せ / {g|…} 金 (名前) / {b|…} 青 (エーテル・光) / {r|…} 赤 (堕落・報復)
     var FINAL_NOVEL = {
         "ja": {
             "title": "青の残滓",
@@ -529,16 +530,16 @@ var ASK_URL = "";
                 {
                     "h": "序章　空が落ちた日",
                     "ps": [
-                        "その朝、聖堂都市エルスハインの鐘は、いつもより少しだけ早く鳴った。",
-                        "白い石畳を朝の光が洗い、雲海から吹き上がる風が、回廊の旗を静かに揺らしていた。大聖堂の尖塔の頂では、主神アルテリオンの光が、いつもと変わらぬ拍子で脈打っていた。都に生まれた者なら、誰もがその色を知っている。夜明けの空よりもなお澄んだ、淡い青――エーテルの色だった。",
+                        "その朝、{g|聖堂都市エルスハイン}の鐘は、いつもより少しだけ早く鳴った。",
+                        "白い石畳を朝の光が洗い、雲海から吹き上がる風が、回廊の旗を静かに揺らしていた。大聖堂の尖塔の頂では、{g|主神アルテリオン}の光が、いつもと変わらぬ拍子で脈打っていた。都に生まれた者なら、誰もがその色を知っている。夜明けの空よりもなお澄んだ、{b|淡い青――エーテルの色}だった。",
                         "見習いの少女リュシアは、大聖堂の階段に腰を下ろして、遥か下の地上を眺めていた。雲の切れ間の底に、人間たちの街が小さく光っている。昨日も、一昨日も、都の魔法使いたちは祝福を携えて雲を下り、病を癒やし、枯れた畑に水を呼んだ。地上の人々は彼らを迎え、焼きたてのパンと葡萄酒を差し出した。少なくとも、リュシアはそう聞かされて育った。",
                         "最初に異変に気づいたのは、鳥たちだった。",
                         "雲の下から、群れがいっせいに舞い上がった。そのあとを追うように、低い唸りが昇ってきた。風の音でも、雷の音でもない。リュシアが生まれてから一度も耳にしたことのない、規則正しく、冷たい音だった。",
-                        "鉄の翼が、雲を裂いて現れた。",
-                        "そこから先のことを、リュシアはあまり覚えていない。燃え落ちる回廊。祈りの言葉を途中で失った司祭たち。光の盾を広げ、盾ごと吹き飛ばされていった教師の背中。そして――大聖堂の奥深く、主神の座が砕ける音。",
+                        "!!鉄の翼が、雲を裂いて現れた。",
+                        "そこから先のことを、リュシアはあまり覚えていない。燃え落ちる回廊。祈りの言葉を途中で失った司祭たち。光の盾を広げ、盾ごと吹き飛ばされていった教師の背中。そして――大聖堂の奥深く、{r|主神の座が砕ける音}。",
                         "その瞬間、都じゅうのエーテルが、一度だけ大きく揺らいだ。まるで世界そのものが、息を呑んだかのように。",
-                        "誰かがリュシアの腕を掴み、崩れゆく階段を駆け下りた。燃える空の向こうで、尖塔の青い光が、ゆっくりと、ゆっくりと細くなっていくのが見えた。",
-                        "それが、魔法使いたちが空を失った日だった。"
+                        "誰かがリュシアの腕を掴み、崩れゆく階段を駆け下りた。燃える空の向こうで、尖塔の{b|青い光}が、ゆっくりと、ゆっくりと細くなっていくのが見えた。",
+                        "!!それが、魔法使いたちが空を失った日だった。"
                     ]
                 },
                 {
@@ -547,16 +548,16 @@ var ASK_URL = "";
                         "本土の港町は、いつも少しだけ騒がしい。",
                         "ノアがこの街に流れ着いて、三年になる。昼は倉庫で荷を運び、夜は安アパートの窓辺で、遠い高速道路の光の川を眺める。友人と呼べる相手は多くないが、困るほど少なくもない。どこにでもある、ありふれた暮らしだった。",
                         "ただひとつだけ、誰にも話していないことがある。",
-                        "ときどき、空気が光るのだ。",
-                        "路地の曲がり角に、雨上がりの水たまりの上に、誰もいない駐車場の片隅に。かすかな青い揺らめきが、ふと漂っていることがある。陽炎に似ているのに熱はなく、近づけば溶けるように消えてしまう。物心ついた頃から見えていた。一度だけ母に話したことがある。母は困ったように笑って「疲れているのね」とノアの額に手を当て、それきり、ノアは誰にも言わなくなった。",
+                        "!!ときどき、空気が光るのだ。",
+                        "路地の曲がり角に、雨上がりの水たまりの上に、誰もいない駐車場の片隅に。{b|かすかな青い揺らめき}が、ふと漂っていることがある。陽炎に似ているのに熱はなく、近づけば溶けるように消えてしまう。物心ついた頃から見えていた。一度だけ母に話したことがある。母は困ったように笑って「疲れているのね」とノアの額に手を当て、それきり、ノアは誰にも言わなくなった。",
                         "見えているのは自分だけらしい、ということも、とうに分かっていた。",
                         "その夜、仕事帰りの高架下で、ノアはまた揺らめきを見た。いつもより濃く、いつもより長く、何かを待つように、ひとところに留まっていた。",
                         "ノアは足を止めた。",
                         "疲れていたのかもしれないし、退屈していたのかもしれない。理由はどうでもよかった。気づけば足が勝手に、光のほうへ向いていた。",
                         "近づくと、揺らめきはふっと消えた。",
                         "そして、数歩先に、また現れた。その先にも、もうひとつ。さらにその先にも。",
-                        "光は、道を描いていた。",
-                        "指先が熱い、とノアは思った。手のひらを返すと、皮膚の下で、細い糸のようなものがかすかに青く脈打っていた。"
+                        "!!光は、道を描いていた。",
+                        "指先が熱い、とノアは思った。手のひらを返すと、皮膚の下で、細い糸のようなものが{b|かすかに青く脈打っていた}。"
                     ]
                 },
                 {
@@ -571,10 +572,10 @@ var ASK_URL = "";
                         "「おまえを、だよ。残滓をたどって来るやつは、たいてい明け方に着く」",
                         "若者はカイと名乗った。学院の案内係だという。学院、という言葉の意味を、ノアはまだ知らなかった。",
                         "舟が島に近づくにつれ、海の上の空気が、薄い膜のようにたわんだ。冷たい水の中をくぐり抜けるような感触があって――次の瞬間、ノアは息を呑んだ。",
-                        "さっきまでの「私有地」は、どこにもなかった。",
+                        "!!さっきまでの「私有地」は、どこにもなかった。",
                         "朝霧の中に、尖塔がいくつも立ち並んでいた。石造りの回廊、硝子張りの温室、小さな天文台。窓という窓に灯りがともり、見たこともない色の旗が潮風にはためいている。",
                         "「結界だよ」とカイは言った。「外からは、ただの島にしか見えない。見えちゃいけないんだ。……地上の人間には、な」",
-                        "地上の、人間。",
+                        "!!地上の、人間。",
                         "その言い方が、ノアの胸に小さく引っかかった。まるで、自分たちは人間ではないかのような。",
                         "カイはそれ以上何も言わず、舟を岸に寄せた。"
                     ]
@@ -588,15 +589,15 @@ var ASK_URL = "";
                         "「思い出す……？」",
                         "「おまえさんは、生まれたときから魔法使いだったんだよ。ただ、それを知らずに地上で育っただけさ。そういう子は、珍しくない」",
                         "ノアは、結晶に触れた。",
-                        "世界が、裏返った。",
+                        "!!世界が、裏返った。",
                         "音が色になり、色が匂いになり、空気の粒のひとつひとつが光の糸となって見えた。糸は部屋を満たし、窓の外へ、島へ、海へ、空へと伸びていた。そのすべてが、ゆっくりと、大きな何かの鼓動に合わせて流れていた。",
-                        "エーテル。",
+                        "!!{b|エーテル。}",
                         "誰に教わったわけでもないのに、ノアはその名を知っていた。",
                         "糸の流れをたどって、意識が空へと昇っていく。雲の上、はるかな高みに、白い何かが浮かんでいた。崩れかけた尖塔。折れた回廊。かつて都であったものの、骨のような影。",
-                        "その中心に、小さな、とても小さな、青い灯がひとつ。",
+                        "その中心に、小さな、とても小さな、{b|青い灯}がひとつ。",
                         "消えかけた蝋燭のように、震えていた。",
                         "気づくと、ノアは床に膝をついて泣いていた。なぜ泣いているのか、自分でも分からなかった。",
-                        "「見えたかい」と、老教師が静かに言った。「あれが、わたしたちの空だよ」"
+                        "「見えたかい」と、老教師が静かに言った。「{g|あれが、わたしたちの空だよ}」"
                     ]
                 },
                 {
@@ -605,15 +606,15 @@ var ASK_URL = "";
                         "学院での日々は、驚くほどの速さで過ぎていった。",
                         "ルーンの書き方を習い、杖を選び、寮に振り分けられた。指先でエーテルの糸をつまみ、ルーンの形に結ぶと、そこに小さな炎がともる。初めて火がついた夜、ノアは寮の部屋でひとり、何度も何度も、火をともしては消した。",
                         "学院には決まりごとが多かった。中でもいちばん厳しく教えられたのは、たったひとつ。",
-                        "――地上の者に、決して悟られるな。",
+                        "!!――地上の者に、決して悟られるな。",
                         "街へ出るときは、魔法を使わない。杖を見せない。青い残滓を見かけても、立ち止まらない。理由を尋ねると、上級生たちは皆、少しだけ目を伏せた。",
                         "その理由の一端を、ノアはある雨の夜に知ることになる。",
                         "回廊の向こうから、風紀委員たちが誰かを連れて歩いてきた。両手を光の枷で縛られた、ノアより少し年上の青年だった。すれ違いざま、青年がふと顔を上げた。",
-                        "その瞳は、血のように赤かった。",
-                        "ぞっとするほど深い赤だった。ルーンの光とも、炎の色とも違う。濁った水の底で、何かが燃え残っているような色。",
+                        "!!その瞳は、{r|血のように赤かった}。",
+                        "ぞっとするほど深い赤だった。ルーンの光とも、炎の色とも違う。{r|濁った水の底で、何かが燃え残っているような色}。",
                         "「呪いを重ねすぎたんだ」と、隣のカイが低く言った。「腹の立つ相手に、ひとつ。次は、もう少し強いのを。そうやって少しずつエーテルを汚していくと、ある日、戻れなくなる。……ああなったら、地下行きだ」",
                         "青年は、地下へと続く階段の暗がりへ消えていった。最後まで、一言も発さなかった。",
-                        "その夜、ノアは指先にともした炎を、いつまでも見つめていた。青く澄んだ、小さな炎だった。この色だけは失いたくない、と思った。"
+                        "その夜、ノアは指先にともした炎を、いつまでも見つめていた。{b|青く澄んだ、小さな炎}だった。この色だけは失いたくない、と思った。"
                     ]
                 },
                 {
@@ -622,14 +623,14 @@ var ASK_URL = "";
                         "秋の初め、ノアは学院の使いで本土へ渡った。",
                         "港の市場で薬草を受け取るだけの、簡単な用事だった。帰りの桟橋へ向かう途中、ノアは背中に視線を感じた。",
                         "振り返ると、灰色の外套を着た男が、少し離れたベンチに腰かけていた。新聞を広げてはいるが、読んではいない。その手元で、小さな金属の箱が、かすかに針を震わせていた。",
-                        "針は、まっすぐにノアを指していた。",
+                        "!!針は、まっすぐにノアを指していた。",
                         "ノアは歩調を変えずに通り過ぎようとした。男は新聞を畳み、独り言のように呟いた。",
                         "「この街には、ときどき空気が光る場所がある。……君にも見えるんだろう？」",
                         "ノアは答えなかった。止まりそうになる足を、必死に前へ運んだ。",
                         "「心配しなくていい。捕まえようってわけじゃないさ」男は箱を懐にしまった。「ただ、ひとつだけ訊きたくてね。……君たちは、あの日のことを、本当に知っているのか？」",
                         "「あの日？」",
                         "思わず訊き返していた。男は少しだけ笑った。ひどく疲れた笑い方だった。",
-                        "「空の都が落ちた日のことさ。君たちの側では、どう語られている？ 人間が恐れて、人間が襲った。……それだけか？」",
+                        "「空の都が落ちた日のことさ。君たちの側では、どう語られている？ 人間が恐れて、人間が襲った。{g|……それだけか？}」",
                         "男は立ち上がり、人波の中へ歩き去っていった。追いかけることは、できなかった。カイの声が、頭の中で繰り返し響いていた。決して悟られるな。",
                         "桟橋で舟を待つあいだ、ノアの手のひらは、ずっと冷たいままだった。",
                         "あの男は、いったい何を知っているのだろう。"
@@ -643,16 +644,16 @@ var ASK_URL = "";
                         "学院長が祈りの言葉を唱え、学徒たちは一人ずつ、器を祭壇へと傾けていった。光は祭壇の上でひとつに集まり、細い柱となって、天井の高窓から夜空へ昇っていく。",
                         "雲の上の、あの白い影のほうへ。",
                         "光の柱を見上げていると、すぐ後ろで、上級生たちが小声で言葉を交わした。",
-                        "「去年より、細いな」",
+                        "!!「去年より、細いな」",
                         "「毎年、少しずつな」",
                         "祭壇の光が細いのか、それとも空の灯が弱っているのか。はっきりと口にする者は、誰もいなかった。",
                         "儀式が終わり、学徒たちが広間を後にする中で、ノアは回廊の暗がりから、もうひとつの声を聞いた。若い声だった。",
                         "「いつまで、こうやって隠れてるつもりなんだ」",
                         "「声が大きい」",
-                        "「祈って、捧げて、怯えて。そのあいだに、神さまはどんどん弱っていく。あいつらは今も、俺たちを探してるんだぞ。……奪われたものは、取り返すべきだ」",
+                        "「祈って、捧げて、怯えて。そのあいだに、神さまはどんどん弱っていく。あいつらは今も、俺たちを探してるんだぞ。……{r|奪われたものは、取り返すべきだ}」",
                         "声の主たちはノアに気づくと、すっと闇に溶けるように去っていった。",
                         "ノアはひとり、回廊の窓から空を見上げた。",
-                        "雲の切れ間に、一瞬だけ、白い影が見えた気がした。崩れた尖塔の上で、小さな青い灯が、それでもまだ、消えずに揺れていた。"
+                        "雲の切れ間に、一瞬だけ、白い影が見えた気がした。崩れた尖塔の上で、小さな{b|青い灯}が、それでもまだ、消えずに揺れていた。"
                     ]
                 },
                 {
@@ -660,12 +661,12 @@ var ASK_URL = "";
                     "ps": [
                         "その夜、ノアは眠れなかった。",
                         "人間は、魔法使いを恐れて都を落とした――学院では、そう教わった。けれど、灰色の男の言葉が、耳の奥から離れなかった。",
-                        "――それだけか？",
+                        "!!――それだけか？",
                         "指先に、小さな炎をともす。青く澄んだ炎の中に、答えは映らなかった。",
                         "窓の外では、海の向こうの本土の灯が、夜明けまで静かにまたたいていた。そこには、魔法を知らない人々が眠っている。魔法使いを探し続ける人々もいる。そしてたぶん、あの日の本当のことを知っている誰かも。",
                         "ノアは炎を消し、そっと目を閉じた。",
                         "明日もまた、ルーンを学ぼう。いつか、この目で確かめに行くために。",
-                        "雲の上の都で、あの日、本当は何が起きたのかを。"
+                        "!!{g|雲の上の都で、あの日、本当は何が起きたのかを。}"
                     ]
                 }
             ]
@@ -676,16 +677,16 @@ var ASK_URL = "";
                 {
                     "h": "Prologue: The Day the Sky Fell",
                     "ps": [
-                        "That morning, the bells of Elsheim, the Cathedral City, rang a little earlier than usual.",
-                        "Morning light washed the white flagstones, and the wind rising from the sea of clouds stirred the banners along the colonnades. At the summit of the cathedral spire, the light of the High God Arterion pulsed at its unchanging pace. Anyone born in the city knew its color: a pale blue, clearer even than the dawn sky — the color of Aether.",
+                        "That morning, the bells of {g|Elsheim, the Cathedral City}, rang a little earlier than usual.",
+                        "Morning light washed the white flagstones, and the wind rising from the sea of clouds stirred the banners along the colonnades. At the summit of the cathedral spire, the light of {g|the High God Arterion} pulsed at its unchanging pace. Anyone born in the city knew its color: a pale blue, clearer even than the dawn sky — {b|the color of Aether}.",
                         "Lucia, a young apprentice, sat on the cathedral steps and gazed down at the earth far below. Through a gap in the clouds, the towns of humankind glimmered small and distant. Yesterday, and the day before, the mages of the city had descended through the clouds bearing blessings, healing the sick and calling water to withered fields. The people below had welcomed them with fresh bread and wine. At least, that was what Lucia had been told all her life.",
                         "The birds were the first to notice.",
                         "A flock burst upward from beneath the clouds all at once. Following after it came a low drone — not the wind, not thunder, but a sound Lucia had never heard in her life: steady, regular, and cold.",
-                        "Iron wings tore through the clouds.",
-                        "Lucia remembered little of what came after. Colonnades collapsing in flame. Priests who lost their prayers halfway through. The back of a teacher who spread a shield of light and was flung away, shield and all. And then — deep within the cathedral — the sound of the god's seat shattering.",
+                        "!!Iron wings tore through the clouds.",
+                        "Lucia remembered little of what came after. Colonnades collapsing in flame. Priests who lost their prayers halfway through. The back of a teacher who spread a shield of light and was flung away, shield and all. And then — deep within the cathedral — {r|the sound of the god's seat shattering}.",
                         "In that moment, all the Aether in the city shuddered once, violently, as if the world itself had caught its breath.",
-                        "Someone seized Lucia's arm and ran with her down the crumbling stairs. Beyond the burning sky, she watched the blue light of the spire grow thin — slowly, so slowly.",
-                        "That was the day the mages lost their sky."
+                        "Someone seized Lucia's arm and ran with her down the crumbling stairs. Beyond the burning sky, she watched the {b|blue light} of the spire grow thin — slowly, so slowly.",
+                        "!!That was the day the mages lost their sky."
                     ]
                 },
                 {
@@ -694,16 +695,16 @@ var ASK_URL = "";
                         "The harbor town on the mainland was always a little noisy.",
                         "Three years had passed since Noah drifted into this city. By day, hauling crates at a warehouse; by night, watching the distant river of highway lights from the window of a cheap apartment. Not many people Noah could call friends, but not so few as to be a problem. An ordinary life, like any other.",
                         "There was only one thing Noah had never told anyone.",
-                        "Sometimes, the air glowed.",
-                        "At the bend of an alley, above a puddle after rain, in the corner of an empty parking lot — a faint blue shimmer would sometimes drift there. Like a heat haze, but with no heat, and it melted away whenever Noah came close. It had been there for as long as Noah could remember. Once, Noah had told their mother. She had smiled, troubled, laid a hand on Noah's forehead and said, \"You must be tired.\" After that, Noah never told anyone again.",
+                        "!!Sometimes, the air glowed.",
+                        "At the bend of an alley, above a puddle after rain, in the corner of an empty parking lot — {b|a faint blue shimmer} would sometimes drift there. Like a heat haze, but with no heat, and it melted away whenever Noah came close. It had been there for as long as Noah could remember. Once, Noah had told their mother. She had smiled, troubled, laid a hand on Noah's forehead and said, \"You must be tired.\" After that, Noah never told anyone again.",
                         "Noah had long since understood that no one else could see it.",
                         "That night, beneath an overpass on the way home from work, Noah saw the shimmer again. Thicker than usual, lasting longer than usual, lingering in one place as if it were waiting for something.",
                         "Noah stopped.",
                         "Maybe it was tiredness. Maybe boredom. The reason didn't matter. Before Noah knew it, their feet were moving toward the light.",
                         "As Noah drew near, the shimmer winked out.",
                         "Then it appeared again, a few steps ahead. And another beyond that. And another beyond that.",
-                        "The light was drawing a path.",
-                        "My fingertips are hot, Noah thought. Turning a palm upward, Noah saw something like fine threads pulsing faintly blue beneath the skin."
+                        "!!The light was drawing a path.",
+                        "My fingertips are hot, Noah thought. Turning a palm upward, Noah saw something like fine threads {b|pulsing faintly blue} beneath the skin."
                     ]
                 },
                 {
@@ -718,10 +719,10 @@ var ASK_URL = "";
                         "\"For you. The ones who follow the remnants usually show up around dawn.\"",
                         "The young person's name was Kai, a guide from the Academy. Noah did not yet know what the word Academy meant.",
                         "As the boat neared the island, the air above the sea bent like a thin membrane. There was a sensation like passing through cold water — and in the next moment, Noah's breath caught.",
-                        "The \"private property\" of a moment ago was gone.",
+                        "!!The \"private property\" of a moment ago was gone.",
                         "Spires stood in rows within the morning mist. Stone colonnades, glass greenhouses, a small observatory. Light burned in every window, and banners of colors Noah had never seen snapped in the sea breeze.",
                         "\"It's a barrier,\" said Kai. \"From outside, it just looks like an island. It can't be seen. …Not by the humans on the ground, anyway.\"",
-                        "The humans on the ground.",
+                        "!!The humans on the ground.",
                         "The phrase caught softly in Noah's chest. As if they themselves were not human.",
                         "Kai said nothing more, and brought the boat to shore."
                     ]
@@ -735,15 +736,15 @@ var ASK_URL = "";
                         "\"Remembering…?\"",
                         "\"You've been a mage since the day you were born. You just grew up on the ground without knowing it. Children like you aren't so rare.\"",
                         "Noah touched the crystal.",
-                        "The world turned inside out.",
+                        "!!The world turned inside out.",
                         "Sound became color, color became scent, and every mote of air became a thread of light. The threads filled the room and stretched out the window, to the island, to the sea, to the sky. All of them flowed slowly, in time with the heartbeat of something vast.",
-                        "Aether.",
+                        "!!{b|Aether.}",
                         "No one had taught Noah the name, and yet Noah knew it.",
                         "Following the flow of threads, Noah's awareness rose into the sky. Above the clouds, far, far above, something white was floating. Crumbling spires. Broken colonnades. The bone-like shadow of what had once been a city.",
-                        "And at its center, a single blue light — small, so very small.",
+                        "And at its center, a single {b|blue light} — small, so very small.",
                         "Trembling, like a candle about to go out.",
                         "When Noah came to, they were on their knees on the floor, weeping, without knowing why.",
-                        "\"You saw it, didn't you,\" the old teacher said quietly. \"That is our sky.\""
+                        "\"You saw it, didn't you,\" the old teacher said quietly. \"{g|That is our sky.}\""
                     ]
                 },
                 {
@@ -752,15 +753,15 @@ var ASK_URL = "";
                         "The days at the Academy passed with astonishing speed.",
                         "Noah learned to write runes, chose a wand, and was sorted into a house. Pinching a thread of Aether between the fingertips and tying it into the shape of a rune made a small flame appear. The first night a flame took, Noah sat alone in the dormitory, lighting it and putting it out again and again.",
                         "The Academy had many rules. The one taught most strictly of all was only this:",
-                        "— Never let those on the ground notice you.",
+                        "!!— Never let those on the ground notice you.",
                         "When going into the city, use no magic. Show no wand. Even if you see the blue remnants, do not stop. When Noah asked why, the older students all lowered their eyes a little.",
                         "Noah would learn part of the reason one rainy night.",
                         "Prefects came walking down the colonnade, escorting someone — a young man a little older than Noah, his hands bound in shackles of light. As they passed, he suddenly looked up.",
-                        "His eyes were red as blood.",
-                        "A red so deep it made Noah's skin crawl. Not the light of runes, not the color of fire. A color like something still burning at the bottom of murky water.",
+                        "!!His eyes were {r|red as blood}.",
+                        "A red so deep it made Noah's skin crawl. Not the light of runes, not the color of fire. {r|A color like something still burning at the bottom of murky water.}",
                         "\"He stacked up too many curses,\" Kai said quietly beside Noah. \"One on someone who made him angry. Then a slightly stronger one. Keep fouling your Aether a little at a time, and one day you can't go back. …Once you're like that, it's the cells below.\"",
                         "The young man vanished into the darkness of the stairway leading underground. He never said a word.",
-                        "That night, Noah stared for a long time at the flame on their fingertip. A small flame, clear and blue. This color, at least, I never want to lose, Noah thought."
+                        "That night, Noah stared for a long time at the flame on their fingertip. {b|A small flame, clear and blue.} This color, at least, I never want to lose, Noah thought."
                     ]
                 },
                 {
@@ -769,14 +770,14 @@ var ASK_URL = "";
                         "In early autumn, Noah crossed to the mainland on an errand for the Academy.",
                         "A simple task: pick up herbs at the harbor market. On the way back to the pier, Noah felt eyes on their back.",
                         "Turning, Noah saw a man in a gray coat sitting on a bench a short distance away. He held a newspaper open but was not reading it. In his hand, a small metal box trembled, its needle quivering.",
-                        "The needle pointed straight at Noah.",
+                        "!!The needle pointed straight at Noah.",
                         "Noah tried to walk past without changing pace. The man folded his newspaper and murmured, as if to himself:",
                         "\"In this city, there are places where the air sometimes glows. …You can see them too, can't you?\"",
                         "Noah did not answer, forcing their feet forward though they wanted to stop.",
                         "\"Don't worry. I'm not here to catch anyone.\" The man slipped the box into his coat. \"I just want to ask one thing. …Do your people really know what happened that day?\"",
                         "\"That day?\"",
                         "Noah had asked before thinking. The man smiled a little — a terribly tired smile.",
-                        "\"The day the city in the sky fell. How is it told on your side? Humans were afraid, and humans attacked. …Is that all?\"",
+                        "\"The day the city in the sky fell. How is it told on your side? Humans were afraid, and humans attacked. {g|…Is that all?}\"",
                         "The man stood and walked off into the crowd. Noah could not follow. Kai's voice echoed again and again: never let them notice you.",
                         "While waiting for the boat at the pier, Noah's palms stayed cold the whole time.",
                         "What did that man know?"
@@ -790,16 +791,16 @@ var ASK_URL = "";
                         "The headmaster spoke the prayer, and one by one the students tipped their vessels toward the altar. Above it the light gathered into one, rising as a slender pillar through the high windows into the night sky.",
                         "Toward that white shadow above the clouds.",
                         "As Noah looked up at the pillar of light, older students murmured just behind.",
-                        "\"Thinner than last year.\"",
+                        "!!\"Thinner than last year.\"",
                         "\"A little more every year.\"",
                         "Was the altar's light growing thin, or was the light in the sky growing weak? No one said it outright.",
                         "When the rite ended and the students left the hall, Noah heard another voice from the dark of the colonnade. A young voice.",
                         "\"How long are we going to keep hiding like this?\"",
                         "\"Keep your voice down.\"",
-                        "\"We pray, we offer, we cower. And all the while, the god keeps getting weaker. They're still looking for us, you know. …What was taken should be taken back.\"",
+                        "\"We pray, we offer, we cower. And all the while, the god keeps getting weaker. They're still looking for us, you know. …{r|What was taken should be taken back.}\"",
                         "Noticing Noah, the speakers slipped away, melting into the dark.",
                         "Alone, Noah looked up at the sky from the colonnade window.",
-                        "For a moment, through a gap in the clouds, Noah thought they saw the white shadow. Above the crumbling spire, a small blue light still flickered — and still, it did not go out."
+                        "For a moment, through a gap in the clouds, Noah thought they saw the white shadow. Above the crumbling spire, a small {b|blue light} still flickered — and still, it did not go out."
                     ]
                 },
                 {
@@ -807,12 +808,12 @@ var ASK_URL = "";
                     "ps": [
                         "That night, Noah could not sleep.",
                         "Humans feared the mages and brought down their city — that was what the Academy taught. But the man in gray's words would not leave Noah's ears.",
-                        "— Is that all?",
+                        "!!— Is that all?",
                         "Noah lit a small flame on a fingertip. No answer appeared in the clear blue fire.",
                         "Beyond the window, the lights of the mainland across the sea twinkled quietly until dawn. There, people who knew nothing of magic were sleeping. There were also people still searching for mages. And, perhaps, someone who knew the truth of that day.",
                         "Noah put out the flame and gently closed their eyes.",
                         "Tomorrow, I'll study runes again. So that someday I can go and see for myself.",
-                        "What truly happened that day, in the city above the clouds."
+                        "!!{g|What truly happened that day, in the city above the clouds.}"
                     ]
                 }
             ]
@@ -2701,8 +2702,21 @@ var ASK_URL = "";
         box.appendChild(el("h2", "novel-title", book.title));
         book.chapters.forEach(function (ch) {
             box.appendChild(el("h3", null, ch.h));
-            // 会話や独白 (「 『 ― や引用符で始まる行) は一字下げをしない
-            ch.ps.forEach(function (t) { box.appendChild(el("p", /^[「『―"“(（—]/.test(t) ? "line" : null, t)); });
+            ch.ps.forEach(function (t) {
+                var big = t.indexOf("!!") === 0;
+                if (big) t = t.slice(2);
+                var plain = t.replace(/\{[bgr]\|([^}]*)\}/g, "$1");
+                // 大きくする行は中央寄せ。会話や独白 (「 『 ― や引用符で始まる行) は一字下げをしない
+                var p = el("p", big ? "big" : (/^[「『―"“(（—]/.test(plain) ? "line" : null));
+                var re = /\{([bgr])\|([^}]*)\}/g, last = 0, m;
+                while ((m = re.exec(t))) {
+                    if (m.index > last) p.appendChild(document.createTextNode(t.slice(last, m.index)));
+                    p.appendChild(el("span", "tone-" + m[1], m[2]));
+                    last = re.lastIndex;
+                }
+                if (last < t.length) p.appendChild(document.createTextNode(t.slice(last)));
+                box.appendChild(p);
+            });
         });
     }
     function showFinal(appear) {
