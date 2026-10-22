@@ -561,23 +561,26 @@ var ASK_URL = "";
                     ]
                 },
                 {
-                    "h": "第二章　西の島",
+                    "h": "第二章　路地裏の店",
                     "ps": [
-                        "光の道は、街の西のはずれ、朽ちかけた桟橋で途切れていた。",
-                        "夜明け前の海は凪いでいて、すぐ沖に浮かぶ島の影が、手を伸ばせば届きそうなほど近くに見えた。本土から見ればただの小さな島で、地図には「私有地」とだけ記されている。何度も目にしてきたはずなのに、ノアは今朝まで一度も、そこに島があることを気に留めたことがなかった。",
+                        "光の道は、港から少し離れた路地裏の、一軒の古びた店の前で途切れていた。",
+                        "看板の文字はかすれて読めず、ショーウィンドウには埃をかぶった雑貨が並んでいる。何度もこの通りを歩いてきたはずなのに、ノアは今夜まで一度も、そこに店があることを気に留めたことがなかった。",
                         "気に留めないように、させられていたのだ。そう知ったのは、ずっと後のことだった。",
-                        "桟橋の先に、小舟が一艘つながれていた。舳先には、ノアと同じくらいの年頃の若者が、外套のフードを目深にかぶって座っていた。",
-                        "「遅かったな」と若者は言った。「三日前から、毎晩ここで待ってたんだぜ」",
+                        "扉を押すと、ドアベルが小さく鳴った。カウンターの奥で、ノアと同じくらいの年頃の店番が、頬杖をついてこちらを見ていた。",
+                        "「遅かったな」と店番は言った。「三日前から、毎晩ここで待ってたんだぜ」",
                         "「……誰を？」",
-                        "「おまえを、だよ。残滓をたどって来るやつは、たいてい明け方に着く」",
-                        "若者はカイと名乗った。学院の案内係だという。学院、という言葉の意味を、ノアはまだ知らなかった。",
-                        "舟が島に近づくにつれ、海の上の空気が、薄い膜のようにたわんだ。冷たい水の中をくぐり抜けるような感触があって――次の瞬間、ノアは息を呑んだ。",
-                        "!!さっきまでの「私有地」は、どこにもなかった。",
-                        "朝霧の中に、尖塔がいくつも立ち並んでいた。石造りの回廊、硝子張りの温室、小さな天文台。窓という窓に灯りがともり、見たこともない色の旗が潮風にはためいている。",
-                        "「結界だよ」とカイは言った。「外からは、ただの島にしか見えない。見えちゃいけないんだ。……地上の人間には、な」",
+                        "「おまえを、だよ。残滓をたどって来るやつは、たいていこんな夜更けに着く」",
+                        "店番はカイと名乗った。昼はこの店で働き、夜は学院の案内係をしているという。学院、という言葉の意味を、ノアはまだ知らなかった。",
+                        "カイはカウンターをくぐり、店の奥にある古い木の扉の前に立った。扉の表には、見たこともない文字が、細い線で刻まれていた。",
+                        "「手を当ててみな。おまえのルーンが、鍵になる」",
+                        "言われるままに触れると、手のひらの糸が{b|青く光り}、刻まれた文字がひとつ、またひとつと灯っていった。扉がきしんで開き、その向こうから、潮の香りを含んだ夜明けの風が吹き込んできた。",
+                        "冷たい水の中をくぐり抜けるような感触があって――次の瞬間、ノアは息を呑んだ。",
+                        "!!路地裏の店は、どこにもなかった。",
+                        "目の前に広がっていたのは、{g|本土の西に浮かぶ、ひとつの大きな島}だった。なだらかな丘と深い森がどこまでも続き、麓には石畳の町並みと畑が広がっている。その向こう、朝霧の中に、尖塔がいくつも立ち並んでいた。石造りの回廊、硝子張りの温室、小さな天文台。窓という窓に灯りがともり、見たこともない色の旗が潮風にはためいている。",
+                        "「結界だよ」とカイは言った。「本土からは、ただの島にしか見えない。見えちゃいけないんだ。……地上の人間には、な」",
                         "!!地上の、人間。",
                         "その言い方が、ノアの胸に小さく引っかかった。まるで、自分たちは人間ではないかのような。",
-                        "カイはそれ以上何も言わず、舟を岸に寄せた。"
+                        "カイはそれ以上何も言わず、丘の上の学院へと歩き出した。"
                     ]
                 },
                 {
@@ -621,7 +624,7 @@ var ASK_URL = "";
                     "h": "第五章　灰色の男",
                     "ps": [
                         "秋の初め、ノアは学院の使いで本土へ渡った。",
-                        "港の市場で薬草を受け取るだけの、簡単な用事だった。帰りの桟橋へ向かう途中、ノアは背中に視線を感じた。",
+                        "港の市場で薬草を受け取るだけの、簡単な用事だった。帰りにあの路地裏の店へ向かう途中、ノアは背中に視線を感じた。",
                         "振り返ると、灰色の外套を着た男が、少し離れたベンチに腰かけていた。新聞を広げてはいるが、読んではいない。その手元で、小さな金属の箱が、かすかに針を震わせていた。",
                         "!!針は、まっすぐにノアを指していた。",
                         "ノアは歩調を変えずに通り過ぎようとした。男は新聞を畳み、独り言のように呟いた。",
@@ -632,7 +635,7 @@ var ASK_URL = "";
                         "思わず訊き返していた。男は少しだけ笑った。ひどく疲れた笑い方だった。",
                         "「空の都が落ちた日のことさ。君たちの側では、どう語られている？ 人間が恐れて、人間が襲った。{g|……それだけか？}」",
                         "男は立ち上がり、人波の中へ歩き去っていった。追いかけることは、できなかった。カイの声が、頭の中で繰り返し響いていた。決して悟られるな。",
-                        "桟橋で舟を待つあいだ、ノアの手のひらは、ずっと冷たいままだった。",
+                        "店の奥の扉をくぐるまで、ノアの手のひらは、ずっと冷たいままだった。",
                         "あの男は、いったい何を知っているのだろう。"
                     ]
                 },
@@ -666,7 +669,7 @@ var ASK_URL = "";
                         "窓の外では、海の向こうの本土の灯が、夜明けまで静かにまたたいていた。そこには、魔法を知らない人々が眠っている。魔法使いを探し続ける人々もいる。そしてたぶん、あの日の本当のことを知っている誰かも。",
                         "ノアは炎を消し、そっと目を閉じた。",
                         "明日もまた、ルーンを学ぼう。いつか、この目で確かめに行くために。",
-                        "!!{g|雲の上の都で、あの日、本当は何が起きたのかを。}"
+                        "!!{g|あの日、雲の上の都で何が起きたのかを――。}"
                     ]
                 }
             ]
@@ -708,23 +711,26 @@ var ASK_URL = "";
                     ]
                 },
                 {
-                    "h": "Chapter Two: The Western Isle",
+                    "h": "Chapter Two: The Shop in the Alley",
                     "ps": [
-                        "The path of light ended at a rotting pier on the western edge of the city.",
-                        "The sea before dawn lay calm, and the shadow of an island just offshore looked close enough to touch. From the mainland it was only a small island, marked on maps simply as \"private property.\" Noah must have seen it countless times, yet until this morning had never once given it a thought.",
-                        "Noah had been made not to give it a thought. That, Noah would learn much later.",
-                        "A small boat was moored at the end of the pier. At its bow sat a young person about Noah's age, the hood of a cloak pulled low.",
-                        "\"You're late,\" they said. \"I've been waiting here every night for three days.\"",
+                        "The path of light ended in a back alley a little way from the harbor, in front of a run-down shop.",
+                        "The letters on its sign had faded past reading, and dusty knickknacks lined the display window. Noah must have walked this street countless times, yet until tonight had never once noticed there was a shop here.",
+                        "Noah had been made not to notice. That, Noah would learn much later.",
+                        "When Noah pushed the door, a bell chimed softly. Behind the counter, a shopkeeper about Noah's age sat with their chin in one hand, watching.",
+                        "\"You're late,\" the shopkeeper said. \"I've been waiting here every night for three days.\"",
                         "\"…Waiting for who?\"",
-                        "\"For you. The ones who follow the remnants usually show up around dawn.\"",
-                        "The young person's name was Kai, a guide from the Academy. Noah did not yet know what the word Academy meant.",
-                        "As the boat neared the island, the air above the sea bent like a thin membrane. There was a sensation like passing through cold water — and in the next moment, Noah's breath caught.",
-                        "!!The \"private property\" of a moment ago was gone.",
-                        "Spires stood in rows within the morning mist. Stone colonnades, glass greenhouses, a small observatory. Light burned in every window, and banners of colors Noah had never seen snapped in the sea breeze.",
-                        "\"It's a barrier,\" said Kai. \"From outside, it just looks like an island. It can't be seen. …Not by the humans on the ground, anyway.\"",
+                        "\"For you. The ones who follow the remnants usually show up this late at night.\"",
+                        "The shopkeeper's name was Kai — a clerk here by day, and by night a guide for the Academy. Noah did not yet know what the word Academy meant.",
+                        "Kai ducked under the counter and stood before an old wooden door at the back of the shop. Letters Noah had never seen were carved into its face in fine lines.",
+                        "\"Put your hand on it. Your rune is the key.\"",
+                        "When Noah touched it, the threads in Noah's palm {b|glowed blue}, and the carved letters lit one after another. The door creaked open, and a dawn wind carrying the scent of the sea blew in from the other side.",
+                        "There was a sensation like passing through cold water — and in the next moment, Noah's breath caught.",
+                        "!!The shop in the alley was gone.",
+                        "Spread out before Noah was {g|a great island floating west of the mainland}. Gentle hills and deep forests stretched on and on, with cobbled streets and fields at their feet. Beyond them, spires stood in rows within the morning mist. Stone colonnades, glass greenhouses, a small observatory. Light burned in every window, and banners of colors Noah had never seen snapped in the sea breeze.",
+                        "\"It's a barrier,\" said Kai. \"From the mainland, it just looks like an island. It can't be seen. …Not by the humans on the ground, anyway.\"",
                         "!!The humans on the ground.",
                         "The phrase caught softly in Noah's chest. As if they themselves were not human.",
-                        "Kai said nothing more, and brought the boat to shore."
+                        "Kai said nothing more, and set off toward the Academy on the hill."
                     ]
                 },
                 {
@@ -768,7 +774,7 @@ var ASK_URL = "";
                     "h": "Chapter Five: The Man in Gray",
                     "ps": [
                         "In early autumn, Noah crossed to the mainland on an errand for the Academy.",
-                        "A simple task: pick up herbs at the harbor market. On the way back to the pier, Noah felt eyes on their back.",
+                        "A simple task: pick up herbs at the harbor market. On the way back to the shop in the alley, Noah felt eyes on their back.",
                         "Turning, Noah saw a man in a gray coat sitting on a bench a short distance away. He held a newspaper open but was not reading it. In his hand, a small metal box trembled, its needle quivering.",
                         "!!The needle pointed straight at Noah.",
                         "Noah tried to walk past without changing pace. The man folded his newspaper and murmured, as if to himself:",
@@ -779,7 +785,7 @@ var ASK_URL = "";
                         "Noah had asked before thinking. The man smiled a little — a terribly tired smile.",
                         "\"The day the city in the sky fell. How is it told on your side? Humans were afraid, and humans attacked. {g|…Is that all?}\"",
                         "The man stood and walked off into the crowd. Noah could not follow. Kai's voice echoed again and again: never let them notice you.",
-                        "While waiting for the boat at the pier, Noah's palms stayed cold the whole time.",
+                        "Until Noah passed through the door at the back of the shop, their palms stayed cold the whole time.",
                         "What did that man know?"
                     ]
                 },
@@ -813,7 +819,7 @@ var ASK_URL = "";
                         "Beyond the window, the lights of the mainland across the sea twinkled quietly until dawn. There, people who knew nothing of magic were sleeping. There were also people still searching for mages. And, perhaps, someone who knew the truth of that day.",
                         "Noah put out the flame and gently closed their eyes.",
                         "Tomorrow, I'll study runes again. So that someday I can go and see for myself.",
-                        "!!{g|What truly happened that day, in the city above the clouds.}"
+                        "!!{g|What happened that day, in the city above the clouds—.}"
                     ]
                 }
             ]
