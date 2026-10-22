@@ -94,6 +94,7 @@ var ASK_URL = "";
                 noLight: "灯が足りぬ。手もとの灯と、杖の灯だ。"
             },
             admin: { badge: "管理者表示 (このタブのみ)", exit: "終了", wrong: "合言葉が違います" },
+            book: { prev: "前のページ", next: "次のページ" },
             // ルーン: 本文の余白にマウスで描くと唱えられる呪文
             runes: { candela: "円", scintilla: "三角", glacies: "ジグザグ", aeria: "下から上へまっすぐ" },
             runeLabel: function (shape) { return "ルーン: " + shape; },
@@ -294,6 +295,7 @@ var ASK_URL = "";
                 noLight: "Not enough light. The light in your hand, and the light of your wand."
             },
             admin: { badge: "Admin view (this tab only)", exit: "Exit", wrong: "Wrong passphrase" },
+            book: { prev: "Previous page", next: "Next page" },
             runes: { candela: "circle", scintilla: "triangle", glacies: "zigzag", aeria: "a straight line upward" },
             runeLabel: function (shape) { return "Rune: " + shape; },
             mana: { empty: "Not enough mana. Rest a while", label: function (n, max) { return Math.floor(n) + " / " + max; } },
@@ -672,7 +674,39 @@ var ASK_URL = "";
                         "!!{g|あの日、雲の上の都で何が起きたのかを――。}"
                     ]
                 }
-            ]
+            ],
+            "colophon": {
+                "title": "青の残滓",
+                "rows": [
+                    [
+                        "著",
+                        "リュシア"
+                    ],
+                    [
+                        "写",
+                        "オルド (学院書庫)"
+                    ],
+                    [
+                        "発行",
+                        "学院暦三〇七年 冬至"
+                    ],
+                    [
+                        "発行所",
+                        "隠されし学院 図書委員会"
+                    ]
+                ],
+                "note": "本書の書庫外への持ち出しを禁ず"
+            },
+            "gift": {
+                "h": "ここまでたどり着いたあなたへ",
+                "ps": [
+                    "長い道のりを越えて、この書架の最後の頁にたどり着いたあなたに、心からの敬意を。",
+                    "AETHER CITY の運営から、あなたにささやかな贈り物を用意しています。",
+                    "この頁を写し取り (スクリーンショットを撮り)、合言葉「雲の上の都は、まだそこにある」とともに、運営へ知らせてください。",
+                    "ただ、ひとつだけお願いがあります。この書架のことと、ここへの道のりは、どうか誰にも明かさないでください。秘密は、自分の手で見つけるからこそ、物語になるのですから。"
+                ],
+                "sign": "— AETHER CITY 運営"
+            }
         },
         "en": {
             "title": "Blue Remnants",
@@ -822,7 +856,39 @@ var ASK_URL = "";
                         "!!{g|What happened that day, in the city above the clouds—.}"
                     ]
                 }
-            ]
+            ],
+            "colophon": {
+                "title": "Blue Remnants",
+                "rows": [
+                    [
+                        "Written by",
+                        "Lucia"
+                    ],
+                    [
+                        "Copied by",
+                        "Ord, Academy Library"
+                    ],
+                    [
+                        "Published",
+                        "Winter Solstice, Academy Year 307"
+                    ],
+                    [
+                        "Publisher",
+                        "Library Committee of the Hidden Academy"
+                    ]
+                ],
+                "note": "Not to be removed from the library."
+            },
+            "gift": {
+                "h": "To You Who Came This Far",
+                "ps": [
+                    "To you who crossed the long road and reached the last page of this shelf: our deepest respect.",
+                    "The staff of AETHER CITY have prepared a small gift for you.",
+                    "Take a copy of this page (a screenshot), and tell the staff along with the passphrase \"The city above the clouds is still there.\"",
+                    "We ask only one thing. Please do not reveal this shelf, or the road that leads here, to anyone. A secret becomes a story only when you find it with your own hands."
+                ],
+                "sign": "— The AETHER CITY Staff"
+            }
         }
     };
 
@@ -839,8 +905,15 @@ var ASK_URL = "";
     //   magic  … 魔法の世界の規則 (魔法の職業・呪文・禁書庫などの仕掛けがすべて出る)
     //   normal … 魔法を知らない人向けの通常の規則 (ふつうの職業。魔法の言葉や仕掛けは一切出ない)
     // HTML の data-only="magic" / data-only="normal" の要素のうち、今のモードでないものを最初に取り除く。
-    // 今は URL の ?mode=normal / ?mode=magic で切り替え、選んだモードはこのブラウザに記憶する (指定がなければ魔法)。
+    // 今は URL の ?mode=normal / ?mode=magic で切り替え、選んだモードはこのブラウザに記憶する (指定も記録もなければ通常)。
     // (ゲームからの切り替え方法は今後決める。ここで MODE を決めれば、あとはすべてそれに従う)
+    // モードの記録を一度だけ消して、全員を通常モードに戻すための印。
+    // もう一度全員を戻したいときは、この値を新しくする (index.html と en/index.html の先頭のスクリプトの値も同じものに)
+    var MODE_RESET_ID = "20261023";
+    if (load("rules-mode-reset") !== MODE_RESET_ID) {
+        save("rules-mode", null);
+        save("rules-mode-reset", MODE_RESET_ID);
+    }
     var MODE = (function () {
         if (ADMIN) return "magic"; // 管理者表示は、いつも魔法モード
         var asked = new URLSearchParams(location.search).get("mode");
@@ -852,7 +925,7 @@ var ASK_URL = "";
         }
         if (asked === "normal" || asked === "magic") { save("rules-mode", asked); return asked; }
         var saved = load("rules-mode");
-        return saved === "normal" ? "normal" : "magic";
+        return saved === "magic" ? "magic" : "normal"; // 指定も記録もなければ通常モード
     })();
     document.documentElement.setAttribute("data-mode", MODE);
     // 開いたまま # の後ろに mode= を書き足されたとき (ページは読み込み直されない) も、モードを切り替えて読み込み直す
@@ -1301,6 +1374,7 @@ var ASK_URL = "";
         if (input.value) input.value = ""; // 章や項目を選んだら検索は解除する
         render();
         if (changed) turnPage(chapter);
+        if (chapter.id === "final") setTimeout(layoutBook, 0);
         if (changed && chapter.id === "archive" && !archiveOpen) owlSay(TEXT.owl.sealed);
 
         if (!scroll) return;
@@ -2701,30 +2775,209 @@ var ASK_URL = "";
         return TEXT.final.askRiddle.replace(/\n/g, " ");
     }
 
+    // ---------- 本 (最後の書架の小説) ----------
+    // 本文を 1 本の「帯」に並べ、見開きの 2 ページがそれぞれ帯の別の位置を窓からのぞく形でページを作る。
+    //   日本語: 縦書き (右から左へ行が進む)。行の幅 BOOK_LINE をそろえ、ページの幅をその倍数にして、行の途中で切れないようにする
+    //   英語: 横書き。帯を段組みにして、1 段 = 1 ページにする
+    // 抑揚の印 ("!!" や {g|…}) は、本では色や大きさを変えず、"!!" の一文の前後を 1 行ずつ空けるだけにする
+    var BOOK_LINE = 30;   // 1 行の幅 (縦書き) / 行の高さ (横書き) [px]
+    var book = null;
+
+    function plainText(t) { return t.replace(/\{[bgr]\|([^}]*)\}/g, "$1"); }
+
     function renderNovel() {
         var box = document.getElementById("final-novel");
         if (!box || box.childNodes.length) return;
-        var book = FINAL_NOVEL[LANG];
-        box.appendChild(el("h2", "novel-title", book.title));
-        book.chapters.forEach(function (ch) {
-            box.appendChild(el("h3", null, ch.h));
+        var data = FINAL_NOVEL[LANG];
+        var vertical = LANG !== "en";
+
+        var strip = el("div", "book-strip");
+        var titlePage = el("div", "book-titlepage");
+        titlePage.appendChild(el("h2", null, data.title));
+        strip.appendChild(titlePage);
+        data.chapters.forEach(function (ch) {
+            strip.appendChild(el("div", "book-break")); // 章を新しいページから始めるための空き (幅は layoutBook で決める)
+            strip.appendChild(el("h3", "book-start", ch.h));
             ch.ps.forEach(function (t) {
-                var big = t.indexOf("!!") === 0;
-                if (big) t = t.slice(2);
-                var plain = t.replace(/\{[bgr]\|([^}]*)\}/g, "$1");
-                // 大きくする行は中央寄せ。会話や独白 (「 『 ― や引用符で始まる行) は一字下げをしない
-                var p = el("p", big ? "big" : (/^[「『―"“(（—]/.test(plain) ? "line" : null));
-                var re = /\{([bgr])\|([^}]*)\}/g, last = 0, m;
-                while ((m = re.exec(t))) {
-                    if (m.index > last) p.appendChild(document.createTextNode(t.slice(last, m.index)));
-                    p.appendChild(el("span", "tone-" + m[1], m[2]));
-                    last = re.lastIndex;
-                }
-                if (last < t.length) p.appendChild(document.createTextNode(t.slice(last)));
-                box.appendChild(p);
+                var gap = t.indexOf("!!") === 0;
+                if (gap) t = t.slice(2);
+                strip.appendChild(el("p", gap ? "gap" : null, plainText(t)));
             });
         });
+
+        // 奥付 (架空の著者など)
+        strip.appendChild(el("div", "book-break"));
+        var col = el("div", "book-colophon book-start");
+        col.appendChild(el("p", "col-title", data.colophon.title));
+        var dl = el("dl");
+        data.colophon.rows.forEach(function (row) {
+            dl.appendChild(el("dt", null, row[0]));
+            dl.appendChild(el("dd", null, row[1]));
+        });
+        col.appendChild(dl);
+        col.appendChild(el("p", "col-note", data.colophon.note));
+        strip.appendChild(col);
+        // ここまでたどり着いた人への贈り物
+        strip.appendChild(el("div", "book-break"));
+        var gift = el("div", "book-gift book-start");
+        gift.appendChild(el("h3", null, data.gift.h));
+        data.gift.ps.forEach(function (t) { gift.appendChild(el("p", null, t)); });
+        gift.appendChild(el("p", "gift-sign", data.gift.sign));
+        strip.appendChild(gift);
+
+        var bookEl = el("div", "book " + (vertical ? "vertical" : "horizontal"));
+        var spread = el("div", "book-spread");
+        var pages = [];
+        for (var i = 0; i < 2; i++) {
+            var page = el("div", "book-page");
+            var view = el("div", "book-view");
+            page.appendChild(view);
+            page.appendChild(el("span", "book-folio"));
+            spread.appendChild(page);
+            pages.push({ page: page, view: view, strip: null });
+        }
+        // 読む順の 1 ページ目: 縦書きは右、横書きは左
+        pages[0].page.classList.add(vertical ? "is-right" : "is-left");
+        pages[1].page.classList.add(vertical ? "is-left" : "is-right");
+        pages[0].strip = strip;
+        pages[0].view.appendChild(strip);
+
+        var nav = el("div", "book-nav");
+        var back = el("button", "book-btn", vertical ? "→" : "←");
+        var fwd = el("button", "book-btn", vertical ? "←" : "→");
+        back.type = fwd.type = "button";
+        back.setAttribute("aria-label", TEXT.book.prev);
+        fwd.setAttribute("aria-label", TEXT.book.next);
+        var counter = el("span", "book-count");
+        // 縦書きは右から左へ進むので、「次へ」のボタンを左に置く
+        if (vertical) { nav.appendChild(fwd); nav.appendChild(counter); nav.appendChild(back); }
+        else { nav.appendChild(back); nav.appendChild(counter); nav.appendChild(fwd); }
+
+        bookEl.appendChild(spread);
+        bookEl.appendChild(nav);
+        box.appendChild(bookEl);
+        book = { el: bookEl, spread: spread, pages: pages, vertical: vertical, page: 0, count: 1, spreadMode: true, textW: 0, back: back, fwd: fwd, counter: counter };
+
+        back.addEventListener("click", function () { turnBook(-1); });
+        fwd.addEventListener("click", function () { turnBook(1); });
+        // ページそのものを押してもめくれる (読む方向の先のページ = 次へ)
+        pages.forEach(function (p) {
+            p.page.addEventListener("click", function (e) {
+                if (window.getSelection && String(window.getSelection())) return; // 文字を選んでいるときはめくらない
+                var r = p.page.getBoundingClientRect();
+                var leftHalf = e.clientX < r.left + r.width / 2;
+                if (book.spreadMode) turnBook(p.page.classList.contains("is-right") === vertical ? -1 : 1);
+                else turnBook((leftHalf === vertical) ? 1 : -1);
+            });
+        });
+        // スマホ: 横にスワイプしてめくる
+        var sx = null;
+        spread.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+        spread.addEventListener("touchend", function (e) {
+            if (sx == null) return;
+            var dx = e.changedTouches[0].clientX - sx;
+            sx = null;
+            if (Math.abs(dx) < 40) return;
+            turnBook((dx > 0) === vertical ? 1 : -1);
+        });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { layoutBook(); });
     }
+
+    // 画面の大きさに合わせて、ページの大きさとページ数を決め直す
+    function layoutBook() {
+        if (!book || !book.el.offsetParent) return; // 最後の書架の章が見えていないときは測れない
+        var b = book, L = BOOK_LINE;
+        var ratio = b.count > 1 ? b.page / (b.count - 1) : 0;
+        b.el.style.display = "none";
+        var avail = b.el.parentNode.clientWidth;
+        b.el.style.display = "";
+        b.spreadMode = avail >= 700;
+        var pad = b.spreadMode ? 34 : 22;
+        var pageW = b.spreadMode ? Math.floor(avail / 2) : avail;
+        var textW = b.vertical ? Math.floor((pageW - pad * 2) / L) * L : pageW - pad * 2;
+        var textH = Math.max(300, Math.min(600, window.innerHeight - 250));
+        if (!b.vertical) textH = Math.floor(textH / L) * L;
+        b.textW = textW;
+        b.el.style.setProperty("--text-w", textW + "px");
+        b.el.style.setProperty("--text-h", textH + "px");
+        b.el.style.setProperty("--line", L + "px");
+        b.el.style.setProperty("--pad", pad + "px");
+        b.pages[1].page.hidden = !b.spreadMode;
+
+        var strip = b.pages[0].strip;
+        strip.style.transform = "none";
+        var breaks = strip.querySelectorAll(".book-break");
+        breaks.forEach(function (x) { x.style.blockSize = "0px"; });
+        if (b.vertical) {
+            // 章・奥付・贈り物が、ページの最初の行から始まるように空きを入れる (前から順に)
+            strip.querySelectorAll(".book-start").forEach(function (h) {
+                var gap = h.previousElementSibling;
+                if (!gap || !gap.classList.contains("book-break")) return;
+                var fromRight = strip.offsetWidth - (h.offsetLeft + h.offsetWidth);
+                var rest = fromRight % textW;
+                if (rest > 0.5) gap.style.blockSize = (textW - rest) + "px";
+            });
+            b.count = Math.max(1, Math.ceil((strip.offsetWidth - 0.5) / textW));
+        } else {
+            b.count = Math.max(1, Math.ceil((strip.scrollWidth - 0.5) / textW));
+        }
+        // 見開きのもう 1 ページは、帯をそのまま写したもの
+        if (b.pages[1].strip) b.pages[1].strip.remove();
+        b.pages[1].strip = strip.cloneNode(true);
+        b.pages[1].strip.setAttribute("aria-hidden", "true");
+        b.pages[1].view.appendChild(b.pages[1].strip);
+
+        var step = b.spreadMode ? 2 : 1;
+        var p = Math.round(ratio * (b.count - 1));
+        b.page = Math.max(0, p - (p % step));
+        showBookPage();
+    }
+
+    function showBookPage() {
+        var b = book;
+        var step = b.spreadMode ? 2 : 1;
+        b.pages.forEach(function (pg, i) {
+            var idx = b.page + i;
+            var off = idx * b.textW;
+            if (pg.strip) {
+                pg.strip.style.transform = "translateX(" + (b.vertical ? off : -off) + "px)";
+                pg.strip.style.visibility = idx < b.count ? "visible" : "hidden";
+            }
+            pg.page.querySelector(".book-folio").textContent = idx > 0 && idx < b.count ? String(idx + 1) : "";
+        });
+        var last = Math.min(b.count, b.page + step);
+        b.counter.textContent = (step === 2 && last > b.page + 1 ? (b.page + 1) + "–" + last : String(b.page + 1)) + " / " + b.count;
+        b.back.disabled = b.page <= 0;
+        b.fwd.disabled = b.page + step >= b.count;
+    }
+
+    function turnBook(dir) {
+        if (!book) return;
+        var step = book.spreadMode ? 2 : 1;
+        var next = book.page + dir * step;
+        if (next < 0 || next >= book.count) return;
+        book.spread.classList.add("turning");
+        setTimeout(function () {
+            book.page = next;
+            showBookPage();
+            book.spread.classList.remove("turning");
+        }, 180);
+    }
+
+    // キーボード: 本を開いているときだけ ← → でめくる (縦書きは ← が次へ)
+    document.addEventListener("keydown", function (e) {
+        if (!book || current !== "final" || document.activeElement === input) return;
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        var toLeft = e.key === "ArrowLeft";
+        turnBook(toLeft === book.vertical ? 1 : -1);
+    });
+    var bookResize;
+    window.addEventListener("resize", function () {
+        clearTimeout(bookResize);
+        bookResize = setTimeout(layoutBook, 200);
+    });
+
     function showFinal(appear) {
         var nav = document.getElementById("final-nav");
         if (!nav) return;

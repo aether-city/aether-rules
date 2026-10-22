@@ -779,7 +779,7 @@ mark {
 
 /* ===== スマホ・狭い画面: 左側を上に置く ===== */
 @media (max-width: 900px) {
-    .layout { grid-template-columns: 1fr; }
+    .layout { grid-template-columns: minmax(0, 1fr); }
     .circle { left: 50%; }
     .side {
         position: static;
@@ -1891,88 +1891,164 @@ mark {
     color: var(--gold);
     font-size: 0.8rem;
 }
-/* 本文は背景の魔法陣の上にそのまま置く。線が重なっても読めるよう、文字の後ろだけ背景色でにじませる */
-.novel {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 8px 0 72px;
-    text-shadow: 0 0 6px var(--bg), 0 0 14px var(--bg);
-    font-size: 1.02rem;
-    line-height: 2;
-    letter-spacing: 0.02em;
-    text-align: start;      /* 両端そろえにすると字の間隔がばらつくので、左寄せのまま */
-    line-break: strict;
-    text-wrap: pretty;      /* 段落の最後の行に 1〜2 文字だけ残らないようにする */
+/* ----- 本 -----
+   見開き 2 ページ (スマホは 1 ページ)。本は背景の魔法陣の上に置き、紙のページの中央に綴じ目の影を付ける。
+   大きさは app.js の layoutBook が --text-w (本文の幅) / --text-h (本文の高さ) / --line (行の幅) / --pad (余白) で決める */
+.novel { margin-top: 8px; }
+.book-spread {
+    display: flex;
+    justify-content: center;
+}
+.book.vertical .book-spread { flex-direction: row-reverse; }
+.book-page {
+    position: relative;
+    padding: var(--pad) var(--pad) calc(var(--pad) + 14px);
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+}
+/* 綴じ目: 内側の端にうっすら影 */
+.book-page.is-right { background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0) 9%); border-radius: 0 3px 3px 0; }
+.book-page.is-left { background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0) 9%); border-radius: 3px 0 0 3px; }
+.book-page[hidden] { display: none; }
+.book-view {
+    position: relative;
+    overflow: hidden;
+    width: var(--text-w, 330px);
+    height: var(--text-h, 520px);
+}
+.book-strip {
+    position: absolute;
+    top: 0;
     color: var(--ink);
+    transition: opacity 0.18s ease;
 }
-.novel .novel-title {
+.book-spread.turning .book-strip { opacity: 0; }
+.book-folio {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: calc(var(--pad) / 2 - 4px);
     text-align: center;
-    font-size: 1.7rem;
-    font-weight: 600;
-    letter-spacing: 0.35em;
-    padding-left: 0.35em;
-    margin: 0 0 8px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
 }
-.novel .novel-title::after {
-    content: "";
-    display: block;
-    width: 96px; height: 1px;
-    margin: 22px auto 0;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-/* 章の見出し: 前に小さな飾りを置き、前の章との間をしっかり空ける */
-.novel h3 {
-    text-align: center;
-    font-size: 1.08rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    color: var(--gold);
-    margin: 76px 0 34px;
-}
-.novel h3::before {
-    content: "✦";
-    display: block;
-    font-size: 0.7rem;
-    letter-spacing: 0;
-    margin-bottom: 14px;
-    opacity: 0.6;
-}
-.novel .novel-title + h3 { margin-top: 48px; }
-/* 段落: 一字下げはせず、すべて左端からそろえる。段落の間を空けて区切りを見せる */
-.novel p { margin: 0; text-indent: 0; }
-.novel p + p { margin-top: 1em; }
 
-/* 抑揚: 山場の一文は大きく、中央に。前後を広めに空ける */
-/* (左端はほかの段落とそろえ、大きさと太さだけで目立たせる) */
-.novel p.big {
-    font-size: 1.28em;
-    font-weight: 600;
+/* 縦書き: 右から左へ行が進む。行の幅 (--line) は、ページの幅の約数にそろえてある */
+.book.vertical .book-strip {
+    right: 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    height: var(--text-h, 520px);
+    font-size: 16px;
+    line-height: var(--line, 30px);
     letter-spacing: 0.06em;
-    line-height: 1.75;
-    margin: 1.4em 0;
 }
-.novel p.big + p { margin-top: 1.4em; }
-/* 色: 金 = 名前、青 = エーテルや光、赤 = 堕落や報復 */
-.novel .tone-g { color: var(--gold); }
-.novel .tone-b {
-    color: #3f6dc2;
-    text-shadow: 0 0 6px var(--bg), 0 0 12px rgba(80, 140, 230, 0.25);
+/* 横書き (英語版): 段組みにして、1 段を 1 ページにする */
+.book.horizontal .book-strip {
+    left: 0;
+    width: var(--text-w, 330px);
+    height: var(--text-h, 510px);
+    column-width: var(--text-w, 330px);
+    column-gap: 0;
+    column-fill: auto;
+    font-size: 16.5px;
+    line-height: var(--line, 30px);
 }
-.novel .tone-r { color: #a3372d; }
-:root[data-theme="dark"] .novel .tone-b { color: #9cc0f2; text-shadow: 0 0 6px var(--bg), 0 0 14px rgba(110, 165, 245, 0.45); }
-:root[data-theme="dark"] .novel .tone-r { color: #e07a6e; }
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .novel .tone-b { color: #9cc0f2; text-shadow: 0 0 6px var(--bg), 0 0 14px rgba(110, 165, 245, 0.45); }
-    :root:not([data-theme="light"]) .novel .tone-r { color: #e07a6e; }
+/* 段落: 一字下げ。段落の間は空けない (本の組み方) */
+.book-strip p { margin: 0; text-indent: 1em; }
+/* 山場の一文は、前後を 1 行ずつ空ける (行の幅の倍数なので、ページの区切りがずれない) */
+.book-strip p.gap { margin-block: var(--line, 30px); }
+.book-strip h3 {
+    margin: 0 0 var(--line, 30px);
+    margin-block: 0 var(--line, 30px);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: calc(var(--line, 30px) * 2);
+    letter-spacing: 0.2em;
+    color: var(--gold);
 }
-:lang(en) .novel p.big { font-size: 1.22em; letter-spacing: 0.02em; font-style: italic; font-weight: 500; }
-:lang(en) .novel { font-size: 1.05rem; line-height: 1.85; letter-spacing: 0.01em; }
-:lang(en) .novel .novel-title { letter-spacing: 0.15em; padding-left: 0.15em; }
-@media (max-width: 900px) {
-    .novel { padding: 8px 0 48px; font-size: 0.98rem; line-height: 2; letter-spacing: 0.02em; }
-    .novel .novel-title { font-size: 1.4rem; letter-spacing: 0.25em; padding-left: 0.25em; }
-    .novel h3 { margin: 56px 0 26px; letter-spacing: 0.1em; }
+.book.horizontal .book-strip h3 { text-align: center; letter-spacing: 0.08em; }
+.book.horizontal .book-start { break-before: column; }
+.book-break { inline-size: 100%; }
+.book.horizontal .book-break { display: none; }
+/* 扉 (1 ページ目): 題名だけ */
+.book-titlepage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+.book.vertical .book-titlepage { block-size: var(--text-w, 330px); inline-size: 100%; }
+.book.horizontal .book-titlepage { height: var(--text-h, 510px); break-after: column; }
+.book-titlepage h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    line-height: 1.6;
+}
+.book.horizontal .book-titlepage h2 { letter-spacing: 0.12em; }
+
+/* 奥付: ページの中ほどに、細い罫で囲んで */
+.book-colophon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+}
+.book.vertical .book-colophon { block-size: var(--text-w, 330px); inline-size: 100%; align-items: flex-start; justify-content: center; }
+.book.horizontal .book-colophon { height: var(--text-h, 510px); align-items: center; }
+.book-colophon .col-title {
+    text-indent: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    border-block-end: 1px solid var(--gold-faint);
+    padding-block-end: 6px;
+    margin-block-end: var(--line, 30px) !important;
+}
+.book-colophon dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 1.2em;
+    font-size: 14px;
+}
+.book.vertical .book-colophon dl { grid-auto-flow: row; }
+.book-colophon dt { color: var(--ink-soft); }
+.book-colophon dd { margin: 0; }
+.book-colophon .col-note {
+    text-indent: 0;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-block-start: var(--line, 30px) !important;
+}
+/* 贈り物のページ */
+.book-gift h3 { color: var(--gold); }
+.book-gift .gift-sign { text-indent: 0; text-align: end; color: var(--gold); margin-block-start: var(--line, 30px); }
+
+/* ページ送り */
+.book-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 18px;
+}
+.book-btn {
+    width: 40px; height: 34px;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--gold);
+    background: none;
+    border: 1px solid var(--gold-faint);
+    cursor: pointer;
+    transition: border-color 0.3s, opacity 0.3s;
+}
+.book-btn:hover { border-color: var(--gold); }
+.book-btn:disabled { opacity: 0.3; cursor: default; }
+.book-count { font-size: 0.85rem; color: var(--ink-soft); letter-spacing: 0.1em; min-width: 7em; text-align: center; }
 
 /* 管理者表示の札 (左下) */
 .admin-badge {

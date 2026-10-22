@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Zen+Kurenaido&family=Caveat:wght@400&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<script>/* 表示モードを最初に決める (魔法の見た目が一瞬出ないように)。詳しくは assets/app.js */(function(){var m="magic";try{var q=new URLSearchParams(location.search).get("mode");var h=/[?&]mode=(normal|magic)/.exec(location.hash);m=q==="normal"||q==="magic"?q:(h?h[1]:localStorage.getItem("rules-mode"));if(sessionStorage.getItem("rules-admin")==="1")m="magic";}catch(e){}document.documentElement.setAttribute("data-mode",m==="normal"?"normal":"magic");})();</script>
+<script>/* 表示モードを最初に決める (魔法の見た目が一瞬出ないように)。詳しくは assets/app.js */(function(){var m="normal";try{var q=new URLSearchParams(location.search).get("mode");var h=/[?&]mode=(normal|magic)/.exec(location.hash);var saved=localStorage.getItem("rules-mode-reset")==="20261023"?localStorage.getItem("rules-mode"):null;m=q==="normal"||q==="magic"?q:(h?h[1]:saved);if(sessionStorage.getItem("rules-admin")==="1")m="magic";}catch(e){}document.documentElement.setAttribute("data-mode",m==="magic"?"magic":"normal");})();</script>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
