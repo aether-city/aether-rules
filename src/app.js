@@ -2414,11 +2414,30 @@ var ASK_URL = "";
     // 本文を 1 本の「帯」に並べ、見開きの 2 ページがそれぞれ帯の別の位置を窓からのぞく形でページを作る。
     //   日本語: 縦書き (右から左へ行が進む)。行の幅 BOOK_LINE をそろえ、ページの幅をその倍数にして、行の途中で切れないようにする
     //   英語: 横書き。帯を段組みにして、1 段 = 1 ページにする
-    // 抑揚の印 ("!!" や {g|…}) は、本では色や大きさを変えず、"!!" の一文の前後を 1 行ずつ空けるだけにする
+    // "!!" の一文は前後を 1 行ずつ空ける。文字の飾りは {金|…} {青|…} {赤|…} {傍点|…} {大|…} (書き方は story/novel.ja.txt の先頭)
     var BOOK_LINE = 30;   // 1 行の幅 (縦書き) / 行の高さ (横書き) [px]
     var book = null;
 
-    function plainText(t) { return t.replace(/\{[bgr]\|([^}]*)\}/g, "$1"); }
+    // 文字の飾りの名前 → 付ける class (知らない名前は飾らずにそのまま出す)
+    var DECOR = {
+        "金": "tone-g", "g": "tone-g", "gold": "tone-g",
+        "青": "tone-b", "b": "tone-b", "blue": "tone-b",
+        "赤": "tone-r", "r": "tone-r", "red": "tone-r",
+        "傍点": "emph", "em": "emph",
+        "大": "bigger", "big": "bigger"
+    };
+    // 段落の文に飾りを付けて、要素の中に書き出す
+    function decorate(p, t) {
+        var re = /\{([^|{}]+)\|([^{}]*)\}/g, last = 0, m;
+        while ((m = re.exec(t))) {
+            if (m.index > last) p.appendChild(document.createTextNode(t.slice(last, m.index)));
+            var cls = DECOR[m[1].trim().toLowerCase()] || DECOR[m[1].trim()];
+            p.appendChild(cls ? el("span", cls, m[2]) : document.createTextNode(m[2]));
+            last = re.lastIndex;
+        }
+        if (last < t.length) p.appendChild(document.createTextNode(t.slice(last)));
+        return p;
+    }
 
     function renderNovel() {
         var box = document.getElementById("final-novel");
@@ -2436,7 +2455,7 @@ var ASK_URL = "";
             ch.ps.forEach(function (t) {
                 var gap = t.indexOf("!!") === 0;
                 if (gap) t = t.slice(2);
-                strip.appendChild(el("p", gap ? "gap" : null, plainText(t)));
+                strip.appendChild(decorate(el("p", gap ? "gap" : null), t));
             });
         });
 
@@ -2456,7 +2475,7 @@ var ASK_URL = "";
         strip.appendChild(el("div", "book-break"));
         var gift = el("div", "book-gift book-start");
         gift.appendChild(el("h3", null, data.gift.h));
-        data.gift.ps.forEach(function (t) { gift.appendChild(el("p", null, t)); });
+        data.gift.ps.forEach(function (t) { gift.appendChild(decorate(el("p"), t)); });
         gift.appendChild(el("p", "gift-sign", data.gift.sign));
         strip.appendChild(gift);
 

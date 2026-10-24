@@ -2074,3 +2074,22 @@ mark {
     padding: 2px 10px;
     cursor: pointer;
 }
+
+/* 本の文字の飾り (story/novel.*.txt の {金|…} {青|…} {赤|…} {傍点|…} {大|…}) */
+.book-strip .tone-g { color: var(--gold); }
+.book-strip .tone-b { color: #3f6dc2; }
+.book-strip .tone-r { color: #a3372d; }
+:root[data-theme="dark"] .book-strip .tone-b { color: #9cc0f2; }
+:root[data-theme="dark"] .book-strip .tone-r { color: #e07a6e; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .book-strip .tone-b { color: #9cc0f2; }
+    :root:not([data-theme="light"]) .book-strip .tone-r { color: #e07a6e; }
+}
+/* 傍点: 縦書きは文字の右に「﹅」。英語版は斜体にする */
+.book-strip .emph {
+    -webkit-text-emphasis: sesame;
+    text-emphasis: sesame;
+}
+.book.horizontal .book-strip .emph { -webkit-text-emphasis: none; text-emphasis: none; font-style: italic; }
+/* 少し大きな文字 (行の幅は変わらないので、ページの区切りはずれない) */
+.book-strip .bigger { font-size: 1.2em; }

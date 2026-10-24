@@ -6,6 +6,11 @@
 //   # Heading           … a chapter heading. Each chapter starts on a new page
 //   (blank line)        … separates paragraphs. Line breaks inside a paragraph are joined with a space
 //   !! sentence         … a sentence with one blank line before and after
+//   {gold|text}  {blue|text}  {red|text}  … change the text color
+//   {em|text}                              … emphasize (shown in italics)
+//   {big|text}                             … make the text slightly larger
+//      e.g. His eyes were {red|red as blood}.
+//      (usable in the story and on the gift page; decorations cannot be nested)
 //   [colophon]          … everything below is the colophon: "label: value" per line. "title:" and "note:" are special
 //   [gift]              … everything below is the gift page: "heading:", "sign:" and paragraphs
 //   lines starting with // are notes (not shown)
