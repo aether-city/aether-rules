@@ -18,6 +18,7 @@ const DEV = process.argv.includes('--dev');
 
 // 公開するファイル (src/ や .github/ などは含めない)
 const PAGES = ['index.html', 'en/index.html', 'assets/style.css'];
+// (story/ の小説のテキストは、そのまま公開せず app.js の中に入れて難読化する)
 
 function copy(rel) {
     const to = path.join(OUT, rel);
@@ -54,7 +55,76 @@ fs.rmSync(OUT, { recursive: true, force: true });
 PAGES.forEach(copy);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
 
-const src = fs.readFileSync(path.join(ROOT, 'src', 'app.js'), 'utf8');
+// ----- 最後の書架の小説 (story/novel.ja.txt・story/novel.en.txt) を読み込む -----
+// 書き方はそれぞれのファイルの先頭に書いてある。
+//   題名:/title:  # 見出し  空行で段落  !! 前後を空ける一文  [奥付]/[colophon]  [贈り物]/[gift]  // メモ
+function readStory(lang) {
+    const file = path.join(ROOT, 'story', 'novel.' + lang + '.txt');
+    const lines = fs.readFileSync(file, 'utf8').replace(/^﻿/, '').replace(/\r/g, '').split('\n');
+    const joiner = lang === 'ja' ? '' : ' '; // 段落の中の改行のつなぎ方 (日本語はそのまま、英語は空白)
+    const novel = { title: '', chapters: [], colophon: { title: '', rows: [], note: '' }, gift: { h: '', ps: [], sign: '' } };
+    let section = 'body';
+    let chapter = null;
+    let buf = [];
+    const where = (i) => file + ' の ' + (i + 1) + ' 行目';
+    const field = (t) => { const m = /^([^:：]+)[:：]\s*(.*)$/.exec(t); return m ? [m[1].trim(), m[2].trim()] : null; };
+    const is = (key, names) => names.indexOf(key.toLowerCase()) !== -1;
+
+    function flush(i) {
+        if (!buf.length) return;
+        let text = buf.join(joiner).trim();
+        buf = [];
+        if (text.startsWith('!!')) text = '!!' + text.slice(2).trim();
+        if (section === 'gift') { novel.gift.ps.push(text); return; }
+        if (!chapter) throw new Error(where(i) + ': 最初の「# 見出し」より前に段落があります');
+        chapter.ps.push(text);
+    }
+
+    lines.forEach((line, i) => {
+        if (line.trim().startsWith('//')) return;
+        const t = line.trim();
+        if (!t) { flush(i); return; }
+        if (/^\[(奥付|colophon)\]$/i.test(t)) { flush(i); section = 'colophon'; return; }
+        if (/^\[(贈り物|gift)\]$/i.test(t)) { flush(i); section = 'gift'; return; }
+
+        if (section === 'colophon') {
+            const f = field(t);
+            if (!f) throw new Error(where(i) + ': 奥付は「項目: 内容」の形で書いてください');
+            if (is(f[0], ['題名', 'title'])) novel.colophon.title = f[1];
+            else if (is(f[0], ['注記', 'note'])) novel.colophon.note = f[1];
+            else novel.colophon.rows.push(f);
+            return;
+        }
+        if (section === 'gift') {
+            const f = field(t);
+            if (f && is(f[0], ['見出し', 'heading'])) { flush(i); novel.gift.h = f[1]; return; }
+            if (f && is(f[0], ['署名', 'sign'])) { flush(i); novel.gift.sign = f[1]; return; }
+            buf.push(t);
+            return;
+        }
+        // 本文
+        if (!novel.title && !chapter) {
+            const f = field(t);
+            if (f && is(f[0], ['題名', 'title'])) { novel.title = f[1]; return; }
+        }
+        if (t.startsWith('#')) {
+            flush(i);
+            chapter = { h: t.replace(/^#+\s*/, ''), ps: [] };
+            novel.chapters.push(chapter);
+            return;
+        }
+        buf.push(t);
+    });
+    flush(lines.length);
+
+    if (!novel.title) throw new Error(file + ': 「題名:」(title:) がありません');
+    if (!novel.chapters.length) throw new Error(file + ': 「# 見出し」の章がひとつもありません');
+    return novel;
+}
+
+const src = fs.readFileSync(path.join(ROOT, 'src', 'app.js'), 'utf8')
+    .replace('__FINAL_NOVEL__', () => JSON.stringify({ ja: readStory('ja'), en: readStory('en') }));
+if (src.includes('__FINAL_NOVEL__')) throw new Error('小説の本文を入れられませんでした');
 const js = DEV ? src : obfuscate(src);
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), js);

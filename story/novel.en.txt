@@ -1,0 +1,266 @@
+// ===== The Last Shelf novel "Blue Remnants" (English) =====
+// Edit this file and push; the book on the published page updates. (Run npm run build to see it locally.)
+//
+// Format:
+//   title: …            … the book's title (once, at the top)
+//   # Heading           … a chapter heading. Each chapter starts on a new page
+//   (blank line)        … separates paragraphs. Line breaks inside a paragraph are joined with a space
+//   !! sentence         … a sentence with one blank line before and after
+//   [colophon]          … everything below is the colophon: "label: value" per line. "title:" and "note:" are special
+//   [gift]              … everything below is the gift page: "heading:", "sign:" and paragraphs
+//   lines starting with // are notes (not shown)
+//
+// The Japanese version is novel.ja.txt.
+
+title: Blue Remnants
+
+# Prologue: The Day the Sky Fell
+
+That morning, the bells of Elsheim, the Cathedral City, rang a little earlier than usual.
+
+Morning light washed the white flagstones, and the wind rising from the sea of clouds stirred the banners along the colonnades. At the summit of the cathedral spire, the light of the High God Arterion pulsed at its unchanging pace. Anyone born in the city knew its color: a pale blue, clearer even than the dawn sky — the color of Aether.
+
+Lucia, a young apprentice, sat on the cathedral steps and gazed down at the earth far below. Through a gap in the clouds, the towns of humankind glimmered small and distant. Yesterday, and the day before, the mages of the city had descended through the clouds bearing blessings, healing the sick and calling water to withered fields. The people below had welcomed them with fresh bread and wine. At least, that was what Lucia had been told all her life.
+
+The birds were the first to notice.
+
+A flock burst upward from beneath the clouds all at once. Following after it came a low drone — not the wind, not thunder, but a sound Lucia had never heard in her life: steady, regular, and cold.
+
+!! Iron wings tore through the clouds.
+
+Lucia remembered little of what came after. Colonnades collapsing in flame. Priests who lost their prayers halfway through. The back of a teacher who spread a shield of light and was flung away, shield and all. And then — deep within the cathedral — the sound of the god's seat shattering.
+
+In that moment, all the Aether in the city shuddered once, violently, as if the world itself had caught its breath.
+
+Someone seized Lucia's arm and ran with her down the crumbling stairs. Beyond the burning sky, she watched the blue light of the spire grow thin — slowly, so slowly.
+
+!! That was the day the mages lost their sky.
+
+# Chapter One: A Corner of the City
+
+The harbor town on the mainland was always a little noisy.
+
+Three years had passed since Noah drifted into this city. By day, hauling crates at a warehouse; by night, watching the distant river of highway lights from the window of a cheap apartment. Not many people Noah could call friends, but not so few as to be a problem. An ordinary life, like any other.
+
+There was only one thing Noah had never told anyone.
+
+!! Sometimes, the air glowed.
+
+At the bend of an alley, above a puddle after rain, in the corner of an empty parking lot — a faint blue shimmer would sometimes drift there. Like a heat haze, but with no heat, and it melted away whenever Noah came close. It had been there for as long as Noah could remember. Once, Noah had told their mother. She had smiled, troubled, laid a hand on Noah's forehead and said, "You must be tired." After that, Noah never told anyone again.
+
+Noah had long since understood that no one else could see it.
+
+That night, beneath an overpass on the way home from work, Noah saw the shimmer again. Thicker than usual, lasting longer than usual, lingering in one place as if it were waiting for something.
+
+Noah stopped.
+
+Maybe it was tiredness. Maybe boredom. The reason didn't matter. Before Noah knew it, their feet were moving toward the light.
+
+As Noah drew near, the shimmer winked out.
+
+Then it appeared again, a few steps ahead. And another beyond that. And another beyond that.
+
+!! The light was drawing a path.
+
+My fingertips are hot, Noah thought. Turning a palm upward, Noah saw something like fine threads pulsing faintly blue beneath the skin.
+
+# Chapter Two: The Shop in the Alley
+
+The path of light ended in a back alley a little way from the harbor, in front of a run-down shop.
+
+The letters on its sign had faded past reading, and dusty knickknacks lined the display window. Noah must have walked this street countless times, yet until tonight had never once noticed there was a shop here.
+
+Noah had been made not to notice. That, Noah would learn much later.
+
+When Noah pushed the door, a bell chimed softly. Behind the counter, a shopkeeper about Noah's age sat with their chin in one hand, watching.
+
+"You're late," the shopkeeper said. "I've been waiting here every night for three days."
+
+"…Waiting for who?"
+
+"For you. The ones who follow the remnants usually show up this late at night."
+
+The shopkeeper's name was Kai — a clerk here by day, and by night a guide for the Academy. Noah did not yet know what the word Academy meant.
+
+Kai ducked under the counter and stood before an old wooden door at the back of the shop. Letters Noah had never seen were carved into its face in fine lines.
+
+"Put your hand on it. Your rune is the key."
+
+When Noah touched it, the threads in Noah's palm glowed blue, and the carved letters lit one after another. The door creaked open, and a dawn wind carrying the scent of the sea blew in from the other side.
+
+There was a sensation like passing through cold water — and in the next moment, Noah's breath caught.
+
+!! The shop in the alley was gone.
+
+Spread out before Noah was a great island floating west of the mainland. Gentle hills and deep forests stretched on and on, with cobbled streets and fields at their feet. Beyond them, spires stood in rows within the morning mist. Stone colonnades, glass greenhouses, a small observatory. Light burned in every window, and banners of colors Noah had never seen snapped in the sea breeze.
+
+"It's a barrier," said Kai. "From the mainland, it just looks like an island. It can't be seen. …Not by the humans on the ground, anyway."
+
+!! The humans on the ground.
+
+The phrase caught softly in Noah's chest. As if they themselves were not human.
+
+Kai said nothing more, and set off toward the Academy on the hill.
+
+# Chapter Three: Awakening
+
+Deep within the Academy, in a small room carved with patterns of stars, Noah was made to stand before a crystal.
+
+It was a clear stone about the size of a fist. Resting on its pedestal, it glowed faintly the moment Noah drew near, as if answering the threads in Noah's palm.
+
+"Go on, touch it," said an old teacher in a white coat — the one who kept the infirmary, Kai whispered. "No need to be afraid. You're only remembering."
+
+"Remembering…?"
+
+"You've been a mage since the day you were born. You just grew up on the ground without knowing it. Children like you aren't so rare."
+
+Noah touched the crystal.
+
+!! The world turned inside out.
+
+Sound became color, color became scent, and every mote of air became a thread of light. The threads filled the room and stretched out the window, to the island, to the sea, to the sky. All of them flowed slowly, in time with the heartbeat of something vast.
+
+!! Aether.
+
+No one had taught Noah the name, and yet Noah knew it.
+
+Following the flow of threads, Noah's awareness rose into the sky. Above the clouds, far, far above, something white was floating. Crumbling spires. Broken colonnades. The bone-like shadow of what had once been a city.
+
+And at its center, a single blue light — small, so very small.
+
+Trembling, like a candle about to go out.
+
+When Noah came to, they were on their knees on the floor, weeping, without knowing why.
+
+"You saw it, didn't you," the old teacher said quietly. "That is our sky."
+
+# Chapter Four: Red Eyes
+
+The days at the Academy passed with astonishing speed.
+
+Noah learned to write runes, chose a wand, and was sorted into a house. Pinching a thread of Aether between the fingertips and tying it into the shape of a rune made a small flame appear. The first night a flame took, Noah sat alone in the dormitory, lighting it and putting it out again and again.
+
+The Academy had many rules. The one taught most strictly of all was only this:
+
+!! — Never let those on the ground notice you.
+
+When going into the city, use no magic. Show no wand. Even if you see the blue remnants, do not stop. When Noah asked why, the older students all lowered their eyes a little.
+
+Noah would learn part of the reason one rainy night.
+
+Prefects came walking down the colonnade, escorting someone — a young man a little older than Noah, his hands bound in shackles of light. As they passed, he suddenly looked up.
+
+!! His eyes were red as blood.
+
+A red so deep it made Noah's skin crawl. Not the light of runes, not the color of fire. A color like something still burning at the bottom of murky water.
+
+"He stacked up too many curses," Kai said quietly beside Noah. "One on someone who made him angry. Then a slightly stronger one. Keep fouling your Aether a little at a time, and one day you can't go back. …Once you're like that, it's the cells below."
+
+The young man vanished into the darkness of the stairway leading underground. He never said a word.
+
+That night, Noah stared for a long time at the flame on their fingertip. A small flame, clear and blue. This color, at least, I never want to lose, Noah thought.
+
+# Chapter Five: The Man in Gray
+
+In early autumn, Noah crossed to the mainland on an errand for the Academy.
+
+A simple task: pick up herbs at the harbor market. On the way back to the shop in the alley, Noah felt eyes on their back.
+
+Turning, Noah saw a man in a gray coat sitting on a bench a short distance away. He held a newspaper open but was not reading it. In his hand, a small metal box trembled, its needle quivering.
+
+!! The needle pointed straight at Noah.
+
+Noah tried to walk past without changing pace. The man folded his newspaper and murmured, as if to himself:
+
+"In this city, there are places where the air sometimes glows. …You can see them too, can't you?"
+
+Noah did not answer, forcing their feet forward though they wanted to stop.
+
+"Don't worry. I'm not here to catch anyone." The man slipped the box into his coat. "I just want to ask one thing. …Do your people really know what happened that day?"
+
+"That day?"
+
+Noah had asked before thinking. The man smiled a little — a terribly tired smile.
+
+"The day the city in the sky fell. How is it told on your side? Humans were afraid, and humans attacked. …Is that all?"
+
+The man stood and walked off into the crowd. Noah could not follow. Kai's voice echoed again and again: never let them notice you.
+
+Until Noah passed through the door at the back of the shop, their palms stayed cold the whole time.
+
+What did that man know?
+
+# Chapter Six: The Great Rite
+
+On the night of the winter solstice, the Great Rite was held in the Academy's great hall.
+
+The students filled small glass vessels with the Aether they had gathered over the year and lined up before the altar. Inside each vessel, blue light rocked gently. Noah's vessel was among them.
+
+The headmaster spoke the prayer, and one by one the students tipped their vessels toward the altar. Above it the light gathered into one, rising as a slender pillar through the high windows into the night sky.
+
+Toward that white shadow above the clouds.
+
+As Noah looked up at the pillar of light, older students murmured just behind.
+
+!! "Thinner than last year."
+
+"A little more every year."
+
+Was the altar's light growing thin, or was the light in the sky growing weak? No one said it outright.
+
+When the rite ended and the students left the hall, Noah heard another voice from the dark of the colonnade. A young voice.
+
+"How long are we going to keep hiding like this?"
+
+"Keep your voice down."
+
+"We pray, we offer, we cower. And all the while, the god keeps getting weaker. They're still looking for us, you know. …What was taken should be taken back."
+
+Noticing Noah, the speakers slipped away, melting into the dark.
+
+Alone, Noah looked up at the sky from the colonnade window.
+
+For a moment, through a gap in the clouds, Noah thought they saw the white shadow. Above the crumbling spire, a small blue light still flickered — and still, it did not go out.
+
+# Epilogue: The Question
+
+That night, Noah could not sleep.
+
+Humans feared the mages and brought down their city — that was what the Academy taught. But the man in gray's words would not leave Noah's ears.
+
+!! — Is that all?
+
+Noah lit a small flame on a fingertip. No answer appeared in the clear blue fire.
+
+Beyond the window, the lights of the mainland across the sea twinkled quietly until dawn. There, people who knew nothing of magic were sleeping. There were also people still searching for mages. And, perhaps, someone who knew the truth of that day.
+
+Noah put out the flame and gently closed their eyes.
+
+Tomorrow, I'll study runes again. So that someday I can go and see for myself.
+
+!! What happened that day, in the city above the clouds—.
+
+
+[colophon]
+
+title: Blue Remnants
+Written by: Lucia
+Copied by: Ord, Academy Library
+Published: Winter Solstice, Academy Year 307
+Publisher: Library Committee of the Hidden Academy
+note: Not to be removed from the library.
+
+
+[gift]
+
+heading: To You Who Came This Far
+
+To you who crossed the long road and reached the last page of this shelf: our deepest respect.
+
+The staff of AETHER CITY have prepared a small gift for you.
+
+Take a copy of this page (a screenshot), and tell the staff along with the passphrase "The city above the clouds is still there."
+
+We ask only one thing. Please do not reveal this shelf, or the road that leads here, to anyone. A secret becomes a story only when you find it with your own hands.
+
+sign: — The AETHER CITY Staff
