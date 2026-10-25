@@ -224,6 +224,7 @@ var ASK_URL = "";
                     "カードの右上の吹き出しを押せば、運営に質問できる。",
                     "余白の落書きは、この街の誰かが書いたものだ。",
                     "呪文はひとつではない。カンデラ、アエリア、ヴォカーレ……古い言葉を試してみるといい。",
+                    "この街の呪文の多くは、古い学者たちの言葉――ラテン語から来ている。意味が分かれば、名も分かる。",
                     "禁書庫には、見つけた呪文を記す帳面がある。",
                     "本文の余白に、マウスで円を描いてみるといい。……何が起きるかは、お楽しみだ。",
                     "インクの中に、色の違う文字が混じっている。",
@@ -421,6 +422,7 @@ var ASK_URL = "";
                     "The speech bubble on each card lets you ask the staff a question.",
                     "The scribbles in the margins were written by someone in this city.",
                     "There is more than one spell. Candela, Aeria, Vocare… try the old tongue.",
+                    "Most of this city's spells come from the tongue of old scholars: Latin. Know the meaning, and you know the name.",
                     "The Archive holds a book that records the spells you find.",
                     "Try drawing a circle with your mouse in the empty margins… you'll see.",
                     "Some letters in the hidden ink are a different color.",
@@ -1373,22 +1375,23 @@ var ASK_URL = "";
     // カタカナ (ひらがなでも可) か英字で唱える。大文字/小文字・空白や「・」の有無はどれでも反応する。
     // 呪文を増やすときは、ここに 1 行足し、TEXT の spells に名前と文を足す。
     var SPELLS = [
-        { id: "candela", words: ["かんでら", "candela"] },
+        // (先頭が正式な読み。あとに続くのは、よくある書き方の揺れ)
+        { id: "candela", words: ["かんでら", "かんでーら", "candela"] },
         { id: "somna", words: ["そむな", "somna"] },
-        { id: "solaris", words: ["そらりす", "solaris"] },
+        { id: "solaris", words: ["そらりす", "そらーりす", "solaris"] },
         { id: "atramento", words: ["あとらめんと", "atramento"] },
-        { id: "perspica", words: ["ぺるすぴか", "perspica"] },
-        { id: "vocare", prefix: ["ゔぉかーれ", "ぼかーれ", "vocare"] },
-        { id: "aeria", words: ["あえりあ", "aeria"] },
-        { id: "scintilla", words: ["すきんてぃら", "scintilla"] },
-        { id: "nebula", words: ["ねぶら", "nebula"] },
-        { id: "glacies", words: ["ぐらきえす", "glacies"] },
+        { id: "perspica", words: ["ぺるすぴか", "ぺるすぴーか", "perspica"] },
+        { id: "vocare", prefix: ["ゔぉかーれ", "ぼかーれ", "うぉかーれ", "ゔぉかれ", "ぼかれ", "うぉかれ", "vocare"] },
+        { id: "aeria", words: ["あえりあ", "あえーりあ", "えありあ", "aeria"] },
+        { id: "scintilla", words: ["すきんてぃら", "すきんてぃっら", "すきんちら", "すきんちっら", "しんてぃら", "しんてぃっら", "しんちら", "しんちっら", "scintilla"] },
+        { id: "nebula", words: ["ねぶら", "ねぶーら", "ねびゅら", "ねびゅーら", "nebula"] },
+        { id: "glacies", words: ["ぐらきえす", "ぐらきーえす", "ぐらしえす", "ぐらしーず", "glacies"] },
         { id: "magna", words: ["まぐな", "magna"] },
-        { id: "parva", words: ["ぱるゔぁ", "ぱるば", "parva"] },
-        { id: "solve", words: ["そるゔぇ", "そるべ", "solve"] },
-        { id: "lethe", words: ["れーて", "lethe"] },
-        { id: "virga", words: ["ゔぃるが", "びるが", "virga"] },
-        { id: "obscura", words: ["おぶすくーら", "obscura"] }
+        { id: "parva", words: ["ぱるゔぁ", "ぱるば", "ぱるうぁ", "ぱるわ", "parva"] },
+        { id: "solve", words: ["そるゔぇ", "そるべ", "そるうぇ", "そるうえ", "solve"] },
+        { id: "lethe", words: ["れーて", "れて", "れーてー", "れてー", "lethe"] },
+        { id: "virga", words: ["ゔぃるが", "びるが", "うぃるが", "ういるが", "virga"] },
+        { id: "obscura", words: ["おぶすくーら", "おぶすくら", "おぶすきゅーら", "おぶすきゅら", "obscura"] }
     ];
 
     var root = document.documentElement;
