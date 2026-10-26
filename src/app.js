@@ -7,6 +7,11 @@
 // 空のままなら、質問の文面をコピーするだけになる。
 var ASK_URL = "";
 
+// 禁書庫の一時閉鎖。true の間は、禁書庫とその奥 (第二の書架・夜の書架・最後の書架・呪文帳・鍵・インクの暗号・
+// 封印の星・渦の謎) がすべて出なくなる。呪文そのものとフクロウは今まで通り。管理者表示では閉鎖中も見える。
+// 再開するときは false に戻す (プレイヤーの進み具合の記録は消えていないので、そのまま続きから遊べる)。
+var ARCHIVE_CLOSED = true;
+
 // 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
 (function () {
     var root = document.documentElement;
@@ -574,6 +579,9 @@ var ASK_URL = "";
         location.reload();
     });
     document.querySelectorAll('[data-only]:not([data-only="' + MODE + '"])').forEach(function (n) { n.remove(); });
+    // 禁書庫の一時閉鎖中は、禁書庫の章と左の扉を取り除く (呪文帳・第二/夜/最後の書架もこの中に置かれるので一緒に消える)
+    var ARCHIVE_OFF = ARCHIVE_CLOSED && !ADMIN;
+    if (ARCHIVE_OFF) ["archive", "archive-nav"].forEach(function (id) { var n = document.getElementById(id); if (n) n.remove(); });
     if (MODE === "normal") {
         // 違反の重さの呼び方も、魔法の言葉を使わない
         TEXT.grades = LANG === "en"
@@ -596,13 +604,16 @@ var ASK_URL = "";
         Object.keys(sec.ink).forEach(function (id) {
             var chapter = document.getElementById(id);
             if (!chapter) return;
+            // 閉鎖中: 禁書庫と暗号に触れる行は置かず、暗号の印も付けない (インクそのものはアトラメントで読める)
+            if (ARCHIVE_OFF && (id === "server" || id === "penalty")) return;
             var p = document.createElement("p");
             p.className = "ink";
             p.setAttribute("aria-hidden", "true");
             p.textContent = sec.ink[id].text;
-            if (sec.ink[id].cipher != null) p.setAttribute("data-cipher", sec.ink[id].cipher);
+            if (sec.ink[id].cipher != null && !ARCHIVE_OFF) p.setAttribute("data-cipher", sec.ink[id].cipher);
             chapter.appendChild(p);
         });
+        if (ARCHIVE_OFF) return; // 閉鎖中は鍵も最後の書架も置かない
         var KEY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17 12v3M20 12v2"/></svg>';
         [[1, "#glossary .chapter-head .lead"], [2, "#penalty .penalty-notes li:last-child"], [3, ".chronicle > li:first-child h3"]].forEach(function (k) {
             var host = document.querySelector(k[1]);
@@ -1330,6 +1341,7 @@ var ASK_URL = "";
         }
     })();
 
+    var ARCHIVE_TIP = /禁書庫|書架|鍵|封印|インク|褒美|空の都|夜更け|archive|shelf|key|seal|\bink\b|reward|city in the sky|late at night/i;
     function owlTip() {
         befriend(1, "tip", 20000);
         var lv = owlLevel();
@@ -1337,6 +1349,8 @@ var ASK_URL = "";
             : lv === 1 ? TEXT.owl.tips
             : lv === 2 ? TEXT.owl.tips.concat(TEXT.owl.tipsWarm)
             : TEXT.owl.tipsWarm.concat(TEXT.owl.tipsFriend, TEXT.owl.tips.slice(0, 3));
+        // 閉鎖中は、禁書庫とその奥の謎にふれるひとことを言わない
+        if (ARCHIVE_OFF) tips = tips.filter(function (t) { return !ARCHIVE_TIP.test(t); });
         var i;
         do { i = Math.floor(Math.random() * tips.length); } while (tips.length > 1 && i === lastTip);
         lastTip = i;
@@ -1447,7 +1461,7 @@ var ASK_URL = "";
             return true;
         }
         var raw = input.value;
-        if (PASSCODES.indexOf(compact(raw)) !== -1) {
+        if (!ARCHIVE_OFF && PASSCODES.indexOf(compact(raw)) !== -1) {
             input.value = "";
             render();
             input.blur();
@@ -1910,8 +1924,8 @@ var ASK_URL = "";
             runePts = null;
             runeFade = setTimeout(fade, 30);
         })();
-        if (shape === "spiral") { tryFinal(); return; }
-        if (shape === "star") { drawStar(); return; }
+        if (shape === "spiral") { if (!ARCHIVE_OFF) tryFinal(); return; }
+        if (shape === "star") { if (!ARCHIVE_OFF) drawStar(); return; }
         if (shape && performSpell(RUNE_SPELL[shape], "")) {
             befriend(2, "rune", 60000);
             setTimeout(function () { owlSay(TEXT.owl.rune); }, 2600);
@@ -2146,7 +2160,7 @@ var ASK_URL = "";
     function answer(query) {
         askAnswer.innerHTML = "";
         if (!query.trim()) return;
-        if (FINAL_NAMES.indexOf(compact(query)) !== -1) { askAnswer.appendChild(document.createTextNode(elsheimReply())); return; }
+        if (!ARCHIVE_OFF && FINAL_NAMES.indexOf(compact(query)) !== -1) { askAnswer.appendChild(document.createTextNode(elsheimReply())); return; }
         var best = data
             .map(function (d) { return { d: d, s: score(query, d) }; })
             .filter(function (x) { return x.s >= 0.5; })
