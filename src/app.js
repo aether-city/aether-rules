@@ -14,7 +14,7 @@ var ARCHIVE_CLOSED = true;
 
 // 禁書庫・第二の書架・夜の書架・最後の書架が開かれたとき、Discord に知らせる中継 (Cloudflare Workers) の URL。
 // 例: "https://aether-notify.xxxx.workers.dev"  空のままなら通知しない。中継のコードは worker/notify-worker.js。
-var NOTIFY_URL = "";
+var NOTIFY_URL = "https://aether-notify.aether-city.workers.dev/";
 
 // 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
 (function () {
