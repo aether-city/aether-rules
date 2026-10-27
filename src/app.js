@@ -12,6 +12,10 @@ var ASK_URL = "";
 // 再開するときは false に戻す (プレイヤーの進み具合の記録は消えていないので、そのまま続きから遊べる)。
 var ARCHIVE_CLOSED = true;
 
+// 禁書庫・第二の書架・夜の書架・最後の書架が開かれたとき、Discord に知らせる中継 (Cloudflare Workers) の URL。
+// 例: "https://aether-notify.xxxx.workers.dev"  空のままなら通知しない。中継のコードは worker/notify-worker.js。
+var NOTIFY_URL = "";
+
 // 明るい / 暗い の切り替え (選んだものはこのブラウザに記憶されます)
 (function () {
     var root = document.documentElement;
@@ -661,6 +665,29 @@ var ARCHIVE_CLOSED = true;
     function save(key, value) {
         try {
             if (value == null) localStorage.removeItem(key); else localStorage.setItem(key, value);
+        } catch (e) {}
+    }
+
+    // 書架が開かれたことを Discord に知らせる (このブラウザから、書架ごとに 1 回だけ。管理者表示では知らせない)
+    // 読者の印は、このブラウザで最初に作る無作為な番号 (名前などは送らない)
+    var told = {};
+    function reportOpen(shelf) {
+        if (!NOTIFY_URL || ADMIN || ARCHIVE_OFF || told[shelf]) return;
+        told[shelf] = true;
+        if (load("rules-told-" + shelf)) return;
+        var id = load("rules-reader");
+        if (!/^[0-9a-f]{12}$/.test(id || "")) {
+            var bytes = new Uint8Array(6);
+            try { crypto.getRandomValues(bytes); } catch (e) { return; }
+            id = Array.prototype.map.call(bytes, function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+            save("rules-reader", id);
+            if (load("rules-reader") !== id) return; // 記録が残せないブラウザでは、何度も通知しないよう送らない
+        }
+        try {
+            // (text/plain で送ると、ブラウザの事前確認が要らない)
+            fetch(NOTIFY_URL, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ id: id, shelf: shelf, lang: LANG }), keepalive: true })
+                .then(function (r) { if (r.ok) save("rules-told-" + shelf, "1"); })
+                .catch(function () {});
         } catch (e) {}
     }
 
@@ -2196,6 +2223,7 @@ var ARCHIVE_CLOSED = true;
         var show = archiveOpen && (isMidnight() || ADMIN);
         nightShelf.hidden = !show;
         if (!show || ADMIN) return;
+        reportOpen("night");
         // その夜に初めて現れたときだけ告知する (日付で覚える)
         var night = new Date().toDateString();
         if (load("rules-night") === night) return;
@@ -2306,6 +2334,8 @@ var ARCHIVE_CLOSED = true;
         archiveContent.hidden = !open;
         if (spellbook) spellbook.hidden = !open;
         if (secondShelf) secondShelf.hidden = !(open && shelfOpen());
+        if (open) reportOpen("archive");
+        if (open && secondShelf && shelfOpen()) reportOpen("second");
         updateNight();
         archiveProgress.textContent = TEXT.archiveProgress(done, readable.length);
         if (opening) {
@@ -2656,6 +2686,7 @@ var ARCHIVE_CLOSED = true;
         if (!nav) return;
         renderNovel();
         nav.hidden = false;
+        reportOpen("final");
         if (appear) {
             var link = nav.querySelector(".chapter-link");
             link.classList.add("appear");
