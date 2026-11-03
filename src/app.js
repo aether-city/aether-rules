@@ -2296,21 +2296,23 @@ var NOTIFY_URL = "https://aether-notify.aether-city.workers.dev/";
         progressText.textContent = done + " / " + readable.length;
         progressBar.style.width = (readable.length ? done / readable.length * 100 : 0) + "%";
 
-        // 章ごとに全部読んだら「済」。読んでいる最中に読み終えたら中央に告知する
+        // 章ごとに全部読んだら「済」。読んでいる最中に読み終えたら右上のカードで知らせる
+        var archiveComing = MODE === "magic" && !!archiveNav; // 全部読み終えると禁書庫の告知が出るか (通常モード・閉鎖中は出ない)
         links.forEach(function (a) {
             var id = a.getAttribute("data-chapter");
             if (READ_CHAPTERS.indexOf(id) === -1) return;
             var list = readable.filter(function (d) { return d.chapter === id; });
             var all = list.length > 0 && list.every(function (d) { return readSet[d.el.id]; });
             a.classList.toggle("done", all);
-            // (最後の章を読み終えたときは、すぐ後に禁書庫の告知が出るので章の告知は省く)
-            if (all && !chapterDone[id] && progressReady && done < readable.length) {
+            // (最後の章を読み終えたときは、すぐ後に禁書庫の告知が出るので章の知らせは省く)
+            if (all && !chapterDone[id] && progressReady && (done < readable.length || !archiveComing)) {
                 var name = a.querySelector(".ja").firstChild.textContent.trim();
                 announce({
                     eyebrow: TEXT.announce.chapterEyebrow,
                     title: TEXT.announce.chapterTitle(name),
                     sub: TEXT.announce.chapterSub(readable.length - done),
-                    ms: 4500
+                    ms: 4500,
+                    light: true
                 });
             }
             chapterDone[id] = all;
